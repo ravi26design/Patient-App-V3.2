@@ -846,3 +846,12 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .me-seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 5px rgba(31,42,55,.12)}
 .me-logout{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:58px;border-radius:29px;background:#fff;color:#B8564D;font-size:16px;font-weight:500;box-shadow:0 0 0 1.5px rgba(184,86,77,.25) inset}
 .me-logout:active{background:#FBEFEE}
+
+
+/* reminder sheet: calm blue instead of green */
+.trig-ic{color:#3F6A93;background:radial-gradient(circle at 30% 25%,#F3F8FD,#CFE0F2 70%);box-shadow:0 10px 30px rgba(108,159,204,.4)}
+.trig-earn{background:#EAF2FA}
+.trig-coin{color:#3F6A93}
+.trig-earn small{color:#6B88A6}
+.trig-earn b{color:#3F6A93}
+.trig-earn em{color:#6B88A6}
