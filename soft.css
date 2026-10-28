@@ -911,3 +911,6 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 /* option cards: no drop shadow */
 .ob-page .mgrid .mtile{box-shadow:none!important}
 .ob-page .mgrid .mtile.on{box-shadow:0 0 0 2.5px #fff inset!important}
+
+/* rewards slide: artwork sits on the page colour, so keep it solid and only soften the very bottom */
+.onb2 .onb-img:has(img[src*="onb-6"]){-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 90%,transparent 100%)}
