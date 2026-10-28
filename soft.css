@@ -920,3 +920,10 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 
 /* "Try a tool" slide: artwork already melts into the page colour, so keep it solid above the very bottom */
 .onb2 .onb-img:has(img[src*="onb-4"]){-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 92%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 92%,transparent 100%)}
+
+/* "Type a medication / trigger / activity" row: clearly visible field with an outline */
+.ob-page .add-row{gap:10px;align-items:stretch}
+.ob-page .add-row .inp{height:54px;border-radius:18px!important;background:#fff!important;border:1.5px solid #B4C5D6!important;padding:0 18px!important;font-size:16px;color:var(--ink);box-shadow:0 1px 2px rgba(52,80,107,.06)!important;transition:border-color .15s,box-shadow .15s}
+.ob-page .add-row .inp::placeholder{color:#7C8DA0;opacity:1}
+.ob-page .add-row .inp:focus{outline:0;border-color:var(--cta-d)!important;box-shadow:0 0 0 4px rgba(108,159,204,.25)!important}
+.ob-page .add-row .add-b{height:54px;border-radius:18px;padding:0 22px;font-size:16px}
