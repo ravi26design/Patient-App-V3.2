@@ -184,12 +184,12 @@ const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good n
 /* ═════════ ONBOARDING — "How to Play" style cards ═════════ */
 const ONB = [
   { t: 'Your recovery, one day at a time', p: 'Rudra is a calm companion that helps you check in, understand how you’re doing, and build momentum.', m: 5 },
-  { t: 'Check in for 60 seconds', p: 'Answer a few quick questions each day — one per screen. Just tap your answer and we move on.', m: 0 },
-  { t: 'See your strengths', p: 'Your score shows where you’re strong and where a little care could help. No judgement — just clarity.', m: 1 },
-  { t: 'Try a tool that helps', p: 'Breathing, sounds, movement, mindfulness and more — matched to how you feel today.', m: 5 },
+  { t: 'Check in for 60 seconds', p: 'Answer a few quick questions each day - one per screen. Just tap your answer and we move on.', m: 0 },
+  { t: 'See your strengths', p: 'Your score shows where you’re strong and where a little care could help. No judgement - just clarity.', m: 1 },
+  { t: 'Try a tool that helps', p: 'Breathing, sounds, movement, mindfulness and more - matched to how you feel today.', m: 5 },
   { t: 'Personal to you', p: 'Rudra remembers your last answers and focus area, so each check-in and activity fits where you are today.', m: 2 },
-  { t: 'Earn real rewards', p: 'Every check-in and activity adds real dollars to your wallet — cash value you can redeem for rewards you’ll actually enjoy.', m: 0 },
-  { t: 'Go for a milestone', p: 'Streaks and milestones celebrate your progress — small steps, real wins.', m: 5 }
+  { t: 'Earn real rewards', p: 'Every check-in and activity adds real dollars to your wallet - cash value you can redeem for rewards you’ll actually enjoy.', m: 0 },
+  { t: 'Go for a milestone', p: 'Streaks and milestones celebrate your progress - small steps, real wins.', m: 5 }
 ];
 const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `onb-${n}.jpg?v=4`);
 let onbI = 0;
