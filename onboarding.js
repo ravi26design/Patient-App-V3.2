@@ -187,7 +187,7 @@ function renderStep(n) {
       <div class="mgrid" id="mgrid">${all.map((m, i) => tile('meds', m, 'pill', i, S.meds.includes(m))).join('')}</div>${cont()}</div>`;
   } else if (n === 2) {
     const base = URGES.map(r => r[0]), all = [...URGES, ...S.urges.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
-    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">What brings on your <em>urges</em>?</h1><p class="step-p">Select all that apply, or add your own. Knowing your triggers helps me support you in the moment.</p>${addRow('urges', 'Type a trigger…')}
+    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">What brings on your <em>urges</em>?</h1><p class="step-p">Select all that apply, or add your own.</p>${addRow('urges', 'Type a trigger…')}
       <div class="mgrid" id="mgrid">${all.map(([r, ic2], i) => tile('urges', r, ic2, i, S.urges.includes(r))).join('')}</div>${cont()}</div>`;
   } else if (n === 3) {
     const base = RELIEF.map(r => r[0]), all = [...RELIEF, ...S.relief.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
