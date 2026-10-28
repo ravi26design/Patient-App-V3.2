@@ -146,7 +146,8 @@ function otpSheet(contact) {
     <button class="btn" id="over" disabled>Verify ${ic('next', 16, 2.4)}</button></div>`, 'sheet-wrap');
   const boxes = $$('#otp input', l), verify = $('#over', l);
   const val = () => boxes.map(b => b.value).join('');
-  const sync = () => { verify.disabled = val().length < 6; $('#oerr', l).textContent = ''; };
+  let busy = false;
+  const sync = () => { verify.disabled = val().length < 6; $('#oerr', l).textContent = ''; if (val().length === 6) setTimeout(submit, 160); };   // 6th digit in → verify automatically
   boxes.forEach((b, i) => {
     b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(-1); if (b.value && boxes[i + 1]) boxes[i + 1].focus(); sync(); });
     b.addEventListener('keydown', e => { if (e.key === 'Backspace' && !b.value && boxes[i - 1]) boxes[i - 1].focus(); });
@@ -154,11 +155,17 @@ function otpSheet(contact) {
   });
   const tick = () => { timer = setInterval(() => { left--; const re = $('#ore', l); if (!re) return; if (left > 0) { $('#oleft', l).textContent = left; } else { clearInterval(timer); re.innerHTML = '<button class="link" id="rsend">Resend code</button>'; $('#rsend', l).addEventListener('click', () => { code = String(Math.floor(100000 + Math.random() * 900000)); $('#dc', l).textContent = code; left = 30; re.innerHTML = 'Resend code in <span id="oleft">30</span>s'; tick(); toast('New code sent'); }); } }, 1000); };
   tick(); l._cleanup = () => clearInterval(timer);
-  verify.addEventListener('click', () => {
-    if (val() !== code) { $('#oerr', l).textContent = 'That code doesn’t match. Try again.'; const o = $('#otp', l); o.classList.remove('shake'); void o.offsetWidth; o.classList.add('shake'); return; }
-    S.verified = contact; save(); popLayer(l);
+  const submit = () => {
+    if (busy || val().length < 6) return;
+    if (val() !== code) {
+      busy = true; $('#oerr', l).textContent = 'That code doesn’t match. Try again.'; const o = $('#otp', l); o.classList.remove('shake'); void o.offsetWidth; o.classList.add('shake');
+      setTimeout(() => { boxes.forEach(b => { b.value = ''; }); verify.disabled = true; busy = false; boxes[0].focus(); }, 450);   // clear so the next try starts fresh
+      return;
+    }
+    busy = true; S.verified = contact; save(); popLayer(l);
     setTimeout(() => { pStep = 2; renderProfile(); }, 200);
-  });
+  };
+  verify.addEventListener('click', submit);
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   setTimeout(() => boxes[0].focus({ preventScroll: true }), 350);
 }

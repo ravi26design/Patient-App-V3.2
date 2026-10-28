@@ -917,3 +917,6 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 
 /* "Personal to you" slide: keep her face in frame */
 .onb2 .onb-img img[src*="onb-5"]{object-position:88% 30%!important}
+
+/* "Try a tool" slide: artwork already melts into the page colour, so keep it solid above the very bottom */
+.onb2 .onb-img:has(img[src*="onb-4"]){-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 92%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 92%,transparent 100%)}
