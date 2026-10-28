@@ -858,3 +858,24 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 
 /* first + last name rows in the grouped card */
 .ob-page .fld:has(#ln){border-radius:8px!important;margin-bottom:3px}
+
+/* date of birth: bottom sheet with wheel picker */
+.ob-page .fld:has(#dob) .inp{cursor:pointer;caret-color:transparent}
+.ob-page .fld:has(#dob) .inp-i>svg:last-child{margin-left:auto;color:#8FA3B5;width:18px;height:18px}
+.dob-stack{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.dob-x{width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:0 8px 24px rgba(52,80,107,.22);cursor:pointer}
+.sheet.dob{width:100%;background:#fff!important;border-radius:36px 36px 0 0;padding:12px 22px calc(22px + var(--sab));text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:0 -20px 60px rgba(52,80,107,.18);max-height:none;overflow:visible}
+.sheet.dob .grab{display:block;width:40px;height:5px;border-radius:3px;background:#D5DDE5;margin:0 auto 18px}
+.sheet.dob .dob-ic{width:60px;height:60px;animation:none}
+.sheet.dob h2{font-size:26px;font-weight:600;letter-spacing:-.03em;margin:12px 0 10px}
+.wheels{position:relative;display:grid;grid-template-columns:.8fr 1.5fr 1fr;width:100%;height:230px;margin:0 0 18px}
+.wheel-band{position:absolute;left:0;right:0;top:92px;height:46px;border-radius:14px;background:#E6EFF7;pointer-events:none}
+.wheel{position:relative;list-style:none;margin:0;padding:92px 0;height:230px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.wheel::-webkit-scrollbar{display:none}
+.wheel li{height:46px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:19px;color:#9AA7B3;cursor:pointer;transition:color .15s,font-weight .15s}
+.wheel li.on{color:var(--ink);font-weight:700}
+.sheet.dob .btn{width:100%}
+
+/* intro: Skip pill — equal top and right gap */
+.onb2 .onb-top{margin-top:calc(var(--sat) + 23px)!important}
+.onb2 .onb-top{margin-top:calc(var(--sat) + 15px)!important;margin-right:-8px}

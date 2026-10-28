@@ -46,7 +46,7 @@ function renderProfile() {
     ${pStep === 2 ? `<div class="fld"><label class="lbl" for="nm">First name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="nm" maxlength="24" placeholder="First name" value="${esc(S.name)}" autocomplete="given-name" autocapitalize="words"></div></div>
     <div class="fld"><label class="lbl" for="ln">Last name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="ln" maxlength="24" placeholder="Last name" value="${esc(S.last || '')}" autocomplete="family-name" autocapitalize="words"></div></div>
     ${via === 'phone' ? emailFld(p, 'Email') : phoneFld(p, 'Mobile number')}
-    <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="date" max="${today()}" value="${esc(p.dob)}"></div></div>
+    <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="text" readonly inputmode="none" placeholder="dd/mm/yyyy" data-act="dob-open" data-iso="${esc(p.dob)}" value="${esc(dobFmt(p.dob))}">${ic('down', 16)}</div></div>
     <div class="fld"><span class="lbl">Language</span><div class="lang"><button class="${p.lang === 'en' ? 'on' : ''}" data-act="pick-lang" data-k="en">${p.lang === 'en' ? ic('check', 16, 2.6) : ''}English</button><button class="${p.lang === 'es' ? 'on' : ''}" data-act="pick-lang" data-k="es">${p.lang === 'es' ? ic('check', 16, 2.6) : ''}Spanish</button></div></div>
     <label class="consent"><input type="checkbox" id="c1" ${p.terms ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span>I agree to Rudra Health AI’s <u>Terms of Use</u> and <u>Privacy Policy</u>.</span></label>
     <label class="consent"><input type="checkbox" id="c2" ${p.contact ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span><b>Contact me</b> — OK to send check-in reminders and support by text or email. Msg &amp; data rates may apply.</span></label>` : ''}
@@ -62,6 +62,56 @@ function renderProfile() {
     ct.addEventListener('input', mode); mode();
   }
 }
+
+/* ═════════ date of birth: bottom-sheet wheel picker ═════════ */
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const dobFmt = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? `${m[3]}/${m[2]}/${m[1]}` : ''; };
+function dobSheet() {
+  const inp = $('#dob'), now = new Date(), maxY = now.getFullYear(), minY = maxY - 110, ROW = 46;
+  const m0 = /^(\d{4})-(\d{2})-(\d{2})$/.exec(inp.dataset.iso || '');
+  const sel = m0 ? { d: +m0[3], m: +m0[2] - 1, y: +m0[1] } : { d: 1, m: 0, y: 2000 };
+  const dim = (m, y) => new Date(y, m + 1, 0).getDate();
+  const items = (arr, on) => arr.map((t, i) => `<li class="${i === on ? 'on' : ''}" data-i="${i}">${t}</li>`).join('');
+  const years = []; for (let y = minY; y <= maxY; y++) years.push(y);
+  const l = pushLayer(`<div class="dob-stack"><button class="dob-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 1.8)}</button>
+    <div class="sheet dob"><span class="grab"></span><span class="trig-ic dob-ic">${ic('calendar', 28, 1.6)}</span><h2>Date of birth</h2>
+    <div class="wheels"><i class="wheel-band"></i>
+      <ul class="wheel" id="w-d" aria-label="Day"></ul><ul class="wheel" id="w-m" aria-label="Month"></ul><ul class="wheel" id="w-y" aria-label="Year"></ul></div>
+    <button class="btn" id="dob-done">Done</button></div></div>`, 'sheet-wrap');
+  l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
+  const W = { d: $('#w-d', l), m: $('#w-m', l), y: $('#w-y', l) };
+  const fill = (el, labels, idx) => { el.innerHTML = items(labels, idx); };
+  const tooLate = () => sel.y === maxY && (sel.m > now.getMonth() || (sel.m === now.getMonth() && sel.d > now.getDate()));
+  const mark = k => [...W[k].children].forEach((li, i) => li.classList.toggle('on', i === (k === 'd' ? sel.d - 1 : k === 'm' ? sel.m : sel.y - minY)));
+  const days = () => Array.from({ length: dim(sel.m, sel.y) }, (_, i) => i + 1);
+  const snap = (k, i, smooth) => W[k].scrollTo({ top: i * ROW, behavior: smooth ? 'smooth' : 'auto' });
+  const settle = () => {   // keep the date valid: day fits the month, never in the future
+    const n = dim(sel.m, sel.y); if (sel.d > n) { sel.d = n; }
+    if (tooLate()) { sel.m = now.getMonth(); sel.d = Math.min(sel.d, now.getDate()); }
+  };
+  fill(W.d, days(), sel.d - 1); fill(W.m, MONTHS, sel.m); fill(W.y, years, sel.y - minY);
+  requestAnimationFrame(() => { snap('d', sel.d - 1); snap('m', sel.m); snap('y', sel.y - minY); });
+  const refresh = () => {
+    const had = W.d.children.length, n = dim(sel.m, sel.y);
+    if (had !== n) { fill(W.d, days(), sel.d - 1); }
+    mark('d'); mark('m'); mark('y');
+  };
+  const read = k => {
+    const i = Math.round(W[k].scrollTop / ROW), max = W[k].children.length - 1, c = Math.max(0, Math.min(max, i));
+    if (k === 'd') sel.d = c + 1; else if (k === 'm') sel.m = c; else sel.y = minY + c;
+    const d0 = sel.d, m0 = sel.m; settle(); refresh();
+    if (sel.d !== d0) snap('d', sel.d - 1, true); if (sel.m !== m0) snap('m', sel.m, true);
+  };
+  Object.keys(W).forEach(k => {
+    let t; W[k].addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(() => read(k), 90); });
+    W[k].addEventListener('click', e => { const li = e.target.closest('li'); if (li) snap(k, +li.dataset.i, true); });
+  });
+  $('#dob-done', l).addEventListener('click', () => {
+    settle();
+    const iso = `${sel.y}-${String(sel.m + 1).padStart(2, '0')}-${String(sel.d).padStart(2, '0')}`;
+    inp.dataset.iso = iso; inp.value = dobFmt(iso); S.profile.dob = iso; save(); popLayer(l);
+  });
+}
 function profileNext() {
   const via = profVia();
   if (pStep === 1) {
@@ -76,7 +126,7 @@ function profileNext() {
   S.profile = { ...S.profile, ...(via === 'phone' ? { email: $('#em').value.trim() } : { cc: $('#cc').value, phone: $('#ph').value.trim() }) }; save();
   // the second contact and everything else on this screen is optional
   const cc = S.profile.cc, phone = S.profile.phone, digits = phone.replace(/\D/g, '');
-  S.profile = { ...S.profile, cc, phone, email: S.profile.email, dob: $('#dob').value, lang: S.profile.lang, terms: $('#c1').checked, contact: $('#c2').checked }; save();
+  S.profile = { ...S.profile, cc, phone, email: S.profile.email, dob: $('#dob').dataset.iso || '', lang: S.profile.lang, terms: $('#c1').checked, contact: $('#c2').checked }; save();
   if (obEdit) return leaveOnboarding('Profile saved');
   renderStep(1);
 }
@@ -166,6 +216,7 @@ Object.assign(ACT, {
   'prof-next': profileNext,
   'ob-back': obBack,
   'pick-via': el => { const v = profVia(), ph = $('#ph'), em = $('#em'); if (ph) S.profile.phone = ph.value.trim(); if (em) S.profile.email = em.value.trim(); S.profile.via = el.dataset.k; save(); renderProfile(); },
+  'dob-open': () => dobSheet(),
   'pick-lang': el => { S.profile.lang = el.dataset.k; $$('.lang button').forEach(b => { const on = b === el; b.classList.toggle('on', on); b.innerHTML = (on ? ic('check', 16, 2.6) : '') + (b.dataset.k === 'en' ? 'English' : 'Spanish'); }); },
   'pick-item': pickItem,
   'add-item': el => addItem(el.dataset.kind),
