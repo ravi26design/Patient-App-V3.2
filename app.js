@@ -15,7 +15,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 /* ═════════ state ═════════ */
 const KEY = 'rudra_mobile_v1';
 const DEFAULT = () => ({
-  onboarded: false, name: '', remind: 'morning',
+  onboarded: false, name: '', last: '', remind: 'morning',
   profile: { cc: '+1', phone: '', email: '', dob: '', lang: 'en', terms: false, contact: false }, meds: [], relief: [], clinic: { name: '', code: '' }, verified: '', loop: {}, lastActivity: null,
   day: 1,                    // journey day (drives how the core loop evolves — deck slides 21-26)
   bucks: 0, streak: 0, lastCheckin: null,
@@ -191,7 +191,7 @@ const ONB = [
   { t: 'Earn real rewards', p: 'Every check-in and activity adds real dollars to your wallet — cash value you can redeem for rewards you’ll actually enjoy.', m: 0 },
   { t: 'Go for a milestone', p: 'Streaks and milestones celebrate your progress — small steps, real wins.', m: 5 }
 ];
-const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `onb-${n}.jpg`);
+const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `onb-${n}.jpg?v=2`);
 let onbI = 0;
 const OB_TOTAL = 5;
 const obHead = (n, back) => `<div class="step-head">${back ? `<button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button>` : ''}<div class="step-bar"><i style="width:${n / OB_TOTAL * 100}%"></i></div><span class="step-n"><b>${n}</b>/${OB_TOTAL}</span></div>`;

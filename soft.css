@@ -855,3 +855,6 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .trig-earn small{color:#6B88A6}
 .trig-earn b{color:#3F6A93}
 .trig-earn em{color:#6B88A6}
+
+/* first + last name rows in the grouped card */
+.ob-page .fld:has(#ln){border-radius:8px!important;margin-bottom:3px}

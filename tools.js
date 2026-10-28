@@ -277,14 +277,14 @@ function renderWallet() {
 
 /* ═════════ ME ═════════ */
 function renderMe() {
-  const first = esc((S.name || 'Friend')), initial = esc((S.name || 'R').charAt(0).toUpperCase());
+  const first = esc([S.name, S.last].filter(Boolean).join(' ') || 'Friend'), initial = esc((S.name || 'R').charAt(0).toUpperCase());
   const contact = S.profile.email || (S.profile.phone ? S.profile.cc + ' ' + S.profile.phone : '');
   const row = (act, data, icon, title, sub) => `<button class="set-row" data-act="${act}" ${data}><span class="chip-i">${ic(icon, 20, 1.6)}</span><div><b>${title}</b><small>${sub}</small></div>${ic('next', 18, 1.6)}</button>`;
   const rem = [['morning', 'Morning', '☕'], ['afternoon', 'Midday', '🥗'], ['evening', 'Evening', '🌙']];
   $('#v-me').innerHTML = `<div class="me-card"><div class="me-av">${initial}</div><h1>${first}</h1>${contact ? `<p class="me-contact">${esc(contact)}</p>` : ''}
     <div class="me-chips"><span>Day ${S.day} of your journey</span><span class="fl">${ic('flame', 15, 1.8)} ${S.streak}-day streak</span></div></div>
   <div class="sec"><div class="eyebrow">Your info</div>
-    ${row('edit-step', 'data-s="profile"', 'user', 'Profile', esc(S.name || 'Add your name'))}
+    ${row('edit-step', 'data-s="profile"', 'user', 'Profile', esc([S.name, S.last].filter(Boolean).join(' ') || 'Add your name'))}
     ${row('edit-step', 'data-s="meds"', 'pill', 'Medications', S.meds.length ? esc(S.meds.join(', ')) : 'None added')}
     ${row('edit-step', 'data-s="relief"', 'heart', 'What brings you relief', S.relief.length ? esc(S.relief.join(', ')) : 'None added')}
     ${row('edit-step', 'data-s="care"', 'shield', 'Care team', esc(S.clinic.name || S.clinic.code || 'Not connected'))}</div>

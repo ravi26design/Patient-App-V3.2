@@ -43,7 +43,8 @@ function renderProfile() {
     ${pStep === 1 ? contactFld(p) : ''}
     </div>
     <div class="pst" ${pStep === 2 ? '' : 'hidden'}>
-    ${pStep === 2 ? `<div class="fld"><label class="lbl" for="nm">Name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="nm" maxlength="24" placeholder="Your name" value="${esc(S.name)}" autocomplete="given-name" autocapitalize="words"></div></div>
+    ${pStep === 2 ? `<div class="fld"><label class="lbl" for="nm">First name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="nm" maxlength="24" placeholder="First name" value="${esc(S.name)}" autocomplete="given-name" autocapitalize="words"></div></div>
+    <div class="fld"><label class="lbl" for="ln">Last name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="ln" maxlength="24" placeholder="Last name" value="${esc(S.last || '')}" autocomplete="family-name" autocapitalize="words"></div></div>
     ${via === 'phone' ? emailFld(p, 'Email') : phoneFld(p, 'Mobile number')}
     <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="date" max="${today()}" value="${esc(p.dob)}"></div></div>
     <div class="fld"><span class="lbl">Language</span><div class="lang"><button class="${p.lang === 'en' ? 'on' : ''}" data-act="pick-lang" data-k="en">${p.lang === 'en' ? ic('check', 16, 2.6) : ''}English</button><button class="${p.lang === 'es' ? 'on' : ''}" data-act="pick-lang" data-k="es">${p.lang === 'es' ? ic('check', 16, 2.6) : ''}Spanish</button></div></div>
@@ -71,7 +72,7 @@ function profileNext() {
     if (S.verified === contact) { pStep = 2; return renderProfile(); }   // already verified this contact
     return otpSheet(contact);
   }
-  S.name = $('#nm').value.trim();
+  S.name = $('#nm').value.trim(); S.last = $('#ln').value.trim();
   S.profile = { ...S.profile, ...(via === 'phone' ? { email: $('#em').value.trim() } : { cc: $('#cc').value, phone: $('#ph').value.trim() }) }; save();
   // the second contact and everything else on this screen is optional
   const cc = S.profile.cc, phone = S.profile.phone, digits = phone.replace(/\D/g, '');
