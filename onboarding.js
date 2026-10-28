@@ -1,5 +1,5 @@
 /* Rudra Health — sign-up flow (after the welcome cards)
-   A little about you → code verification → 1/3 medications → 2/3 what brings you relief → 3/3 care team.
+   A little about you → code verification → 1/4 medications → 2/4 what brings on your urges → 3/4 what brings you relief → 4/4 care team.
    Also reused from Me to edit each part later (obEdit = 'me'). */
 'use strict';
 
@@ -8,6 +8,8 @@ let obEdit = null;   // 'me' while editing a section from the Me tab
 const MEDS = ['Buprenorphine', 'Methadone', 'Naltrexone', 'Suboxone', 'Naloxone', 'Lofexidine'];
 const RELIEF = [['Go for a walk', 'run'], ['Call someone', 'phone'], ['Music', 'music'], ['Hot shower', 'shower'], ['Breathe', 'wind'], ['Play a game', 'game'],
   ['Pray / meditate', 'sparkle'], ['Work out', 'dumbbell'], ['Drink water', 'drop'], ['Time with a pet', 'paw']];
+const URGES = [['High-risk places', 'pin'], ['Having money', 'coin'], ['Stress', 'bolt'], ['Relationships', 'heart'], ['Reminders of the drug', 'eye'], ['Boredom', 'cloud'], ['Exhaustion', 'moon']];
+const URGE_INFO = { Stress: 'Work or financial', Relationships: 'Family, romantic, friends', 'Reminders of the drug': 'Sights, places, people, things' };
 const CODES = [['+1', '🇺🇸'], ['+44', '🇬🇧'], ['+52', '🇲🇽'], ['+34', '🇪🇸'], ['+91', '🇮🇳']];
 const fullPhone = () => S.profile.cc + S.profile.phone.replace(/\D/g, '');
 
@@ -164,7 +166,7 @@ function otpSheet(contact) {
 /* ═════════ Steps 1–3 ═════════ */
 const stepHead = n => obEdit ? `<div class="step-head"><button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button><div class="step-bar"><i style="width:100%"></i></div></div>` : obHead(n + 2, true);
 const MED_INFO = { Buprenorphine: 'Film · Tablet', Methadone: 'Liquid · Tablet', Naltrexone: 'Tablet · Injection', Suboxone: 'Film', Naloxone: 'Nasal spray', Lofexidine: 'Tablet' };
-const tile = (kind, label, icon, i, sel) => `<button class="mtile tg-${i % 8} ${kind === 'meds' ? 'is-med' : ''} ${sel ? 'on' : ''}" data-act="pick-item" data-kind="${kind}" data-v="${esc(label)}" aria-pressed="${sel}"><span class="plus">${ic(sel ? 'check' : 'plus', 14, 2.6)}</span><span class="mi">${kind === 'meds' ? `<i class="mono">${esc(label.charAt(0).toUpperCase())}</i>` : ic(icon, 20)}</span><b>${esc(label)}${kind === 'meds' ? `<small>${MED_INFO[label] || 'Added by you'}</small>` : ''}</b></button>`;
+const tile = (kind, label, icon, i, sel) => `<button class="mtile tg-${i % 8} ${kind === 'meds' ? 'is-med' : ''} ${sel ? 'on' : ''}" data-act="pick-item" data-kind="${kind}" data-v="${esc(label)}" aria-pressed="${sel}"><span class="plus">${ic(sel ? 'check' : 'plus', 14, 2.6)}</span><span class="mi">${kind === 'meds' ? `<i class="mono">${esc(label.charAt(0).toUpperCase())}</i>` : ic(icon, 20)}</span><b>${esc(label)}${kind === 'meds' ? `<small>${MED_INFO[label] || 'Added by you'}</small>` : kind === 'urges' && URGE_INFO[label] ? `<small>${URGE_INFO[label]}</small>` : ''}</b></button>`;
 const addRow = (kind, ph) => `<div class="add-row"><input class="inp" id="add-in" placeholder="${ph}" maxlength="40" autocomplete="off" aria-label="${ph}"><button class="add-b" data-act="add-item" data-kind="${kind}">Add</button></div>`;
 const cont = (label = 'Continue') => `<div class="step-foot"><button class="btn" data-act="step-next">${obEdit ? 'Save' : label} ${obEdit ? '' : ic('next', 16, 2.4)}</button></div>`;
 let obStep = 1;
@@ -177,11 +179,15 @@ function renderStep(n) {
     v.innerHTML = `<div class="ob-page">${stepHead(1)}<h1 class="step-h">Which <em>medications</em> are you currently taking?</h1><p class="step-p">Select all that apply, or add your own.</p>${addRow('meds', 'Type a medication…')}
       <div class="mgrid" id="mgrid">${all.map((m, i) => tile('meds', m, 'pill', i, S.meds.includes(m))).join('')}</div>${cont()}</div>`;
   } else if (n === 2) {
+    const base = URGES.map(r => r[0]), all = [...URGES, ...S.urges.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
+    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">What brings on your <em>urges</em>?</h1><p class="step-p">Select all that apply, or add your own. Knowing your triggers helps me support you in the moment.</p>${addRow('urges', 'Type a trigger…')}
+      <div class="mgrid" id="mgrid">${all.map(([r, ic2], i) => tile('urges', r, ic2, i, S.urges.includes(r))).join('')}</div>${cont()}</div>`;
+  } else if (n === 3) {
     const base = RELIEF.map(r => r[0]), all = [...RELIEF, ...S.relief.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
-    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">What brings you <em>relief</em>?</h1><p class="step-p">Things you enjoy can help an urge pass. I’ll keep these one tap away on your Urge button.</p>${addRow('relief', 'Type an activity…')}
+    v.innerHTML = `<div class="ob-page">${stepHead(3)}<h1 class="step-h">What brings you <em>relief</em>?</h1><p class="step-p">Things you enjoy can help an urge pass. I’ll keep these one tap away on your Urge button.</p>${addRow('relief', 'Type an activity…')}
       <div class="mgrid" id="mgrid">${all.map(([r, ic2], i) => tile('relief', r, ic2, i, S.relief.includes(r))).join('')}</div>${cont()}</div>`;
   } else {
-    v.innerHTML = `<div class="ob-page">${stepHead(3)}<h1 class="step-h">Connect your <em>care team</em></h1><p class="step-p">Link your clinic to securely sync appointments and your treatment plan. This is optional.</p>
+    v.innerHTML = `<div class="ob-page">${stepHead(4)}<h1 class="step-h">Connect your <em>care team</em></h1><p class="step-p">Link your clinic to securely sync appointments and your treatment plan. This is optional.</p>
       <div class="fld"><label class="lbl" for="cn">Clinic name</label><input class="inp" id="cn" placeholder="Enter clinic name" value="${esc(S.clinic.name)}" autocomplete="off"></div>
       <div class="fld"><label class="lbl" for="cc2">Or clinic code</label><input class="inp" id="cc2" placeholder="Enter clinic code" value="${esc(S.clinic.code)}" autocomplete="off" autocapitalize="characters"></div>
       <p class="privacy">${ic('shield', 18)}<span>Protected under <b>42 CFR Part 2</b> &amp; HIPAA. You always control what’s shared.</span></p>
@@ -200,9 +206,9 @@ function pickItem(el) {
   const on = i < 0; el.classList.toggle('on', on); el.setAttribute('aria-pressed', on); $('.plus', el).innerHTML = ic(on ? 'check' : 'plus', 14, 2.6); save();
 }
 function stepNext() {
-  if (obStep === 3) { S.clinic = { name: $('#cn').value.trim(), code: $('#cc2').value.trim() }; save(); }
+  if (obStep === 4) { S.clinic = { name: $('#cn').value.trim(), code: $('#cc2').value.trim() }; save(); }
   if (obEdit) return leaveOnboarding('Saved');
-  if (obStep < 3) renderStep(obStep + 1); else finishOnboarding();
+  if (obStep < 4) renderStep(obStep + 1); else finishOnboarding();
 }
 function obBack() {
   if (pStep === 2 && $('#v-setup').querySelector('.pst')) { pStep = 1; return renderProfile(); }
@@ -222,6 +228,6 @@ Object.assign(ACT, {
   'add-item': el => addItem(el.dataset.kind),
   'step-next': stepNext,
   'care-skip': () => { S.clinic = { name: '', code: '' }; finishOnboarding(); },
-  'edit-step': el => { obEdit = 'me'; const s = el.dataset.s; if (s === 'profile') { pStep = 1; renderProfile(); } else renderStep({ meds: 1, relief: 2, care: 3 }[s]); }
+  'edit-step': el => { obEdit = 'me'; const s = el.dataset.s; if (s === 'profile') { pStep = 1; renderProfile(); } else renderStep({ meds: 1, urges: 2, relief: 3, care: 4 }[s]); }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'add-in') { e.preventDefault(); addItem(obStep === 1 ? 'meds' : 'relief'); } });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'add-in') { e.preventDefault(); addItem({ 1: 'meds', 2: 'urges', 3: 'relief' }[obStep]); } });

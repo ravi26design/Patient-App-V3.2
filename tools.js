@@ -286,6 +286,7 @@ function renderMe() {
   <div class="sec"><div class="eyebrow">Your info</div>
     ${row('edit-step', 'data-s="profile"', 'user', 'Profile', esc([S.name, S.last].filter(Boolean).join(' ') || 'Add your name'))}
     ${row('edit-step', 'data-s="meds"', 'pill', 'Medications', S.meds.length ? esc(S.meds.join(', ')) : 'None added')}
+    ${row('edit-step', 'data-s="urges"', 'bolt', 'What brings on your urges', S.urges.length ? esc(S.urges.join(', ')) : 'None added')}
     ${row('edit-step', 'data-s="relief"', 'heart', 'What brings you relief', S.relief.length ? esc(S.relief.join(', ')) : 'None added')}
     ${row('edit-step', 'data-s="care"', 'shield', 'Care team', esc(S.clinic.name || S.clinic.code || 'Not connected'))}</div>
   <div class="sec"><div class="eyebrow">Daily reminder</div>

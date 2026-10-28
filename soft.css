@@ -879,3 +879,35 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 /* intro: Skip pill — equal top and right gap */
 .onb2 .onb-top{margin-top:calc(var(--sat) + 23px)!important}
 .onb2 .onb-top{margin-top:calc(var(--sat) + 15px)!important;margin-right:-8px}
+
+/* ── option cards: warm coral → peach → gold, like the milestone card ── */
+.ob-page .mgrid .mtile{background:linear-gradient(135deg,#D3857A 0%,#DF9F8A 55%,#E3B374 100%)!important;color:#fff;
+  box-shadow:0 14px 26px -12px rgba(190,115,92,.55)!important}
+.ob-page .mgrid .mtile .mi{background:rgba(255,255,255,.92)!important;color:#A5594B!important}
+.ob-page .mgrid .mtile .mono{color:#A5594B}
+.ob-page .mgrid .mtile b{color:#fff;font-weight:600;text-shadow:0 1px 3px rgba(120,60,40,.28)}
+.ob-page .mgrid .mtile b small{color:rgba(255,255,255,.92);font-weight:400}
+.ob-page .mgrid .mtile .plus{background:transparent!important;box-shadow:0 0 0 1.5px rgba(255,255,255,.85) inset!important}
+.ob-page .mgrid .mtile.on{background:linear-gradient(135deg,#D3857A 0%,#DF9F8A 55%,#E3B374 100%)!important;
+  box-shadow:0 0 0 2.5px #fff inset,0 14px 26px -12px rgba(190,115,92,.55)!important}
+.ob-page .mgrid .mtile.on .plus{background:#fff!important;box-shadow:none!important}
+.ob-page .mgrid .mtile.on .plus svg{color:#B8665A;opacity:1}
+
+/* option cards: each one its own colour, same soft gradient finish */
+.ob-page .mgrid .mtile:nth-child(7n+1){--c1:#D3857A;--c2:#E3B374;--ink:#A5594B}
+.ob-page .mgrid .mtile:nth-child(7n+2){--c1:#5E92C4;--c2:#A9CBEA;--ink:#3F6A93}
+.ob-page .mgrid .mtile:nth-child(7n+3){--c1:#8E86C9;--c2:#CDBDE8;--ink:#645CA3}
+.ob-page .mgrid .mtile:nth-child(7n+4){--c1:#D47A9C;--c2:#EDB4C3;--ink:#A6506F}
+.ob-page .mgrid .mtile:nth-child(7n+5){--c1:#DE8F4D;--c2:#F2CA80;--ink:#A9622A}
+.ob-page .mgrid .mtile:nth-child(7n+6){--c1:#5B71B8;--c2:#A0B3E3;--ink:#40538F}
+.ob-page .mgrid .mtile:nth-child(7n+7){--c1:#4C9FC4;--c2:#A1D4E8;--ink:#2F7396}
+.ob-page .mgrid .mtile,.ob-page .mgrid .mtile.on{background:linear-gradient(135deg,var(--c1) 0%,color-mix(in srgb,var(--c1) 45%,var(--c2)) 55%,var(--c2) 100%)!important}
+.ob-page .mgrid .mtile{box-shadow:0 14px 26px -12px color-mix(in srgb,var(--c1) 70%,transparent)!important}
+.ob-page .mgrid .mtile.on{box-shadow:0 0 0 2.5px #fff inset,0 14px 26px -12px color-mix(in srgb,var(--c1) 70%,transparent)!important}
+.ob-page .mgrid .mtile .mi,.ob-page .mgrid .mtile .mono{color:var(--ink)!important}
+.ob-page .mgrid .mtile b{text-shadow:0 1px 3px color-mix(in srgb,var(--ink) 45%,transparent)}
+.ob-page .mgrid .mtile.on .plus svg{color:var(--ink)}
+
+/* option cards: no drop shadow */
+.ob-page .mgrid .mtile{box-shadow:none!important}
+.ob-page .mgrid .mtile.on{box-shadow:0 0 0 2.5px #fff inset!important}
