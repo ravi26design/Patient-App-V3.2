@@ -1,4 +1,4 @@
-/* Rudra Health — daily check-in survey (7 screens) + scoring
+/* Rudra Health — daily check-in survey (9 screens) + scoring
    1 medication yesterday · 2 past 24 hours · 3 emotions · 4 body · 5 next week · 6 unreported use (+dates) · 7 substances.
    Every screen is worth 100/7 ≈ 14.3 points; the speedometer at the top climbs to the final score (0–100). */
 'use strict';
@@ -41,23 +41,29 @@ const ILLUS = {
 const illus = k => ILLUS[k] || '';
 /* ═════════ the screens ═════════ */
 const sl = (k, q, lo, hi, icon, tone, eLo, eHi, inv) => ({ k, q, lo, hi, icon, tone, eLo, eHi, inv });
-/* one question per screen */
-const one = (ctx, title, item, sub) => ({ id: item.k, type: 'sliders', ctx, title, sub, items: [item] });
+/* related questions clubbed onto one screen */
+const grp = (id, ctx, title, sub, ...items) => ({ id, type: 'sliders', ctx, title, sub, items });
 const SCREENS = [
   { id: 'meds', type: 'choice' },
-  one('Past 24 hours', 'What was your strongest opioid craving?', sl('craving', 'Strongest opioid craving?', 'No craving', 'Extreme craving', 'flame', 'coral', '😌', '😖', true)),
-  one('Past 24 hours', 'What was your riskiest moment?', sl('risk', 'Riskiest moment?', 'No risk', 'Extreme risk', 'alert', 'amber', '😌', '😰', true), 'People, places or things that threaten your recovery.'),
-  one('Past 24 hours', 'How stressful was your most stressful moment?', sl('stress', 'Most stressful moment?', 'No stress', 'Extreme stress', 'wind', 'blue', '😌', '😩', true)),
-  one('Past 24 hours', 'How pleasant was your most pleasant moment?', sl('pleasant', 'Most pleasant moment?', 'Not at all pleasant', 'Extremely pleasant', 'sun', 'amber', '😕', '😄', false)),
-  one('Emotions', 'How depressed have you felt?', sl('depressed', 'Depressed?', 'Not at all', 'Extremely', 'cloud', 'slate', '🙂', '😢', true)),
-  one('Emotions', 'How angry have you felt?', sl('angry', 'Angry?', 'Not at all', 'Extremely', 'flame', 'coral', '🙂', '😠', true)),
-  one('Emotions', 'How anxious have you felt?', sl('anxious', 'Anxious?', 'Not at all', 'Extremely', 'pulse', 'amber', '🙂', '😰', true)),
-  one('Emotions', 'How relaxed have you felt?', sl('relaxed', 'Relaxed?', 'Not at all', 'Extremely', 'leaf', 'green', '😐', '😌', false)),
-  one('Emotions', 'How happy have you felt?', sl('happy', 'Happy?', 'Not at all', 'Extremely', 'smile', 'amber', '😐', '😄', false)),
-  one('Your body', 'How was your sleep quality?', sl('sleep', 'Sleep quality?', 'Very poor', 'Excellent', 'moon', 'slate', '😫', '😊', false)),
-  one('Your body', 'How was your worst pain?', sl('pain', 'Worst pain?', 'No pain', 'Worst pain', 'bolt', 'coral', '🙂', '😣', true)),
-  one('Next week', 'How motivated are you to avoid non-medical opioid use?', sl('motivation', 'Motivation?', 'Not motivated', 'Extremely motivated', 'rocket', 'green', '😐', '🔥', false)),
-  one('Next week', 'How confident are you that you can avoid it?', sl('confidence', 'Confidence?', 'Not confident', 'Extremely confident', 'shield', 'blue', '😟', '😎', false)),
+  grp('craving-risk', 'Past 24 hours', 'Your cravings and risks', 'Risks are people, places or things that threaten your recovery.',
+    sl('craving', 'Strongest opioid craving?', 'No craving', 'Extreme craving', 'flame', 'coral', '😌', '😖', true),
+    sl('risk', 'Riskiest moment?', 'No risk', 'Extreme risk', 'alert', 'amber', '😌', '😰', true)),
+  grp('stress-pleasant', 'Past 24 hours', 'Your stress and good moments', 'Think about the past 24 hours.',
+    sl('stress', 'How stressful was your most stressful moment?', 'No stress', 'Extreme stress', 'wind', 'blue', '😌', '😩', true),
+    sl('pleasant', 'How pleasant was your most pleasant moment?', 'Not at all pleasant', 'Extremely pleasant', 'sun', 'amber', '😕', '😄', false)),
+  grp('hard-feelings', 'Emotions', 'How have you been feeling?', 'Rate how strongly you felt each one.',
+    sl('depressed', 'Depressed?', 'Not at all', 'Extremely', 'cloud', 'slate', '🙂', '😢', true),
+    sl('angry', 'Angry?', 'Not at all', 'Extremely', 'flame', 'coral', '🙂', '😠', true),
+    sl('anxious', 'Anxious?', 'Not at all', 'Extremely', 'pulse', 'amber', '🙂', '😰', true)),
+  grp('good-feelings', 'Emotions', 'And the brighter side?', 'Rate how strongly you felt each one.',
+    sl('relaxed', 'Relaxed?', 'Not at all', 'Extremely', 'leaf', 'green', '😐', '😌', false),
+    sl('happy', 'Happy?', 'Not at all', 'Extremely', 'smile', 'amber', '😐', '😄', false)),
+  grp('body', 'Your body', 'How is your body doing?', null,
+    sl('sleep', 'Sleep quality?', 'Very poor', 'Excellent', 'moon', 'slate', '😫', '😊', false),
+    sl('pain', 'Worst pain?', 'No pain', 'Worst pain', 'bolt', 'coral', '🙂', '😣', true)),
+  grp('outlook', 'Next week', 'Looking ahead to next week', 'About avoiding non-medical opioid use.',
+    sl('motivation', 'How motivated are you?', 'Not motivated', 'Extremely motivated', 'rocket', 'green', '😐', '🔥', false),
+    sl('confidence', 'How confident are you?', 'Not confident', 'Extremely confident', 'shield', 'blue', '😟', '😎', false)),
   { id: 'unreported', type: 'yesno', title: 'Have you used opioids that you didn’t report?' },
   { id: 'substances', type: 'multi', title: 'Which of these drugs have you used in the past 24 hours?' }
 ];
@@ -73,9 +79,12 @@ const num = (a, k) => a[k] != null ? a[k] : 0;           // sliders start at 0 �
 const inv = v => 10 - v;
 const mean = arr => arr.reduce((x, y) => x + y, 0) / arr.length;
 /* 0..1 for a screen from the current answers, or null while a choice screen is unanswered */
+const ITEMS = () => SCREENS.filter(x => x.items).flatMap(x => x.items);
+function itemScore(k, a) { const it = ITEMS().find(i => i.k === k); if (!it) return null; const v = num(a, k); return (it.inv ? inv(v) : v) / 10; }
 function screenScore(id, a) {
   const sc = SCREENS.find(x => x.id === id);
-  if (sc && sc.type === 'sliders') { const it = sc.items[0], v = num(a, it.k); return (it.inv ? inv(v) : v) / 10; }
+  if (sc && sc.type === 'sliders') return mean(sc.items.map(it => itemScore(it.k, a)));
+  const one = itemScore(id, a); if (one != null) return one;
   switch (id) {
     case 'meds': return a.meds == null ? null : [1, .5, 0][a.meds];
     case 'unreported': return a.unreported == null ? null : a.unreported === 'no' ? 1 : .5;   // disclosing is never punished heavily
@@ -85,7 +94,7 @@ function screenScore(id, a) {
 /* a screen counts on the speedometer once it's answered (sliders: touched or passed) */
 function counts(s) {
   if (CI.done[s.id]) return true;
-  return s.type === 'sliders' ? !!CI.touched[s.id] : screenScore(s.id, CI.a) != null;
+  return s.type === 'sliders' ? s.items.every(i => CI.touched[i.k]) : screenScore(s.id, CI.a) != null;
 }
 const screenPts = s => counts(s) ? (screenScore(s.id, CI.a) || 0) * Q_POINTS : 0;
 const totalPts = () => SCREENS.reduce((t, s) => t + screenPts(s), 0);
@@ -95,7 +104,7 @@ function strengthVals(a) {
   return {
     meds: r((screenScore('meds', a) || 0) * 10), cravings: r(inv(num(a, 'craving'))),
     risk: r(mean([inv(num(a, 'risk')), (s6 == null ? 1 : s6) * 10, (s7 == null ? 1 : s7) * 10])),
-    stress: r(inv(num(a, 'stress'))), emotions: r(mean(['depressed', 'angry', 'anxious', 'relaxed', 'happy'].map(k => screenScore(k, a))) * 10), body: r(mean(['sleep', 'pain'].map(k => screenScore(k, a))) * 10), drive: r(mean(['motivation', 'confidence'].map(k => screenScore(k, a))) * 10)
+    stress: r(inv(num(a, 'stress'))), emotions: r(mean(['depressed', 'angry', 'anxious', 'relaxed', 'happy'].map(k => itemScore(k, a))) * 10), body: r(mean(['sleep', 'pain'].map(k => itemScore(k, a))) * 10), drive: r(mean(['motivation', 'confidence'].map(k => itemScore(k, a))) * 10)
   };
 }
 
@@ -116,7 +125,7 @@ const medName = () => S.meds.length === 1 ? S.meds[0] : S.meds.length > 1 ? 'med
 const lastRaw = () => { const p = S.history[S.history.length - 1]; return p && p.raw ? p.raw : null; };
 const screenTitle = s => s.id === 'meds' ? `Did you take your ${medName()} yesterday (${yesterday()})?` : s.title;
 function screenReady(s) {
-  if (s.type === 'sliders') return !!CI.touched[s.id];   // must slide (or tap) before continuing
+  if (s.type === 'sliders') return s.items.every(i => CI.touched[i.k]);   // must slide (or tap) before continuing
   if (s.id === 'meds') return CI.a.meds != null;
   if (s.id === 'unreported') return CI.a.unreported === 'no' || (CI.a.unreported === 'yes' && (CI.a.dates || []).length > 0);
   return !!(CI.a.subs && CI.a.subs.length);
@@ -201,7 +210,7 @@ function advance() {
   CI.done[s.id] = true; CI.i++; renderCI(); CI.layer.scrollTop = 0;
 }
 function sliderInput(el) {
-  const v = +el.value, k = el.dataset.k; CI.a[k] = v; CI.touched[el.dataset.s] = true;
+  const v = +el.value, k = el.dataset.k; CI.a[k] = v; CI.touched[k] = true;
   el.style.setProperty('--p', v * 10 + '%'); $('#sv-' + k, CI.layer).textContent = v; updateQGauge();
 }
 function speakScreen() {
