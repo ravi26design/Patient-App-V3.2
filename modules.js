@@ -83,6 +83,7 @@ const PG_DATA = {
   risky: { label: 'Risky Situations', hex: '#D4612A', lo: 1, hi: 5, daily: _gen(84, 4.5, 2.1, 1, 5, 5), monthly: _gen(12, 4.6, 1.9, 1, 5, 15) },
   sleep: { label: 'Sleep Quality', hex: '#4A90D9', lo: 1, hi: 5, daily: _gen(84, 2.0, 3.8, 1, 5, 6), monthly: _gen(12, 1.9, 4.0, 1, 5, 16) }
 };
+const PG_EMO = { health: '💙', urge: '⚡', pain: '🩹', stress: '😟', pleasant: '😊', risky: '⚠️', sleep: '🌙' };
 const PG = { items: ['health'], tf: 'W', off: 0 };
 const _DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], _MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function tfSeries(d, m, tf, off) {
@@ -107,14 +108,24 @@ function pgChart() {
     const id = 'pgf' + ki;
     if (keys.length === 1) lines += `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${d.hex}" stop-opacity=".26"/><stop offset="1" stop-color="${d.hex}" stop-opacity=".02"/></linearGradient></defs><path d="${pgSmooth(xy)} L${xy[n - 1][0].toFixed(1)} ${T + ih} L${xy[0][0].toFixed(1)} ${T + ih}z" fill="url(#${id})"/>`;
     lines += `<path d="${pgSmooth(xy)}" fill="none" stroke="${d.hex}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-    if (n <= 14) lines += xy.map(q => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.4" fill="#fff" stroke="${d.hex}" stroke-width="2"/>`).join('');
+    const lp = xy[n - 1], lv = s.data[n - 1], lt = d.hi === 100 ? Math.round(lv) : lv.toFixed(1);
+    lines += `<circle cx="${lp[0].toFixed(1)}" cy="${lp[1].toFixed(1)}" r="9" fill="${d.hex}" opacity=".16"/><circle cx="${lp[0].toFixed(1)}" cy="${lp[1].toFixed(1)}" r="5" fill="${d.hex}" stroke="#fff" stroke-width="2"/>${keys.length === 1 ? `<g transform="translate(${Math.min(lp[0], W - rightPad - 14).toFixed(1)} ${Math.max(lp[1] - 22, 4).toFixed(1)})"><rect x="-16" width="32" height="17" rx="8.5" fill="${d.hex}"/><text y="12" font-size="10" font-weight="600" text-anchor="middle" fill="#fff">${lt}</text></g>` : ''}`;
+    if (n <= 14) lines += xy.slice(0, -1).map(q => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.4" fill="#fff" stroke="${d.hex}" stroke-width="2"/>`).join('');
   });
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Trend chart">${grid}${axis(keys[0], L - 6, 'end')}${mixed ? axis(keys.find(k => k !== 'health'), W - rightPad + 6, 'start') : ''}${lines}${xl}</svg>`;
+}
+function pgStats() {
+  const f = (d, v) => d.hi === 100 ? Math.round(v) : v.toFixed(1);
+  return PG.items.map(k => {
+    const d = PG_DATA[k], a = tfSeries(d.daily, d.monthly, PG.tf, PG.off).data, last = a[a.length - 1], first = a[0], avg = a.reduce((x, y) => x + y, 0) / a.length, dl = last - first, up = dl >= 0;
+    const good = (d.hi === 100 || ['pleasant', 'sleep'].includes(k)) ? up : !up;
+    return `<div class="pg-stat" style="--c:${d.hex}"><span class="pg-sl"><i></i>${d.label}</span><b>${f(d, last)}</b><span class="pg-sd ${good ? 'good' : 'warn'}">${up ? '▲' : '▼'} ${f(d, Math.abs(dl))}</span><small>avg ${f(d, avg)} · ${f(d, Math.min(...a))}–${f(d, Math.max(...a))}</small></div>`;
+  }).join('');
 }
 function pgTitle() { const k = PG.items; return k.map(x => `<span style="color:${PG_DATA[x].hex}">${PG_DATA[x].label}</span>`).join('<span class="pg-vs"> vs </span>'); }
 function pgPaint() {
   const v = $('#v-progress'); if (!v) return;
-  $('#pg-title', v).innerHTML = pgTitle(); $('#pg-chart', v).innerHTML = pgChart();
+  $('#pg-title', v).innerHTML = pgTitle(); $('#pg-chart', v).innerHTML = pgChart(); $('#pg-stats', v).innerHTML = pgStats();
   $$('.pg-tf button', v).forEach(b => b.classList.toggle('on', b.dataset.tf === PG.tf));
   const nav = $('#pg-nav', v); nav.hidden = PG.tf !== 'W';
   $('#pg-wk', v).textContent = PG.off === 0 ? 'This week' : PG.off === 1 ? 'Last week' : PG.off + ' weeks ago';
@@ -126,9 +137,9 @@ function renderProgress() {
   $('#v-progress').innerHTML = `<div class="wal-top"><h1>Progress</h1><p class="md-sub">See how your recovery health and daily factors trend over time.</p></div>
   <div class="pad"><div class="pg-card2"><div class="pg-h2"><b id="pg-title" class="pg-t"></b><div class="pg-tf">${['W', 'M', '6M', 'Y'].map(t => `<button data-act="pg-tf" data-tf="${t}">${t}</button>`).join('')}</div></div>
     <div class="pg-nav" id="pg-nav"><button id="pg-prev" data-act="pg-wk" data-d="1" aria-label="Previous week">${ic('left', 18, 2)}</button><span id="pg-wk">This week</span><button id="pg-next" data-act="pg-wk" data-d="-1" aria-label="Next week">${ic('chev', 18, 2)}</button></div>
-    <div id="pg-chart"></div><div class="pg-legend" id="pg-legend"></div></div>
-  <div class="pg-card2"><b class="pg-t2">Select up to 2 to compare</b><p class="pg-hint">Tap two factors to see them side by side.</p>
-    <div class="pg-grid">${Object.keys(PG_DATA).map(k => `<button class="pg-item" style="--cat:${PG_DATA[k].hex}" data-act="pg-item" data-k="${k}">${PG_DATA[k].label}</button>`).join('')}</div></div></div>`;
+    <div class="pg-stats" id="pg-stats"></div><div id="pg-chart"></div><div class="pg-legend" id="pg-legend"></div></div>
+  <div class="pg-card2"><b class="pg-t2">Compare factors</b><p class="pg-hint">Pick up to 2 to see them side by side.</p>
+    <div class="pg-grid">${Object.keys(PG_DATA).map(k => `<button class="pg-item" style="--cat:${PG_DATA[k].hex}" data-act="pg-item" data-k="${k}"><span class="pg-e">${PG_EMO[k]}</span><span class="pg-n">${PG_DATA[k].label}</span><span class="pg-ck">${ic('check', 12, 3)}</span></button>`).join('')}</div></div></div>`;
   pgPaint();
 }
 
