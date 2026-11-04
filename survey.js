@@ -171,9 +171,9 @@ function ciHead(pct, back) {   // prompt screen header
 }
 function surveyHead() {
   const n = CI.i + 1;
-  return `<div class="layer-top fin-head"><button class="plain-btn" data-act="${CI.i === 0 ? 'ci-close' : 'ci-prev'}" aria-label="${CI.i === 0 ? 'Close' : 'Back'}">${ic(CI.i === 0 ? 'x' : 'back', 22)}</button>
+  return `<div class="layer-top fin-head"><button class="plain-btn" data-act="${CI.i === 0 ? 'ci-exit' : 'ci-prev'}" aria-label="${CI.i === 0 ? 'Close' : 'Back'}">${ic(CI.i === 0 ? 'x' : 'back', 22)}</button>
     <span class="fh-t">Daily check-in <small>${n}/${SCREENS.length}</small></span>
-    <span class="fh-r"><button class="plain-btn" data-act="ci-speak" aria-label="Read this screen aloud">${ic('speaker', 22)}</button>${CI.i ? `<button class="plain-btn" data-act="ci-close" aria-label="Close">${ic('x', 22)}</button>` : ''}</span></div>
+    <span class="fh-r"><button class="plain-btn" data-act="ci-speak" aria-label="Read this screen aloud">${ic('speaker', 22)}</button>${CI.i ? `<button class="plain-btn" data-act="ci-exit" aria-label="Close">${ic('x', 22)}</button>` : ''}</span></div>
     <div class="pline"><i style="width:${(n / SCREENS.length) * 100}%"></i></div>`;
 }
 function renderCI() {
