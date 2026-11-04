@@ -40,7 +40,7 @@ function renderProfile() {
   $('#v-setup').innerHTML = `<div class="ob-page">
     ${obEdit ? `<div class="step-head"><button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button><div class="step-bar"><i style="width:100%"></i></div></div>` : obHead(pStep, true)}
     <h1 class="step-h">${pStep === 1 ? 'Let’s get you <em>started</em>' : 'A little about <em>you</em>'}</h1>
-    <p class="step-p">${pStep === 1 ? 'Enter your mobile number or email — we’ll ask for the other one next.' : (via === 'phone' ? 'Add your email so we can reach you both ways.' : 'Add your mobile number so we can reach you both ways.')}</p>
+    <p class="step-p">${pStep === 1 ? 'Enter your mobile number or email - we’ll ask for the other one next.' : (via === 'phone' ? 'Add your email so we can reach you both ways.' : 'Add your mobile number so we can reach you both ways.')}</p>
     <div class="pst" ${pStep === 1 ? '' : 'hidden'}>
     ${pStep === 1 ? contactFld(p) : ''}
     </div>
