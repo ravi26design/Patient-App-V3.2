@@ -69,6 +69,7 @@ const P = {
   music: '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
   shower: '<path d="M5 8a7 7 0 0 1 14 0z"/><path d="M8 12v1M12 12v2M16 12v1M10 16v1M14 17v1"/>',
   game: '<rect x="2" y="7" width="20" height="11" rx="4"/><path d="M7 11v4M5 13h4M16 12h.01M18 14h.01"/>',
+  bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
   sparkle: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
   dumbbell: '<path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/>',
   drop: '<path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/>',
@@ -273,6 +274,10 @@ function recoveryCard(last) {
   const dtxt = d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping';
   const arrow = d == null ? '' : d > 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>' : d < 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const who = S.name ? `${esc(S.name.split(' ')[0])}’s Recovery Health` : 'Your Recovery Health';
+  const pts = S.history.slice(-14).map(h => h.overall), ready = done && pts.length > 1;
+  const spark = ready ? `<svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts.map((n, i) => (2 + i * 176 / (pts.length - 1)).toFixed(1) + ',' + (42 - n / 100 * 38).toFixed(1)).join(' ')}" fill="none" stroke="#6C9FCC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    : `<svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="23" x2="178" y2="23" stroke="#C5D1DD" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/></svg>`;
+  const twoWeeks = `<div class="rh-weeks"><div><small>Past 2 weeks</small><b class="${ready ? '' : 'mut'}">${ready ? 'Avg ' + Math.round(mean(pts)) : 'Not ready yet'}</b></div><div class="rh-spark">${spark}</div></div>`;
   return `<div class="rh-card">
     <div class="rh-head"><b>${who}</b><span class="rh-info" aria-hidden="true">${ic('info', 20, 1.6)}</span></div>
     <div class="rh-gauge"><svg viewBox="0 0 300 175" width="100%" aria-hidden="true">${arcs}
@@ -280,8 +285,10 @@ function recoveryCard(last) {
       <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
       <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
-    ${done ? '' : `<button class="oh-cta rh-cta" data-act="checkin"><b>Start check-in</b><i class="oh-cta-go">${ic('next', 16, 2.4)}</i></button>`}
+    ${done ? '' : `<button class="rh-todo" data-act="checkin">Complete today’s check-in</button>`}
     <div class="rh-chips" ${done ? '' : 'hidden'}><span class="rh-word">${word}</span>${d == null ? '' : `<span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${Math.abs(d)}</b><em>${dtxt}</em></span>`}</div>
+    <button class="rh-xp" data-act="${done ? 'view-score' : 'checkin'}"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
+    ${twoWeeks}
   </div>`;
 }
 function renderHome() {
