@@ -11,6 +11,9 @@ Object.assign(P, {
   hands: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
   chev: '<path d="M9 6l6 6-6 6"/>',
   left: '<path d="M15 6l-6 6 6 6"/>',
+  pencil: '<path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17z"/><path d="M14 7l3 3"/>',
+  cap: '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.500 6-3v-4.500"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3M5.300 5.300l2.100 2.100M16.600 16.600l2.100 2.100M5.300 18.700l2.100-2.100M16.600 7.400l2.100-2.100"/>',
   out: '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'
 });
 
@@ -242,9 +245,41 @@ function roomsSheet() {
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
 }
 
+
+/* ═════════ PROFILE (Me) — content ported from Patient Dashboard Version 2.0 ═════════ */
+const PF_PEOPLE = [
+  ['#6E9E80', 'DR', 'Daniel Ruiz', 'Your recovery coach', '(310) 555-0142'], ['#4A90D9', 'TB', 'Tasha Brooks', 'Your peer specialist', '(310) 555-0188'],
+  ['#C97B6F', 'MR', 'Mike R.', 'Sponsor · CPRS', '(323) 555-0117'], ['#8A6FB0', 'DE', 'Dr. Elena Rivera', 'Therapist · LCSW', '(310) 555-0164'],
+  ['#D8AD63', 'MS', 'Mom (Sarah M.)', 'Family', '(562) 555-0193'], ['#5E8560', 'JP', 'Jack P.', 'Supportive friend', '(213) 555-0175']
+];
+function renderMe() {
+  const full = [S.name, S.last].filter(Boolean).join(' ') || 'Friend', name = esc(full), ini = esc(full.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'R');
+  const since = new Date(Date.now() - (Math.max(1, S.day || 1) - 1) * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const meds = S.meds && S.meds.length ? S.meds : ['Suboxone 8mg / 2mg'];
+  const helps = [['🚶', 'Go for a walk'], ['📞', 'Call someone I trust'], ['🎵', 'Listen to music'], ['🌬️', 'Breathing exercise']];
+  const care = [['sage', 'Dr', 'Dr. Rivera', 'MOUD Prescriber'], ['purple', 'Th', 'Dr. Chen', 'Therapist · CBT'], ['rose', 'Sp', 'Mike R.', 'Sponsor · CPRS']];
+  const fam = [['gold', 'M', 'Mom (Sarah M.)'], ['sage', 'D', 'Dad (Tom M.)'], ['purple', 'E', 'Emily M. (Sister)']];
+  const menu = [['b', 'book', 'Guides', 'pf-soon', 'Guides'], ['a', 'cap', 'Tutorials', 'pf-soon', 'Tutorials'], ['g', 'gear', 'Settings &amp; Preferences', 'pf-soon', 'Settings'], ['b', 'shield', 'Privacy &amp; Data Sharing', 'pf-soon', 'Privacy'], ['b', 'sparkle', 'App Help Guide', 'me-replay', '']];
+  const rem = [['morning', 'Morning', '☕'], ['afternoon', 'Midday', '🥗'], ['evening', 'Evening', '🌙']];
+  $('#v-me').innerHTML = `<div class="pf-hero"><div class="pf-hero-av">${ini}</div><h1>${name}</h1><p>Clean since ${since}</p>
+      <div class="pf-tags"><span class="gold">Level 4 · Bloom</span><span class="sage">2,340 XP</span></div></div>
+    <div class="pf-card"><h3>Medication</h3>${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
+    <div class="pf-card"><div class="pf-h"><h3>What Helps Me</h3><button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button></div>
+      <div class="pf-chips">${helps.map(([e, t]) => `<span><i>${e}</i>${t}</span>`).join('')}</div></div>
+    <div class="pf-card"><div class="pf-h"><h3>My People · Call or Text</h3><button class="pf-add" data-act="pf-soon" data-t="Add a person">${ic('plus', 14, 2.4)}Add</button></div>
+      ${PF_PEOPLE.map(([c, i, n, r, p]) => { const d = p.replace(/[^\d+]/g, ''); return `<div class="pf-row"><span class="pf-av" style="background:${c}">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
+    <div class="pf-card"><h3>Care Team</h3>${care.map(([t, i, n, r]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>${r}</small></div></div>`).join('')}</div>
+    <div class="pf-card"><h3>Family Connected</h3>${fam.map(([t, i, n]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>1 reward pledged</small></div></div>`).join('')}</div>
+    <div class="pf-card"><h3>Daily reminder</h3><div class="me-rem-t"><small>Check-in time · Next: ${nextTrigger()}</small></div>
+      <div class="me-seg">${rem.map(([k, l, e]) => `<button class="${S.remind === k ? 'on' : ''}" data-act="me-remind" data-k="${k}"><i>${e}</i>${l}</button>`).join('')}</div></div>
+    <div class="pf-menu">${menu.map(([t, i, l, a, d]) => `<button class="pf-mrow t-${t}" data-act="${a}" data-t="${d}"><span class="pf-mic">${ic(i, 20, 1.8)}</span><b>${l}</b>${ic('chev', 16, 2.2)}</button>`).join('')}
+      <button class="pf-mrow t-r" data-act="me-logout"><span class="pf-mic">${ic('out', 20, 1.8)}</span><b>Log out</b></button></div>`;
+}
+
 /* ═════════ wiring ═════════ */
 Object.assign(ACT, {
   help: () => helpSheet(),
+  'pf-soon': el => soonScreen(el.dataset.t || 'Coming soon', 'gear', 'Coming soon', 'This part of your profile is on its way.'),
   'md-crisis': () => crisisScreen(),
   'md-urge': el => { $$('.md-layer').forEach(popLayer); setTimeout(() => openTool('urge'), 200); },
   'md-team': () => mdLayer('Reach my support team', CONTACTS.support.map(ctRow).join('')),
