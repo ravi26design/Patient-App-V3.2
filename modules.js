@@ -98,9 +98,9 @@ function pgChart() {
   const keys = PG.items, W = 330, H = 190, L = 34, T = 12, B = 26;
   const mixed = keys.length > 1 && keys.includes('health'), rightPad = mixed ? 34 : 10;
   const iw = W - L - rightPad, ih = H - T - B;
-  const axis = (k, x, anchor) => { const d = PG_DATA[k], ticks = d.hi === 100 ? [0, 25, 50, 75, 100] : [1, 2, 3, 4, 5]; return ticks.map(v => `<text x="${x}" y="${(T + ih - (v - d.lo) / (d.hi - d.lo) * ih + 3).toFixed(1)}" font-size="9" text-anchor="${anchor}" fill="${d.hex}">${v}</text>`).join(''); };
-  let grid = '', lines = '', xl = '';
-  [0, .25, .5, .75, 1].forEach(f => { grid += `<line x1="${L}" x2="${W - rightPad}" y1="${(T + ih * f).toFixed(1)}" y2="${(T + ih * f).toFixed(1)}" stroke="rgba(31,42,55,.06)"/>`; });
+  const axis = (k, x, anchor) => { const d = PG_DATA[k], ticks = d.hi === 100 ? [0, 20, 40, 60, 80, 100] : [1, 2, 3, 4, 5]; return ticks.map(v => `<text x="${x}" y="${(T + ih - (v - d.lo) / (d.hi - d.lo) * ih + 3).toFixed(1)}" font-size="9" text-anchor="${anchor}" fill="${d.hex}">${v}</text>`).join(''); };
+  let grid = `<line x1="${L}" x2="${L}" y1="${T}" y2="${T + ih}" stroke="rgba(31,42,55,.10)"/>`, lines = '', xl = '';
+  (PG_DATA[keys[0]].hi === 100 ? [0, .2, .4, .6, .8, 1] : [0, .25, .5, .75, 1]).forEach(f => { grid += `<line x1="${L}" x2="${W - rightPad}" y1="${(T + ih * f).toFixed(1)}" y2="${(T + ih * f).toFixed(1)}" stroke="rgba(31,42,55,.06)"/>`; });
   keys.forEach((k, ki) => {
     const d = PG_DATA[k], s = tfSeries(d.daily, d.monthly, PG.tf, PG.off), n = s.data.length;
     const xy = s.data.map((v, i) => [L + (n > 1 ? i * iw / (n - 1) : iw / 2), T + ih - (v - d.lo) / (d.hi - d.lo) * ih]);
@@ -108,9 +108,7 @@ function pgChart() {
     const id = 'pgf' + ki;
     if (keys.length === 1) lines += `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${d.hex}" stop-opacity=".26"/><stop offset="1" stop-color="${d.hex}" stop-opacity=".02"/></linearGradient></defs><path d="${pgSmooth(xy)} L${xy[n - 1][0].toFixed(1)} ${T + ih} L${xy[0][0].toFixed(1)} ${T + ih}z" fill="url(#${id})"/>`;
     lines += `<path d="${pgSmooth(xy)}" fill="none" stroke="${d.hex}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-    const lp = xy[n - 1], lv = s.data[n - 1], lt = d.hi === 100 ? Math.round(lv) : lv.toFixed(1);
-    lines += `<circle cx="${lp[0].toFixed(1)}" cy="${lp[1].toFixed(1)}" r="9" fill="${d.hex}" opacity=".16"/><circle cx="${lp[0].toFixed(1)}" cy="${lp[1].toFixed(1)}" r="5" fill="${d.hex}" stroke="#fff" stroke-width="2"/>${keys.length === 1 ? `<g transform="translate(${Math.min(lp[0], W - rightPad - 14).toFixed(1)} ${Math.max(lp[1] - 22, 4).toFixed(1)})"><rect x="-16" width="32" height="17" rx="8.5" fill="${d.hex}"/><text y="12" font-size="10" font-weight="600" text-anchor="middle" fill="#fff">${lt}</text></g>` : ''}`;
-    if (n <= 14) lines += xy.slice(0, -1).map(q => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.4" fill="#fff" stroke="${d.hex}" stroke-width="2"/>`).join('');
+    if (n <= 14) lines += xy.map(q => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.4" fill="#fff" stroke="${d.hex}" stroke-width="2"/>`).join('');
   });
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Trend chart">${grid}${axis(keys[0], L - 6, 'end')}${mixed ? axis(keys.find(k => k !== 'health'), W - rightPad + 6, 'start') : ''}${lines}${xl}</svg>`;
 }
@@ -125,19 +123,19 @@ function pgStats() {
 function pgTitle() { const k = PG.items; return k.map(x => `<span style="color:${PG_DATA[x].hex}">${PG_DATA[x].label}</span>`).join('<span class="pg-vs"> vs </span>'); }
 function pgPaint() {
   const v = $('#v-progress'); if (!v) return;
-  $('#pg-title', v).innerHTML = pgTitle(); $('#pg-chart', v).innerHTML = pgChart(); $('#pg-stats', v).innerHTML = pgStats();
+  $('#pg-title', v).innerHTML = pgTitle(); $('#pg-chart', v).innerHTML = pgChart();
   $$('.pg-tf button', v).forEach(b => b.classList.toggle('on', b.dataset.tf === PG.tf));
   const nav = $('#pg-nav', v); nav.hidden = PG.tf !== 'W';
   $('#pg-wk', v).textContent = PG.off === 0 ? 'This week' : PG.off === 1 ? 'Last week' : PG.off + ' weeks ago';
   $('#pg-prev', v).disabled = PG.off >= PG_MAXOFF; $('#pg-next', v).disabled = PG.off <= 0;
   $$('.pg-item', v).forEach(b => b.classList.toggle('on', PG.items.includes(b.dataset.k)));
-  $('#pg-legend', v).innerHTML = PG.items.length > 1 ? PG.items.map(k => `<span><i style="background:${PG_DATA[k].hex}"></i>${PG_DATA[k].label}</span>`).join('') : '';
+  $('#pg-legend', v).innerHTML = PG.items.map(k => `<span><svg width="30" height="10" viewBox="0 0 30 10"><path d="M0 5h30" stroke="${PG_DATA[k].hex}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 14" stroke-dashoffset="-1"/><circle cx="15" cy="5" r="4.2" fill="${PG_DATA[k].hex}"/></svg>${PG_DATA[k].label}</span>`).join('');
 }
 function renderProgress() {
   $('#v-progress').innerHTML = `<div class="wal-top"><h1>Progress</h1><p class="md-sub">See how your recovery health and daily factors trend over time.</p></div>
-  <div class="pad"><div class="pg-card2"><div class="pg-h2"><b id="pg-title" class="pg-t"></b><div class="pg-tf">${['W', 'M', '6M', 'Y'].map(t => `<button data-act="pg-tf" data-tf="${t}">${t}</button>`).join('')}</div></div>
+  <div class="pad"><div class="pg-card2"><div class="pg-h2"><b id="pg-title" class="pg-t"></b><button class="pg-info" data-act="pg-info" aria-label="About this chart">${ic('info', 22, 1.8)}</button></div><div class="pg-tf">${['W', 'M', '6M', 'Y'].map(t => `<button data-act="pg-tf" data-tf="${t}">${t}</button>`).join('')}</div>
     <div class="pg-nav" id="pg-nav"><button id="pg-prev" data-act="pg-wk" data-d="1" aria-label="Previous week">${ic('left', 18, 2)}</button><span id="pg-wk">This week</span><button id="pg-next" data-act="pg-wk" data-d="-1" aria-label="Next week">${ic('chev', 18, 2)}</button></div>
-    <div class="pg-stats" id="pg-stats"></div><div id="pg-chart"></div><div class="pg-legend" id="pg-legend"></div></div>
+    <div id="pg-chart"></div><div class="pg-legend" id="pg-legend"></div></div>
   <div class="pg-card2"><b class="pg-t2">Compare factors</b><p class="pg-hint">Pick up to 2 to see them side by side.</p>
     <div class="pg-grid">${Object.keys(PG_DATA).map(k => `<button class="pg-item" style="--cat:${PG_DATA[k].hex}" data-act="pg-item" data-k="${k}"><span class="pg-e">${PG_EMO[k]}</span><span class="pg-n">${PG_DATA[k].label}</span><span class="pg-ck">${ic('check', 12, 3)}</span></button>`).join('')}</div></div></div>`;
   pgPaint();
@@ -247,6 +245,7 @@ Object.assign(ACT, {
   'md-team': () => mdLayer('Reach my support team', CONTACTS.support.map(ctRow).join('')),
   'md-nalox': () => soonScreen('Find naloxone', 'pill', 'Naloxone finder coming soon', 'We’re building a map of pharmacies and free distribution points near you. In the meantime, call <b>988</b> or your pharmacy to ask where to get naloxone.'),
   'md-guide': () => { $$('.md-layer').forEach(popLayer); setTimeout(() => ACT['me-replay'](), 220); },
+  'pg-info': () => toast('Tap factors below to compare how they move together'),
   'pg-tf': el => { PG.tf = el.dataset.tf; if (PG.tf === 'W') PG.off = 0; pgPaint(); },
   'pg-wk': el => { PG.off = Math.max(0, Math.min(PG_MAXOFF, PG.off + +el.dataset.d)); pgPaint(); },
   'pg-item': el => {
