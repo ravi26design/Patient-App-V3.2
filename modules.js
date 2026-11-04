@@ -196,9 +196,6 @@ function renderCommunity() {
         <button class="hub-opt" data-act="cm-soon" data-t="Find a meeting"><span class="hub-opt-ic" style="background:#FAE7E2;color:#C56A5E">${ic('compass', 20, 1.8)}</span><b>Find a Meeting</b><small>In-person, virtual &amp; hybrid</small></button></div></div>
     <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#5B92CE">${ic('chat', 22, 1.8)}</span><div><b>Find your people</b><small>Join the conversation in topic rooms</small></div></div>
       <div class="hub-opts one"><button class="hub-opt wide" data-act="cm-rooms"><span class="hub-opt-ic" style="background:#E4EDF5;color:#4E7FA8">${ic('globe', 20, 1.8)}</span><b>All Rooms</b><small>Browse every room</small></button></div></div>
-    <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#D8AD63">${ic('users', 22, 1.8)}</span><div><b>Rudra Followers &amp; Friends</b><small>Your people on Rudra</small></div></div>
-      <div class="hub-friends"><div class="hub-stack"><i style="background:#6E9E80">DR</i><i style="background:#4A90D9">TB</i><i style="background:#C97B6F">MR</i><i class="more">+9</i></div><span><b>12</b> friends · <b>18</b> followers</span></div>
-      <div class="hub-btns"><button class="p" data-act="cm-soon" data-t="Friends">View</button><button data-act="cm-soon" data-t="Add a friend">+ Add friend</button></div></div>
     <button class="compose-bar" id="cm-bar" data-act="cm-open"><span class="cp-av sm">${me}</span><span id="cm-bar-ph">Share something, ask, or just say you’re here…</span><span class="cb-mic">${ic('mic', 18, 1.8)}</span></button>
     <div class="cm-comp" id="cm-comp" hidden>
       <div class="cmp-top"><span class="cp-av">${me}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="cm-close" aria-label="Close">${ic('x', 18, 2)}</button></div>
