@@ -377,7 +377,7 @@ function focusCard() {
   const last = S.history[S.history.length - 1], dn = checkedInToday() && last;
   if (!dn) return `<div class="fc-card"><div class="fc-top"><span class="fc-ic t-r">${ic('bolt', 26, 1.7)}</span><div><small>Today’s focus</small><b class="muted">Not ready yet</b></div></div>
     <p class="fc-note">Your focus and recovery activity for today show here after your daily reflection.</p>
-    <button class="fc-btn" data-act="checkin">Begin Daily Reflection ${ic('next', 18, 2.4)}</button><span class="fc-cap">About 1 minute · unlocks today’s score</span></div>`;
+    <button class="fc-btn" data-act="checkin">Complete today’s check-in ${ic('next', 18, 2.4)}</button><span class="fc-cap">About 1 minute · unlocks today’s score</span></div>`;
   const k = focusKey(last), f = FOCUS[k], fin = S.focusDone === today();
   return `<div class="fc-card"><div class="fc-top"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>Today’s focus</small><b>${f.name}</b></div></div>
     <p class="fc-line">${f.line}</p>

@@ -515,3 +515,15 @@
 /* Wallet — streak / activities tiles centred */
 .bal-grid>div{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;padding:14px}
 .bal-grid small{display:block;margin:0 0 6px;line-height:1.2}.bal-grid b{display:block;line-height:1.2}
+
+.rh-chips .rh-todo{flex:0 0 auto;margin:0 auto;padding:0 28px;text-align:center}
+
+/* check-in buttons — solid primary */
+.rh-chips .rh-todo{background:var(--cta,#6C9FCC)!important;color:#fff!important;border:0;box-shadow:none;height:50px;cursor:pointer}
+.fc-btn{background:var(--cta,#6C9FCC)!important;box-shadow:none!important}
+
+/* one CTA style for both check-in buttons */
+.rh-chips .rh-todo,.fc-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;padding:0 20px;border:0;border-radius:28px;background:var(--cta,#6C9FCC)!important;color:#fff!important;font:600 17px/1 inherit;text-transform:none!important;letter-spacing:0!important;box-shadow:none!important;flex:1 1 100%}
+.rh-chips:has(.rh-todo){display:block}
+.rh-chips .rh-todo{margin:0}
+.rh-chips .rh-todo,.fc-btn{font-size:17px!important;font-weight:600!important;line-height:1!important}
