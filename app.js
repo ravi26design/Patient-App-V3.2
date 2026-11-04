@@ -193,7 +193,7 @@ const ONB = [
 ];
 const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `onb-${n}.jpg?v=10`);
 let onbI = 0;
-const OB_TOTAL = 6;
+const OB_TOTAL = 4;
 const obHead = (n, back) => `<div class="step-head">${back ? `<button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button>` : ''}<div class="step-bar"><i style="width:${n / OB_TOTAL * 100}%"></i></div><span class="step-n"><b>${n}</b>/${OB_TOTAL}</span></div>`;
 function renderOnb(i = 0) {
   onbI = i; showView('onb'); $('#nav').hidden = true;

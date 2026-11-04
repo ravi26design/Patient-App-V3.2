@@ -185,16 +185,8 @@ function renderStep(n) {
     const all = [...MEDS, ...S.meds.filter(m => !MEDS.includes(m))];
     v.innerHTML = `<div class="ob-page">${stepHead(1)}<h1 class="step-h">Which <em>medications</em> are you currently taking?</h1><p class="step-p">Select all that apply, or add your own.</p>${addRow('meds', 'Type a medication…')}
       <div class="mgrid" id="mgrid">${all.map((m, i) => tile('meds', m, 'pill', i, S.meds.includes(m))).join('')}</div>${cont()}</div>`;
-  } else if (n === 2) {
-    const base = URGES.map(r => r[0]), all = [...URGES, ...S.urges.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
-    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">What brings on your <em>urges</em>?</h1><p class="step-p">Select all that apply, or add your own.</p>${addRow('urges', 'Type a trigger…')}
-      <div class="mgrid" id="mgrid">${all.map(([r, ic2], i) => tile('urges', r, ic2, i, S.urges.includes(r))).join('')}</div>${cont()}</div>`;
-  } else if (n === 3) {
-    const base = RELIEF.map(r => r[0]), all = [...RELIEF, ...S.relief.filter(r => !base.includes(r)).map(r => [r, 'sparkle'])];
-    v.innerHTML = `<div class="ob-page">${stepHead(3)}<h1 class="step-h">What brings you <em>relief</em>?</h1><p class="step-p">Things you enjoy can help an urge pass. I’ll keep these one tap away on your Urge button.</p>${addRow('relief', 'Type an activity…')}
-      <div class="mgrid" id="mgrid">${all.map(([r, ic2], i) => tile('relief', r, ic2, i, S.relief.includes(r))).join('')}</div>${cont()}</div>`;
   } else {
-    v.innerHTML = `<div class="ob-page">${stepHead(4)}<h1 class="step-h">Connect your <em>care team</em></h1><p class="step-p">Link your clinic to securely sync appointments and your treatment plan. This is optional.</p>
+    v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">Connect your <em>care team</em></h1><p class="step-p">Link your clinic to securely sync appointments and your treatment plan. This is optional.</p>
       <div class="fld"><label class="lbl" for="cn">Clinic name</label><input class="inp" id="cn" placeholder="Enter clinic name" value="${esc(S.clinic.name)}" autocomplete="off"></div>
       <div class="fld"><label class="lbl" for="cc2">Or clinic code</label><input class="inp" id="cc2" placeholder="Enter clinic code" value="${esc(S.clinic.code)}" autocomplete="off" autocapitalize="characters"></div>
       <p class="privacy">${ic('shield', 18)}<span>Protected under <b>42 CFR Part 2</b> &amp; HIPAA. You always control what’s shared.</span></p>
@@ -213,9 +205,9 @@ function pickItem(el) {
   const on = i < 0; el.classList.toggle('on', on); el.setAttribute('aria-pressed', on); $('.plus', el).innerHTML = ic(on ? 'check' : 'plus', 14, 2.6); save();
 }
 function stepNext() {
-  if (obStep === 4) { S.clinic = { name: $('#cn').value.trim(), code: $('#cc2').value.trim() }; save(); }
+  if (obStep === 2) { S.clinic = { name: $('#cn').value.trim(), code: $('#cc2').value.trim() }; save(); }
   if (obEdit) return leaveOnboarding('Saved');
-  if (obStep < 4) renderStep(obStep + 1); else finishOnboarding();
+  if (obStep < 2) renderStep(obStep + 1); else finishOnboarding();
 }
 function obBack() {
   if (pStep === 2 && $('#v-setup').querySelector('.pst')) { pStep = 1; return renderProfile(); }
@@ -235,6 +227,6 @@ Object.assign(ACT, {
   'add-item': el => addItem(el.dataset.kind),
   'step-next': stepNext,
   'care-skip': () => { S.clinic = { name: '', code: '' }; finishOnboarding(); },
-  'edit-step': el => { obEdit = 'me'; const s = el.dataset.s; if (s === 'profile') { pStep = 1; renderProfile(); } else renderStep({ meds: 1, urges: 2, relief: 3, care: 4 }[s]); }
+  'edit-step': el => { obEdit = 'me'; const s = el.dataset.s; if (s === 'profile') { pStep = 1; renderProfile(); } else renderStep({ meds: 1, care: 2 }[s]); }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'add-in') { e.preventDefault(); addItem({ 1: 'meds', 2: 'urges', 3: 'relief' }[obStep]); } });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'add-in') { e.preventDefault(); addItem({ 1: 'meds' }[obStep]); } });
