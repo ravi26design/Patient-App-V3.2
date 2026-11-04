@@ -293,15 +293,6 @@ function renderHome() {
   <div class="oh-top"><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai">
     <div class="oh-actions"><button class="oh-chip" data-act="help" aria-label="Location">${ic('pin', 22, 1.6)}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
-  <button class="oh-hero ${done ? 'is-done' : ''}" data-act="${done ? 'view-score' : 'checkin'}">
-    <div class="oh-row"><span class="oh-lab">${dateLine()}</span><span class="oh-arrow">${ARROW_UR}</span></div>
-    <div class="oh-hero-b">
-      <h2>${done ? 'Nice work, check-in complete' : 'Ready for your daily check-in?'}</h2>
-      <p class="oh-hp">${done ? 'Your score is updated. See what it says about today.' : 'Two minutes, one question at a time.'}</p>
-      <div class="oh-act"><span class="oh-cta"><b>${done ? 'See my score' : 'Start check-in'}</b><i class="oh-cta-go">${ic('next', 16, 2.4)}</i></span>
-        <div class="oh-chips">${done ? `<span class="lime">Score ${last ? last.overall : ''}</span>` : `<span class="lime"><i>Earn</i> +${usd(10)}</span>`}</div></div>
-    </div>
-  </button>
   ${recoveryCard(last)}
   <div class="oh-pair">
     ${(() => {
