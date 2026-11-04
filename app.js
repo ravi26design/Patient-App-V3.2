@@ -163,7 +163,7 @@ const nextReward = () => REWARDS.find(r => r.at > S.bucks) || REWARDS[REWARDS.le
 
 /* ═════════ router / views ═════════ */
 let tab = 'home';
-const VIEWS = ['onb', 'setup', 'home', 'tools', 'wallet', 'me'];
+const VIEWS = ['onb', 'setup', 'home', 'tools', 'wallet', 'me', 'community', 'progress'];
 function mountViews() {
   $('#views').innerHTML = VIEWS.map(v => `<section class="view${v === 'onb' ? ' noscroll' : ''}" id="v-${v}" hidden></section>`).join('');
 }
@@ -172,13 +172,14 @@ function go(t) {
   tab = t; showView(t);
   $('#nav').hidden = false;
   if (t === 'wallet') markWalletViewed();   // loop step: View Wallet
-  ({ home: renderHome, tools: renderTools, wallet: renderWallet, me: renderMe })[t]();
+  ({ home: renderHome, tools: renderTools, wallet: renderWallet, me: renderMe, community: renderCommunity, progress: renderProgress })[t]();
   renderNav(); $('#v-' + t).scrollTop = 0;
 }
 function renderNav() {
-  const items = [['home', 'Today', 'home'], ['tools', 'Tools', 'tools']];
-  items.push(['wallet', 'Wallet', 'coin'], ['me', 'Me', 'user']);
-  $('#nav').innerHTML = items.map(([id, l, i]) => `<button data-act="tab" data-v="${id}" class="${tab === id ? 'on' : ''}" aria-label="${l}">${ic(i, 22)}<span>${l}</span></button>`).join('');
+  const item = ([id, l, i]) => `<button data-act="tab" data-v="${id}" class="${tab === id ? 'on' : ''}" aria-label="${l}">${ic(i, 24)}<span>${l}</span></button>`;
+  $('#nav').innerHTML = [['home', 'Home', 'home'], ['community', 'Community', 'chat']].map(item).join('')
+    + `<button class="nav-help" data-act="help" aria-label="Help">${ic('plus', 26, 2.6)}<span>HELP</span></button>`
+    + [['progress', 'Progress', 'bars'], ['wallet', 'Wallet', 'coin']].map(item).join('');
 }
 const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good night' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; };
 
@@ -314,7 +315,7 @@ function renderHome() {
   const week = Array.from({ length: 7 }, (_, k) => { const d = daysAgo(6 - k); return { done: S.history.some(h => h.date === d) || (k === 6 && done), now: k === 6 }; });
   const wdone = week.filter(x => x.done).length;
   v.innerHTML = `
-  <div class="oh-top"><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai">
+  <div class="oh-top"><div class="oh-lead"><button class="oh-chip" data-act="tab" data-v="me" aria-label="Profile">${ic('user', 22, 1.6)}</button><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai"></div>
     <div class="oh-actions"><button class="oh-chip" data-act="help" aria-label="Location">${ic('pin', 22, 1.6)}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${recoveryCard(last)}

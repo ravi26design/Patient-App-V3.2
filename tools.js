@@ -275,6 +275,27 @@ function renderWallet() {
   countUp($('#wb'), S.bucks, 900, 0, v => usd(v));
 }
 
+/* ═════════ COMMUNITY / PROGRESS ═════════ */
+function renderCommunity() {
+  $('#v-community').innerHTML = `<div class="wal-top"><h1>Community</h1></div>
+  <div class="pad"><div class="empty-card"><span class="empty-ic">${ic('chat', 30, 1.5)}</span><h3>Community is coming soon</h3><p>Support from people on the same path. We’ll let you know as soon as it opens.</p></div></div>`;
+}
+function renderProgress() {
+  const h = S.history, pts = h.slice(-14).map(x => x.overall), n = h.length;
+  const wordOf = v => v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
+  if (!n) { $('#v-progress').innerHTML = `<div class="wal-top"><h1>Progress</h1></div><div class="pad"><div class="empty-card"><span class="empty-ic">${ic('bars', 30, 1.5)}</span><h3>Nothing to show yet</h3><p>Complete a check-in and your recovery score, streak and history will build up here.</p><button class="btn" data-act="checkin">Start check-in</button></div></div>`; return; }
+  const avg = Math.round(pts.reduce((a, b) => a + b, 0) / pts.length), series = pts.length === 1 ? [pts[0], pts[0], pts[0]] : pts;
+  const W = 300, H = 120, lo = Math.min(...series), hi = Math.max(...series), rg = Math.max(hi - lo, 12), mid = lo + (hi - lo) / 2;
+  const xy = series.map((v, i) => [12 + i * (W - 24) / (series.length - 1), H / 2 - (v - mid) / rg * (H - 50)]);
+  const path = xy.map((q, i) => { if (!i) return `M${q[0].toFixed(1)} ${q[1].toFixed(1)}`; const p0 = xy[i - 1], mx = ((p0[0] + q[0]) / 2).toFixed(1); return `C${mx} ${p0[1].toFixed(1)} ${mx} ${q[1].toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }).join(' ');
+  const last = xy[xy.length - 1];
+  const chart = `<svg viewBox="0 0 ${W} ${H}" width="100%" aria-hidden="true"><defs><linearGradient id="pgg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6C9FCC" stop-opacity=".28"/><stop offset="1" stop-color="#6C9FCC" stop-opacity="0"/></linearGradient></defs><path d="${path} L${last[0].toFixed(1)} ${H} L${xy[0][0].toFixed(1)} ${H}z" fill="url(#pgg)"/><path d="${path}" fill="none" stroke="#6C9FCC" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="7" fill="#6C9FCC" stroke="#fff" stroke-width="3.5"/></svg>`;
+  $('#v-progress').innerHTML = `<div class="wal-top"><h1>Progress</h1></div>
+  <div class="pad"><div class="pg-card"><div class="pg-h"><b>Recovery Health</b><small>Last ${pts.length} check-in${pts.length === 1 ? '' : 's'}</small></div>${chart}</div>
+    <div class="pg-stats"><div><b>${n}</b><small>Check-ins</small></div><div><b>${S.streak}</b><small>Day streak</small></div><div><b>${S.bestStreak || S.streak}</b><small>Best streak</small></div><div><b>${avg}</b><small>Average score</small></div></div>
+    <div class="pg-recent"><div class="eyebrow">Recent check-ins</div><div class="pg-list">${h.slice(-7).reverse().map(x => `<div class="pg-row"><span class="pg-ic">${ic('check', 18, 2.2)}</span><div><b>${x.date === today() ? 'Today' : x.date === daysAgo(1) ? 'Yesterday' : new Date(x.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</b><small>${wordOf(x.overall)}</small></div><span class="pg-score">${x.overall}</span></div>`).join('')}</div></div></div>`;
+}
+
 /* ═════════ ME ═════════ */
 function renderMe() {
   const first = esc([S.name, S.last].filter(Boolean).join(' ') || 'Friend'), initial = esc((S.name || 'R').charAt(0).toUpperCase());

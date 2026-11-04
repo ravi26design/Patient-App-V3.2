@@ -996,3 +996,39 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .in-readmore svg{transition:transform .2s}
 .in-readmore.open svg{transform:rotate(180deg)}
 .in-layer .ci-foot{position:absolute;left:0;right:0;bottom:0}
+
+/* bottom bar: Home, Community, HELP (raised), Progress, Wallet + profile icon on Home */
+.oh-top .oh-lead{display:flex;align-items:center;gap:14px}
+.nav{display:flex!important;align-items:flex-end;justify-content:space-between;height:76px!important;padding:8px 6px 8px!important;overflow:visible!important;border-radius:32px!important}
+.nav button{flex:1;height:60px!important;background:transparent!important;border-radius:20px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8A97A6!important}
+.nav button span{display:block!important;font-size:11.5px;font-weight:500;letter-spacing:0}
+.nav button svg{width:24px!important;height:24px!important;stroke-width:1.6!important}
+.nav button.on{color:var(--cta-d)!important}
+.nav button.on span{font-weight:700}
+.nav .nav-help{flex:0 0 88px;position:relative;height:60px!important;overflow:visible;color:#fff!important;background:transparent!important}
+.nav .nav-help::before{content:"";position:absolute;left:50%;top:-30px;width:80px;height:80px;margin-left:-40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#DE9488 0%,#C9766B 60%,#B8645A 100%);box-shadow:0 10px 26px rgba(201,118,107,.45)}
+.nav .nav-help svg,.nav .nav-help span{position:relative;z-index:1;margin-top:-22px;color:#fff;width:22px!important;height:22px!important}
+.nav .nav-help span{margin-top:0;font-size:12px;font-weight:700;letter-spacing:.04em}
+
+/* Community / Progress */
+.empty-card{margin-top:24px;padding:34px 26px;border-radius:32px;background:#fff;text-align:center;box-shadow:var(--shadow-soft)}
+.empty-card .empty-ic{display:inline-grid;place-items:center;width:68px;height:68px;border-radius:22px;background:#E6EFF9;color:#4F82B0}
+.empty-card h3{margin:16px 0 8px;font-size:22px;font-weight:600;color:#2F3A45}
+.empty-card p{color:#7C8896;font-size:16px;line-height:1.5;margin-bottom:6px}
+.empty-card .btn{margin-top:18px}
+.pg-card{margin-top:8px;padding:22px 20px 14px;border-radius:32px;background:#fff;box-shadow:var(--shadow-soft)}
+.pg-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.pg-h b{font-size:19px;font-weight:600;color:#2F3A45}.pg-h small{font-size:13px;color:#8F9AA5}
+.pg-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.pg-stats>div{padding:18px;border-radius:24px;background:#fff;box-shadow:var(--shadow-soft)}
+.pg-stats b{display:block;font-size:32px;font-weight:600;letter-spacing:-.03em;color:#2F3A45}
+.pg-stats small{display:block;margin-top:4px;font-size:14px;color:#8F9AA5}
+.pg-score{margin-left:auto;font-size:20px;font-weight:600;color:#4F82B0}
+.pg-recent{margin-top:22px}
+.pg-recent .eyebrow{margin:0 4px 12px}
+.pg-list{border-radius:28px;background:#fff;box-shadow:var(--shadow-soft);padding:6px 16px}
+.pg-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(31,42,55,.06)}
+.pg-row:last-child{border-bottom:0}
+.pg-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:#E6EFF9;color:#4F82B0;flex:none}
+.pg-row b{display:block;font-size:16px;font-weight:600;color:#2F3A45}
+.pg-row small{display:block;font-size:13.5px;color:#8F9AA5;margin-top:2px}
