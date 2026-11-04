@@ -334,3 +334,17 @@
 .pf-card .pf-sub{margin:14px 0 0}
 .st-row>div{flex:1;min-width:0}.st-row b{font-size:16px!important;white-space:nowrap}
 .st-time select{padding:8px 10px;font-size:13.5px}
+
+/* What Helps Me — pastel tiles */
+.pf-help{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 0 16px}
+.pf-help>div{display:flex;flex-direction:column;gap:14px;min-height:104px;padding:14px;border-radius:22px;background:var(--p);color:var(--a)}
+.pf-help>div>span{display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:rgba(255,255,255,.7)}
+.pf-help b{font-size:15px;font-weight:600;line-height:1.25;color:#2B3139;margin-top:auto}
+.hp-g{--p:#E1ECE2;--a:#4E7A5E}.hp-b{--p:#DEEAF4;--a:#4B77A6}.hp-a{--p:#F7EFD7;--a:#9A7A2E}.hp-r{--p:#F8E5E2;--a:#B8584C}
+.pf-av{font-weight:600}
+/* What Helps Me — horizontal slider */
+.pf-card:has(.pf-help){background:none;box-shadow:none;padding:0;overflow:visible}
+.pf-help{display:flex;gap:10px;margin:0 -20px;padding:2px 20px 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pf-help::-webkit-scrollbar{display:none}
+.pf-help>div{flex:0 0 150px;min-height:132px;scroll-snap-align:start}
+.pf-help{margin:0 calc(-1 * var(--gutter));padding:2px var(--gutter) 6px;scroll-padding-left:var(--gutter)}

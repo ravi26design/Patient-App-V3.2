@@ -256,7 +256,7 @@ function renderMe() {
   const full = [S.name, S.last].filter(Boolean).join(' ') || 'Friend', name = esc(full), ini = esc(full.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'R');
   const since = new Date(Date.now() - (Math.max(1, S.day || 1) - 1) * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   const meds = S.meds && S.meds.length ? S.meds : ['Suboxone 8mg / 2mg'];
-  const helps = [['🚶', 'Go for a walk'], ['📞', 'Call someone I trust'], ['🎵', 'Listen to music'], ['🌬️', 'Breathing exercise']];
+  const helps = [['run', 'g', 'Go for a walk'], ['phone', 'b', 'Call someone I trust'], ['music', 'a', 'Listen to music'], ['wind', 'r', 'Breathing exercise']];
   const care = [['sage', 'Dr', 'Dr. Rivera', 'MOUD Prescriber'], ['purple', 'Th', 'Dr. Chen', 'Therapist · CBT'], ['rose', 'Sp', 'Mike R.', 'Sponsor · CPRS']];
   const menu = [['b', 'book', 'Guides', 'pf-soon', 'Guides'], ['a', 'cap', 'Tutorials', 'pf-soon', 'Tutorials'], ['g', 'gear', 'Settings &amp; Preferences', 'pf-soon', 'Settings'], ['b', 'shield', 'Privacy &amp; Data Sharing', 'pf-soon', 'Privacy'], ['b', 'sparkle', 'App Help Guide', 'me-replay', '']];
   const rem = [['morning', 'Morning', '☕'], ['afternoon', 'Midday', '🥗'], ['evening', 'Evening', '🌙']];
@@ -265,9 +265,9 @@ function renderMe() {
       <div class="pf-stats"><div><b>${S.day || 1}</b><small>Day</small></div><div><b>${S.streak || 0}</b><small>Streak</small></div><div><b>2,340</b><small>XP</small></div><div class="lv"><b>4</b><small>Bloom</small></div></div></div>
     ${lab('Medication')}<div class="pf-card">${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
     ${lab('What Helps Me', `<button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button>`)}<div class="pf-card">
-      <div class="pf-chips">${helps.map(([e, t]) => `<span><i>${e}</i>${t}</span>`).join('')}</div></div>
+      <div class="pf-help">${helps.map(([i, c, t]) => `<div class="hp-${c}"><span>${ic(i, 24, 1.7)}</span><b>${t}</b></div>`).join('')}</div></div>
     ${lab('My People', `<button class="pf-add" data-act="pf-soon" data-t="Add a person">${ic('plus', 14, 2.4)}Add</button>`)}<div class="pf-card"><p class="pf-sub">Call or text anyone in one tap.</p>
-      ${PF_PEOPLE.map(([c, i, n, r, p]) => { const d = p.replace(/[^\d+]/g, ''); return `<div class="pf-row"><span class="pf-av" style="background:${c}">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
+      ${PF_PEOPLE.map(([c, i, n, r, p]) => { const d = p.replace(/[^\d+]/g, ''); return `<div class="pf-row"><span class="pf-av" style="background:color-mix(in srgb,${c} 20%,#fff);color:color-mix(in srgb,${c} 78%,#26323D)">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
     ${lab('Care Team')}<div class="pf-card">${care.map(([t, i, n, r]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>${r}</small></div></div>`).join('')}</div>
     ${lab('Setup reminders')}<div class="pf-card">
       <div class="st-row"><span class="pf-ic blue">${ic('clock', 22, 1.7)}</span><div><b>Daily check-in reminders</b><small id="st-state">${S.remindOn === false ? 'Disabled' : 'Enabled'}</small></div><button class="st-sw${S.remindOn === false ? '' : ' on'}" id="st-sw" role="switch" aria-checked="${S.remindOn !== false}" aria-label="Daily check-in reminders" data-act="pf-rem-toggle"><i></i></button></div>
