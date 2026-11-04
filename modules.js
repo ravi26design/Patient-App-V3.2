@@ -133,37 +133,32 @@ function renderProgress() {
 }
 
 /* ═════════ COMMUNITY ═════════ */
-const ROOMS = {
-  checkin: ['✅', 'Check-in', '#5E8B6E'], wins: ['🎉', 'Win', '#C9973B'], questions: ['❓', 'Question', '#4E7FA8'], struggling: ['🫂', 'Struggling today', '#C4736A'], latenight: ['🌙', 'Late night', '#6B5DB0'],
-  na: ['👣', 'NA · 12-Step', '#3F6650'], smart: ['🧠', 'SMART Recovery', '#8A6FB0'], dharma: ['🪷', 'Recovery Dharma', '#C06E82'], spirituality: ['🕊️', 'Spirituality & Faith', '#5591B6'], mat: ['💊', 'MAT & meds', '#C1744C'], harm: ['🩹', 'Harm reduction', '#7A8F5A'],
-  parents: ['👨‍👩‍👧', 'Parents', '#B07A4E'], lgbtq: ['🌈', 'LGBTQ+', '#B05A8F'], veterans: ['🎖️', 'Veterans', '#5A6F8F'], women: ['👩', 'Women', '#C06E82'], men: ['👨', 'Men', '#4E7FA8'], youngadults: ['🎓', 'Young adults', '#4F9A8A'],
-  work: ['💼', 'Work & money', '#8A7D4E'], grief: ['🕯️', 'Grief & loss', '#7A6FA0'], relationships: ['🤝', 'Relationships', '#C97B6F'], sober_fun: ['🎳', 'Sober fun', '#4F9A7A']
-};
+const ROOMS = { community: ['💬', 'Community Room', '#4E7FA8'] };
 const TINT = { blue: '#DEEAF4', sage: '#E1ECE2', gold: '#FAEFD6', coral: '#F8E5E2' };
 const REACT = [['heart', '❤️', 'Been there', 'hearts'], ['support', '🙌', 'Proud of you', 'supports'], ['strong', '💪', 'Stay strong', 'strong'], ['pray', '🙏', 'Holding you', 'pray']];
 const mk = (id, user, tint, channel, time, text, hearts, supports, replies = [], extra = {}) => ({ id, user, tint, channel, time, text, hearts, supports, strong: 0, pray: 0, replies, ...extra });
 const POSTS = [
-  mk(9, 'northstar', 'gold', 'lgbtq', '12m ago', 'If today’s your first day back after a hard stretch — that’s not a demotion. Recovery isn’t linear for anyone in here. Proud of you for showing up.', 41, 19),
-  mk(8, 'tidewalker', 'blue', 'latenight', '38m ago', 'Anyone else awake at 2am white-knuckling it? Just needed to say it somewhere.', 27, 8, [{ user: 'riverbend', text: 'Here. Not going anywhere. What’s the loudest thought right now?' }]),
-  mk(104, 'stepbystep', 'blue', 'na', '40m ago', '90 days today. Working Step 4 with my sponsor this week — the searching-and-fearless part is no joke. Anyone got a gentle way to think about the resentment list?', 52, 31, [{ user: 'Marcus T.', text: 'Peer specialist here — a lot of people write the resentment first and the “my part” column last, on a different day. You don’t have to do it all in one sitting.' }]),
-  mk(7, 'Denise R.', 'blue', 'parents', '1h ago', 'Question from a few of you this week: yes, it’s normal for cravings to spike around custody visits. It’s a trigger, not a setback. Plan the hour before and the hour after, not just the visit itself.', 63, 22),
-  mk(103, 'toolbox', 'gold', 'smart', '1h ago', 'Used the SMART cost-benefit worksheet on my 5pm craving instead of just white-knuckling. Writing down what using would actually cost me tomorrow killed most of the urge.', 38, 16),
-  mk(6, 'emberly', 'coral', 'questions', '2h ago', 'Does buprenorphine make anyone else feel foggy in the mornings, or is that just me still adjusting?', 9, 4, [{ user: 'James O.', text: 'Common in the first few weeks — worth mentioning your dose timing to your prescriber. Mine moved mine to bedtime and it helped a lot.' }]),
-  mk(102, 'stillwater', 'sage', 'dharma', '2h ago', 'Reminder for anyone sitting with a craving right now: you can watch it rise and pass without acting on it. It’s a wave, not a command. Ten slow breaths — I’ll sit with you.', 74, 29),
-  mk(5, 'quietpine', 'sage', 'wins', '3h ago', 'Took my kid to school again this morning. Eight years ago I couldn’t have named her teacher. Small, but it’s mine.', 118, 54),
-  mk(101, 'dawnlight', 'blue', 'spirituality', '3h ago', 'Faith is the thing that gets me to my morning meeting some days. Not preaching to anyone — just grateful there’s a room here where I can say that without it being weird. What keeps you grounded?', 61, 24),
-  mk(4, 'riverbend', 'sage', 'struggling', '5h ago', 'Nearest meeting is two counties over and today’s harder than usual. Anyone from a rural area have tips for the in-between days?', 14, 11),
-  mk(256, 'tendergrief', 'blue', 'grief', '1d ago', 'Grief and recovery both ask me to feel things. Taking it one breath at a time.', 68, 47),
-  mk(257, 'slowtrust', 'sage', 'relationships', '1d ago', 'Rebuilding trust with my partner is slow. We agreed on weekly check-ins and it’s helping.', 93, 7),
-  mk(260, 'sunnyside', 'blue', 'sober_fun', '3d ago', 'Tried a pottery class last night. Terrible bowl, great time, zero cravings.', 81, 46)
+  mk(9, 'northstar', 'gold', 'community', '12m ago', 'If today’s your first day back after a hard stretch — that’s not a demotion. Recovery isn’t linear for anyone in here. Proud of you for showing up.', 41, 19),
+  mk(8, 'tidewalker', 'blue', 'community', '38m ago', 'Anyone else awake at 2am white-knuckling it? Just needed to say it somewhere.', 27, 8, [{ user: 'riverbend', text: 'Here. Not going anywhere. What’s the loudest thought right now?' }]),
+  mk(104, 'stepbystep', 'blue', 'community', '40m ago', '90 days today. Working Step 4 with my sponsor this week — the searching-and-fearless part is no joke. Anyone got a gentle way to think about the resentment list?', 52, 31, [{ user: 'Marcus T.', text: 'Peer specialist here — a lot of people write the resentment first and the “my part” column last, on a different day. You don’t have to do it all in one sitting.' }]),
+  mk(7, 'Denise R.', 'blue', 'community', '1h ago', 'Question from a few of you this week: yes, it’s normal for cravings to spike around custody visits. It’s a trigger, not a setback. Plan the hour before and the hour after, not just the visit itself.', 63, 22),
+  mk(103, 'toolbox', 'gold', 'community', '1h ago', 'Used the SMART cost-benefit worksheet on my 5pm craving instead of just white-knuckling. Writing down what using would actually cost me tomorrow killed most of the urge.', 38, 16),
+  mk(6, 'emberly', 'coral', 'community', '2h ago', 'Does buprenorphine make anyone else feel foggy in the mornings, or is that just me still adjusting?', 9, 4, [{ user: 'James O.', text: 'Common in the first few weeks — worth mentioning your dose timing to your prescriber. Mine moved mine to bedtime and it helped a lot.' }]),
+  mk(102, 'stillwater', 'sage', 'community', '2h ago', 'Reminder for anyone sitting with a craving right now: you can watch it rise and pass without acting on it. It’s a wave, not a command. Ten slow breaths — I’ll sit with you.', 74, 29),
+  mk(5, 'quietpine', 'sage', 'community', '3h ago', 'Took my kid to school again this morning. Eight years ago I couldn’t have named her teacher. Small, but it’s mine.', 118, 54),
+  mk(101, 'dawnlight', 'blue', 'community', '3h ago', 'Faith is the thing that gets me to my morning meeting some days. Not preaching to anyone — just grateful there’s a room here where I can say that without it being weird. What keeps you grounded?', 61, 24),
+  mk(4, 'riverbend', 'sage', 'community', '5h ago', 'Nearest meeting is two counties over and today’s harder than usual. Anyone from a rural area have tips for the in-between days?', 14, 11),
+  mk(256, 'tendergrief', 'blue', 'community', '1d ago', 'Grief and recovery both ask me to feel things. Taking it one breath at a time.', 68, 47),
+  mk(257, 'slowtrust', 'sage', 'community', '1d ago', 'Rebuilding trust with my partner is slow. We agreed on weekly check-ins and it’s helping.', 93, 7),
+  mk(260, 'sunnyside', 'blue', 'community', '3d ago', 'Tried a pottery class last night. Terrible bowl, great time, zero cravings.', 81, 46)
 ];
-const CM = { room: 'all', open: false, pick: 'checkin', draft: '', replying: new Set(), flagged: new Set(), support: 0 };
+const CM = { room: 'community', open: false, pick: 'community', draft: '', replying: new Set(), flagged: new Set(), support: 0 };
 const cmRank = () => { const s = CM.support + 4 * 5; return s >= 400 ? 'Anchor' : s >= 180 ? 'Encourager' : s >= 60 ? 'Regular' : 'Neighbor'; };
 const roomTag = c => { const r = ROOMS[c] || ['💬', 'Community', '#8A7D75']; return `<span class="croom" style="--rc:${r[2]}"><i>${r[0]}</i>${r[1]}</span>`; };
 function cmPostHTML(p) {
   const total = REACT.reduce((a, r) => a + (p[r[3]] || 0), 0);
   return `<article class="cpost" data-pid="${p.id}"><div class="cp-top"><span class="cp-av" style="background:${TINT[p.tint] || '#EEEDE8'}">${esc(p.user.charAt(0).toUpperCase())}</span>
-    <div class="cp-who"><b>${esc(p.user)}</b><small>${p.time}</small></div>${roomTag(p.channel)}
+    <div class="cp-who"><b>${esc(p.user)}</b><small>${p.time}</small></div>
     <button class="cp-flag${CM.flagged.has(p.id) ? ' on' : ''}" data-act="cm-flag" data-id="${p.id}" aria-label="Flag this post for review">${ic('flag', 16, 1.8)}</button></div>
     <p class="cp-text">${esc(p.text)}</p>
     <div class="cp-react">${REACT.map(r => `<button class="${p['r_' + r[0]] ? 'on' : ''}" data-act="cm-react" data-id="${p.id}" data-r="${r[0]}" aria-label="${r[2]}">${r[1]}<span>${p[r[3]] || 0}</span></button>`).join('')}
@@ -174,11 +169,9 @@ function cmPostHTML(p) {
 }
 function cmFeed() {
   const box = $('#cm-feed'); if (!box) return;
-  const list = POSTS.filter(p => CM.room === 'all' || p.channel === CM.room);
-  box.innerHTML = (CM.room !== 'all' ? `<button class="cm-roomback" data-act="cm-room" data-r="all">${ic('left', 18, 2)}<span>${(ROOMS[CM.room] || [])[0] || ''} ${(ROOMS[CM.room] || [, 'Room'])[1]}</span></button>` : '') +
-    (list.length ? list.map(cmPostHTML).join('') : '<div class="cm-empty"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>');
-  const ph = $('#cm-bar-ph'); if (ph) ph.textContent = CM.room !== 'all' && ROOMS[CM.room] ? `Share something in ${ROOMS[CM.room][1]}…` : 'Share something, ask, or just say you’re here…';
-  const st = $('#cm-sup'); if (st) st.textContent = CM.support; const rk = $('#cm-rank'); if (rk) rk.textContent = cmRank();
+  const list = POSTS;
+  box.innerHTML = (list.length ? list.map(cmPostHTML).join('') : '<div class="cm-empty"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>');
+    const st = $('#cm-sup'); if (st) st.textContent = CM.support; const rk = $('#cm-rank'); if (rk) rk.textContent = cmRank();
 }
 function cmComposer() {
   const c = $('#cm-comp'); if (!c) return; c.hidden = !CM.open; $('#cm-bar').hidden = CM.open;
@@ -194,14 +187,12 @@ function renderCommunity() {
     <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:linear-gradient(145deg,#7FB0DC,#3F6E99)">${ic('shield', 22, 1.8)}</span><div><b>A safe place, always anonymous</b><small>Support whenever you need it</small></div></div>
       <div class="hub-opts"><button class="hub-opt" data-act="cm-soon" data-t="1:1 support"><span class="hub-opt-ic" style="background:#E7F0EA;color:#5E8560">${ic('hands', 20, 1.8)}</span><b>Want 1:1 support?</b><small>A peer specialist or coach, privately</small></button>
         <button class="hub-opt" data-act="cm-soon" data-t="Find a meeting"><span class="hub-opt-ic" style="background:#FAE7E2;color:#C56A5E">${ic('compass', 20, 1.8)}</span><b>Find a Meeting</b><small>In-person, virtual &amp; hybrid</small></button></div></div>
-    <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#5B92CE">${ic('chat', 22, 1.8)}</span><div><b>Find your people</b><small>Join the conversation in topic rooms</small></div></div>
-      <div class="hub-opts one"><button class="hub-opt wide" data-act="cm-rooms"><span class="hub-opt-ic" style="background:#E4EDF5;color:#4E7FA8">${ic('globe', 20, 1.8)}</span><b>All Rooms</b><small>Browse every room</small></button></div></div>
+    <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#5B92CE">${ic('chat', 22, 1.8)}</span><div><b>Find your people</b><small>Join the conversation</small></div></div>
+      <div class="hub-opts one"><button class="hub-opt wide" data-act="cm-room"><span class="hub-opt-ic" style="background:#E4EDF5;color:#4E7FA8">${ic('users', 20, 1.8)}</span><b>Community Room</b><small>One shared space for everyone</small></button></div></div>
     <button class="compose-bar" id="cm-bar" data-act="cm-open"><span class="cp-av sm">${me}</span><span id="cm-bar-ph">Share something, ask, or just say you’re here…</span><span class="cb-mic">${ic('mic', 18, 1.8)}</span></button>
     <div class="cm-comp" id="cm-comp" hidden>
       <div class="cmp-top"><span class="cp-av">${me}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="cm-close" aria-label="Close">${ic('x', 18, 2)}</button></div>
-      <div class="cmp-step"><span>1</span>Pick a room</div>
-      <div class="cmp-chips" id="cm-chips">${['checkin', 'wins', 'questions', 'struggling', 'na', 'smart', 'dharma', 'spirituality', 'mat', 'latenight'].map(r => `<button data-act="cm-pick" data-r="${r}"><i>${ROOMS[r][0]}</i>${ROOMS[r][1]}</button>`).join('')}</div>
-      <div class="cmp-step"><span>2</span>Write it here</div>
+      <div class="cmp-step"><span>1</span>Write it here</div>
       <textarea id="cm-text" rows="3" placeholder="Anything counts — even one line.">${esc(CM.draft)}</textarea>
       <div class="cmp-count" id="cm-count"></div>
       <button class="btn" id="cm-post" data-act="cm-submit" disabled>Post anonymously</button></div>
@@ -236,7 +227,7 @@ Object.assign(ACT, {
   'cm-pick': el => { CM.pick = el.dataset.r; cmComposer(); },
   'cm-submit': () => {
     const t = CM.draft.trim(); if (!t) return;
-    POSTS.unshift(mk(Date.now(), 'you', 'blue', CM.room !== 'all' ? CM.room : CM.pick, 'just now', t, 0, 0, [], { mine: true }));
+    POSTS.unshift(mk(Date.now(), 'you', 'blue', 'community', 'just now', t, 0, 0, [], { mine: true }));
     CM.draft = ''; $('#cm-text').value = ''; CM.open = false; cmComposer(); cmFeed(); toast('Posted anonymously');
   },
   'cm-react': el => {
