@@ -430,3 +430,19 @@
 .md-911{background:#EFD2CC}
 .md-opt b{font-size:18px;font-weight:700;letter-spacing:-.015em;color:#2B3139}.md-911 b{font-size:20px;font-weight:700}
 .md-opt small{font-size:13.5px;color:#66717B}
+
+/* post reactions — line icons */
+.cp-react button{gap:7px;padding:8px 13px;border-radius:999px;background:#F2F5F8;color:#6B7783}
+.cp-react button svg{color:var(--rc,#7B8793);flex:none}
+.cp-react button.on{background:color-mix(in srgb,var(--rc) 14%,#fff);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--rc) 45%,#fff);color:#26323D}
+.cp-react button.on svg{fill:color-mix(in srgb,var(--rc) 25%,transparent)}
+.cp-react .rt svg{color:#7B8793}
+.cp-react{gap:6px;flex-wrap:nowrap}.cp-react button{gap:5px;padding:8px 10px;flex:1 1 auto;justify-content:center}
+
+/* Call 911 — identical to the other Help cards */
+.md-911{background:#F6E4E1!important;box-shadow:none!important;border-radius:30px;padding:18px;gap:16px;text-decoration:none;--a:#B5604F}
+.md-911,.md-911 b{color:#2B3139!important}.md-911 small{color:#66717B!important;opacity:1;font-size:13.5px}
+.md-911 b{font-size:18px!important;font-weight:700!important;letter-spacing:-.015em}
+.md-911-ic{color:#B5604F!important}.md-911-ic svg{width:28px;height:28px}
+.md-911 .md-go{display:grid;place-items:center;width:auto;height:auto;background:none!important;color:var(--a);opacity:.7;padding:0}
+.md-911>div{flex:1;min-width:0}

@@ -45,7 +45,7 @@ const CONTACTS = {
 const ctRow = ([bg, icon, name, role, num, btns]) => `<div class="ct-row"><span class="ct-av" style="background:${bg}">${/^\d+$/.test(icon) ? icon : ic(icon, 20, 1.8)}</span>
   <div class="ct-main"><b>${name}</b><small>${role}</small>${num ? `<em>${num}</em>` : ''}</div>
   <div class="ct-btns">${btns.map(([k, h]) => `<a class="ct-btn ${k}" href="${h}">${ic(k === 'call' ? 'phone' : k === 'email' ? 'mail' : 'sms', 15, 2)}${k[0].toUpperCase() + k.slice(1)}</a>`).join('')}</div></div>`;
-const call911 = () => `<a class="md-911" href="tel:911"><span class="md-911-ic">${ic('phone', 24, 1.9)}</span><div><b>Call 911</b><small>Overdose or medical emergency — call now</small></div>${ic('chev', 20, 2)}</a>`;
+const call911 = () => `<a class="md-911" href="tel:911"><span class="md-911-ic">${ic('phone', 22, 1.8)}</span><div><b>Call 911</b><small>Overdose or medical emergency — call now</small></div><span class="md-go">${ic('chev', 16, 2.2)}</span></a>`;
 const mdOpt = (act, tone, icon, t, d) => `<button class="md-opt t-${tone}" data-act="${act}"><span class="md-opt-ic">${ic(icon, 22, 1.8)}</span><div><b>${t}</b><small>${d}</small></div><span class="md-go">${ic('chev', 16, 2.2)}</span></button>`;
 
 function helpSheet() {
@@ -152,7 +152,7 @@ function renderProgress() {
 /* ═════════ COMMUNITY ═════════ */
 const ROOMS = { community: ['💬', 'Community Room', '#4E7FA8'] };
 const TINT = { blue: '#DEEAF4', sage: '#E1ECE2', gold: '#FAEFD6', coral: '#F8E5E2' };
-const REACT = [['heart', '❤️', 'Been there', 'hearts'], ['support', '🙌', 'Proud of you', 'supports'], ['strong', '💪', 'Stay strong', 'strong'], ['pray', '🙏', 'Holding you', 'pray']];
+const REACT = [['heart', 'heart', 'Been there', 'hearts', '#C56A5E'], ['support', 'sparkle', 'Proud of you', 'supports', '#C9973B'], ['strong', 'dumbbell', 'Stay strong', 'strong', '#4B77A6'], ['pray', 'shield', 'Holding you', 'pray', '#4E7A5E']];
 const mk = (id, user, tint, channel, time, text, hearts, supports, replies = [], extra = {}) => ({ id, user, tint, channel, time, text, hearts, supports, strong: 0, pray: 0, replies, ...extra });
 const POSTS = [
   mk(9, 'northstar', 'gold', 'community', '12m ago', 'If today’s your first day back after a hard stretch — that’s not a demotion. Recovery isn’t linear for anyone in here. Proud of you for showing up.', 41, 19),
@@ -189,8 +189,8 @@ function cmPostHTML(p) {
     <div class="cp-who"><b>${esc(p.user)}</b><small>${p.time}</small></div>
     <button class="cp-flag${CM.flagged.has(p.id) ? ' on' : ''}" data-act="cm-flag" data-id="${p.id}" aria-label="Flag this post for review">${ic('flag', 16, 1.8)}</button></div>
     <p class="cp-text">${esc(p.text)}</p>
-    <div class="cp-react">${REACT.map(r => `<button class="${p['r_' + r[0]] ? 'on' : ''}" data-act="cm-react" data-id="${p.id}" data-r="${r[0]}" aria-label="${r[2]}">${r[1]}<span>${p[r[3]] || 0}</span></button>`).join('')}
-      <button class="rt" data-act="cm-comments" data-id="${p.id}" aria-label="Comments">💬<span>${p.replies.length || ''}</span></button></div>
+    <div class="cp-react">${REACT.map(r => `<button class="${p['r_' + r[0]] ? 'on' : ''}" data-act="cm-react" data-id="${p.id}" data-r="${r[0]}" aria-label="${r[2]}" title="${r[2]}" style="--rc:${r[4]}">${ic(r[1], 18, 1.8)}<span>${p[r[3]] || 0}</span></button>`).join('')}
+      <button class="rt" data-act="cm-comments" data-id="${p.id}" aria-label="Comments">${ic('chat', 18, 1.8)}<span>${p.replies.length || ''}</span></button></div>
   </article>`;
 }
 function csList(p) {
