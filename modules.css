@@ -409,3 +409,4 @@
 .ap-foot .btn.ghost{background:#F2F5F8!important;color:#26323D!important}
 .ap-foot .btn:disabled{opacity:.5}
 .ap-foot .btn#ap-go{background:linear-gradient(135deg,#7FB0DC,#4F82B0)!important;color:#fff!important}
+#v-me .pf-hero::before,#v-me .pf-hero::after{display:none!important}
