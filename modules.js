@@ -183,14 +183,13 @@ function renderCommunity() {
   const me = esc((S.name || 'You').charAt(0).toUpperCase());
   $('#v-community').innerHTML = `<div class="wal-top"><h1>Community</h1><p class="md-sub">Connect, share &amp; find support</p></div>
   <div class="pad cm">
-    <div class="chead"><span class="chead-live"><i></i>214 here today · peers on duty</span><span class="chead-mine"><b>🔥 4</b><b>🙌 <span id="cm-sup">0</span></b><b class="rank" id="cm-rank">Neighbor</b></span></div>
     <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:linear-gradient(145deg,#7FB0DC,#3F6E99)">${ic('shield', 22, 1.8)}</span><div><b>A safe place, always anonymous</b><small>Support whenever you need it</small></div></div>
       <div class="hub-opts sp">
         <button class="sp-card g" data-act="cm-soon" data-t="1:1 support"><span class="sp-ic">${ic('hands', 22, 1.8)}</span><b>Want 1:1 support?</b><small>A peer specialist or coach, privately</small><span class="sp-go">${ic('chev', 16, 2.2)}</span></button>
         <button class="sp-card c" data-act="cm-soon" data-t="Find a meeting"><span class="sp-ic">${ic('compass', 22, 1.8)}</span><b>Find a Meeting</b><small>In-person, virtual &amp; hybrid</small><span class="sp-go">${ic('chev', 16, 2.2)}</span></button></div></div>
     <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#5B92CE">${ic('chat', 22, 1.8)}</span><div><b>Find your people</b><small>Join the conversation</small></div></div>
       <button class="cr-room" data-act="cm-room"><span class="cr-ic">${ic('users', 24, 1.8)}</span><span class="cr-tx"><b>Community Room</b><small>One shared space for everyone</small><span class="cr-live"><span class="cr-av"><i style="background:#7FB0DC">N</i><i style="background:#8FBF9F">T</i><i style="background:#E0B25C">R</i></span><em><u></u>214 here today</em></span></span><span class="cr-go">${ic('chev', 18, 2.2)}</span></button></div>
-    <button class="compose-bar" id="cm-bar" data-act="cm-open"><span class="cp-av sm">${me}</span><span id="cm-bar-ph">Share something, ask, or just say you’re here…</span><span class="cb-mic">${ic('mic', 18, 1.8)}</span></button>
+    <button class="compose-bar" id="cm-bar" data-act="cm-open"><span class="cb-av">${me}</span><span class="cb-tx"><b>What’s on your mind?</b><small>Share, ask, or just say you’re here</small></span><span class="cb-go">${ic('mic', 18, 1.8)}</span></button>
     <div class="cm-comp" id="cm-comp" hidden>
       <div class="cmp-top"><span class="cp-av">${me}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="cm-close" aria-label="Close">${ic('x', 18, 2)}</button></div>
       <div class="cmp-step"><span>1</span>Write it here</div>
