@@ -45,33 +45,31 @@ const sl = (k, q, lo, hi, icon, tone, eLo, eHi, inv) => ({ k, q, lo, hi, icon, t
 const grp = (id, ctx, title, sub, ...items) => ({ id, type: 'sliders', ctx, title, sub, items });
 const SCREENS = [
   { id: 'meds', type: 'choice' },
-  grp('craving-risk', 'Past 24 hours', 'Your cravings and risks', 'Risks are people, places or things that threaten your recovery.',
+  grp('past-24', 'Past 24 hours', 'Thinking about the past 24 hours…', null,
     sl('craving', 'Strongest opioid craving?', 'No craving', 'Extreme craving', 'flame', 'coral', '😌', '😖', true),
-    sl('risk', 'Riskiest moment?', 'No risk', 'Extreme risk', 'alert', 'amber', '😌', '😰', true)),
-  grp('stress-pleasant', 'Past 24 hours', 'Your stress and good moments', 'Think about the past 24 hours.',
-    sl('stress', 'How stressful was your most stressful moment?', 'No stress', 'Extreme stress', 'wind', 'blue', '😌', '😩', true),
-    sl('pleasant', 'How pleasant was your most pleasant moment?', 'Not at all pleasant', 'Extremely pleasant', 'sun', 'amber', '😕', '😄', false)),
-  grp('hard-feelings', 'Emotions', 'How have you been feeling?', 'Rate how strongly you felt each one.',
+    sl('risk', 'Riskiest moment? (people, places, or things that threaten your recovery)', 'No risk', 'Extreme risk', 'alert', 'amber', '😌', '😰', true),
+    sl('stress', 'Most stressful moment?', 'No stress', 'Extreme stress', 'wind', 'blue', '😌', '😩', true),
+    sl('pleasant', 'Most pleasant moment?', 'Not at all pleasant', 'Extremely pleasant', 'sun', 'amber', '😕', '😄', false)),
+  grp('emotions', 'Emotions', 'Rate the strength of each of these emotions', null,
     sl('depressed', 'Depressed?', 'Not at all', 'Extremely', 'cloud', 'slate', '🙂', '😢', true),
     sl('angry', 'Angry?', 'Not at all', 'Extremely', 'flame', 'coral', '🙂', '😠', true),
-    sl('anxious', 'Anxious?', 'Not at all', 'Extremely', 'pulse', 'amber', '🙂', '😰', true)),
-  grp('good-feelings', 'Emotions', 'And the brighter side?', 'Rate how strongly you felt each one.',
+    sl('anxious', 'Anxious?', 'Not at all', 'Extremely', 'pulse', 'amber', '🙂', '😰', true),
     sl('relaxed', 'Relaxed?', 'Not at all', 'Extremely', 'leaf', 'green', '😐', '😌', false),
     sl('happy', 'Happy?', 'Not at all', 'Extremely', 'smile', 'amber', '😐', '😄', false)),
-  grp('body', 'Your body', 'How is your body doing?', null,
+  grp('body', 'Your body', 'Your body, the past 24 hours', null,
     sl('sleep', 'Sleep quality?', 'Very poor', 'Excellent', 'moon', 'slate', '😫', '😊', false),
     sl('pain', 'Worst pain?', 'No pain', 'Worst pain', 'bolt', 'coral', '🙂', '😣', true)),
-  grp('outlook', 'Next week', 'Looking ahead to next week', 'About avoiding non-medical opioid use.',
-    sl('motivation', 'How motivated are you?', 'Not motivated', 'Extremely motivated', 'rocket', 'green', '😐', '🔥', false),
-    sl('confidence', 'How confident are you?', 'Not confident', 'Extremely confident', 'shield', 'blue', '😟', '😎', false)),
+  grp('outlook', 'Next week', 'Thinking about the next week…', null,
+    sl('motivation', 'Motivation to avoid non-medical opioid use?', 'Not motivated', 'Extremely motivated', 'rocket', 'green', '😐', '🔥', false),
+    sl('confidence', 'Confidence you can?', 'Not confident', 'Extremely confident', 'shield', 'blue', '😟', '😎', false)),
   { id: 'unreported', type: 'yesno', title: 'Have you used opioids that you didn’t report?' },
   { id: 'substances', type: 'multi', title: 'Which of these drugs have you used in the past 24 hours?' }
 ];
 const MED_OPTS = [['Yes, my full dose', 'checkc'], ['Only part of my dose', 'partial'], ['No, I didn’t take it', 'xc']];
 const SUBS = [['Alcohol', 'beer'], ['Cannabis (marijuana, pot, hash, K2, spice, etc.)', 'leaf'], ['Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)', 'bolt'],
   ['Inhalants (nitrous, glue, petrol, paint thinner, etc.)', 'wind'], ['Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)', 'pill'],
-  ['Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)', 'sparkle'], ['Other', 'more'], ['None of these', 'checkc']];
-const NONE = 'None of these';
+  ['Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)', 'sparkle'], ['Other', 'more'], ['None — I did not use any substances', 'checkc']];
+const NONE = 'None — I did not use any substances';
 
 /* ═════════ scoring ═════════ */
 const Q_POINTS = 100 / SCREENS.length;
@@ -148,7 +146,8 @@ function bodyHTML(s) {
     return `<div class="yn"><button class="choice ${CI.a.unreported === 'yes' ? 'sel' : ''}" data-act="ci-yn" data-v="yes"><span class="c-ic">${ic('checkc', 26, 1.8)}</span><b>Yes</b></button><button class="choice ${CI.a.unreported === 'no' ? 'sel' : ''}" data-act="ci-yn" data-v="no"><span class="c-ic">${ic('xc', 26, 1.8)}</span><b>No</b></button></div>
       ${CI.a.unreported === 'yes' ? `<p class="cal-note">Select the date when you used. You can log for the last 1 week. You can add multiple entries.</p>${calendarHTML()}` : ''}`;
   }
-  return `<div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>`;
+  return `<div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>
+    <div class="sub-other" id="sub-other" ${(CI.a.subs || []).includes('Other') ? '' : 'hidden'}><input id="sub-other-in" placeholder="Which one? Enter the name" value="${esc(CI.a.other || '')}" autocomplete="off"></div>`;
 }
 
 /* last-7-days calendar for "dates you used" */
@@ -231,8 +230,8 @@ Object.assign(ACT, {
   'ci-sub': el => {
     const v = el.dataset.v, a = CI.a.subs || (CI.a.subs = []), i = a.indexOf(v);
     if (i >= 0) a.splice(i, 1); else if (v === NONE) a.splice(0, a.length, NONE); else { const n = a.indexOf(NONE); if (n >= 0) a.splice(n, 1); a.push(v); }
-    $$('.sub', CI.layer).forEach(b => b.classList.toggle('sel', a.includes(b.dataset.v))); updateQGauge();
+    $$('.sub', CI.layer).forEach(b => b.classList.toggle('sel', a.includes(b.dataset.v))); const ow = $('#sub-other', CI.layer); if (ow) ow.hidden = !a.includes('Other'); updateQGauge();
   }
 });
 document.addEventListener('pointerup', e => { if (CI && e.target.classList && e.target.classList.contains('s-range')) sliderInput(e.target); });
-document.addEventListener('input', e => { if (CI && e.target.classList && e.target.classList.contains('s-range')) sliderInput(e.target); });
+document.addEventListener('input', e => { if (CI && e.target.id === 'sub-other-in') CI.a.other = e.target.value; if (CI && e.target.classList && e.target.classList.contains('s-range')) sliderInput(e.target); });
