@@ -301,6 +301,19 @@ function openAddPerson() {
   });
 }
 
+
+/* ═════════ WALLET — bonuses ═════════ */
+function bonusCard() {
+  const week = S.history.filter(h => (Date.now() - new Date(h.date + 'T12:00:00').getTime()) < 7 * 864e5).length;
+  const items = [
+    ['r', 'flame', 'Streak bonus', 'Grows every day you check in, up to ' + usd(5), clamp(S.streak, 0, 5) / 5, '+' + usd(clamp(S.streak + 1, 1, 5)) + ' today', S.streak >= 5],
+    ['a', 'bolt', '7-day streak', 'Check in 7 days in a row', clamp(S.streak, 0, 7) / 7, '+' + usd(20), S.streak >= 7],
+    ['g', 'calendar', 'Weekly goal', '5 check-ins in a week · ' + Math.min(week, 5) + ' of 5', Math.min(week, 5) / 5, '+' + usd(10), week >= 5],
+    ['b', 'rocket', '30-day milestone', 'A full month of showing up', clamp(S.streak, 0, 30) / 30, '+' + usd(50), S.streak >= 30]
+  ];
+  return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">Bonuses</div><div class="bn-card">${items.map(([c, i, t, d, p, amt, done]) => `<div class="bn-row t-${c}"><span class="bn-ic">${ic(i, 22, 1.8)}</span><div class="bn-mid"><b>${t}</b><small>${d}</small><div class="bn-bar"><i style="width:${Math.round(p * 100)}%"></i></div></div><span class="bn-amt${done ? ' done' : ''}">${done ? ic('check', 14, 2.6) + 'Earned' : amt}</span></div>`).join('')}</div></div>`;
+}
+
 /* ═════════ wiring ═════════ */
 Object.assign(ACT, {
   help: () => helpSheet(),

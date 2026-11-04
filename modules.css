@@ -446,3 +446,14 @@
 .md-911-ic{color:#B5604F!important}.md-911-ic svg{width:28px;height:28px}
 .md-911 .md-go{display:grid;place-items:center;width:auto;height:auto;background:none!important;color:var(--a);opacity:.7;padding:0}
 .md-911>div{flex:1;min-width:0}
+
+/* Wallet — bonuses */
+.bn-card{display:flex;flex-direction:column;gap:10px}
+.bn-row{display:flex;align-items:center;gap:14px;padding:16px;border-radius:26px;background:var(--p)}
+.bn-row.t-r{--p:#F6E4E1;--a:#B5604F}.bn-row.t-a{--p:#F7EFD8;--a:#8E6F1E}.bn-row.t-g{--p:#E1EBE2;--a:#4F7658}.bn-row.t-b{--p:#DFE9F3;--a:#44699A}
+.bn-ic{display:grid;place-items:center;flex:none;color:var(--a)}.bn-ic svg{width:28px;height:28px}
+.bn-mid{flex:1;min-width:0}.bn-mid b{display:block;font-size:17px;font-weight:700;letter-spacing:-.01em;color:#2B3139}.bn-mid small{display:block;font-size:13px;color:#66717B;margin-top:2px;line-height:1.35}
+.bn-bar{height:6px;margin-top:10px;border-radius:3px;background:rgba(255,255,255,.7);overflow:hidden}.bn-bar i{display:block;height:100%;border-radius:3px;background:var(--a)}
+.bn-amt{flex:none;display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.75);color:var(--a);font-size:13px;font-weight:700;white-space:nowrap}
+.bn-amt.done{background:var(--a);color:#fff}
+.bal-card{padding-top:24px}
