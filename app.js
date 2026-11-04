@@ -312,7 +312,7 @@ function streaksCard() {
   return `<div class="rh-card sk-card">
     <div class="rh-head"><b>Streaks</b><span class="rh-info" aria-hidden="true">${ic('info', 20, 1.6)}</span></div>
     <div class="sk-hero"><span class="sk-eye">RECOVERY JOURNEY</span>
-      <h3>${n && n >= S.bestStreak ? 'Your longest yet' : n ? 'Keep it going' : 'Start your streak'} <i>${ic('heart', 22, 2)}</i></h3>
+      <h3>${n && n >= S.bestStreak ? 'Your longest yet' : n ? 'Keep it going' : 'Start your streak'}</h3>
       <div class="sk-n"><b>${n}</b><span>DAYS IN RECOVERY</span></div>
       <div class="sk-bar"><i style="width:${pct}%"></i></div>
       <p>${left ? `${left} day${left === 1 ? '' : 's'} to your ${goal}-day milestone` : `You reached your ${goal}-day milestone`}</p></div>
