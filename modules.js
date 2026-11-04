@@ -402,7 +402,7 @@ Object.assign(ACT, {
   'pf-rem-toggle': () => { S.remindOn = S.remindOn === false; save(); renderMe(); toast(S.remindOn ? 'Daily reminders enabled' : 'Daily reminders disabled'); },
   'pf-lang': el => { S.profile.lang = el.dataset.k; save(); renderMe(); toast(el.dataset.k === 'es' ? 'Idioma: Español' : 'Language: English'); },
   'ci-exit': () => {
-    const l = pushLayer(`<div class="sheet cx-sheet"><span class="grab"></span><span class="cx-ic">${ic('alert', 28, 1.7)}</span><h2>Are you sure you want to close?</h2><p>Your answers for today’s check-in won’t be saved, and you’ll miss out on today’s reward.</p>
+    const l = pushLayer(`<div class="sheet cx-sheet"><span class="grab"></span><h2>Are you sure you want to close?</h2><p>Your answers for today’s check-in won’t be saved, and you’ll miss out on today’s reward.</p>
       <button class="btn" data-act="cx-stay">Keep going</button><button class="btn ghost cx-yes" data-act="cx-yes">Yes, close</button></div>`, 'sheet-wrap');
     l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   },
