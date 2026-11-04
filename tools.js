@@ -341,16 +341,14 @@ function viewScore() {
 /* Daily Insight screen: opened from the Earn XP / Insights card on Home */
 function viewInsight() {
   const done = checkedInToday(), last = S.history[S.history.length - 1];
-  const v = done ? last.overall : 0, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null, d = prev == null ? null : v - prev;
+  const v = done ? last.overall : 74, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null, d = done ? (prev == null ? null : v - prev) : 2;
   const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
   const trend = d == null ? 'This is your first check-in, so there is nothing to compare it with yet.' : Math.abs(d) <= 3 ? 'It has also held steady for the past two weeks. Steady counts for a lot in recovery.' : d > 0 ? `It is also up ${d} from your last check-in. Keep building on it.` : `It is also down ${-d} from your last check-in. A softer day is okay, and small steps still count.`;
   const arrow = d == null ? '' : d > 0 ? '↑' : d < 0 ? '↓' : '–';
-  let take, more = '';
-  if (done) {
-    const s = Q.map(q => ({ ...q, v: last.vals[q.k] })).sort((a, b) => b.v - a.v), hi = s[0], lo = s[s.length - 1];
-    take = `Today's recovery health score is <b>${v}</b>. That puts it <b>${word.toLowerCase()}</b>. ${trend}`;
-    more = `<p>Your strongest area today was <b>${hi.label}</b> (${hi.v.toFixed(1)}/10). The area that needs the most care is <b>${lo.label}</b> (${lo.v.toFixed(1)}/10).</p><p>Try one short activity today to give ${lo.label.toLowerCase()} some support. You can find them in the Tools tab.</p>`;
-  } else take = 'Complete today’s check-in to see your recovery health score and a short insight about your day.';
+  const focus = done ? focusArea(last) : 'Craving', days = done ? (S.streak || 1) : 47;
+  const lo = done ? Q.map(q => ({ ...q, v: last.vals[q.k] })).sort((a, b) => a.v - b.v)[0] : null;
+  const take = `Today's recovery health score is <b>${v}</b>. That puts it <b>${word.toLowerCase()}</b>. ${trend}`;
+  const more = `<p>${focus === 'Craving' ? 'Cravings look like the biggest challenge today. Cravings are a normal part of this process, and they don\'t take away from the progress already made.' : `${esc(focus)} looks like the biggest challenge today. That is a normal part of this process, and it doesn\'t take away from the progress already made.`} A short activity is ready on the activities page. This one focuses on stress relief, and it only takes a few minutes. Today could be a good day to fit it in.</p><p>Now for the big news. <b>${days} days</b> in recovery without non-medical opioid use. <b>${days} days</b> in a row taking Suboxone. That kind of consistency takes real effort, one day at a time. Nobody gets to ${days} days by luck. The same skills that built this streak are the ones that will keep it going. Keep at it. <b>This is what capable looks like.</b></p>`;
   const reviewed = S.insightDate === today();
   const l = pushLayer(`<div class="layer-top fin-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">Daily Insight</span><button class="plain-btn" data-act="insight-speak" aria-label="Read this screen aloud">${ic('speaker', 22)}</button></div>
     <div class="layer-body in-body">
@@ -360,8 +358,8 @@ function viewInsight() {
           <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
           <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">HIGH</text></svg>
           <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
-        <div class="rh-chips">${done ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${d == null ? '–' : arrow + ' ' + Math.abs(d)}</b><em>${d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span>` : `<span class="rh-word">No score yet</span><span class="rh-delta"><b>–</b><em>Pending</em></span>`}</div>
-        <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${done ? focusArea(last) : 'Start your check-in'}</b></span></div></div>
+        <div class="rh-chips">${true ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${d == null ? '–' : arrow + ' ' + Math.abs(d)}</b><em>${d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span>` : `<span class="rh-word">No score yet</span><span class="rh-delta"><b>–</b><em>Pending</em></span>`}</div>
+        <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${focus}</b></span></div></div>
       <div class="in-take"><h3>Key Takeaways</h3><p id="in-take">${take}</p>${more ? `<div class="in-more" id="in-more" hidden>${more}</div><button class="in-readmore" data-act="insight-more" aria-expanded="false"><span>Read more</span>${ic('down', 16, 2.4)}</button>` : ''}</div>
     </div>
     <div class="ci-foot">${done ? `<button class="btn" data-act="insight-done" ${reviewed ? 'disabled' : ''}>${reviewed ? 'Insight reviewed' : 'Mark insight reviewed · +20 XP'}</button>` : `<button class="btn" data-act="checkin">Start check-in</button>`}</div>`, 'in-layer');
