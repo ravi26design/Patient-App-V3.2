@@ -240,3 +240,17 @@
 .md-911-ic{width:auto;height:auto;border-radius:0;background:none;box-shadow:none;color:#B8584C;align-self:flex-start;margin-top:2px}
 .md-911-ic svg{width:26px;height:26px}
 .md-911>svg{width:auto;height:auto;padding:0;border-radius:0;background:none;color:#B8584C;opacity:.85}
+
+/* Check-in prompt — flat pastel style */
+.sheet.trig{background:#fff!important}
+.sheet.trig .trig-ic{width:76px;height:76px;margin-top:6px;color:#9A7A2E;background:#F7EFD7;box-shadow:none}
+.sheet.trig .trig-eye{margin-top:16px;padding:6px 14px;border-radius:999px;background:#F1F5F9;font-size:11.5px;font-weight:600;letter-spacing:.08em;color:#7B8793}
+.sheet.trig h2{margin-top:12px;font-size:27px;font-weight:600;letter-spacing:-.03em;color:#26323D}
+.sheet.trig .trig-p{margin:8px 0 22px;color:#6B7783}
+.sheet.trig .trig-earn{background:#DEEAF4;border-radius:24px;padding:14px 16px;gap:14px}
+.sheet.trig .trig-coin{width:46px;height:46px;border-radius:50%;background:#fff;color:#4B77A6}
+.sheet.trig .trig-earn small{color:#5F7C99;font-size:13px}
+.sheet.trig .trig-earn b{font-size:28px;font-weight:600;letter-spacing:-.03em;color:#2F4F73}
+.sheet.trig .trig-earn em{display:inline-flex;align-items:center;gap:5px;background:#fff;color:#4B77A6;font-weight:600;font-size:13px}
+.sheet.trig .btn{height:56px;border-radius:28px;font-size:17px;font-weight:600;background:#6C9FCC;box-shadow:none}
+.sheet.trig .btn.ghost{height:auto;margin-top:6px;background:none;color:#4F82B0;font-weight:600;font-size:16px}
