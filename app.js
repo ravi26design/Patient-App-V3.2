@@ -275,9 +275,14 @@ function recoveryCard(last) {
   const arrow = d == null ? '' : d > 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>' : d < 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const who = S.name ? `${esc(S.name.split(' ')[0])}’s Recovery Health` : 'Your Recovery Health';
   const pts = S.history.slice(-14).map(h => h.overall), ready = done && pts.length > 1;
-  const spark = ready ? `<svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts.map((n, i) => (2 + i * 176 / (pts.length - 1)).toFixed(1) + ',' + (42 - n / 100 * 38).toFixed(1)).join(' ')}" fill="none" stroke="#6C9FCC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-    : `<svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="23" x2="178" y2="23" stroke="#C5D1DD" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/></svg>`;
-  const twoWeeks = `<div class="rh-weeks"><div><small>Past 2 weeks</small><b class="${ready ? '' : 'mut'}">${ready ? 'Avg ' + Math.round(mean(pts)) : 'Not ready yet'}</b></div><div class="rh-spark">${spark}</div></div>`;
+  const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
+  const spark = ready ? (() => {
+    const W = 180, H = 56, lo = Math.min(...pts), rg = Math.max(Math.max(...pts) - lo, 12), mid = lo + (Math.max(...pts) - lo) / 2, xy = pts.map((n, i) => [8 + i * (W - 16) / (pts.length - 1), H / 2 - 4 - (n - mid) / rg * (H - 28)]);
+    const path = xy.map((q, i) => { if (!i) return `M${q[0].toFixed(1)} ${q[1].toFixed(1)}`; const pq = xy[i - 1], mx = ((pq[0] + q[0]) / 2).toFixed(1); return `C${mx} ${pq[1].toFixed(1)} ${mx} ${q[1].toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }).join(' ');
+    const dots = xy.slice(-2).map(q => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="6" fill="#5E8B6E" stroke="#fff" stroke-width="3"/>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="spg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E8B6E" stop-opacity=".22"/><stop offset="1" stop-color="#5E8B6E" stop-opacity="0"/></linearGradient></defs><path d="${path} L${xy[xy.length - 1][0].toFixed(1)} ${H} L${xy[0][0].toFixed(1)} ${H}z" fill="url(#spg)"/><path d="${path}" fill="none" stroke="#5E8B6E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${dots}</svg>`;
+  })() : `<svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="23" x2="178" y2="23" stroke="#C5D1DD" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/></svg>`;
+  const twoWeeks = `<div class="rh-weeks"><div><small>Past 2 weeks</small><b class="${ready ? '' : 'mut'}">${ready ? wword : 'Not ready yet'}</b></div><div class="rh-spark">${spark}</div></div>`;
   return `<div class="rh-card">
     <div class="rh-head"><b>${who}</b><span class="rh-info" aria-hidden="true">${ic('info', 20, 1.6)}</span></div>
     <div class="rh-gauge"><svg viewBox="0 0 300 175" width="100%" aria-hidden="true">${arcs}
