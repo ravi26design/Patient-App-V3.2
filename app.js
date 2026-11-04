@@ -287,7 +287,7 @@ function recoveryCard(last) {
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
     ${done ? '' : `<button class="rh-todo" data-act="checkin">Complete today’s check-in</button>`}
     <div class="rh-chips" ${done ? '' : 'hidden'}><span class="rh-word">${word}</span>${d == null ? '' : `<span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${Math.abs(d)}</b><em>${dtxt}</em></span>`}</div>
-    <button class="rh-xp" data-act="${done ? 'view-score' : 'checkin'}"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
+    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
     ${twoWeeks}
   </div>`;
 }
@@ -328,8 +328,7 @@ function renderHome() {
   <div class="oh-pair">
     <div class="oh-card oh-light"><div class="oh-row"><span class="oh-lab">STREAK</span><span class="oh-bolt">${ic('flame', 20, 1.5)}</span></div><h3>${S.streak}<em> day${S.streak === 1 ? '' : 's'}</em></h3><small class="oh-wk"><span class="oh-up">${wdone}/7</span> this week</small>
       <div class="oh-week">${week.map((x, k) => `<div class="${x.done ? 'on' : ''} ${x.now ? 'now' : ''}"><i>${x.done ? ic('check', 10, 3.4) : ''}</i><span>${['S', 'M', 'T', 'W', 'T', 'F', 'S'][new Date(daysAgo(6 - k) + 'T12:00:00').getDay()]}</span></div>`).join('')}</div></div>
-  </div>
-  <button class="oh-rec" data-act="tool" data-id="${rec.id}"><span class="oh-tile">${ic(rec.ic, 26, 1.4)}</span><div><b>${rec.title}</b><small>Suggested for you</small></div>${ic('next', 18, 1.6)}</button>`;
+  </div>`;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
 }
 const earnedToday = () => S.txns.filter(x => x.d === today()).reduce((a, x) => a + x.amt, 0);

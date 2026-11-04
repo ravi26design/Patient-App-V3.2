@@ -317,6 +317,42 @@ function viewScore() {
   animateScore(l, last.overall, 0);
 }
 
+/* Daily Insight screen: opened from the Earn XP / Insights card on Home */
+function viewInsight() {
+  const done = checkedInToday(), last = S.history[S.history.length - 1];
+  const v = done ? last.overall : 0, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null, d = prev == null ? null : v - prev;
+  const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
+  const trend = d == null ? 'This is your first check-in, so there is nothing to compare it with yet.' : Math.abs(d) <= 3 ? 'It has held steady since your last check-in. Steady counts for a lot in recovery.' : d > 0 ? `It is up ${d} since your last check-in. Keep going.` : `It is down ${-d} since your last check-in. A softer day is okay, and small steps still count.`;
+  const arrow = d == null ? '' : d > 0 ? '↑' : d < 0 ? '↓' : '–';
+  let take, more = '';
+  if (done) {
+    const s = Q.map(q => ({ ...q, v: last.vals[q.k] })).sort((a, b) => b.v - a.v), hi = s[0], lo = s[s.length - 1];
+    take = `Today’s recovery health score is <b>${v}</b>. That puts it <b>${word.toLowerCase()}</b>. ${trend}`;
+    more = `<p>Your strongest area today was <b>${hi.label}</b> (${hi.v.toFixed(1)}/10). The area that needs the most care is <b>${lo.label}</b> (${lo.v.toFixed(1)}/10).</p><p>Try one short activity today to give ${lo.label.toLowerCase()} some support. You can find them in the Tools tab.</p>`;
+  } else take = 'Complete today’s check-in to see your recovery health score and a short insight about your day.';
+  const reviewed = S.insightDate === today();
+  const l = pushLayer(`<div class="layer-top fin-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">Daily Insight</span><button class="plain-btn" data-act="insight-speak" aria-label="Read this screen aloud">${ic('speaker', 22)}</button></div>
+    <div class="layer-body in-body">
+      <div class="rh-card in-card"><div class="rh-head"><b>${S.name ? esc(S.name.split(' ')[0]) + '’s Recovery Health' : 'Your Recovery Health'}</b></div>
+        <div class="rh-gauge"><svg viewBox="0 0 300 175" width="100%" aria-hidden="true">${rhArcs()}
+          <g class="rh-needle" id="in-needle" style="transform-origin:150px 150px;transform:rotate(-90deg)"><path d="M143.5 148L150 62 156.5 148z" fill="#2B3440" stroke="#2B3440" stroke-width="2" stroke-linejoin="round"/></g>
+          <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
+          <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
+          <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
+        ${done ? `<div class="rh-chips"><span class="rh-word">${word}</span>${d == null ? '' : `<span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${arrow} ${Math.abs(d)}</b><em>${Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span>`}</div>
+        <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${focusArea(last)}</b></span></div>` : ''}</div>
+      <div class="in-take"><h3>Key Takeaways</h3><p id="in-take">${take}</p>${more ? `<div class="in-more" id="in-more" hidden>${more}</div><button class="in-readmore" data-act="insight-more" aria-expanded="false"><span>Read more</span>${ic('down', 16, 2.4)}</button>` : ''}</div>
+    </div>
+    <div class="ci-foot">${done ? `<button class="btn" data-act="insight-done" ${reviewed ? 'disabled' : ''}>${reviewed ? 'Insight reviewed' : 'Mark insight reviewed'}</button>` : `<button class="btn" data-act="checkin">Start check-in</button>`}</div>`, 'in-layer');
+  setTimeout(() => { const n = $('#in-needle', l); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(v / 100, 0, 1)}deg)`; }, 150);
+}
+function insightSpeak(el) {
+  if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device');
+  if (speechSynthesis.speaking) return speechSynthesis.cancel();
+  const l = layerOf(el), t = [$('#in-take', l), $('#in-more', l)].filter(Boolean).map(e => e.innerText).join(' ');
+  const u = new SpeechSynthesisUtterance('Key takeaways. ' + t); u.rate = .95; speechSynthesis.speak(u);
+}
+
 /* ═════════ event wiring ═════════ */
 const ACT = {
   tab: el => go(el.dataset.v),
@@ -334,6 +370,10 @@ const ACT = {
   finish: el => finishActivity({ checkin: el.dataset.ck === '1' }, el.dataset.id),
   checkin: () => startCheckin(),
   'view-score': () => viewScore(),
+  insights: () => viewInsight(),
+  'insight-speak': insightSpeak,
+  'insight-more': el => { const l = layerOf(el), m = $('#in-more', l), open = m.hidden; m.hidden = !open; el.setAttribute('aria-expanded', open); $('span', el).textContent = open ? 'Read less' : 'Read more'; el.classList.toggle('open', open); },
+  'insight-done': el => { S.insightDate = today(); save(); toast('Insight reviewed'); popLayer(layerOf(el)); },
   'set-day': el => setDay(+el.dataset.d),
   /* onboarding / setup */
   'onb-skip': () => startProfile(),
