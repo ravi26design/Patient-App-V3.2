@@ -155,17 +155,42 @@ const POSTS = [
 const CM = { room: 'community', open: false, pick: 'community', draft: '', replying: new Set(), flagged: new Set(), support: 0 };
 const cmRank = () => { const s = CM.support + 4 * 5; return s >= 400 ? 'Anchor' : s >= 180 ? 'Encourager' : s >= 60 ? 'Regular' : 'Neighbor'; };
 const roomTag = c => { const r = ROOMS[c] || ['💬', 'Community', '#8A7D75']; return `<span class="croom" style="--rc:${r[2]}"><i>${r[0]}</i>${r[1]}</span>`; };
+const AV_SKIN = ['#F2C9A5', '#E3A982', '#C98B63', '#A8714E', '#F7D6BC'], AV_HAIR = ['#2E2A29', '#5A3A29', '#8A5A3B', '#C9973B', '#3B4A5E', '#6B5DB0'];
+const avHash = t => { let h = 7; for (const c of String(t)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+function avatar(user, tint, size = 40) {
+  const h = avHash(user), skin = AV_SKIN[h % 5], hair = AV_HAIR[(h >> 3) % 6], style = (h >> 6) % 4, bg = TINT[tint] || '#DEEAF4', top = AV_HAIR[(h >> 9) % 6];
+  const hairBack = style === 1 ? `<path d="M10 24c-2-10 4-17 10-17s12 7 10 17c-1 5-3 8-3 8H13s-2-3-3-8z" fill="${hair}"/>` : '';
+  const hairTop = [`<path d="M11 19c0-7 4-10 9-10s9 3 9 10c-3-3-6-4-9-4s-6 1-9 4z" fill="${hair}"/>`,
+    `<path d="M11 20c0-8 4-11 9-11s9 3 9 11c-2-4-5-6-9-6s-7 2-9 6z" fill="${hair}"/>`,
+    `<circle cx="20" cy="11" r="3.4" fill="${hair}"/><path d="M11 19c0-6 4-9 9-9s9 3 9 9c-3-3-6-4-9-4s-6 1-9 4z" fill="${hair}"/>`,
+    `<path d="M11.5 18c1-6 4-8.5 8.5-8.5S27.500 12 28.500 18c-4-1-7-3-8.500-5-1.500 3-4 4.500-8.500 5z" fill="${hair}"/>`][style];
+  return `<svg class="av-img" width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="${bg}"/>${hairBack}<path d="M5 40c1-8 7-11 15-11s14 3 15 11z" fill="${top}" opacity=".9"/><rect x="17" y="24" width="6" height="6" rx="2" fill="${skin}"/><ellipse cx="20" cy="19" rx="7.500" ry="8.500" fill="${skin}"/>${hairTop}<circle cx="17.200" cy="19.500" r=".9" fill="#2E2A29"/><circle cx="22.800" cy="19.500" r=".9" fill="#2E2A29"/><path d="M17.500 23c1.500 1.500 3.500 1.500 5 0" stroke="#2E2A29" stroke-width="1" fill="none" stroke-linecap="round"/></svg>`;
+}
 function cmPostHTML(p) {
   const total = REACT.reduce((a, r) => a + (p[r[3]] || 0), 0);
-  return `<article class="cpost" data-pid="${p.id}"><div class="cp-top"><span class="cp-av" style="background:${TINT[p.tint] || '#EEEDE8'}">${esc(p.user.charAt(0).toUpperCase())}</span>
+  return `<article class="cpost" data-pid="${p.id}"><div class="cp-top"><span class="cp-av photo">${avatar(p.user, p.tint)}</span>
     <div class="cp-who"><b>${esc(p.user)}</b><small>${p.time}</small></div>
     <button class="cp-flag${CM.flagged.has(p.id) ? ' on' : ''}" data-act="cm-flag" data-id="${p.id}" aria-label="Flag this post for review">${ic('flag', 16, 1.8)}</button></div>
     <p class="cp-text">${esc(p.text)}</p>
     <div class="cp-react">${REACT.map(r => `<button class="${p['r_' + r[0]] ? 'on' : ''}" data-act="cm-react" data-id="${p.id}" data-r="${r[0]}" aria-label="${r[2]}">${r[1]}<span>${p[r[3]] || 0}</span></button>`).join('')}
-      <button class="rt" data-act="cm-reply-toggle" data-id="${p.id}" aria-label="Reply">💬<span>${p.replies.length || ''}</span></button></div>
-    ${p.replies.length ? `<div class="cp-replies"><div class="cp-rh">${p.replies.length} ${p.replies.length === 1 ? 'reply' : 'replies'}</div>${p.replies.map(r => `<div class="cp-reply"><b>${esc(r.user)}</b>${esc(r.text)}</div>`).join('')}</div>` : ''}
-    <div class="cp-zone" ${CM.replying.has(p.id) ? '' : 'hidden'}><div class="cp-quick">${['Proud of you 🙌', 'Been there. You’ve got this.', 'Same here 🫂', 'Here with you.'].map(t => `<button data-act="cm-quick" data-id="${p.id}" data-t="${t}">${t.replace(/ [🙌🫂]$/u, '').replace('Been there. You’ve got this.', 'Been there')}</button>`).join('')}</div>
-      <div class="cp-box"><input placeholder="Write a reply…" id="rp-${p.id}"><button data-act="cm-send" data-id="${p.id}">Send</button></div></div></article>`;
+      <button class="rt" data-act="cm-comments" data-id="${p.id}" aria-label="Comments">💬<span>${p.replies.length || ''}</span></button></div>
+  </article>`;
+}
+function csList(p) {
+  return p.replies.length ? p.replies.map(r => `<div class="cs-item"><span class="cp-av photo sm">${avatar(r.user, 'blue', 36)}</span><div class="cs-bub"><b>${esc(r.user)}</b><p>${esc(r.text)}</p></div></div>`).join('') : '<div class="cm-empty"><b>No comments yet.</b>Be the first to leave some kind words.</div>';
+}
+function commentsSheet(id) {
+  const p = POSTS.find(x => x.id == id); if (!p) return;
+  const l = pushLayer(`<div class="sheet cs-sheet" data-pid="${p.id}"><span class="grab"></span>
+    <h2>Comments <em id="cs-n">${p.replies.length}</em></h2>
+    <div class="cs-list" id="cs-list">${csList(p)}</div>
+    <div class="cp-quick">${['Proud of you 🙌', 'Been there. You’ve got this.', 'Same here 🫂', 'Here with you.'].map(t => `<button data-act="cm-quick" data-id="${p.id}" data-t="${t}">${t.replace(/ [🙌🫂]$/u, '').replace('Been there. You’ve got this.', 'Been there')}</button>`).join('')}</div>
+    <div class="cs-box"><span class="cp-av photo sm">${avatar('you', 'blue', 36)}</span><input placeholder="Write a comment…" id="rp-${p.id}"><button data-act="cm-send" data-id="${p.id}" aria-label="Send">${ic('chev', 18, 2.4)}</button></div></div>`, 'sheet-wrap');
+  l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
+}
+function csRefresh(p) {
+  const list = $('#cs-list'); if (list) { list.innerHTML = csList(p); list.scrollTop = list.scrollHeight; } const n = $('#cs-n'); if (n) n.textContent = p.replies.length;
+  const i = $('#rp-' + p.id); if (i) i.value = ''; cmFeed();
 }
 function cmFeed() {
   const box = $('#cm-feed'); if (!box) return;
@@ -229,9 +254,9 @@ Object.assign(ACT, {
     p['r_' + r[0]] = on; p[r[3]] = (p[r[3]] || 0) + (on ? 1 : -1); if (p.mine) CM.support += on ? 1 : -1; cmFeed();
   },
   'cm-flag': el => { const id = +el.dataset.id; CM.flagged.has(id) ? CM.flagged.delete(id) : (CM.flagged.add(id), toast('Flagged for review')); cmFeed(); },
-  'cm-reply-toggle': el => { const id = +el.dataset.id; CM.replying.has(id) ? CM.replying.delete(id) : CM.replying.add(id); cmFeed(); },
-  'cm-quick': el => { const p = POSTS.find(x => x.id == el.dataset.id); p.replies.push({ user: 'you', text: el.dataset.t }); CM.replying.add(p.id); cmFeed(); },
-  'cm-send': el => { const p = POSTS.find(x => x.id == el.dataset.id), i = $('#rp-' + p.id), t = i && i.value.trim(); if (!t) return; p.replies.push({ user: 'you', text: t }); CM.replying.add(p.id); cmFeed(); },
+  'cm-comments': el => commentsSheet(el.dataset.id),
+  'cm-quick': el => { const p = POSTS.find(x => x.id == el.dataset.id); p.replies.push({ user: 'you', text: el.dataset.t }); csRefresh(p); },
+  'cm-send': el => { const p = POSTS.find(x => x.id == el.dataset.id), i = $('#rp-' + p.id), t = i && i.value.trim(); if (!t) return; p.replies.push({ user: 'you', text: t }); csRefresh(p); },
   'cm-rooms': () => roomsSheet(),
   'cm-room': el => { CM.room = el.dataset.r; const l = layerOf(el); if (l && l.classList.contains('sheet-wrap')) popLayer(l); cmFeed(); const f = $('#cm-feed'); if (f) f.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
   'cm-soon': el => soonScreen(el.dataset.t, 'users', 'Coming soon', 'This part of Community is on its way. For now you can share in the rooms below.')
