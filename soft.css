@@ -933,3 +933,6 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .scards .scard .s-il{width:112px;height:auto;margin-bottom:0}
 .scards .scard{padding:16px 16px 18px}
 .scards{margin-top:20px}
+
+/* check-in date picker: selected day uses the app's calm blue */
+.cal .cd.sel{background:var(--cta)!important;color:#fff!important;box-shadow:0 4px 12px rgba(108,159,204,.35)}
