@@ -278,14 +278,14 @@ function recoveryCard(last) {
   const cols = ['#CD8A80', '#DFA46B', '#E4C873', '#B4CB9B', '#8FB287'], seg = 36, gap = 3.5;
   const arcs = cols.map((c, i) => `<path d="${rhArc(150, 150, 108, 180 - i * seg - gap * (i ? .5 : 0), 180 - (i + 1) * seg + gap * (i < 4 ? .5 : 0))}" stroke="${c}" stroke-width="26" fill="none" stroke-linecap="round"/>`).join('');
   const done = !!last && checkedInToday();   // the gauge stays at zero until today's check-in is done
-  const v = done ? last.overall : 0, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null;
-  const word = !done ? (last ? 'Complete today’s check-in' : 'Start your first check-in') : v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
+  const v = done ? last.overall : 74, prev = done ? (S.history.length > 1 ? S.history[S.history.length - 2].overall : null) : 72;   // before today's check-in the card shows the sample reading
+  const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
   const d = prev == null ? null : v - prev;
   const dtxt = d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping';
   const arrow = d == null ? '' : d > 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>' : d < 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const who = S.name ? `${esc(S.name.split(' ')[0])}’s Recovery Health` : 'Your Recovery Health';
-  const hist = S.history.slice(-14).map(h => h.overall), ready = done && hist.length > 0, pts = hist.length === 1 ? [hist[0], hist[0], hist[0]] : hist;   // first check-in: flat line until there is more to compare
-  const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
+  const hist = S.history.slice(-14).map(h => h.overall), ready = !done || hist.length > 0, pts = !done ? [60, 61, 60, 63, 62, 66, 68, 74] : hist.length === 1 ? [hist[0], hist[0], hist[0]] : hist;   // first check-in: flat line until there is more to compare
+  const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = !done ? 'Steady' : wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
   const spark = ready ? (() => {
     const W = 180, H = 56, lo = Math.min(...pts), rg = Math.max(Math.max(...pts) - lo, 12), mid = lo + (Math.max(...pts) - lo) / 2, xy = pts.map((n, i) => [8 + i * (W - 16) / (pts.length - 1), H / 2 - 4 - (n - mid) / rg * (H - 28)]);
     const path = xy.map((q, i) => { if (!i) return `M${q[0].toFixed(1)} ${q[1].toFixed(1)}`; const pq = xy[i - 1], mx = ((pq[0] + q[0]) / 2).toFixed(1); return `C${mx} ${pq[1].toFixed(1)} ${mx} ${q[1].toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }).join(' ');
@@ -296,13 +296,12 @@ function recoveryCard(last) {
   return `<div class="rh-card">
     <div class="rh-head"><b>${who}</b><span class="rh-info" aria-hidden="true">${ic('info', 20, 1.6)}</span></div>
     <div class="rh-gauge"><svg viewBox="0 0 300 175" width="100%" aria-hidden="true">${arcs}
-      <g class="rh-needle" id="rh-needle" style="transform-origin:150px 150px;transform:rotate(-90deg)"><path d="M143.5 148L150 62 156.5 148z" fill="#2B3440" stroke="#2B3440" stroke-width="2" stroke-linejoin="round"/></g>
+      <g class="rh-needle" id="rh-needle" style="transform-origin:150px 150px;transform:rotate(-90deg)"><path d="M144.5 150L150 56 155.5 150z" fill="#2B3440" stroke="#2B3440" stroke-width="2" stroke-linejoin="round"/></g>
       <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
-      <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
+      <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">HIGH</text></svg>
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
-    ${done ? '' : `<button class="rh-todo" data-act="checkin">Complete today’s check-in</button>`}
-    <div class="rh-chips" ${done ? '' : 'hidden'}><span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span></div>
-    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
+    <div class="rh-chips"><span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span></div>
+    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span><em>+20 XP</em></button>
     ${twoWeeks}
   </div>`;
 }
@@ -340,7 +339,7 @@ function renderHome() {
     })()}
   </div>
 `;
-  setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
+  setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 74) / 100, 0, 1)}deg)`; }, 120);
 }
 const earnedToday = () => S.txns.filter(x => x.d === today()).reduce((a, x) => a + x.amt, 0);
 function markWalletViewed() { if (S.loop.date === today() && S.loop.earned && !S.loop.wallet) { S.loop.wallet = 1; save(); } }
