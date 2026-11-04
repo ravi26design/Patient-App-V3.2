@@ -225,3 +225,12 @@
 .md-eb{margin:26px 6px 4px;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8A96A1}
 .md-opt{margin-top:12px}
 .md-reassure{margin-top:28px}
+/* Help — flat pastel style (matches "What would help?" tiles) */
+.md-911{background:#C9695D;box-shadow:none}
+.md-911-ic{background:rgba(255,255,255,.2);box-shadow:none}
+.md-opt{border-radius:26px;background:var(--p);box-shadow:none;gap:16px;padding:18px 16px}
+.md-opt.t-r{--p:#F8E5E2;--a:#B8584C}.md-opt.t-a{--p:#F7EFD7;--a:#9A7A2E}.md-opt.t-g{--p:#E1ECE2;--a:#4E7A5E}.md-opt.t-b{--p:#DEEAF4;--a:#4B77A6}
+.md-opt-ic{width:auto;height:auto;border-radius:0;background:none;box-shadow:none;color:var(--a);align-self:flex-start;margin-top:2px}
+.md-opt-ic svg{width:26px;height:26px}
+.md-opt b{font-size:17px;font-weight:600;color:#2B3139}.md-opt small{color:#5F6A73}
+.md-opt .md-go{width:auto;height:auto;background:none;box-shadow:none;color:var(--a);opacity:.8}
