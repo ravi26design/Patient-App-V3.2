@@ -421,3 +421,12 @@
 .md-911>svg{padding:7px}
 .md-opt small,.md-911 small{line-height:1.4}
 .md-reassure{margin:26px 4px 0;padding:14px 16px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px #E8EDF2;justify-content:center}
+/* Help — "What would help?" tile style: flat pastel, bare line icon beside bold text */
+.md-opt,.md-911{align-items:center;gap:16px;padding:18px 18px;border-radius:30px;box-shadow:none}
+.md-opt-ic,.md-911-ic{width:auto;height:auto;border-radius:0;background:none!important;box-shadow:none;align-self:center}
+.md-opt-ic svg,.md-911-ic svg{width:28px;height:28px}
+.md-opt .md-go,.md-911>svg{width:auto;height:auto;padding:0;border-radius:0;background:none!important;box-shadow:none;opacity:.7}
+.md-opt.t-r{--p:#F6E4E1;--a:#B5604F}.md-opt.t-a{--p:#F7EFD8;--a:#8E6F1E}.md-opt.t-g{--p:#E1EBE2;--a:#4F7658}.md-opt.t-b{--p:#DFE9F3;--a:#44699A}
+.md-911{background:#EFD2CC}
+.md-opt b{font-size:18px;font-weight:700;letter-spacing:-.015em;color:#2B3139}.md-911 b{font-size:20px;font-weight:700}
+.md-opt small{font-size:13.5px;color:#66717B}
