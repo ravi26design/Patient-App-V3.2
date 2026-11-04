@@ -175,10 +175,10 @@ function cmFeed() {
 }
 function composeSheet() {
   const l = pushLayer(`<div class="sheet cmp-sheet"><span class="grab"></span>
-    <div class="cmp-top"><span class="cp-av">${esc((S.name || 'You').charAt(0).toUpperCase())}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="close-layer" aria-label="Close">${ic('x', 18, 2)}</button></div>
-    <textarea id="cm-text" rows="5" placeholder="What’s on your mind? Anything counts — even one line.">${esc(CM.draft)}</textarea>
-    <div class="cmp-count" id="cm-count">${CM.draft.trim() ? CM.draft.length + ' characters' : 'Anything counts — even one line.'}</div>
-    <button class="btn" id="cm-post" data-act="cm-submit"${CM.draft.trim() ? '' : ' disabled'}>Post anonymously</button></div>`, 'sheet-wrap');
+    <div class="cmp-top"><span class="cb-av">${esc((S.name || 'You').charAt(0).toUpperCase())}</span><div class="cmp-who"><b>Share with the community</b><small>Posting as you</small></div><button class="cmp-x" data-act="close-layer" aria-label="Close">${ic('x', 18, 2)}</button></div>
+    <div class="cmp-box"><textarea id="cm-text" rows="5" placeholder="What’s on your mind? Even one line counts.">${esc(CM.draft)}</textarea><span class="cmp-count" id="cm-count">${CM.draft.length ? CM.draft.length + ' characters' : ''}</span></div>
+    <div class="cmp-priv">${ic('shield', 16, 1.8)}<span>Anonymous — your name is never shown</span></div>
+    <button class="btn cmp-send" id="cm-post" data-act="cm-submit"${CM.draft.trim() ? '' : ' disabled'}>Post anonymously</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   setTimeout(() => { const t = $('#cm-text'); if (t) t.focus(); }, 320);
 }
@@ -237,4 +237,4 @@ Object.assign(ACT, {
   'cm-room': el => { CM.room = el.dataset.r; const l = layerOf(el); if (l && l.classList.contains('sheet-wrap')) popLayer(l); cmFeed(); const f = $('#cm-feed'); if (f) f.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
   'cm-soon': el => soonScreen(el.dataset.t, 'users', 'Coming soon', 'This part of Community is on its way. For now you can share in the rooms below.')
 });
-document.addEventListener('input', e => { if (e.target.id === 'cm-text') { CM.draft = e.target.value; $('#cm-post').disabled = !CM.draft.trim(); $('#cm-count').textContent = CM.draft.trim() ? CM.draft.length + ' characters' : 'Anything counts — even one line.'; } });
+document.addEventListener('input', e => { if (e.target.id === 'cm-text') { CM.draft = e.target.value; $('#cm-post').disabled = !CM.draft.trim(); $('#cm-count').textContent = CM.draft.length ? CM.draft.length + ' characters' : ''; } });
