@@ -245,18 +245,23 @@ function lesson(i, ctx) {
 
 /* ═════════ WALLET ═════════ */
 /* score and earnings side by side, per check-in (the "Score & Earnings not integrated" gap) */
+/* the last 7 days: real check-ins, plus sample days so the week reads well before there is real history */
+function weekDays() {
+  const SAMPLE_S = [0, 62, 60, 67, 64, 71], SAMPLE_E = [0, 11, 10, 12, 10, 11], earnedOn = d => S.txns.filter(x => x.d === d).reduce((a, x) => a + x.amt, 0);
+  return Array.from({ length: 7 }, (_, k) => { const d = daysAgo(6 - k), real = S.history.find(h => h.date === d), samp = k > 0 && k < 6;
+    return { d, h: real || (samp ? { overall: SAMPLE_S[k] } : null), e: real || k === 6 ? earnedOn(d) : samp ? SAMPLE_E[k] : 0, l: ['S', 'M', 'T', 'W', 'T', 'F', 'S'][new Date(d + 'T12:00:00').getDay()], now: k === 6 }; });
+}
 function scoreEarnCard() {
   if (!S.history.length) return '';
   const word = s => s >= 75 ? 'Strong' : s >= 55 ? 'Steady' : s >= 40 ? 'Building' : 'Needs care';
   const earnedOn = d => S.txns.filter(x => x.d === d).reduce((a, x) => a + x.amt, 0);
-  const days = Array.from({ length: 7 }, (_, k) => { const d = daysAgo(6 - k); return { d, h: S.history.find(h => h.date === d), e: earnedOn(d), l: ['S', 'M', 'T', 'W', 'T', 'F', 'S'][new Date(d + 'T12:00:00').getDay()], now: k === 6 }; });
+  const days = weekDays();
   const done = days.filter(x => x.h), latest = S.history[S.history.length - 1], total = days.reduce((a, x) => a + x.e, 0);
   const cols = days.map(x => `<div class="se-col ${x.now ? 'now' : ''} ${x.h ? '' : 'empty'}"><em class="se-e">${x.h ? '+' + usd(x.e) : '·'}</em>
     <div class="se-bar">${x.h ? `<i style="height:${x.h.overall}%;background:${scoreCol(x.h.overall / 10)}"></i>` : ''}</div><span class="se-s">${x.h ? x.h.overall : '–'}</span><small>${x.l}</small></div>`).join('');
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">Score & earnings · this week</div><div class="se-card">
     <div class="se-sum"><div><small>Latest score</small><b>${latest.overall}</b><span class="se-pill">${word(latest.overall)}</span></div><div><small>Earned</small><b>+${usd(total)}</b><span class="se-pill gold">${done.length} check-in${done.length === 1 ? '' : 's'}</span></div></div>
-    <div class="se-cols">${cols}</div>
-    <p class="se-note">Rewards come from showing up and doing activities — not from the score itself.</p></div></div>`;
+    <div class="se-cols">${cols}</div></div></div>`;
 }
 function renderWallet() {
   const nr = nextReward();

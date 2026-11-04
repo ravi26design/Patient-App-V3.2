@@ -399,8 +399,7 @@ function focusPage(k) {
 
 /* ═════════ WALLET — this week ═════════ */
 function weekCard() {
-  const since = daysAgo(6), days = new Set(S.history.filter(h => h.date >= since).map(h => h.date)), n = Math.min(days.size, 7);
-  const earned = S.txns.filter(x => x.d >= since).reduce((a, x) => a + x.amt, 0), need = Math.max(5 - n, 0);
+  const days = weekDays(), n = days.filter(x => x.h).length, earned = days.reduce((a, x) => a + x.e, 0), need = Math.max(5 - n, 0);
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">This week</div><div class="wk-card">
     <div class="wk-tile"><small>Check-ins</small><b>${n} of 7</b><span class="wk-chip">${need ? need + ' to bonus' : 'Bonus earned'}</span></div>
     <div class="wk-tile"><small>Earned</small><b class="g">+${usd(earned)}</b><span class="wk-chip a">this week</span></div></div></div>`;
