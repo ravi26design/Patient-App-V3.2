@@ -966,3 +966,10 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .sk-hero .sk-bar{height:14px;border-radius:7px;background:rgba(255,255,255,.4);margin-top:16px;overflow:hidden}
 .sk-hero .sk-bar i{display:block;height:100%;border-radius:7px;background:#3A2A08}
 .sk-hero p{margin:14px 0 0;font-size:16px;font-weight:600;color:#4A3610}
+
+/* desktop preview: iPhone 16 (393 x 852 pt screen, Dynamic Island) */
+@media (min-width:481px){
+  :root{--sat:36px}
+  .phone{width:413px;height:min(872px,calc(100vh - 32px));border:10px solid #1C1C1E;border-radius:67px;box-shadow:0 0 0 1.5px #3A3A3D,0 30px 70px rgba(0,0,0,.22)}
+  .phone::before{content:"";position:absolute;top:11px;left:50%;width:120px;height:34px;margin-left:-60px;border-radius:20px;background:#000;z-index:9999;pointer-events:none}
+}
