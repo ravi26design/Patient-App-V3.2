@@ -1032,3 +1032,18 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .pg-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:#E6EFF9;color:#4F82B0;flex:none}
 .pg-row b{display:block;font-size:16px;font-weight:600;color:#2F3A45}
 .pg-row small{display:block;font-size:13.5px;color:#8F9AA5;margin-top:2px}
+
+/* bottom bar polish: pill behind the active icon, filled active icons, larger HELP button */
+.nav{height:78px!important;padding:10px 8px 10px!important;background:rgba(255,255,255,.94)!important;border:1px solid rgba(108,159,204,.14)!important;box-shadow:0 12px 32px rgba(52,80,107,.14),0 2px 6px rgba(52,80,107,.05)!important;align-items:center!important}
+.nav button{height:58px!important;gap:4px!important;justify-content:center!important;color:#8793A3!important;transition:color .2s}
+.nav button .nav-ic{display:grid;place-items:center;width:58px;height:32px;border-radius:16px;transition:background .2s}
+.nav button .nav-ic svg{width:24px!important;height:24px!important;stroke-width:1.7}
+.nav button.on{color:var(--cta-d)!important}
+.nav button.on .nav-ic{background:rgba(108,159,204,.18)}
+.nav button span{font-size:11.5px!important;font-weight:500;letter-spacing:.01em}
+.nav button.on span{font-weight:700}
+.nav .nav-help{flex:0 0 86px!important;width:86px;height:86px!important;margin:-40px 2px 0!important;border-radius:50%!important;gap:3px!important;color:#fff!important;background:radial-gradient(circle at 35% 28%,#E3A196 0%,#CC7C71 58%,#BA675C 100%)!important;border:5px solid #fff!important;box-shadow:0 12px 28px rgba(201,118,107,.45)!important}
+.nav .nav-help::before{display:none!important}
+.nav .nav-help svg{position:static!important;margin:0!important;width:26px!important;height:26px!important;color:#fff}
+.nav .nav-help span{position:static!important;margin:0!important;color:#fff!important;font-size:12px!important;font-weight:700!important;letter-spacing:.06em}
+.nav .nav-help:active{transform:scale(.96)}

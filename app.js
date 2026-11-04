@@ -175,11 +175,20 @@ function go(t) {
   ({ home: renderHome, tools: renderTools, wallet: renderWallet, me: renderMe, community: renderCommunity, progress: renderProgress })[t]();
   renderNav(); $('#v-' + t).scrollTop = 0;
 }
+const NAV_ICON = {
+  home: ['<path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/>', '<path d="M11.1 3.3a1.4 1.4 0 0 1 1.8 0l7.4 6A1.4 1.4 0 0 1 20.8 10.4V19.2A1.8 1.8 0 0 1 19 21h-4a.9.9 0 0 1-.9-.9V15.5h-4.2v4.6a.9.9 0 0 1-.9.9H5A1.8 1.8 0 0 1 3.2 19.2V10.4A1.4 1.4 0 0 1 3.7 9.3z"/>'],
+  community: ['<path d="M12 4C7.6 4 4 7.1 4 11c0 2 .9 3.700 2.400 5L5.800 20l3.900-1.800c.7.200 1.500.3 2.300.3 4.400 0 8-3.100 8-7S16.400 4 12 4z"/>', '<path d="M12 3C6.900 3 3 6.600 3 11c0 2.200 1 4.200 2.600 5.600L5 21l4.200-2c.9.200 1.800.4 2.800.4 5.100 0 9-3.600 9-8S17.100 3 12 3z"/>'],
+  progress: ['<rect x="4" y="11" width="4" height="9" rx="1.200"/><rect x="10" y="4" width="4" height="16" rx="1.200"/><rect x="16" y="8" width="4" height="12" rx="1.200"/>', '<rect x="3.500" y="10.500" width="5" height="10" rx="1.600"/><rect x="9.500" y="3.500" width="5" height="17" rx="1.600"/><rect x="15.500" y="7.500" width="5" height="13" rx="1.600"/>'],
+  wallet: ['<circle cx="12" cy="12" r="9"/><path d="M12 7v10M14.500 9.500c-.4-.8-1.300-1.200-2.500-1.200-1.400 0-2.400.7-2.400 1.700 0 2.300 5 1.200 5 3.700 0 1.100-1.100 1.800-2.600 1.800-1.300 0-2.200-.5-2.600-1.400"/>', '<path fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 4.500v1.100c1.300.2 2.250.95 2.400 2.200h-1.700c-.1-.5-.5-.85-1.200-.85-.7 0-1.100.3-1.100.75 0 .45.35.65 1.450.95 1.500.4 2.900.85 2.900 2.450 0 1.200-.9 2-2.050 2.200v1.200h-1.500v-1.100c-1.400-.2-2.400-1.050-2.500-2.400h1.700c.1.650.6 1 1.400 1 .75 0 1.250-.3 1.250-.8 0-.5-.4-.7-1.550-1-1.400-.4-2.800-.85-2.800-2.400 0-1.100.85-1.900 2-2.100V6.500z"/>']
+};
 function renderNav() {
-  const item = ([id, l, i]) => `<button data-act="tab" data-v="${id}" class="${tab === id ? 'on' : ''}" aria-label="${l}">${ic(i, 24)}<span>${l}</span></button>`;
-  $('#nav').innerHTML = [['home', 'Home', 'home'], ['community', 'Community', 'chat']].map(item).join('')
-    + `<button class="nav-help" data-act="help" aria-label="Help">${ic('plus', 26, 2.6)}<span>HELP</span></button>`
-    + [['progress', 'Progress', 'bars'], ['wallet', 'Wallet', 'coin']].map(item).join('');
+  const item = ([id, l]) => { const on = tab === id, [line, fill] = NAV_ICON[id];
+    return `<button data-act="tab" data-v="${id}" class="${on ? 'on' : ''}" aria-label="${l}" ${on ? 'aria-current="page"' : ''}><i class="nav-ic">${on
+      ? `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">${fill.replace(/<rect([^>]*)\/>/g, '<rect$1/>')}</svg>`
+      : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${line}</svg>`}</i><span>${l}</span></button>`; };
+  $('#nav').innerHTML = [['home', 'Home'], ['community', 'Community']].map(item).join('')
+    + `<button class="nav-help" data-act="help" aria-label="Help">${ic('plus', 28, 2.6)}<span>HELP</span></button>`
+    + [['progress', 'Progress'], ['wallet', 'Wallet']].map(item).join('');
 }
 const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good night' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; };
 
