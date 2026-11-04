@@ -177,7 +177,6 @@ function composeSheet() {
   const l = pushLayer(`<div class="sheet cmp-sheet"><span class="grab"></span>
     <div class="cmp-top"><span class="cb-av">${esc((S.name || 'You').charAt(0).toUpperCase())}</span><div class="cmp-who"><b>Share with the community</b><small>Posting as you</small></div><button class="cmp-x" data-act="close-layer" aria-label="Close">${ic('x', 18, 2)}</button></div>
     <div class="cmp-box"><textarea id="cm-text" rows="5" placeholder="What’s on your mind? Even one line counts.">${esc(CM.draft)}</textarea><span class="cmp-count" id="cm-count">${CM.draft.length ? CM.draft.length + ' characters' : ''}</span></div>
-    <div class="cmp-priv">${ic('shield', 16, 1.8)}<span>Anonymous — your name is never shown</span></div>
     <button class="btn cmp-send" id="cm-post" data-act="cm-submit"${CM.draft.trim() ? '' : ' disabled'}>Post anonymously</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   setTimeout(() => { const t = $('#cm-text'); if (t) t.focus(); }, 320);
