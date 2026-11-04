@@ -483,3 +483,32 @@
 .cm-delta{display:inline-block;margin-top:6px;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600}.cm-delta.up{background:#E1ECE2;color:#4E7A5E}.cm-delta.down{background:#F6E4E1;color:#B5604F}
 .cm-note{margin:14px 0 0;font-size:13px;color:#8A96A1}
 @keyframes cmIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Home — Today's focus card */
+.fc-card{margin:16px 0 0;padding:20px 18px 16px;border-radius:30px;background:linear-gradient(180deg,#F1F6FD,#fff);box-shadow:inset 0 0 0 1px #DCE7F3,0 8px 24px rgba(52,80,107,.06);text-align:center}
+.fc-top{display:flex;align-items:center;gap:14px;text-align:left}
+.fc-ic{display:grid;place-items:center;width:58px;height:58px;flex:none;border-radius:20px}
+.fc-ic.t-r{background:#F6E4E1;color:#B5604F}.fc-ic.t-b{background:#DFE9F3;color:#44699A}.fc-ic.t-a{background:#F7EFD8;color:#8E6F1E}.fc-ic.t-p{background:#EAE4F4;color:#6B5DB0}.fc-ic.t-g{background:#E1EBE2;color:#4F7658}
+.fc-top small{display:block;font-size:14px;color:#8A96A1}.fc-top b{display:block;font-size:25px;font-weight:700;letter-spacing:-.02em;color:#26323D;margin-top:1px}.fc-top b.muted{color:#8A9690}
+.fc-note{margin:14px 0 0;padding:16px 16px;border-radius:20px;background:rgba(255,255,255,.85);font-size:15px;line-height:1.55;color:#7B8793;text-align:left}
+.fc-line{margin:14px 2px 0;font-size:17px;line-height:1.5;color:#3A4651;text-align:left}
+.fc-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;margin-top:16px;border-radius:28px;background:linear-gradient(135deg,#7FB0DC,#4F82B0);color:#fff;font-size:17px;font-weight:600;box-shadow:0 10px 22px rgba(79,130,176,.3)}
+.fc-cap{display:block;margin-top:12px;font-size:14px;color:#8A96A1}
+/* Focus activity page */
+.fp-layer .md-body{display:flex;flex-direction:column;gap:14px;padding-top:12px}
+.fp-card{padding:18px;border-radius:28px;background:#fff;box-shadow:0 2px 12px rgba(52,80,107,.05)}
+.fp-focus{display:flex;align-items:center;gap:14px}.fp-focus small{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;color:#8A96A1}.fp-focus b{display:block;font-size:26px;font-weight:700;color:#26323D}
+.fp-hero{text-align:center}.fp-hero small{display:block;margin-top:14px;font-size:12px;font-weight:600;letter-spacing:.1em;color:#8A96A1}
+.fp-hero-ic{display:grid;place-items:center;width:76px;height:76px;margin:0 auto;border-radius:26px;background:#5B82A8;color:#fff;box-shadow:0 10px 22px rgba(91,130,168,.3)}
+.fp-hero h2{margin:8px 0 14px;font-size:23px;font-weight:600;letter-spacing:-.02em;color:#26323D}
+.fp-xp{display:inline-block;padding:9px 20px;border-radius:999px;background:#F7EFD8;color:#8E6F1E;font-size:13px;font-weight:700;letter-spacing:.08em}
+.fp-card h3{margin:0;font-size:19px;font-weight:600;color:#26323D}.fp-sub{margin:8px 0 6px;font-size:14.5px;line-height:1.5;color:#8A96A1}
+.fp-step{display:flex;gap:14px;width:100%;padding:16px 0;text-align:left;border-top:1px solid #EFF2F5}.fp-step:first-of-type{border-top:0}
+.fp-n{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px #C5D3E3;color:#4B77A6;font-size:16px;font-weight:600}
+.fp-step.on .fp-n{background:#6C9FCC;box-shadow:none;color:#fff}
+.fp-step b{display:block;font-size:17px;font-weight:600;line-height:1.3;color:#26323D}.fp-step p{margin:6px 0 0;font-size:15px;line-height:1.55;color:#5C6975}
+.fp-why{display:flex;align-items:center;justify-content:space-between;width:100%;padding:18px;border-radius:24px;background:#E8F1E9;color:#3F6650;font-size:17px;font-weight:600}.fp-why span{display:inline-flex;align-items:center;gap:12px}
+.fp-why.open svg:last-child{transform:rotate(180deg)}
+.fp-wp{margin:-4px 4px 0;padding:14px 16px;border-radius:20px;background:#fff;font-size:14.5px;line-height:1.55;color:#5C6975}.fp-wp[hidden]{display:none}
+.fp-done{width:100%;height:56px;border-radius:28px;font-size:17px;font-weight:600;margin:4px 0 0}
+.fp-foot{margin:0 6px 10px;text-align:center;font-size:13.5px;line-height:1.5;color:#8A96A1}

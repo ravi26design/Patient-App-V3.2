@@ -339,6 +339,7 @@ function renderHome() {
       return `<div class="oh-card oh-purple oh-today"><span class="oh-lab">TODAY</span><b class="oh-big">${word}</b><small>${sub}</small>${art}<button class="oh-today-cta" data-act="${dn ? 'view-score' : 'checkin'}">${dn ? 'See my score' : 'Start check-in'} ${ic('next', 16, 2.4)}</button></div>`;
     })()}
   </div>
+  ${focusCard()}
 `;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 74) / 100, 0, 1)}deg)`; }, 120);
 }

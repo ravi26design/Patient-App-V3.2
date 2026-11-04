@@ -341,6 +341,61 @@ function renderScore(root) {
   layer._cleanup = () => { clearTimeout(tm); CI = null; };
 }
 
+
+/* ═════════ HOME — Today's focus card + guided activity page ═════════ */
+const FOCUS = {
+  cravings: { name: 'Craving', icon: 'bolt', tone: 'r', line: 'Cravings look like the biggest challenge today.', cta: 'Start Managing Cravings', mins: 4, page: 'Managing Cravings', hero: 'life', why: 'Surf the urge until it passes',
+    steps: [['Name it and rate it', 'Say it plainly: “I’m having a craving.” Rate it 1–10. Naming it moves it from the driver’s seat to the passenger seat — you’re observing it now, not obeying it.'],
+      ['Delay — set a 15-minute deal', 'You don’t have to promise forever, just 15 minutes. Tell yourself “I can revisit this in 15 minutes” and set an actual timer. Almost every craving loses its grip inside that window.'],
+      ['Distance — change your surroundings', 'Leave the room, step outside, put physical space between you and the cue. Cravings feed on cues; starve this one.'],
+      ['Distract — give your hands and mind a job', 'Splash cold water on your face, do 10 slow squats, play the number game, make tea. Strong sensation + simple task = the craving loses your attention.'],
+      ['Dial — reach one person', 'Text or call someone from your support list, even just: “Rough moment, riding it out.” Saying it out loud cuts a craving’s intensity more than almost anything else.'],
+      ['Decide and review', 'When the timer ends, re-rate it 1–10. Notice it dropped — that’s proof, not luck. Jot one line about what triggered it; every craving you outlast makes the next one weaker.']],
+    works: 'Cravings rise and fall in waves and usually peak within 15–30 minutes. Delay, distance and distraction give the wave time to pass, while connection and review turn each one into evidence that you can outlast them.' },
+  meds: { name: 'Medication', icon: 'pill', tone: 'b', line: 'Staying on track with your medication is today’s focus.', cta: 'Start Medication Check', mins: 3, page: 'Staying on Track', hero: 'pill', why: 'Make your medication routine easy',
+    steps: [['Check your plan', 'Look at your dose and timing. If you’re unsure, write down the question for your prescriber.'], ['Pair it with a habit', 'Take it at the same moment as something you already do daily, like brushing your teeth or making coffee.'], ['Set a reminder', 'A phone alarm or pill box makes the routine automatic so you don’t have to rely on memory.'], ['Plan for a missed dose', 'Know what to do if you miss one, and who to call. A plan takes the panic out of the moment.'], ['Tell someone', 'Share your plan with one person on your team. Being known makes it easier to keep.']],
+    works: 'Consistent medication keeps cravings steadier. Small routines and reminders do more than willpower.' },
+  risk: { name: 'Staying Safe', icon: 'shield', tone: 'a', line: 'Risky moments look like the biggest challenge today.', cta: 'Start Staying Safe', mins: 4, page: 'Staying Safe', hero: 'shield', why: 'Get ahead of risky moments',
+    steps: [['Name your riskiest cue', 'Which person, place or time of day is hardest? Write it down in one line.'], ['Make an if-then plan', '“If I’m near ___, then I will ___.” A ready plan beats deciding in the moment.'], ['Change the route', 'Take a different way, shorten the visit, or bring someone with you.'], ['Keep help close', 'Save one person to call, and keep naloxone where you can reach it.'], ['Review tonight', 'Notice what worked. Adjust the plan for tomorrow.']],
+    works: 'Planning ahead for known triggers cuts the number of decisions you have to make under pressure.' },
+  stress: { name: 'Stress', icon: 'wind', tone: 'b', line: 'Stress looks like the biggest challenge today.', cta: 'Start Managing Stress', mins: 4, page: 'Managing Stress', hero: 'wind', why: 'Bring your body back to calm',
+    steps: [['Pause and notice', 'Stop for a moment. Name where you feel stress in your body.'], ['Breathe out longer', 'Breathe in for 4, out for 6. Repeat five times. A long exhale tells your body it’s safe.'], ['Drop your shoulders', 'Unclench your jaw and hands. Let your shoulders fall away from your ears.'], ['Shrink the task', 'Pick the one smallest thing you can do next. Ignore the rest for now.'], ['Reach out', 'Tell someone how you’re feeling, even in one line.']],
+    works: 'Slow breathing activates the body’s calming response, and shrinking tasks makes stress feel manageable.' },
+  emotions: { name: 'Emotions', icon: 'smile', tone: 'p', line: 'Big feelings look like the biggest challenge today.', cta: 'Start Steadying Emotions', mins: 4, page: 'Steadying Emotions', hero: 'smile', why: 'Let the feeling move through',
+    steps: [['Name the feeling', 'Say what it is: sad, angry, anxious. Naming a feeling lowers its volume.'], ['Locate it', 'Notice where it sits in your body, and breathe into that spot.'], ['Let it be', 'You don’t have to fix it. Feelings rise and fall like waves.'], ['Do one kind thing', 'A walk, a shower, music, a warm drink. Pick the gentlest option.'], ['Share it', 'Tell someone you trust, or write one line in your own words.']],
+    works: 'Feelings that are named and shared lose their intensity much faster than ones we push away.' },
+  body: { name: 'Sleep & Body', icon: 'moon', tone: 'p', line: 'Sleep and your body need care today.', cta: 'Start Body Care', mins: 4, page: 'Caring for Your Body', hero: 'moon', why: 'Give your body what it needs',
+    steps: [['Check in with your body', 'Scan from head to toe. Where do you feel tight, tired or sore?'], ['Move gently', 'Stretch or take a short walk. Gentle movement eases pain and tension.'], ['Drink and eat', 'Have water and something simple to eat. Your body needs fuel to recover.'], ['Plan your wind-down', 'Dim the lights, put away screens and keep the same bedtime tonight.'], ['Ask for help', 'If pain or poor sleep keeps up, tell your care team.']],
+    works: 'Sleep and pain affect cravings and mood the next day, so small body-care steps protect tomorrow’s recovery.' },
+  drive: { name: 'Motivation', icon: 'rocket', tone: 'g', line: 'Motivation and confidence need a boost today.', cta: 'Start Building Confidence', mins: 3, page: 'Building Confidence', hero: 'rocket', why: 'Remember why you started',
+    steps: [['Name your why', 'Write one reason recovery matters to you today.'], ['Count a win', 'List one thing you’ve done well this week, however small.'], ['Picture tomorrow', 'Imagine a good day ahead. What does it look like?'], ['Pick one small step', 'Choose one thing you can do in the next hour to move forward.'], ['Tell someone', 'Share your win or your plan with someone on your team.']],
+    works: 'Remembering your reasons and counting small wins builds confidence, which makes the next step easier.' }
+};
+const FP = { done: new Set() };
+function focusKey(h) { const q = Q.map(x => [x.k, h.vals[x.k]]).sort((a, b) => a[1] - b[1])[0]; return q[0]; }
+function focusCard() {
+  const last = S.history[S.history.length - 1], dn = checkedInToday() && last;
+  if (!dn) return `<div class="fc-card"><div class="fc-top"><span class="fc-ic t-r">${ic('bolt', 26, 1.7)}</span><div><small>Today’s focus</small><b class="muted">Not ready yet</b></div></div>
+    <p class="fc-note">Your focus and recovery activity for today show here after your daily reflection.</p>
+    <button class="fc-btn" data-act="checkin">Begin Daily Reflection ${ic('next', 18, 2.4)}</button><span class="fc-cap">About 1 minute · unlocks today’s score</span></div>`;
+  const k = focusKey(last), f = FOCUS[k], fin = S.focusDone === today();
+  return `<div class="fc-card"><div class="fc-top"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>Today’s focus</small><b>${f.name}</b></div></div>
+    <p class="fc-line">${f.line}</p>
+    <button class="fc-btn" data-act="focus-open" data-k="${k}">${fin ? 'Review ' + f.page : f.cta} ${ic('next', 18, 2.4)}</button><span class="fc-cap">${fin ? 'Completed today ✓' : 'About ' + f.mins + ' minutes'}</span></div>`;
+}
+function focusPage(k) {
+  const f = FOCUS[k]; if (!f) return; FP.done = new Set(); const fin = S.focusDone === today();
+  const l = pushLayer(`<div class="layer-top fin-head md-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">${f.page}</span><button class="plain-btn" data-act="fp-speak" data-k="${k}" aria-label="Read aloud">${ic('speaker', 22)}</button></div>
+    <div class="layer-body md-body fp-body">
+      <div class="fp-card fp-focus"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>TODAY’S FOCUS</small><b>${f.name}</b></div></div>
+      <div class="fp-card fp-hero"><span class="fp-hero-ic">${ic(f.hero, 34, 1.7)}</span><small>WHY THIS HELPS TODAY</small><h2>${f.why}</h2><span class="fp-xp">EARN +20 XP</span></div>
+      <div class="fp-card"><h3>How to do it</h3><p class="fp-sub">Tap each step to check it off as you go — take all the time you need.</p>
+        ${f.steps.map(([t, d], i) => `<button class="fp-step" data-act="fp-step" data-i="${i}"><span class="fp-n">${i + 1}</span><div><b>${t}</b><p>${d}</p></div></button>`).join('')}</div>
+      <button class="fp-why" data-act="fp-why"><span>${ic('stetho', 22, 1.7)}Why this works</span>${ic('down', 20, 2)}</button><p class="fp-wp" hidden>${f.works}</p>
+      <button class="btn fp-done" data-act="fp-done" data-k="${k}"${fin ? ' disabled' : ''}>${fin ? 'Completed today ✓' : 'I did it · +20 XP'}</button>
+      <p class="fp-foot">There’s no timer and no wrong way. Completing an activity syncs to your care team.</p></div>`, 'md-layer fp-layer');
+}
+
 /* ═════════ wiring ═════════ */
 Object.assign(ACT, {
   help: () => helpSheet(),
@@ -353,6 +408,14 @@ Object.assign(ACT, {
   },
   'cx-stay': el => popLayer(layerOf(el)),
   'cx-yes': el => { popLayer(layerOf(el)); ACT['ci-close'](); },
+  'focus-open': el => focusPage(el.dataset.k),
+  'fp-step': el => { const i = +el.dataset.i; FP.done.has(i) ? FP.done.delete(i) : FP.done.add(i); el.classList.toggle('on', FP.done.has(i)); const n = $('.fp-n', el); n.innerHTML = FP.done.has(i) ? ic('check', 16, 2.8) : i + 1; },
+  'fp-why': el => { const p = el.nextElementSibling; p.hidden = !p.hidden; el.classList.toggle('open', !p.hidden); },
+  'fp-speak': el => { const f = FOCUS[el.dataset.k]; if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device'); if (speechSynthesis.speaking) return speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(f.page + '. ' + f.why + '. ' + f.steps.map(x => x[0] + '. ' + x[1]).join(' ')); u.rate = .95; speechSynthesis.speak(u); },
+  'fp-done': el => {
+    if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(ACT_BONUS[F().level] || 5, 'Activity: ' + FOCUS[el.dataset.k].page); save(); toast('Nice work — +20 XP'); confetti(); }
+    popLayer(layerOf(el)); if (tab === 'home') renderHome();
+  },
   'pf-add': () => openAddPerson(),
   'ap-sw': el => { const on = !el.classList.contains('on'); el.classList.toggle('on', on); el.setAttribute('aria-checked', on); },
   'ap-save': el => {
