@@ -296,3 +296,41 @@
 .pf-chips span{background:#fff}
 .pf-card .me-seg{background:rgba(255,255,255,.7)}
 .pf-edit{background:#fff;color:var(--a)}.pf-add{background:var(--a);color:#fff}
+
+/* Profile — setup reminders & language */
+.st-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid rgba(38,50,61,.07)}
+.pf-h+.st-row{border-top:0}
+.st-row b{display:block;font-size:15.5px;font-weight:600;color:#26323D}.st-row small{display:block;font-size:13px;color:#6B88A6;margin-top:2px}
+.st-sw{position:relative;width:52px;height:30px;flex:none;border-radius:15px;background:#C9D3DC;transition:background .2s}
+.st-sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s}
+.st-sw.on{background:#6C9FCC}.st-sw.on i{transform:translateX(22px)}
+.st-time select{appearance:none;-webkit-appearance:none;padding:9px 14px;border:0;border-radius:14px;background:#fff;font:inherit;font-size:14.5px;font-weight:600;color:#4B77A6;box-shadow:inset 0 0 0 1.5px #D5E3F0}
+.st-time.off{opacity:.45}
+.st-lang{display:flex;gap:8px;padding:4px 0 10px}
+.st-lang button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:16px;background:#fff;font-size:15px;font-weight:600;color:#5F6A73;box-shadow:inset 0 0 0 1.5px #DDE7DF}
+.st-lang button.on{background:#4E7A5E;color:#fff;box-shadow:none}
+
+/* Profile — grouped list style (white cards, pastel tiles, outside labels) */
+.pf-lab{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 6px 10px;font-size:15px;font-weight:500;color:#8A96A1}
+.pf-lab+.pf-card{margin-top:0}
+.pf-card,.pf-card.t-b,.pf-card.t-g,.pf-card.t-w,.pf-card.t-p,.pf-card.t-a{background:#fff;box-shadow:0 2px 12px rgba(52,80,107,.05);border-radius:28px;padding:6px 18px}
+.pf-card .pf-row,.pf-card .st-row{padding:14px 0;gap:14px;border-top:1px solid #EFF2F5}
+.pf-card .pf-row:first-child,.pf-card .st-row:first-child{border-top:0}
+.pf-ic{width:52px;height:52px;border-radius:17px}
+.pf-ic svg{width:22px;height:22px}
+.pf-card .pf-row b,.st-row b{font-size:17px;font-weight:500;color:#2B3139}
+.pf-card .pf-row small,.st-row small{font-size:14px;color:#8A96A1}
+.pf-ic.blue{background:#DEEAF4;color:#4B77A6}.pf-ic.amber{background:#F7EFD7;color:#9A7A2E}
+.pf-av{width:52px;height:52px}
+.pf-chips{padding:14px 0 16px}.pf-chips span{background:#F2F5F8}
+.pf-edit,.pf-add{background:none;color:#4F82B0;width:auto;height:auto;font-size:14px;font-weight:600;padding:0;gap:4px}.pf-add{background:none;color:#4F82B0}
+.pf-list{padding:0 18px}
+.pf-list .pf-mrow{background:none;border-radius:0;padding:14px 0;gap:14px;border-top:1px solid #EFF2F5}.pf-list .pf-mrow:first-child{border-top:0}
+.pf-list .pf-mrow b{font-size:17px;font-weight:500;color:#2B3139}
+.pf-list .pf-mic{width:52px;height:52px;border-radius:17px;background:var(--p)}.pf-list .pf-mic svg{width:22px;height:22px}
+.pf-list .pf-mrow>svg:last-child{color:#2B3139;opacity:.8}
+.st-lang{padding:6px 0 16px}
+.st-sw{margin-left:auto}
+.pf-card .pf-sub{margin:14px 0 0}
+.st-row>div{flex:1;min-width:0}.st-row b{font-size:16px!important;white-space:nowrap}
+.st-time select{padding:8px 10px;font-size:13.5px}

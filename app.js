@@ -221,7 +221,8 @@ const REMIND = {
   afternoon: { label: 'Midday · after lunch', t: '1:00 PM' },
   evening: { label: 'Evening · winding down', t: '8:00 PM' }
 };
-const nextTrigger = () => `${checkedInToday() ? 'Tomorrow' : 'Today'}, ${REMIND[S.remind].t} · ${REMIND[S.remind].label}`;
+const remindTime = () => { if (!S.remindTime) return REMIND[S.remind].t; const [h, m] = S.remindTime.split(':').map(Number); return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+const nextTrigger = () => S.remindOn === false ? 'Reminders are off' : `${checkedInToday() ? 'Tomorrow' : 'Today'}, ${remindTime()} · ${REMIND[S.remind].label}`;
 const remindPills = act => Object.entries(REMIND).map(([k, r]) => `<button class="pill ${S.remind === k ? 'on' : ''}" data-act="${act}" data-k="${k}">${r.label}</button>`).join('');
 
 /* ═════════ HOME ═════════ */

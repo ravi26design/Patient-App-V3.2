@@ -420,7 +420,7 @@ document.addEventListener('input', e => { if (e.target.id !== 'tsearch') return;
 
 /* ═════════ TRIGGER — the reminder that starts the loop ═════════ */
 function triggerSheet() {
-  if (checkedInToday() || $$('.layer').length) return;
+  if (S.remindOn === false || checkedInToday() || $$('.layer').length) return;
   const last = S.history[S.history.length - 1];
   const tot = 10 + ACT_BONUS[F().level] + clamp(S.streak + 1, 1, 5), rem = REMIND[S.remind];
   const l = pushLayer(`<div class="sheet trig"><span class="grab"></span>
