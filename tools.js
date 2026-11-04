@@ -339,7 +339,7 @@ function viewInsight() {
           <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
           <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
           <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
-        ${done ? `<div class="rh-chips"><span class="rh-word">${word}</span>${d == null ? '' : `<span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${arrow} ${Math.abs(d)}</b><em>${Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span>`}</div>
+        ${done ? `<div class="rh-chips"><span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${d == null ? '–' : arrow + ' ' + Math.abs(d)}</b><em>${d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span></div>
         <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${focusArea(last)}</b></span></div>` : ''}</div>
       <div class="in-take"><h3>Key Takeaways</h3><p id="in-take">${take}</p>${more ? `<div class="in-more" id="in-more" hidden>${more}</div><button class="in-readmore" data-act="insight-more" aria-expanded="false"><span>Read more</span>${ic('down', 16, 2.4)}</button>` : ''}</div>
     </div>

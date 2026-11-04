@@ -274,7 +274,7 @@ function recoveryCard(last) {
   const dtxt = d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping';
   const arrow = d == null ? '' : d > 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>' : d < 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const who = S.name ? `${esc(S.name.split(' ')[0])}’s Recovery Health` : 'Your Recovery Health';
-  const pts = S.history.slice(-14).map(h => h.overall), ready = done && pts.length > 1;
+  const hist = S.history.slice(-14).map(h => h.overall), ready = done && hist.length > 0, pts = hist.length === 1 ? [hist[0], hist[0], hist[0]] : hist;   // first check-in: flat line until there is more to compare
   const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
   const spark = ready ? (() => {
     const W = 180, H = 56, lo = Math.min(...pts), rg = Math.max(Math.max(...pts) - lo, 12), mid = lo + (Math.max(...pts) - lo) / 2, xy = pts.map((n, i) => [8 + i * (W - 16) / (pts.length - 1), H / 2 - 4 - (n - mid) / rg * (H - 28)]);
@@ -291,7 +291,7 @@ function recoveryCard(last) {
       <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
     ${done ? '' : `<button class="rh-todo" data-act="checkin">Complete today’s check-in</button>`}
-    <div class="rh-chips" ${done ? '' : 'hidden'}><span class="rh-word">${word}</span>${d == null ? '' : `<span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${Math.abs(d)}</b><em>${dtxt}</em></span>`}</div>
+    <div class="rh-chips" ${done ? '' : 'hidden'}><span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span></div>
     <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
     ${twoWeeks}
   </div>`;
