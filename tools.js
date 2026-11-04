@@ -343,12 +343,12 @@ function viewInsight() {
   const done = checkedInToday(), last = S.history[S.history.length - 1];
   const v = done ? last.overall : 0, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null, d = prev == null ? null : v - prev;
   const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
-  const trend = d == null ? 'This is your first check-in, so there is nothing to compare it with yet.' : Math.abs(d) <= 3 ? 'It has held steady since your last check-in. Steady counts for a lot in recovery.' : d > 0 ? `It is up ${d} since your last check-in. Keep going.` : `It is down ${-d} since your last check-in. A softer day is okay, and small steps still count.`;
+  const trend = d == null ? 'This is your first check-in, so there is nothing to compare it with yet.' : Math.abs(d) <= 3 ? 'It has also held steady for the past two weeks. Steady counts for a lot in recovery.' : d > 0 ? `It is also up ${d} from your last check-in. Keep building on it.` : `It is also down ${-d} from your last check-in. A softer day is okay, and small steps still count.`;
   const arrow = d == null ? '' : d > 0 ? '↑' : d < 0 ? '↓' : '–';
   let take, more = '';
   if (done) {
     const s = Q.map(q => ({ ...q, v: last.vals[q.k] })).sort((a, b) => b.v - a.v), hi = s[0], lo = s[s.length - 1];
-    take = `Today’s recovery health score is <b>${v}</b>. That puts it <b>${word.toLowerCase()}</b>. ${trend}`;
+    take = `Today's recovery health score is <b>${v}</b>. That puts it <b>${word.toLowerCase()}</b>. ${trend}`;
     more = `<p>Your strongest area today was <b>${hi.label}</b> (${hi.v.toFixed(1)}/10). The area that needs the most care is <b>${lo.label}</b> (${lo.v.toFixed(1)}/10).</p><p>Try one short activity today to give ${lo.label.toLowerCase()} some support. You can find them in the Tools tab.</p>`;
   } else take = 'Complete today’s check-in to see your recovery health score and a short insight about your day.';
   const reviewed = S.insightDate === today();
@@ -364,7 +364,7 @@ function viewInsight() {
         <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${focusArea(last)}</b></span></div>` : ''}</div>
       <div class="in-take"><h3>Key Takeaways</h3><p id="in-take">${take}</p>${more ? `<div class="in-more" id="in-more" hidden>${more}</div><button class="in-readmore" data-act="insight-more" aria-expanded="false"><span>Read more</span>${ic('down', 16, 2.4)}</button>` : ''}</div>
     </div>
-    <div class="ci-foot">${done ? `<button class="btn" data-act="insight-done" ${reviewed ? 'disabled' : ''}>${reviewed ? 'Insight reviewed' : 'Mark insight reviewed'}</button>` : `<button class="btn" data-act="checkin">Start check-in</button>`}</div>`, 'in-layer');
+    <div class="ci-foot">${done ? `<button class="btn" data-act="insight-done" ${reviewed ? 'disabled' : ''}>${reviewed ? 'Insight reviewed' : 'Mark insight reviewed · +20 XP'}</button>` : `<button class="btn" data-act="checkin">Start check-in</button>`}</div>`, 'in-layer');
   setTimeout(() => { const n = $('#in-needle', l); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(v / 100, 0, 1)}deg)`; }, 150);
 }
 function insightSpeak(el) {
