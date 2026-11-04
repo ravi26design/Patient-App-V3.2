@@ -473,3 +473,13 @@
 .sub.sel>i,.sub.sel i{background:var(--cta,#6C9FCC)!important;color:#fff!important;border-color:var(--cta,#6C9FCC)!important}
 .sub.sel .c-ic,.choice.sel .c-ic{color:#4F82B0}
 .sub.sel>i svg,.sub.sel i svg{color:#fff;stroke:#fff}
+
+/* check-in result modal */
+.layer.ci-modal{background:rgba(31,42,55,.45)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ci-modal .cm-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
+.cm-card{width:100%;padding:26px 18px 20px;border-radius:32px;background:#fff;text-align:center;box-shadow:0 24px 60px rgba(31,42,55,.3);animation:cmIn .45s cubic-bezier(.2,.8,.2,1)}
+.cm-card h3{margin:0 0 6px;font-size:20px;font-weight:600;color:#26323D}
+.cm-card .fin-gauge{padding:0}
+.cm-delta{display:inline-block;margin-top:6px;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600}.cm-delta.up{background:#E1ECE2;color:#4E7A5E}.cm-delta.down{background:#F6E4E1;color:#B5604F}
+.cm-note{margin:14px 0 0;font-size:13px;color:#8A96A1}
+@keyframes cmIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}

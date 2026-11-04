@@ -314,6 +314,33 @@ function bonusCard() {
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">Bonuses</div><div class="bn-card">${items.map(([c, i, t, d, p, amt, done]) => `<div class="bn-row t-${c}"><span class="bn-ic">${ic(i, 22, 1.8)}</span><div class="bn-mid"><b>${t}</b><small>${d}</small><div class="bn-bar"><i style="width:${Math.round(p * 100)}%"></i></div></div><span class="bn-amt${done ? ' done' : ''}">${done ? ic('check', 14, 2.6) + 'Earned' : amt}</span></div>`).join('')}</div></div>`;
 }
 
+
+/* ═════════ CHECK-IN RESULT — speedometer modal, then back to Home ═════════ */
+function renderScore(root) {
+  const vals = strengthVals(CI.a), overall = Math.round(finalPts());
+  const prev = S.history.length ? S.history[S.history.length - 1].overall : null;
+  CI.res = { vals, overall, prev };
+  if (!CI.saved) {
+    CI.saved = true;
+    const first = !checkedInToday();
+    if (first) {
+      S.streak = S.lastCheckin === daysAgo(1) ? S.streak + 1 : 1; S.lastCheckin = today();
+      S.history.push({ date: today(), overall, vals, raw: JSON.parse(JSON.stringify(CI.a)) });
+      S.loop = { date: today(), survey: 1, score: 1 };
+    }
+    save(); CI.first = first;
+    const e = earnCalc(false);
+    if (e.first) { earn(e.base, 'Daily check-in', overall); if (e.st) earn(e.st, 'Streak bonus'); S.loop.earned = 1; save(); }
+  }
+  const layer = CI.layer; layer.classList.add('ci-modal');
+  const delta = prev == null ? '' : `<div class="cm-delta ${overall >= prev ? 'up' : 'down'}">${overall >= prev ? '▲' : '▼'} ${Math.abs(overall - prev)} vs. last check-in</div>`;
+  root.innerHTML = `<div class="cm-wrap"><div class="cm-card"><h3>Your recovery score</h3><div class="fin-gauge">${gauge(overall)}</div>${delta}<p class="cm-note">Taking you home…</p></div></div>`;
+  animateScore(root, overall, 0);
+  if (CI.first) setTimeout(confetti, 600);
+  const tm = setTimeout(() => { if (CI && CI.layer === layer) endCheckin('home'); }, 5200);
+  layer._cleanup = () => { clearTimeout(tm); CI = null; };
+}
+
 /* ═════════ wiring ═════════ */
 Object.assign(ACT, {
   help: () => helpSheet(),
