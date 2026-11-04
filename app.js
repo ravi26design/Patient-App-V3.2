@@ -291,6 +291,18 @@ function recoveryCard(last) {
     ${twoWeeks}
   </div>`;
 }
+function streaksCard() {
+  const n = S.streak || 0; if (n > (S.bestStreak || 0)) { S.bestStreak = n; save(); }
+  const goal = 90, left = Math.max(0, goal - n), pct = Math.min(100, n / goal * 100);
+  return `<div class="rh-card sk-card">
+    <div class="rh-head"><b>Streaks</b><span class="rh-info" aria-hidden="true">${ic('info', 20, 1.6)}</span></div>
+    <div class="sk-hero"><span class="sk-eye">RECOVERY JOURNEY</span>
+      <h3>${n && n >= S.bestStreak ? 'Your longest yet' : n ? 'Keep it going' : 'Start your streak'} <i>${ic('heart', 22, 2)}</i></h3>
+      <div class="sk-n"><b>${n}</b><span>DAYS IN RECOVERY</span></div>
+      <div class="sk-bar"><i style="width:${pct}%"></i></div>
+      <p>${left ? `${left} day${left === 1 ? '' : 's'} to your ${goal}-day milestone` : `You reached your ${goal}-day milestone`}</p></div>
+  </div>`;
+}
 function renderHome() {
   const v = $('#v-home'), done = checkedInToday(), last = S.history[S.history.length - 1];
   const rec = recommend(last ? last.vals : null);
@@ -301,6 +313,7 @@ function renderHome() {
     <div class="oh-actions"><button class="oh-chip" data-act="help" aria-label="Location">${ic('pin', 22, 1.6)}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${recoveryCard(last)}
+  ${streaksCard()}
   <div class="oh-pair">
     ${(() => {
       const dn = checkedInToday() && last, word = !dn ? 'Not yet' : last.overall >= 75 ? 'Strong' : last.overall >= 55 ? 'Steady' : last.overall >= 40 ? 'Building' : 'Needs care';

@@ -952,3 +952,17 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .rh-weeks b.mut{color:#8793AA}
 .rh-weeks .rh-spark{width:36%;height:46px;flex:none}
 .rh-weeks .rh-spark svg{width:100%;height:100%;display:block}
+
+/* Home: Streaks card */
+.sk-card .sk-hero{position:relative;overflow:hidden;margin-top:16px;padding:24px 22px 22px;border-radius:28px;background:linear-gradient(150deg,#F3CB68 0%,#EDB444 55%,#E0A02F 100%);color:#3A2A08;box-shadow:0 10px 24px rgba(224,160,47,.25)}
+.sk-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.22)}
+.sk-hero>*{position:relative;z-index:1}
+.sk-hero .sk-eye{display:block;font-size:12.5px;font-weight:700;letter-spacing:.2em;color:rgba(58,42,8,.65)}
+.sk-hero h3{margin:8px 0 0;font-size:24px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.sk-hero h3 i{display:inline-grid;color:#C9736E}
+.sk-hero .sk-n{display:flex;align-items:baseline;gap:12px;margin-top:10px}
+.sk-hero .sk-n b{font-size:60px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.sk-hero .sk-n span{font-size:13px;font-weight:700;letter-spacing:.16em;color:rgba(58,42,8,.6)}
+.sk-hero .sk-bar{height:14px;border-radius:7px;background:rgba(255,255,255,.4);margin-top:16px;overflow:hidden}
+.sk-hero .sk-bar i{display:block;height:100%;border-radius:7px;background:#3A2A08}
+.sk-hero p{margin:14px 0 0;font-size:16px;font-weight:600;color:#4A3610}
