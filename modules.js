@@ -173,11 +173,14 @@ function cmFeed() {
   box.innerHTML = (list.length ? list.map(cmPostHTML).join('') : '<div class="cm-empty"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>');
     const st = $('#cm-sup'); if (st) st.textContent = CM.support; const rk = $('#cm-rank'); if (rk) rk.textContent = cmRank();
 }
-function cmComposer() {
-  const c = $('#cm-comp'); if (!c) return; c.hidden = !CM.open; $('#cm-bar').hidden = CM.open;
-  $$('#cm-chips button', c).forEach(b => b.classList.toggle('on', b.dataset.r === CM.pick));
-  $('#cm-post').disabled = !CM.draft.trim();
-  $('#cm-count').textContent = CM.draft.trim() ? CM.draft.length + ' characters' : 'Anything counts — even one line.';
+function composeSheet() {
+  const l = pushLayer(`<div class="sheet cmp-sheet"><span class="grab"></span>
+    <div class="cmp-top"><span class="cp-av">${esc((S.name || 'You').charAt(0).toUpperCase())}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="close-layer" aria-label="Close">${ic('x', 18, 2)}</button></div>
+    <textarea id="cm-text" rows="5" placeholder="What’s on your mind? Anything counts — even one line.">${esc(CM.draft)}</textarea>
+    <div class="cmp-count" id="cm-count">${CM.draft.trim() ? CM.draft.length + ' characters' : 'Anything counts — even one line.'}</div>
+    <button class="btn" id="cm-post" data-act="cm-submit"${CM.draft.trim() ? '' : ' disabled'}>Post anonymously</button></div>`, 'sheet-wrap');
+  l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
+  setTimeout(() => { const t = $('#cm-text'); if (t) t.focus(); }, 320);
 }
 function renderCommunity() {
   const me = esc((S.name || 'You').charAt(0).toUpperCase());
@@ -190,14 +193,8 @@ function renderCommunity() {
     <div class="hub-card"><div class="hub-head"><span class="hub-ic" style="background:#5B92CE">${ic('chat', 22, 1.8)}</span><div><b>Find your people</b><small>Join the conversation</small></div></div>
       <button class="cr-room" data-act="cm-room"><span class="cr-ic">${ic('users', 24, 1.8)}</span><span class="cr-tx"><b>Community Room</b><small>One shared space for everyone</small><span class="cr-live"><span class="cr-av"><i style="background:#7FB0DC">N</i><i style="background:#8FBF9F">T</i><i style="background:#E0B25C">R</i></span><em><u></u>214 here today</em></span></span><span class="cr-go">${ic('chev', 18, 2.2)}</span></button></div>
     <button class="compose-bar" id="cm-bar" data-act="cm-open"><span class="cb-av">${me}</span><span class="cb-tx"><b>What’s on your mind?</b><small>Share, ask, or just say you’re here</small></span><span class="cb-go">${ic('mic', 18, 1.8)}</span></button>
-    <div class="cm-comp" id="cm-comp" hidden>
-      <div class="cmp-top"><span class="cp-av">${me}</span><div class="cmp-who">Posting as <b>you</b><small>Your real name is never shown</small></div><button class="cmp-x" data-act="cm-close" aria-label="Close">${ic('x', 18, 2)}</button></div>
-      <div class="cmp-step"><span>1</span>Write it here</div>
-      <textarea id="cm-text" rows="3" placeholder="Anything counts — even one line.">${esc(CM.draft)}</textarea>
-      <div class="cmp-count" id="cm-count"></div>
-      <button class="btn" id="cm-post" data-act="cm-submit" disabled>Post anonymously</button></div>
     <div id="cm-feed"></div></div>`;
-  cmFeed(); cmComposer();
+  cmFeed();
 }
 function roomsSheet() {
   const cnt = k => POSTS.filter(p => k === 'all' || p.channel === k).length;
@@ -222,13 +219,11 @@ Object.assign(ACT, {
     if (i >= 0) { if (PG.items.length > 1) PG.items.splice(i, 1); } else if (PG.items.length < 2) PG.items.push(k); else PG.items[1] = k;
     pgPaint();
   },
-  'cm-open': () => { CM.open = true; cmComposer(); setTimeout(() => { const t = $('#cm-text'); if (t) t.focus(); }, 50); },
-  'cm-close': () => { CM.open = false; cmComposer(); },
-  'cm-pick': el => { CM.pick = el.dataset.r; cmComposer(); },
+  'cm-open': () => composeSheet(),
   'cm-submit': () => {
     const t = CM.draft.trim(); if (!t) return;
     POSTS.unshift(mk(Date.now(), 'you', 'blue', 'community', 'just now', t, 0, 0, [], { mine: true }));
-    CM.draft = ''; $('#cm-text').value = ''; CM.open = false; cmComposer(); cmFeed(); toast('Posted anonymously');
+    CM.draft = ''; popLayer(layerOf($('#cm-text'))); cmFeed(); toast('Posted anonymously');
   },
   'cm-react': el => {
     const p = POSTS.find(x => x.id == el.dataset.id), r = REACT.find(x => x[0] === el.dataset.r), on = !p['r_' + r[0]];
