@@ -383,3 +383,10 @@
 #v-me .pf-stats span{background:rgba(255,255,255,.22)!important;color:#fff!important}
 #v-me .pf-stats .lv b,#v-me .pf-stats .lv small{color:#fff}#v-me .pf-stats .lv small{color:rgba(255,255,255,.78)}
 .pf-hero-av{box-shadow:0 0 0 5px rgba(255,255,255,.9),0 10px 24px rgba(31,59,92,.3)!important}
+
+/* Profile hero — info only */
+#v-me .pf-hero{padding:28px 16px 24px}
+#v-me .pf-hero p{padding:0;background:none;font-size:14.5px;color:rgba(255,255,255,.85)}
+#v-me .pf-hero .pf-tags{margin-top:16px}
+#v-me .pf-hero .pf-tags span{background:rgba(255,255,255,.92);box-shadow:none}
+#v-me .pf-hero .pf-tags .gold{color:#8A6B1F}#v-me .pf-hero .pf-tags .sage{color:#3F6A93}
