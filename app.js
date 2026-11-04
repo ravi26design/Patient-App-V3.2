@@ -340,10 +340,7 @@ function renderHome() {
     })()}
   </div>
   ${streaksCard()}
-  <div class="oh-pair">
-    <div class="oh-card oh-light"><div class="oh-row"><span class="oh-lab">STREAK</span><span class="oh-bolt">${ic('flame', 20, 1.5)}</span></div><h3>${S.streak}<em> day${S.streak === 1 ? '' : 's'}</em></h3><small class="oh-wk"><span class="oh-up">${wdone}/7</span> this week</small>
-      <div class="oh-week">${week.map((x, k) => `<div class="${x.done ? 'on' : ''} ${x.now ? 'now' : ''}"><i>${x.done ? ic('check', 10, 3.4) : ''}</i><span>${['S', 'M', 'T', 'W', 'T', 'F', 'S'][new Date(daysAgo(6 - k) + 'T12:00:00').getDay()]}</span></div>`).join('')}</div></div>
-  </div>`;
+`;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
 }
 const earnedToday = () => S.txns.filter(x => x.d === today()).reduce((a, x) => a + x.amt, 0);
