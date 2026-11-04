@@ -46,8 +46,7 @@ const call911 = () => `<a class="md-911" href="tel:911"><span class="md-911-ic">
 const mdOpt = (act, tone, icon, t, d) => `<button class="md-opt t-${tone}" data-act="${act}"><span class="md-opt-ic">${ic(icon, 22, 1.8)}</span><div><b>${t}</b><small>${d}</small></div><span class="md-go">${ic('chev', 16, 2.2)}</span></button>`;
 
 function helpSheet() {
-  mdLayer('Help', `<h1 class="md-title">Help</h1><p class="md-sub">You're not alone. Pick what you need right now.</p>
-    ${call911()}
+  mdLayer('Help', `${call911()}
     <div class="eyebrow md-eb">What's going on?</div>
     ${mdOpt('md-crisis', 'r', 'pulse', 'I’m in crisis', '988 Lifeline, crisis text line &amp; naloxone help')}
     ${mdOpt('md-urge', 'a', 'wave', 'I’m having cravings', 'Ride it out — breathing, grounding &amp; your people')}
