@@ -201,3 +201,5 @@
 .pg-grid{gap:8px}
 .pg-card2 .pg-item{min-height:0;padding:8px 10px;border-radius:14px}
 .pg-card2 .pg-n{font-size:13.5px;line-height:1.2}
+.pg-card2 .pg-grid{display:flex;flex-wrap:wrap;gap:8px}
+.pg-card2 .pg-item,.pg-card2 .pg-item:last-child:nth-child(odd){flex:0 0 auto;width:auto;grid-column:auto;padding:8px 16px;border-radius:18px}

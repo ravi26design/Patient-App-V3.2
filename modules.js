@@ -134,7 +134,6 @@ function pgPaint() {
   $('#pg-wk', v).textContent = PG.off === 0 ? 'This week' : PG.off === 1 ? 'Last week' : PG.off + ' weeks ago';
   $('#pg-prev', v).disabled = PG.off >= PG_MAXOFF; $('#pg-next', v).disabled = PG.off <= 0;
   $$('.pg-item', v).forEach(b => b.classList.toggle('on', PG.items.includes(b.dataset.k)));
-  $('#pg-sel', v).textContent = PG.items.length + ' of 2 selected';
   $('#pg-legend', v).innerHTML = PG.items.map(k => `<span><svg width="30" height="10" viewBox="0 0 30 10"><path d="M0 5h30" stroke="${PG_DATA[k].hex}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 14" stroke-dashoffset="-1"/><circle cx="15" cy="5" r="4.2" fill="${PG_DATA[k].hex}"/></svg>${PG_DATA[k].label}</span>`).join('');
 }
 function renderProgress() {
@@ -142,7 +141,7 @@ function renderProgress() {
   <div class="pad"><div class="pg-card2"><div class="pg-h2"><b id="pg-title" class="pg-t"></b><button class="pg-info" data-act="pg-info" aria-label="About this chart">${ic('info', 22, 1.8)}</button></div><div class="pg-tf">${['W', 'M', '6M', 'Y'].map(t => `<button data-act="pg-tf" data-tf="${t}">${t}</button>`).join('')}</div>
     <div class="pg-nav" id="pg-nav"><button id="pg-prev" data-act="pg-wk" data-d="1" aria-label="Previous week">${ic('left', 18, 2)}</button><span id="pg-wk">This week</span><button id="pg-next" data-act="pg-wk" data-d="-1" aria-label="Next week">${ic('chev', 18, 2)}</button></div>
     <div id="pg-chart"></div><div class="pg-legend" id="pg-legend"></div></div>
-  <div class="pg-card2"><div class="pg-t2r"><b class="pg-t2">Compare factors</b><span class="pg-sel" id="pg-sel"></span></div><p class="pg-hint">Pick up to 2 to see them side by side.</p>
+  <div class="pg-card2"><b class="pg-t2">Compare factors</b><p class="pg-hint">Pick up to 2 to see them side by side.</p>
     <div class="pg-grid">${Object.keys(PG_DATA).map(k => `<button class="pg-item" style="--cat:${PG_DATA[k].hex}" data-act="pg-item" data-k="${k}"><span class="pg-n">${PG_DATA[k].label}</span></button>`).join('')}</div></div></div>`;
   pgPaint();
 }
