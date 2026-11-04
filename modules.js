@@ -43,17 +43,18 @@ const ctRow = ([bg, icon, name, role, num, btns]) => `<div class="ct-row"><span 
   <div class="ct-main"><b>${name}</b><small>${role}</small>${num ? `<em>${num}</em>` : ''}</div>
   <div class="ct-btns">${btns.map(([k, h]) => `<a class="ct-btn ${k}" href="${h}">${ic(k === 'call' ? 'phone' : k === 'email' ? 'mail' : 'sms', 15, 2)}${k[0].toUpperCase() + k.slice(1)}</a>`).join('')}</div></div>`;
 const call911 = () => `<a class="md-911" href="tel:911"><span class="md-911-ic">${ic('phone', 24, 1.9)}</span><div><b>Call 911</b><small>Overdose or medical emergency — call now</small></div>${ic('chev', 20, 2)}</a>`;
-const mdOpt = (act, bg, icon, t, d, emerg) => `<button class="md-opt${emerg ? ' emerg' : ''}" data-act="${act}"><span class="md-opt-ic" style="background:${bg}">${ic(icon, 22, 1.8)}</span><div><b>${t}</b><small>${d}</small></div>${ic('chev', 18, 2)}</button>`;
+const mdOpt = (act, tone, icon, t, d) => `<button class="md-opt t-${tone}" data-act="${act}"><span class="md-opt-ic">${ic(icon, 22, 1.8)}</span><div><b>${t}</b><small>${d}</small></div><span class="md-go">${ic('chev', 16, 2.2)}</span></button>`;
 
 function helpSheet() {
   mdLayer('Help', `<h1 class="md-title">Help</h1><p class="md-sub">You're not alone. Pick what you need right now.</p>
     ${call911()}
     <div class="eyebrow md-eb">What's going on?</div>
-    ${mdOpt('md-crisis', '#C4453A', 'pulse', 'I’m in crisis', '988 Lifeline, crisis text line &amp; naloxone help', 1)}
-    ${mdOpt('md-urge', '#C4453A', 'wave', 'I’m having cravings', 'Ride it out — breathing, grounding &amp; your people', 1)}
-    ${mdOpt('md-team', '#6E9E80', 'hands', 'Reach my support team', 'Family, friends, sponsor, coach, peer, therapist &amp; doctor')}
+    ${mdOpt('md-crisis', 'r', 'pulse', 'I’m in crisis', '988 Lifeline, crisis text line &amp; naloxone help')}
+    ${mdOpt('md-urge', 'a', 'wave', 'I’m having cravings', 'Ride it out — breathing, grounding &amp; your people')}
+    ${mdOpt('md-team', 'g', 'hands', 'Reach my support team', 'Family, friends, sponsor, coach, peer, therapist &amp; doctor')}
     <div class="eyebrow md-eb">New to the app?</div>
-    ${mdOpt('md-guide', '#6DA0CC', 'sparkle', 'App Help Guide', 'A quick tour of the app’s main features')}`);
+    ${mdOpt('md-guide', 'b', 'sparkle', 'App Help Guide', 'A quick tour of the app’s main features')}
+    <div class="md-reassure">${ic('heart', 16, 1.8)}<span>Help is always one tap away, any time of day.</span></div>`);
 }
 function crisisScreen() {
   mdLayer('Crisis support', `${call911()}

@@ -204,3 +204,19 @@
 .pg-card2 .pg-grid{display:flex;flex-wrap:wrap;gap:8px}
 .pg-card2 .pg-item,.pg-card2 .pg-item:last-child:nth-child(odd){flex:0 0 auto;width:auto;grid-column:auto;padding:8px 16px;border-radius:18px}
 .pg-card2 .pg-item,.pg-card2 .pg-item:last-child:nth-child(odd){flex:1 1 auto}
+.pg-card2 .pg-item.on{background:var(--cat);box-shadow:0 4px 10px color-mix(in srgb,var(--cat) 35%,transparent)}.pg-card2 .pg-item.on .pg-n{color:#fff}
+
+/* Help — soft style */
+.md-911{padding:18px;border-radius:28px;background:linear-gradient(135deg,#DB7468,#BC4C42);box-shadow:0 12px 26px rgba(188,76,66,.28),inset 0 1px 0 rgba(255,255,255,.25)}
+.md-911-ic{width:52px;height:52px;border-radius:18px;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.md-911>svg{display:block;width:30px;height:30px;padding:6px;border-radius:50%;background:rgba(255,255,255,.22);flex:none}
+.md-eb{margin:24px 6px 2px}
+.md-opt{position:relative;gap:14px;padding:16px;border:0;border-radius:24px;background:linear-gradient(160deg,var(--t1),var(--t2));box-shadow:inset 0 0 0 1px var(--tb)}
+.md-opt.t-r{--t1:#FEF4F1;--t2:#FADFDA;--tb:rgba(197,106,94,.22);--a:#C56A5E;--a2:#E39A8E}
+.md-opt.t-a{--t1:#FFF8EC;--t2:#FBEBCB;--tb:rgba(201,151,59,.24);--a:#C9973B;--a2:#E8C070}
+.md-opt.t-g{--t1:#F1F8F2;--t2:#DEEDE1;--tb:rgba(94,133,96,.22);--a:#5E8560;--a2:#8DB68F}
+.md-opt.t-b{--t1:#F0F6FC;--t2:#DCEAF6;--tb:rgba(108,159,204,.28);--a:#4F82B0;--a2:#7FB0DC}
+.md-opt-ic{width:50px;height:50px;border-radius:17px;background:linear-gradient(145deg,var(--a2),var(--a));box-shadow:0 6px 12px -2px color-mix(in srgb,var(--a) 45%,transparent)}
+.md-opt b{font-size:17px}.md-opt small{color:#5C6975;font-size:13px}
+.md-opt .md-go{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff;color:var(--a);box-shadow:0 2px 8px rgba(0,0,0,.08);flex:none}
+.md-reassure{display:flex;align-items:center;justify-content:center;gap:8px;margin:26px 8px 0;font-size:13px;color:#7B8793;text-align:center}.md-reassure svg{color:#C56A5E;flex:none}
