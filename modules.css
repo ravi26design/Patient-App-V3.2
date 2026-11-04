@@ -512,3 +512,6 @@
 .fp-wp{margin:-4px 4px 0;padding:14px 16px;border-radius:20px;background:#fff;font-size:14.5px;line-height:1.55;color:#5C6975}.fp-wp[hidden]{display:none}
 .fp-done{width:100%;height:56px;border-radius:28px;font-size:17px;font-weight:600;margin:4px 0 0}
 .fp-foot{margin:0 6px 10px;text-align:center;font-size:13.5px;line-height:1.5;color:#8A96A1}
+/* Wallet — streak / activities tiles centred */
+.bal-grid>div{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;padding:14px}
+.bal-grid small{display:block;margin:0 0 6px;line-height:1.2}.bal-grid b{display:block;line-height:1.2}
