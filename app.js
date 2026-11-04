@@ -372,7 +372,7 @@ function nextStepHTML(rec) {
 
 let CI = null;
 function startCheckin() {
-  CI = { i: -1, a: {}, done: {}, touched: {}, layer: null };
+  CI = { i: 0, a: {}, done: {}, touched: {}, layer: null };
   CI.layer = pushLayer('<div id="ci-root" style="display:flex;flex-direction:column;flex:1"></div>');
   CI.layer._cleanup = () => { CI = null; };
   renderCI();
