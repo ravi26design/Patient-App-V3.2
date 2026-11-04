@@ -267,8 +267,8 @@ function renderMe() {
     ${lab('Medication')}<div class="pf-card">${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
     ${lab('What Helps Me', `<button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button>`)}<div class="pf-card">
       <div class="pf-help">${helps.map(([i, c, t]) => `<div class="hp-${c}"><span>${ic(i, 24, 1.7)}</span><b>${t}</b></div>`).join('')}</div></div>
-    ${lab('My People', `<button class="pf-add" data-act="pf-soon" data-t="Add a person">${ic('plus', 14, 2.4)}Add</button>`)}<div class="pf-card"><p class="pf-sub">Call or text anyone in one tap.</p>
-      ${PF_PEOPLE.map(([c, i, n, r, p]) => { const d = p.replace(/[^\d+]/g, ''); return `<div class="pf-row"><span class="pf-av" style="background:color-mix(in srgb,${c} 20%,#fff);color:color-mix(in srgb,${c} 78%,#26323D)">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
+    ${lab('My People', `<button class="pf-add" data-act="pf-add">${ic('plus', 14, 2.4)}Add</button>`)}<div class="pf-card"><p class="pf-sub">Call or text anyone in one tap.</p>
+      ${[...PF_PEOPLE, ...(S.people || []).map(x => [x.c, x.i, x.n, x.r, x.p])].map(([c, i, n, r, p]) => { const d = String(p || '').replace(/[^\d+]/g, ''); if (!d) return `<div class="pf-row"><span class="pf-av" style="background:color-mix(in srgb,${c} 20%,#fff);color:color-mix(in srgb,${c} 78%,#26323D)">${i}</span><div><b>${esc(n)}</b><small>${esc(r)}</small></div></div>`; return `<div class="pf-row"><span class="pf-av" style="background:color-mix(in srgb,${c} 20%,#fff);color:color-mix(in srgb,${c} 78%,#26323D)">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
     ${lab('Care Team')}<div class="pf-card">${care.map(([t, i, n, r]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>${r}</small></div></div>`).join('')}</div>
     ${lab('Setup reminders')}<div class="pf-card">
       <div class="st-row"><span class="pf-ic blue">${ic('clock', 22, 1.7)}</span><div><b>Daily check-in reminders</b><small id="st-state">${S.remindOn === false ? 'Disabled' : 'Enabled'}</small></div><button class="st-sw${S.remindOn === false ? '' : ' on'}" id="st-sw" role="switch" aria-checked="${S.remindOn !== false}" aria-label="Daily check-in reminders" data-act="pf-rem-toggle"><i></i></button></div>
@@ -278,11 +278,42 @@ function renderMe() {
       <button class="pf-mrow t-r" data-act="me-logout"><span class="pf-mic">${ic('out', 20, 1.8)}</span><b>Log out</b></button></div>`;
 }
 
+
+/* ═════════ ADD TO MY PEOPLE ═════════ */
+function openAddPerson() {
+  const feats = [['home', 'home', 'Home Overview'], ['progress', 'bars', 'Progress'], ['rewards', 'coin', 'Rewards']];
+  const l = pushLayer(`<div class="sheet ap-sheet"><span class="grab"></span>
+    <div class="ap-head"><span class="ap-ic">${ic('users', 24, 1.7)}</span><div><h2>Add to My People</h2><p>They’ll appear in your Call or Text list.</p></div><button class="cmp-x" data-act="close-layer" aria-label="Close">${ic('x', 18, 2)}</button></div>
+    <div class="ap-body">
+      <label class="ap-l" for="ap-name">Full name</label><input class="ap-in" id="ap-name" placeholder="e.g. Jordan Lee" autocomplete="off">
+      <span class="ap-l">Relationship</span><div class="ap-seg" id="ap-rel"><button class="on" data-r="Friend">${ic('user', 18, 1.8)}Friend</button><button data-r="Family">${ic('users', 18, 1.8)}Family</button></div>
+      <label class="ap-l" for="ap-phone">Contact number</label><input class="ap-in" id="ap-phone" inputmode="tel" placeholder="(555) 123-4567">
+      <label class="ap-l" for="ap-email">Email</label><input class="ap-in" id="ap-email" inputmode="email" placeholder="name@email.com" autocomplete="off">
+      <span class="ap-l">Give feature access</span><p class="ap-h">Choose what this person can see in your app.</p>
+      ${feats.map(([k, i, t]) => `<div class="ap-feat"><span>${ic(i, 20, 1.7)}</span><b>${t}</b><button class="st-sw" role="switch" aria-checked="false" aria-label="${t}" data-act="ap-sw" data-k="${k}"><i></i></button></div>`).join('')}
+    </div>
+    <div class="ap-foot"><button class="btn ghost" data-act="close-layer">Cancel</button><button class="btn" id="ap-go" data-act="ap-save" disabled>Add person</button></div></div>`, 'sheet-wrap');
+  l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
+  const chk = () => { const n = $('#ap-name').value.trim(), p = $('#ap-phone').value.replace(/\D/g, ''), m = $('#ap-email').value.trim(); $('#ap-go').disabled = !(n && (p.length >= 7 || /^\S+@\S+\.\S+$/.test(m))); };
+  l.addEventListener('input', e => {
+    if (e.target.id === 'ap-phone') { const d = e.target.value.replace(/\D/g, '').slice(0, 10); e.target.value = d.length > 6 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : d.length > 3 ? `(${d.slice(0, 3)}) ${d.slice(3)}` : d; }
+    chk();
+  });
+}
+
 /* ═════════ wiring ═════════ */
 Object.assign(ACT, {
   help: () => helpSheet(),
   'pf-rem-toggle': () => { S.remindOn = S.remindOn === false; save(); renderMe(); toast(S.remindOn ? 'Daily reminders enabled' : 'Daily reminders disabled'); },
   'pf-lang': el => { S.profile.lang = el.dataset.k; save(); renderMe(); toast(el.dataset.k === 'es' ? 'Idioma: Español' : 'Language: English'); },
+  'pf-add': () => openAddPerson(),
+  'ap-sw': el => { const on = !el.classList.contains('on'); el.classList.toggle('on', on); el.setAttribute('aria-checked', on); },
+  'ap-save': el => {
+    const l = layerOf(el), n = $('#ap-name').value.trim(), rel = ($('#ap-rel .on') || {}).dataset.r || 'Friend', ph = $('#ap-phone').value.trim(), em = $('#ap-email').value.trim();
+    const access = $$('.ap-feat .st-sw.on', l).map(b => b.dataset.k), cols = ['#4A90D9', '#6E9E80', '#C97B6F', '#8A6FB0', '#D8AD63', '#5E8560'];
+    S.people = [...(S.people || []), { n, r: rel, p: ph, e: em, access, i: n.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), c: cols[(S.people || []).length % cols.length] }]; save();
+    popLayer(l); renderMe(); toast(n + ' added to My People');
+  },
   'pf-soon': el => soonScreen(el.dataset.t || 'Coming soon', 'gear', 'Coming soon', 'This part of your profile is on its way.'),
   'md-crisis': () => crisisScreen(),
   'md-urge': el => { $$('.md-layer').forEach(popLayer); setTimeout(() => openTool('urge'), 200); },
@@ -317,6 +348,7 @@ Object.assign(ACT, {
 });
 document.addEventListener('input', e => { if (e.target.id === 'cm-text') { CM.draft = e.target.value; $('#cm-post').disabled = !CM.draft.trim(); $('#cm-count').textContent = CM.draft.length ? CM.draft.length + ' characters' : ''; } });
 
+document.addEventListener('click', e => { const b = e.target.closest('#ap-rel button'); if (b) { $$('#ap-rel button').forEach(x => x.classList.toggle('on', x === b)); } });
 document.addEventListener('change', e => {
   if (e.target.id !== 'pf-time') return;
   S.remindTime = e.target.value; const h = +e.target.value.slice(0, 2); S.remind = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'; save(); renderMe(); toast('Check-in time set to ' + remindTime() + ' PT');
