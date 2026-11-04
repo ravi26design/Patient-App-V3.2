@@ -469,3 +469,7 @@
 .cx-sheet p{margin:0 8px 22px;font-size:14.5px;line-height:1.5;color:#7B8793}
 .cx-sheet .btn{width:100%;height:54px;border-radius:27px;font-size:16.5px;font-weight:600;margin:0}
 .cx-sheet .btn.ghost{margin-top:8px;background:none!important;color:#B5604F!important;height:48px}
+/* check-in selections — primary colour */
+.sub.sel>i,.sub.sel i{background:var(--cta,#6C9FCC)!important;color:#fff!important;border-color:var(--cta,#6C9FCC)!important}
+.sub.sel .c-ic,.choice.sel .c-ic{color:#4F82B0}
+.sub.sel>i svg,.sub.sel i svg{color:#fff;stroke:#fff}
