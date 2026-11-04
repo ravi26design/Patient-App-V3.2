@@ -1039,7 +1039,7 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 .nav button .nav-ic{display:grid;place-items:center;width:58px;height:32px;border-radius:16px;transition:background .2s}
 .nav button .nav-ic svg{width:24px!important;height:24px!important;stroke-width:1.7}
 .nav button.on{color:var(--cta-d)!important}
-.nav button.on .nav-ic{background:rgba(108,159,204,.18)}
+.nav button.on .nav-ic{background:transparent}
 .nav button span{font-size:11.5px!important;font-weight:500;letter-spacing:.01em}
 .nav button.on span{font-weight:700}
 .nav .nav-help{flex:0 0 86px!important;width:86px;height:86px!important;margin:-40px 2px 0!important;border-radius:50%!important;gap:3px!important;color:#fff!important;background:radial-gradient(circle at 35% 28%,#E3A196 0%,#CC7C71 58%,#BA675C 100%)!important;border:5px solid #fff!important;box-shadow:0 12px 28px rgba(201,118,107,.45)!important}
