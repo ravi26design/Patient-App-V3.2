@@ -261,16 +261,17 @@ function renderMe() {
   const fam = [['gold', 'M', 'Mom (Sarah M.)'], ['sage', 'D', 'Dad (Tom M.)'], ['purple', 'E', 'Emily M. (Sister)']];
   const menu = [['b', 'book', 'Guides', 'pf-soon', 'Guides'], ['a', 'cap', 'Tutorials', 'pf-soon', 'Tutorials'], ['g', 'gear', 'Settings &amp; Preferences', 'pf-soon', 'Settings'], ['b', 'shield', 'Privacy &amp; Data Sharing', 'pf-soon', 'Privacy'], ['b', 'sparkle', 'App Help Guide', 'me-replay', '']];
   const rem = [['morning', 'Morning', '☕'], ['afternoon', 'Midday', '🥗'], ['evening', 'Evening', '🌙']];
-  $('#v-me').innerHTML = `<div class="pf-hero"><div class="pf-hero-av">${ini}</div><h1>${name}</h1><p>Clean since ${since}</p>
-      <div class="pf-tags"><span class="gold">Level 4 · Bloom</span><span class="sage">2,340 XP</span></div></div>
-    <div class="pf-card"><h3>Medication</h3>${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
-    <div class="pf-card"><div class="pf-h"><h3>What Helps Me</h3><button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button></div>
+  const sec = (cls, icon, title, extra = '') => `<div class="pf-h"><h3><span class="pf-hi">${ic(icon, 18, 1.8)}</span>${title}</h3>${extra}</div>`;
+  $('#v-me').innerHTML = `<div class="pf-hero"><span class="pf-hero-av">${avatar(full, 'blue', 96)}</span><h1>${name}</h1><p>Clean since ${since}</p>
+      <div class="pf-stats"><div><b>${S.day || 1}</b><small>Day</small></div><div><b>${S.streak || 0}</b><small>Streak</small></div><div><b>2,340</b><small>XP</small></div><div class="lv"><b>4</b><small>Bloom</small></div></div></div>
+    <div class="pf-card t-b">${sec('b', 'pill', 'Medication')}${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
+    <div class="pf-card t-g">${sec('g', 'leaf', 'What Helps Me', `<button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button>`)}
       <div class="pf-chips">${helps.map(([e, t]) => `<span><i>${e}</i>${t}</span>`).join('')}</div></div>
-    <div class="pf-card"><div class="pf-h"><h3>My People · Call or Text</h3><button class="pf-add" data-act="pf-soon" data-t="Add a person">${ic('plus', 14, 2.4)}Add</button></div>
+    <div class="pf-card t-w">${sec('b', 'users', 'My People', `<button class="pf-add" data-act="pf-soon" data-t="Add a person">${ic('plus', 14, 2.4)}Add</button>`)}<p class="pf-sub">Call or text anyone in one tap.</p>
       ${PF_PEOPLE.map(([c, i, n, r, p]) => { const d = p.replace(/[^\d+]/g, ''); return `<div class="pf-row"><span class="pf-av" style="background:${c}">${i}</span><div><b>${n}</b><small>${r}</small></div><span class="pf-btns"><a class="call" href="tel:${d}" aria-label="Call ${n}">${ic('phone', 16, 2)}</a><a class="txt" href="sms:${d}" aria-label="Text ${n}">${ic('sms', 16, 2)}</a></span></div>`; }).join('')}</div>
-    <div class="pf-card"><h3>Care Team</h3>${care.map(([t, i, n, r]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>${r}</small></div></div>`).join('')}</div>
-    <div class="pf-card"><h3>Family Connected</h3>${fam.map(([t, i, n]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>1 reward pledged</small></div></div>`).join('')}</div>
-    <div class="pf-card"><h3>Daily reminder</h3><div class="me-rem-t"><small>Check-in time · Next: ${nextTrigger()}</small></div>
+    <div class="pf-card t-p">${sec('p', 'stetho', 'Care Team')}${care.map(([t, i, n, r]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>${r}</small></div></div>`).join('')}</div>
+    <div class="pf-card t-a">${sec('a', 'hands', 'Family Connected')}${fam.map(([t, i, n]) => `<div class="pf-row"><span class="pf-ic ${t}">${i}</span><div><b>${n}</b><small>1 reward pledged</small></div></div>`).join('')}</div>
+    <div class="pf-card t-b">${sec('b', 'clock', 'Daily reminder')}<div class="me-rem-t"><small>Next check-in: ${nextTrigger()}</small></div>
       <div class="me-seg">${rem.map(([k, l, e]) => `<button class="${S.remind === k ? 'on' : ''}" data-act="me-remind" data-k="${k}"><i>${e}</i>${l}</button>`).join('')}</div></div>
     <div class="pf-menu">${menu.map(([t, i, l, a, d]) => `<button class="pf-mrow t-${t}" data-act="${a}" data-t="${d}"><span class="pf-mic">${ic(i, 20, 1.8)}</span><b>${l}</b>${ic('chev', 16, 2.2)}</button>`).join('')}
       <button class="pf-mrow t-r" data-act="me-logout"><span class="pf-mic">${ic('out', 20, 1.8)}</span><b>Log out</b></button></div>`;
