@@ -356,12 +356,12 @@ function viewInsight() {
     <div class="layer-body in-body">
       <div class="rh-card in-card"><div class="rh-head"><b>${S.name ? esc(S.name.split(' ')[0]) + '’s Recovery Health' : 'Your Recovery Health'}</b></div>
         <div class="rh-gauge"><svg viewBox="0 0 300 175" width="100%" aria-hidden="true">${rhArcs()}
-          <g class="rh-needle" id="in-needle" style="transform-origin:150px 150px;transform:rotate(-90deg)"><path d="M143.5 148L150 62 156.5 148z" fill="#2B3440" stroke="#2B3440" stroke-width="2" stroke-linejoin="round"/></g>
+          <g class="rh-needle" id="in-needle" style="transform-origin:150px 150px;transform:rotate(-90deg)"><path d="M144.5 150L150 56 155.5 150z" fill="#2B3440" stroke="#2B3440" stroke-width="2" stroke-linejoin="round"/></g>
           <circle cx="150" cy="150" r="13" fill="#2B3440"/><circle cx="150" cy="150" r="5" fill="#fff"/>
-          <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">High</text></svg>
+          <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">HIGH</text></svg>
           <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
-        ${done ? `<div class="rh-chips"><span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${d == null ? '–' : arrow + ' ' + Math.abs(d)}</b><em>${d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span></div>
-        <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${focusArea(last)}</b></span></div>` : ''}</div>
+        <div class="rh-chips">${done ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}"><b>${d == null ? '–' : arrow + ' ' + Math.abs(d)}</b><em>${d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping'}</em></span>` : `<span class="rh-word">No score yet</span><span class="rh-delta"><b>–</b><em>Pending</em></span>`}</div>
+        <div class="in-focus"><span class="in-focus-ic">${ic('bolt', 22, 1.6)}</span><span><small>TODAY’S FOCUS</small><b>${done ? focusArea(last) : 'Start your check-in'}</b></span></div></div>
       <div class="in-take"><h3>Key Takeaways</h3><p id="in-take">${take}</p>${more ? `<div class="in-more" id="in-more" hidden>${more}</div><button class="in-readmore" data-act="insight-more" aria-expanded="false"><span>Read more</span>${ic('down', 16, 2.4)}</button>` : ''}</div>
     </div>
     <div class="ci-foot">${done ? `<button class="btn" data-act="insight-done" ${reviewed ? 'disabled' : ''}>${reviewed ? 'Insight reviewed' : 'Mark insight reviewed · +20 XP'}</button>` : `<button class="btn" data-act="checkin">Start check-in</button>`}</div>`, 'in-layer');
