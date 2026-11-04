@@ -234,3 +234,9 @@
 .md-opt-ic svg{width:26px;height:26px}
 .md-opt b{font-size:17px;font-weight:600;color:#2B3139}.md-opt small{color:#5F6A73}
 .md-opt .md-go{width:auto;height:auto;background:none;box-shadow:none;color:var(--a);opacity:.8}
+/* Call 911 — flat pastel, matches option cards (slightly stronger tint) */
+.md-911{background:#F2CFC9;box-shadow:none;gap:16px;padding:18px 16px;border-radius:26px}
+.md-911,.md-911 b{color:#7A2F27!important}.md-911 small{color:#8A4A43!important;opacity:1}
+.md-911-ic{width:auto;height:auto;border-radius:0;background:none;box-shadow:none;color:#B8584C;align-self:flex-start;margin-top:2px}
+.md-911-ic svg{width:26px;height:26px}
+.md-911>svg{width:auto;height:auto;padding:0;border-radius:0;background:none;color:#B8584C;opacity:.85}
