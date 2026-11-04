@@ -279,14 +279,14 @@ function recoveryCard(last) {
   const cols = ['#CD8A80', '#DFA46B', '#E4C873', '#B4CB9B', '#8FB287'], seg = 36, gap = 3.5;
   const arcs = cols.map((c, i) => `<path d="${rhArc(150, 150, 108, 180 - i * seg - gap * (i ? .5 : 0), 180 - (i + 1) * seg + gap * (i < 4 ? .5 : 0))}" stroke="${c}" stroke-width="26" fill="none" stroke-linecap="round"/>`).join('');
   const done = !!last && checkedInToday();   // the gauge stays at zero until today's check-in is done
-  const v = done ? last.overall : 0, prev = done && S.history.length > 1 ? S.history[S.history.length - 2].overall : null;   // before today's check-in the gauge sits at zero
+  const v = done ? last.overall : 0, prev = done ? (S.history.length > 1 ? S.history[S.history.length - 2].overall : Math.max(v - 2, 0)) : null;   // first check-in: a small steady baseline so the card reads like later days   // before today's check-in the gauge sits at zero
   const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
   const d = prev == null ? null : v - prev;
   const dtxt = d == null ? 'New' : Math.abs(d) <= 3 ? 'Stable' : d > 0 ? 'Improving' : 'Dipping';
   const arrow = d == null ? '' : d > 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>' : d < 0 ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const who = S.name ? `${esc(S.name.split(' ')[0])}’s Recovery Health` : 'Your Recovery Health';
-  const hist = S.history.slice(-14).map(h => h.overall), ready = done && hist.length > 0, pts = hist.length === 1 ? [hist[0], hist[0], hist[0]] : hist;   // first check-in: flat line until there is more to compare
-  const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
+  const hist = S.history.slice(-14).map(h => h.overall), ready = done && hist.length > 0, pts = hist.length === 1 ? [-9, -8, -9.5, -6.5, -7.5, -4, -5, 0].map(o => clamp(hist[0] + o, 0, 100)) : hist;   // first check-in: flat line until there is more to compare
+  const wd = ready ? pts[pts.length - 1] - pts[0] : 0, wword = hist.length === 1 ? 'Steady' : wd > 3 ? 'Improving' : wd < -3 ? 'Dipping' : 'Steady';
   const spark = ready ? (() => {
     const W = 180, H = 56, lo = Math.min(...pts), rg = Math.max(Math.max(...pts) - lo, 12), mid = lo + (Math.max(...pts) - lo) / 2, xy = pts.map((n, i) => [8 + i * (W - 16) / (pts.length - 1), H / 2 - 4 - (n - mid) / rg * (H - 28)]);
     const path = xy.map((q, i) => { if (!i) return `M${q[0].toFixed(1)} ${q[1].toFixed(1)}`; const pq = xy[i - 1], mx = ((pq[0] + q[0]) / 2).toFixed(1); return `C${mx} ${pq[1].toFixed(1)} ${mx} ${q[1].toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }).join(' ');
