@@ -1056,3 +1056,7 @@ h1,h2,h3,.q-text,.step-h{font-weight:300}
 /* Daily Insight: truly centred title */
 .in-layer .fin-head>.plain-btn:first-child{margin-right:0}
 .in-layer .fin-head>.plain-btn{width:44px;flex:none}
+
+/* Home header: logo centred between the profile and location chips */
+.oh-top{position:relative}
+.oh-top .oh-lead .oh-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}
