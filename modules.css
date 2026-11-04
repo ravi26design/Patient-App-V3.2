@@ -348,3 +348,38 @@
 .pf-help::-webkit-scrollbar{display:none}
 .pf-help>div{flex:0 0 150px;min-height:132px;scroll-snap-align:start}
 .pf-help{margin:0 calc(-1 * var(--gutter));padding:2px var(--gutter) 6px;scroll-padding-left:var(--gutter)}
+
+/* My Profile — header, hero, no tab bar */
+#v-me{padding-bottom:40px!important}
+.pf-top{display:flex;align-items:center;justify-content:space-between;margin:0 0 14px}
+.pf-top button,.pf-top span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#26323D}
+.pf-top h2{margin:0;font-size:18px;font-weight:600;color:#26323D}
+#v-me .pf-hero{position:relative;overflow:hidden;padding:26px 16px 16px;border-radius:32px;background:linear-gradient(160deg,#D9E8F6 0%,#E9E6F6 100%)}
+#v-me .pf-hero::before,#v-me .pf-hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+#v-me .pf-hero::before{width:180px;height:180px;right:-60px;top:-70px;background:rgba(255,255,255,.45)}
+#v-me .pf-hero::after{width:120px;height:120px;left:-40px;top:70px;background:rgba(255,255,255,.3)}
+#v-me .pf-hero>*{position:relative;z-index:1}
+.pf-hero-av{position:relative;overflow:visible!important;width:104px!important;height:104px!important;border-radius:50%;box-shadow:0 0 0 5px #fff,0 10px 24px rgba(79,130,176,.25)!important}
+.pf-hero-av svg{border-radius:50%}
+.pf-hero-av em{position:absolute;right:-12px;bottom:2px;display:inline-flex;align-items:center;gap:3px;padding:4px 9px;border-radius:999px;background:#F7EFD7;color:#8A6B1F;font-size:11.5px;font-style:normal;font-weight:700;box-shadow:0 0 0 3px #fff}
+.pf-hero h1{margin:16px 0 6px;font-size:28px}
+.pf-hero p{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.7);font-size:13.5px;color:#4B6F93}
+.pf-stats{gap:0!important;margin-top:18px;padding:12px 0;border-radius:22px;background:rgba(255,255,255,.82)}
+.pf-stats>div{background:none!important;padding:0 4px!important;border-radius:0!important;border-left:1px solid rgba(75,119,166,.15)}
+.pf-stats>div:first-child{border-left:0}
+.pf-stats span{display:grid;place-items:center;margin:0 auto 4px;width:30px;height:30px;border-radius:10px;background:#DEEAF4;color:#4B77A6}
+.pf-stats>div:nth-child(2) span{background:#F8E5E2;color:#B8584C}.pf-stats>div:nth-child(3) span{background:#F7EFD7;color:#9A7A2E}.pf-stats .lv span{background:#E1ECE2;color:#4E7A5E}
+.pf-stats .lv b,.pf-stats .lv small{color:#2F4F73}.pf-stats .lv small{color:#6B88A6}
+#nav[hidden]{display:none!important}
+.pf-hero-av em{white-space:nowrap}
+/* My Profile hero — wallet card blue */
+#v-me .pf-hero{background:linear-gradient(155deg,#4F82B0 0%,#7FA9CF 100%)!important;box-shadow:0 16px 40px rgba(79,130,176,.28)}
+#v-me .pf-hero::before{background:rgba(255,255,255,.12)}#v-me .pf-hero::after{background:rgba(255,255,255,.08)}
+#v-me .pf-hero h1{color:#fff}
+#v-me .pf-hero p{background:rgba(255,255,255,.2);color:#fff}
+#v-me .pf-stats{background:rgba(255,255,255,.18)}
+#v-me .pf-stats>div{border-left-color:rgba(255,255,255,.25)}
+#v-me .pf-stats b{color:#fff}#v-me .pf-stats small{color:rgba(255,255,255,.78)}
+#v-me .pf-stats span{background:rgba(255,255,255,.22)!important;color:#fff!important}
+#v-me .pf-stats .lv b,#v-me .pf-stats .lv small{color:#fff}#v-me .pf-stats .lv small{color:rgba(255,255,255,.78)}
+.pf-hero-av{box-shadow:0 0 0 5px rgba(255,255,255,.9),0 10px 24px rgba(31,59,92,.3)!important}

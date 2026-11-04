@@ -261,8 +261,9 @@ function renderMe() {
   const menu = [['b', 'book', 'Guides', 'pf-soon', 'Guides'], ['a', 'cap', 'Tutorials', 'pf-soon', 'Tutorials'], ['g', 'gear', 'Settings &amp; Preferences', 'pf-soon', 'Settings'], ['b', 'shield', 'Privacy &amp; Data Sharing', 'pf-soon', 'Privacy'], ['b', 'sparkle', 'App Help Guide', 'me-replay', '']];
   const rem = [['morning', 'Morning', '☕'], ['afternoon', 'Midday', '🥗'], ['evening', 'Evening', '🌙']];
   const lab = (title, extra = '') => `<div class="pf-lab"><span>${title}</span>${extra}</div>`;
-  $('#v-me').innerHTML = `<div class="pf-hero"><span class="pf-hero-av">${avatar(full, 'blue', 96)}</span><h1>${name}</h1><p>Clean since ${since}</p>
-      <div class="pf-stats"><div><b>${S.day || 1}</b><small>Day</small></div><div><b>${S.streak || 0}</b><small>Streak</small></div><div><b>2,340</b><small>XP</small></div><div class="lv"><b>4</b><small>Bloom</small></div></div></div>
+  $('#v-me').innerHTML = `<div class="pf-top"><button data-act="tab" data-v="home" aria-label="Back">${ic('back', 22)}</button><h2>My Profile</h2><span></span></div>
+    <div class="pf-hero"><span class="pf-hero-av">${avatar(full, 'blue', 104)}<em>${ic('sparkle', 12, 2)}Lv 4</em></span><h1>${name}</h1><p>${ic('calendar', 15, 1.8)}Clean since ${since}</p>
+      <div class="pf-stats"><div><span>${ic('calendar', 16, 1.8)}</span><b>${S.day || 1}</b><small>Day</small></div><div><span>${ic('flame', 16, 1.8)}</span><b>${S.streak || 0}</b><small>Streak</small></div><div><span>${ic('bolt', 16, 1.8)}</span><b>2,340</b><small>XP</small></div><div class="lv"><span>${ic('leaf', 16, 1.8)}</span><b>Bloom</b><small>Level 4</small></div></div></div>
     ${lab('Medication')}<div class="pf-card">${meds.map(m => `<div class="pf-row"><span class="pf-ic blue">${ic('pill', 20, 1.8)}</span><div><b>${esc(m)}</b><small>Daily · Sublingual · Prescribed by Dr. Rivera</small></div></div>`).join('')}</div>
     ${lab('What Helps Me', `<button class="pf-edit" data-act="pf-soon" data-t="Edit what helps me" aria-label="Edit what helps me">${ic('pencil', 16, 1.8)}</button>`)}<div class="pf-card">
       <div class="pf-help">${helps.map(([i, c, t]) => `<div class="hp-${c}"><span>${ic(i, 24, 1.7)}</span><b>${t}</b></div>`).join('')}</div></div>

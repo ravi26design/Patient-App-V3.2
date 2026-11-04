@@ -170,7 +170,7 @@ function mountViews() {
 function showView(v) { VIEWS.forEach(x => { $('#v-' + x).hidden = x !== v; }); }
 function go(t) {
   tab = t; showView(t);
-  $('#nav').hidden = false;
+  $('#nav').hidden = t === 'me';
   if (t === 'wallet') markWalletViewed();   // loop step: View Wallet
   ({ home: renderHome, tools: renderTools, wallet: renderWallet, me: renderMe, community: renderCommunity, progress: renderProgress })[t]();
   renderNav(); $('#v-' + t).scrollTop = 0;
