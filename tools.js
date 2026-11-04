@@ -264,6 +264,7 @@ function renderWallet() {
   <div class="pad"><div class="bal-card"><small>Balance</small><div class="bal" id="wb">$0.00</div><small>Last earned: ${S.txns.length ? dateWord(S.txns[0].d) : '—'}</small>
     <div class="bal-grid"><div><small>Streak</small><b>${S.streak} days</b></div><div><small>Activities</small><b>${S.activities}</b></div></div>
     <button class="btn light" data-act="tab" data-v="home">Back to today</button></div></div>
+  ${weekCard()}
   ${scoreEarnCard()}
   <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Rewards you’re working toward</div>
     ${REWARDS.map(r => S.bucks >= r.at
