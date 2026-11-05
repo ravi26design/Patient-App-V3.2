@@ -399,12 +399,11 @@ function focusPage(k) {
 
 /* ═════════ WALLET — this week ═════════ */
 function weekCard() {
-  const days = weekDays(), n = days.filter(x => x.h).length, earned = days.reduce((a, x) => a + x.e, 0), need = Math.max(6 - n, 0), bonus = walletRows().filter(x => x.t === 'Weekly bonus' && (Date.now() - new Date(x.d).getTime()) < 8 * 864e5).reduce((a, x) => a + x.amt, 0);
+  const days = weekDays(), n = days.filter(x => x.h).length, earned = days.reduce((a, x) => a + x.e, 0), need = Math.max(6 - n, 0);
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">This week</div><div class="wk-card">
     <div class="wk-tile"><small>Check-ins</small><b>${n} of 7</b><span class="wk-chip">${need ? need + ' to bonus' : '+1 Bonus'}</span></div>
     <div class="wk-tile"><small>Activities</small><b>${n + 2}</b></div>
-    <div class="wk-tile"><small>Earned</small><b class="g">+${usd(earned)}</b></div>
-    <div class="wk-tile"><small>Bonus</small><b>+${usd(bonus)}</b></div></div></div>`;
+    <div class="wk-tile"><small>Earned</small><b class="g">+${usd(earned)}</b></div></div></div>`;
 }
 
 /* ═════════ wiring ═════════ */
