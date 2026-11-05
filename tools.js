@@ -428,7 +428,7 @@ function triggerSheet() {
     <span class="trig-ic">${ic('sun', 30, 1.5)}</span>
     <span class="trig-eye">${esc(rem.label)}</span>
     <h2>Time for your check-in</h2>
-    <p class="trig-p">Take a calm minute for yourself. One simple question at a time.${last ? ` Last time you scored ${last.overall}.` : ''}</p>
+    <p class="trig-p">Take a calm minute for yourself to complete your check-in and activity.${last ? ` Last time you scored ${last.overall}.` : ''}</p>
     <div class="trig-earn"><span class="trig-coin">${ic('coin', 20, 1.6)}</span><div><small>You can earn today</small><b>${usd(tot)}</b></div><em>${ic('clock', 14, 2)}1 min</em></div>
     <button class="btn" data-act="trigger-go">Start check-in</button><button class="btn ghost" data-act="close-layer">Maybe later</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
