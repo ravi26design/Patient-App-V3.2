@@ -14,3 +14,8 @@ html[data-theme="dark"] .pf-hero,
 html[data-theme="dark"] .rh-gauge,html[data-theme="dark"] .oh-logo,
 html[data-theme="dark"] .fin-gauge,
 html[data-theme="dark"] .cm-gauge{filter:invert(1) hue-rotate(180deg)}
+/* keep the device frame visible against the dark page */
+html[data-theme="dark"] body{background:#161A21!important}
+@media (min-width:481px){
+  html[data-theme="dark"] .phone{border-color:#3A3D44!important;box-shadow:0 0 0 1.5px #6E737C,0 0 0 5px #1F232A,0 30px 80px rgba(0,0,0,.6)!important}
+}
