@@ -596,3 +596,10 @@
 .wk-tile small{font-size:13.5px!important}
 .wk-chip{font-size:12.5px!important}
 .wk-tile:nth-child(4){background:linear-gradient(135deg,#C98B2B 0%,#E9C46A 100%)}
+
+/* Recent activity — highlighted weekly bonus row */
+#v-wallet .group .txn.txn-bonus{margin:6px -8px;padding:14px 16px;border:0;border-radius:18px;background:linear-gradient(135deg,#F9E7BC 0%,#F4D58A 100%)}
+.txn-bonus .t{color:#6B4B0E!important;font-weight:700}
+.txn-bonus .t small{color:#9A7326!important;font-weight:500}
+.txn-bonus .t svg{display:inline-block;vertical-align:-3px;margin-right:6px;color:#B7791F}
+.txn-bonus b{color:#8A5A00!important;font-size:19px}
