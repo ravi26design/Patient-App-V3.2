@@ -413,11 +413,17 @@ function applyTheme(t) {
   const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = S.theme === 'dark' ? '#0F1318' : '#F5F7F9';
 }
 applyTheme(S.theme);
+function weekLabel() {
+  if (WK.back === 0) return 'This week'; if (WK.back === 1) return 'Last week';
+  const d = weekDays(), f = x => new Date(x + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return f(d[0].d) + ' – ' + f(d[6].d);
+}
 function weekCard() {
   const days = weekDays(), n = days.filter(x => x.h).length, earned = days.reduce((a, x) => a + x.e, 0), need = Math.max(6 - n, 0);
-  return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">This week</div><div class="wk-card">
-    <div class="wk-tile"><small>Check-ins</small><b>${n} of 7</b><span class="wk-chip">${need ? need + ' to bonus' : '+1 Bonus'}</span></div>
-    <div class="wk-tile"><small>Activities</small><b>${n + 2}</b></div>
+  const chip = WK.back ? (need ? '' : '<span class="wk-chip">+1 Bonus</span>') : `<span class="wk-chip">${need ? need + ' to bonus' : '+1 Bonus'}</span>`;
+  return `<div class="sec"><div class="wk-head"><div class="eyebrow">${weekLabel()}</div><div class="wk-nav"><button data-act="wk-nav" data-d="1" aria-label="Previous week">${ic('back', 16, 2.4)}</button><button data-act="wk-nav" data-d="-1" aria-label="Next week" ${WK.back ? '' : 'disabled'}>${ic('next', 16, 2.4)}</button></div></div><div class="wk-card">
+    <div class="wk-tile"><small>Check-ins</small><b>${n} of 7</b>${chip}</div>
+    <div class="wk-tile"><small>Activities</small><b>${WK.back ? Math.max(n - 1, 0) : n + 2}</b></div>
     <div class="wk-tile"><small>Earned</small><b class="g">+${usd(earned)}</b></div></div></div>`;
 }
 
@@ -434,6 +440,7 @@ Object.assign(ACT, {
   },
   'cx-stay': el => popLayer(layerOf(el)),
   'cx-yes': el => { popLayer(layerOf(el)); ACT['ci-close'](); },
+  'wk-nav': el => { if (el.disabled) return; WK.back = Math.max(0, WK.back + +el.dataset.d); const y = $('#v-wallet').scrollTop; renderWallet(); $('#v-wallet').scrollTop = y; },
   'focus-open': el => focusPage(el.dataset.k),
   'fpr-go': el => { popLayer(layerOf(el)); focusPage(el.dataset.k); },
   'fp-step': el => { const i = +el.dataset.i; FP.done.has(i) ? FP.done.delete(i) : FP.done.add(i); el.classList.toggle('on', FP.done.has(i)); const n = $('.fp-n', el); n.innerHTML = FP.done.has(i) ? ic('check', 16, 2.8) : i + 1; },

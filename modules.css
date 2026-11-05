@@ -604,3 +604,10 @@
 .fpr-sheet p b{color:#26323D;font-weight:700}
 .fpr-sheet .t-r,.fpr-ic.t-r{--p:#F8E5E2;--a:#B8584C}.fpr-ic.t-a{--p:#F7EFD7;--a:#9A7A2E}.fpr-ic.t-g{--p:#E1ECE2;--a:#4E7A5E}.fpr-ic.t-b{--p:#DEEAF4;--a:#4B77A6}
 #v-wallet .sec:has(>.se-card){padding-top:8px!important}
+
+/* week switcher */
+.wk-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.wk-head .eyebrow{margin:0!important}
+.wk-nav{display:flex;gap:8px}
+.wk-nav button{width:32px;height:32px;border-radius:50%;border:0;display:grid;place-items:center;background:#fff;color:#4F82B0;box-shadow:0 2px 8px rgba(52,80,107,.1);cursor:pointer}
+.wk-nav button:disabled{opacity:.35;cursor:default}
