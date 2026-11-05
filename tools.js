@@ -252,11 +252,10 @@ function weekDays() {
     return { d, h: real || (samp ? { overall: SAMPLE_S[k] } : null), e: real || k === 6 ? earnedOn(d) : samp ? SAMPLE_E[k] : 0, l: ['S', 'M', 'T', 'W', 'T', 'F', 'S'][new Date(d + 'T12:00:00').getDay()], now: k === 6 }; });
 }
 function scoreEarnCard() {
-  if (!S.history.length) return '';
   const word = s => s >= 75 ? 'Strong' : s >= 55 ? 'Steady' : s >= 40 ? 'Building' : 'Needs care';
   const earnedOn = d => S.txns.filter(x => x.d === d).reduce((a, x) => a + x.amt, 0);
   const days = weekDays();
-  const done = days.filter(x => x.h), latest = S.history[S.history.length - 1], total = days.reduce((a, x) => a + x.e, 0);
+  const done = days.filter(x => x.h), latest = S.history[S.history.length - 1] || done[done.length - 1].h, total = days.reduce((a, x) => a + x.e, 0);
   const cols = days.map(x => `<div class="se-col ${x.now ? 'now' : ''} ${x.h ? '' : 'empty'}"><em class="se-e">${x.h ? '+' + usd(x.e) : '·'}</em>
     <div class="se-bar">${x.h ? `<i style="height:${x.h.overall}%;background:${scoreCol(x.h.overall / 10)}"></i>` : ''}</div><span class="se-s">${x.h ? x.h.overall : '–'}</span><small>${x.l}</small></div>`).join('');
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">Score & earnings · this week</div><div class="se-card">
