@@ -337,7 +337,7 @@ function renderScore(root) {
   root.innerHTML = `<div class="cm-wrap"><div class="cm-card"><h3>Your recovery score</h3><div class="fin-gauge">${gauge(overall)}</div>${delta}<p class="cm-note">Taking you home…</p></div></div>`;
   animateScore(root, overall, 0);
   if (CI.first) setTimeout(confetti, 600);
-  const tm = setTimeout(() => { if (CI && CI.layer === layer) endCheckin('home'); }, 5200);
+  const tm = setTimeout(() => { if (CI && CI.layer === layer) { endCheckin('home'); setTimeout(focusPrompt, 500); } }, 5200);
   layer._cleanup = () => { clearTimeout(tm); CI = null; };
 }
 
@@ -383,6 +383,14 @@ function focusCard() {
     <p class="fc-line">${f.line}</p>
     <button class="fc-btn" data-act="focus-open" data-k="${k}">${fin ? 'Review ' + f.page : f.cta} ${ic('next', 18, 2.4)}</button><span class="fc-cap">${fin ? 'Completed today ✓' : 'About ' + f.mins + ' minutes'}</span></div>`;
 }
+function focusPrompt() {
+  const last = S.history[S.history.length - 1]; if (!last || S.focusDone === today() || $$('.layer').length) return;
+  const k = focusKey(last), f = FOCUS[k];
+  const l = pushLayer(`<div class="sheet cx-sheet fpr-sheet"><span class="grab"></span><span class="fpr-ic t-${f.tone}">${ic(f.icon, 28, 1.7)}</span>
+    <h2>One more step for today</h2><p>Complete today’s activity, <b>${f.page}</b>, to earn <b>${usd(15)}</b>.</p>
+    <button class="btn" data-act="fpr-go" data-k="${k}">Start activity</button><button class="btn ghost" data-act="close-layer">Maybe later</button></div>`, 'sheet-wrap');
+  l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
+}
 function focusPage(k) {
   const f = FOCUS[k]; if (!f) return; FP.done = new Set(); const fin = S.focusDone === today();
   const l = pushLayer(`<div class="layer-top fin-head md-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">${f.page}</span><button class="plain-btn" data-act="fp-speak" data-k="${k}" aria-label="Read aloud">${ic('speaker', 22)}</button></div>
@@ -419,11 +427,12 @@ Object.assign(ACT, {
   'cx-stay': el => popLayer(layerOf(el)),
   'cx-yes': el => { popLayer(layerOf(el)); ACT['ci-close'](); },
   'focus-open': el => focusPage(el.dataset.k),
+  'fpr-go': el => { popLayer(layerOf(el)); focusPage(el.dataset.k); },
   'fp-step': el => { const i = +el.dataset.i; FP.done.has(i) ? FP.done.delete(i) : FP.done.add(i); el.classList.toggle('on', FP.done.has(i)); const n = $('.fp-n', el); n.innerHTML = FP.done.has(i) ? ic('check', 16, 2.8) : i + 1; },
   'fp-why': el => { const p = el.nextElementSibling; p.hidden = !p.hidden; el.classList.toggle('open', !p.hidden); },
   'fp-speak': el => { const f = FOCUS[el.dataset.k]; if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device'); if (speechSynthesis.speaking) return speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(f.page + '. ' + f.why + '. ' + f.steps.map(x => x[0] + '. ' + x[1]).join(' ')); u.rate = .95; speechSynthesis.speak(u); },
   'fp-done': el => {
-    if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(ACT_BONUS[F().level] || 5, 'Activity: ' + FOCUS[el.dataset.k].page); save(); toast('Nice work — +20 XP'); confetti(); }
+    if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(15, 'Activity: ' + FOCUS[el.dataset.k].page); save(); toast('Nice work — +' + usd(15)); confetti(); }
     popLayer(layerOf(el)); if (tab === 'home') renderHome();
   },
   'pf-add': () => openAddPerson(),

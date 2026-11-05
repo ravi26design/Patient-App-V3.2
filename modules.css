@@ -597,3 +597,9 @@
 .txn-bonus .t small{color:#9A7326!important;font-weight:500}
 .txn-bonus .t svg{display:inline-block;vertical-align:-3px;margin-right:6px;color:#B7791F}
 .txn-bonus b{color:#8A5A00!important;font-size:19px}
+
+/* post-check-in activity prompt */
+.fpr-sheet .fpr-ic{width:68px;height:68px;margin-top:8px;border-radius:22px;display:grid;place-items:center;background:var(--p,#DEEAF4);color:var(--a,#4B77A6)}
+.fpr-sheet.cx-sheet h2{margin-top:16px}
+.fpr-sheet p b{color:#26323D;font-weight:700}
+.fpr-sheet .t-r,.fpr-ic.t-r{--p:#F8E5E2;--a:#B8584C}.fpr-ic.t-a{--p:#F7EFD7;--a:#9A7A2E}.fpr-ic.t-g{--p:#E1ECE2;--a:#4E7A5E}.fpr-ic.t-b{--p:#DEEAF4;--a:#4B77A6}
