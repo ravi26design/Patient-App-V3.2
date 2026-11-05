@@ -68,7 +68,7 @@ const SCREENS = [
 const MED_OPTS = [['Yes, my full dose', 'checkc'], ['Only part of my dose', 'partial'], ['No, I didn’t take it', 'xc']];
 const SUBS = [['Alcohol', 'beer'], ['Cannabis (marijuana, pot, hash, K2, spice, etc.)', 'leaf'], ['Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)', 'bolt'],
   ['Inhalants (nitrous, glue, petrol, paint thinner, etc.)', 'wind'], ['Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)', 'pill'],
-  ['Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)', 'sparkle'], ['Other', 'more'], ['None — I did not use any substances', 'checkc']];
+  ['Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)', 'sparkle'], ['7-OH, Kratom, etc.', 'drop'], ['Other', 'more'], ['None — I did not use any substances', 'checkc']];
 const NONE = 'None — I did not use any substances';
 
 /* ═════════ scoring ═════════ */
