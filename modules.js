@@ -273,6 +273,7 @@ function renderMe() {
     ${lab('Setup reminders')}<div class="pf-card">
       <div class="st-row"><span class="pf-ic blue">${ic('clock', 22, 1.7)}</span><div><b>Daily check-in reminders</b><small id="st-state">${S.remindOn === false ? 'Disabled' : 'Enabled'}</small></div><button class="st-sw${S.remindOn === false ? '' : ' on'}" id="st-sw" role="switch" aria-checked="${S.remindOn !== false}" aria-label="Daily check-in reminders" data-act="pf-rem-toggle"><i></i></button></div>
       <div class="st-row st-time${S.remindOn === false ? ' off' : ''}" id="st-time"><span class="pf-ic amber">${ic('sun', 22, 1.7)}</span><div><b>Daily check-in time</b><small>${remindTime()} PT</small></div><select id="pf-time" aria-label="Daily check-in time"${S.remindOn === false ? ' disabled' : ''}>${Array.from({ length: 17 }, (_, k) => k + 6).map(h => { const v = String(h).padStart(2, '0') + ':00', cur = (S.remindTime || '').slice(0, 5) || ({ morning: '08:00', afternoon: '13:00', evening: '20:00' })[S.remind]; return `<option value="${v}"${v === cur ? ' selected' : ''}>${h % 12 || 12}:00 ${h < 12 ? 'AM' : 'PM'}</option>`; }).join('')}</select></div></div>
+    ${lab('Appearance')}<div class="pf-card"><div class="st-lang">${[['light', 'Light', 'sun'], ['dark', 'Dark', 'moon']].map(([k, l, i]) => `<button class="${(S.theme || 'light') === k ? 'on' : ''}" data-act="pf-theme" data-k="${k}">${ic(i, 16, 2)}${l}</button>`).join('')}</div></div>
     ${lab('Language settings')}<div class="pf-card"><div class="st-lang">${[['en', 'English'], ['es', 'Español']].map(([k, l]) => `<button class="${(S.profile.lang || 'en') === k ? 'on' : ''}" data-act="pf-lang" data-k="${k}">${(S.profile.lang || 'en') === k ? ic('check', 16, 2.6) : ''}${l}</button>`).join('')}</div></div>
     <div class="pf-card pf-list">${menu.map(([t, i, l, a, d]) => `<button class="pf-mrow t-${t}" data-act="${a}" data-t="${d}"><span class="pf-mic">${ic(i, 20, 1.8)}</span><b>${l}</b>${ic('chev', 16, 2.2)}</button>`).join('')}
       <button class="pf-mrow t-r" data-act="me-logout"><span class="pf-mic">${ic('out', 20, 1.8)}</span><b>Log out</b></button></div>`;
@@ -406,6 +407,12 @@ function focusPage(k) {
 
 
 /* ═════════ WALLET — this week ═════════ */
+function applyTheme(t) {
+  S.theme = t === 'dark' ? 'dark' : 'light'; save();
+  document.documentElement.dataset.theme = S.theme;
+  const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = S.theme === 'dark' ? '#0F1318' : '#F5F7F9';
+}
+applyTheme(S.theme);
 function weekCard() {
   const days = weekDays(), n = days.filter(x => x.h).length, earned = days.reduce((a, x) => a + x.e, 0), need = Math.max(6 - n, 0);
   return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">This week</div><div class="wk-card">
@@ -418,6 +425,7 @@ function weekCard() {
 Object.assign(ACT, {
   help: () => helpSheet(),
   'pf-rem-toggle': () => { S.remindOn = S.remindOn === false; save(); renderMe(); toast(S.remindOn ? 'Daily reminders enabled' : 'Daily reminders disabled'); },
+  'pf-theme': el => { applyTheme(el.dataset.k); renderMe(); },
   'pf-lang': el => { S.profile.lang = el.dataset.k; save(); renderMe(); toast(el.dataset.k === 'es' ? 'Idioma: Español' : 'Language: English'); },
   'ci-exit': () => {
     const l = pushLayer(`<div class="sheet cx-sheet"><span class="grab"></span><h2>Are you sure you want to close?</h2><p>Your answers for today’s check-in won’t be saved, and you’ll miss out on today’s reward.</p>
