@@ -548,3 +548,4 @@
 #v-home .oh-top .oh-lead .oh-logo{top:calc(var(--sat) + 16px + 24px)}
 #v-home .oh-top{top:calc(-1 * (var(--sat) + 16px))}
 #v-home .oh-top{background:#F3F7FC;padding-bottom:12px;box-shadow:0 10px 14px -12px rgba(31,42,55,.18)}
+#v-home .oh-top{box-shadow:none!important}
