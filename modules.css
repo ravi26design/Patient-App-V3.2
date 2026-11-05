@@ -583,3 +583,4 @@
 .wk-tile small{color:rgba(255,255,255,.82)!important}
 .wk-tile b,.wk-tile b.g{color:#fff!important}
 .wk-tile .wk-chip,.wk-tile .wk-chip.a{background:rgba(255,255,255,.22)!important;color:#fff!important}
+.sec:has(>.wk-card) .eyebrow{padding-left:0!important}
