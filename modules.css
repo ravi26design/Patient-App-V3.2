@@ -556,3 +556,9 @@
 .cp-react .rt{--rc:#6C8CB0}
 .cp-react button{background:color-mix(in srgb,var(--rc,#6C8CB0) 13%,#fff)}
 .cp-react button.on{background:color-mix(in srgb,var(--rc,#6C8CB0) 22%,#fff)}
+
+/* Wallet balance card — warm coral → gold gradient */
+#v-wallet .bal-card{background:linear-gradient(135deg,#CF7F72 0%,#DC9E7E 52%,#E2B779 100%)!important;box-shadow:0 14px 30px rgba(207,127,114,.28)!important}
+#v-wallet .bal-card small{color:rgba(255,255,255,.78)!important}
+#v-wallet .bal-grid>div{background:rgba(255,255,255,.18)!important}
+#v-wallet .bal-card .btn.light{background:#fff!important;color:#2B2F36!important}
