@@ -426,7 +426,6 @@ function triggerSheet() {
   const tot = 10 + ACT_BONUS[F().level] + clamp(S.streak + 1, 1, 5), rem = REMIND[S.remind];
   const l = pushLayer(`<div class="sheet trig"><span class="grab"></span>
     <span class="trig-ic">${ic('sun', 30, 1.5)}</span>
-    <span class="trig-eye">${esc(rem.label)}</span>
     <h2>Time for your check-in</h2>
     <p class="trig-p">Take a calm minute for yourself to complete your check-in and activity.${last ? ` Last time you scored ${last.overall}.` : ''}</p>
     <div class="trig-earn"><span class="trig-coin">${ic('coin', 20, 1.6)}</span><div><small>You can earn today</small><b>${usd(15)}</b></div></div>
