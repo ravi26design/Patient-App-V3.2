@@ -585,3 +585,7 @@
 .wk-tile .wk-chip,.wk-tile .wk-chip.a{background:rgba(255,255,255,.22)!important;color:#fff!important}
 .sec:has(>.wk-card) .eyebrow{padding-left:0!important}
 .wk-tile:nth-child(1){background:linear-gradient(135deg,#7E6FB5 0%,#B3A5DB 100%)}
+
+/* "Not ready yet" placeholders — slightly smaller */
+.rh-weeks b.mut{font-size:19px!important}
+.fc-top b.muted{font-size:22px!important}
