@@ -302,7 +302,7 @@ function recoveryCard(last) {
       <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">HIGH</text></svg>
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
     <div class="rh-chips">${done ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span>` : `<button class="rh-word rh-todo" data-act="checkin">Complete today’s check-in ${ic('next', 18, 2.4)}</button>`}</div>
-    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>Recovery Health Number</small><b>Insights</b></span></button>
+    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>EARN XP</small><b>Insights</b></span></button>
     ${twoWeeks}
   </div>`;
 }
@@ -328,6 +328,17 @@ function renderHome() {
     <div class="oh-actions"><button class="oh-chip" data-act="help" aria-label="Location">${ic('pin', 22, 1.6)}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${recoveryCard(last)}
+  <div class="oh-today-wrap">
+    ${(() => {
+      const dn = checkedInToday() && last, word = !dn ? 'Not yet' : last.overall >= 75 ? 'Strong' : last.overall >= 55 ? 'Steady' : last.overall >= 40 ? 'Building' : 'Needs care';
+      const sub = !dn ? 'Your check-in is waiting for you' : S.history.length > 1 ? (last.overall >= S.history[S.history.length - 2].overall ? 'Better than yesterday' : 'A softer day than yesterday') : 'Your first check-in';
+      const v = week.map((x, k) => { const h = S.history.find(h => h.date === daysAgo(6 - k)); return h ? h.overall : null; }), w = 150, st = w / 7; let d = '';
+      v.forEach((n, k) => { const y = n == null ? 44 : 44 - n / 100 * 40; d += (k ? 'L' : 'M') + (k * st).toFixed(1) + ' ' + y.toFixed(1) + 'L' + ((k + 1) * st).toFixed(1) + ' ' + y.toFixed(1); });
+      const art = dn ? `<svg class="oh-step" viewBox="0 0 ${w} 48" width="100%" height="48" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.8" stroke-linejoin="round"/></svg><div class="oh-axis"><span>Mon</span><span>Today</span></div>`
+        : `<svg class="oh-ripple" viewBox="0 0 160 60" width="100%" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.6"><ellipse cx="80" cy="46" rx="26" ry="7"/><ellipse cx="80" cy="46" rx="48" ry="14" opacity=".7"/><ellipse cx="80" cy="46" rx="70" ry="21" opacity=".45"/></g><circle cx="80" cy="30" r="9" fill="rgba(255,255,255,.9)"/></svg>`;
+      return `<div class="oh-card oh-purple oh-today"><span class="oh-lab">TODAY</span><b class="oh-big">${word}</b><small>${sub}</small>${art}<button class="oh-today-cta" data-act="${dn ? 'view-score' : 'checkin'}">${dn ? 'See my score' : 'Start check-in'} ${ic('next', 16, 2.4)}</button></div>`;
+    })()}
+  </div>
   ${focusCard()}
 `;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
