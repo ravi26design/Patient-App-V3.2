@@ -152,7 +152,15 @@ function countUp(el, to, ms = 1100, from = 0, fmt = Math.round) {
 /* ═════════ wallet ═════════ */
 /* rewards are real dollars: 1 reward point = $0.10 (RATE) */
 const RATE = 0.1, usd = n => '$' + (n * RATE).toFixed(2);
-function earn(amt, label, score) { S.bucks += amt; S.txns.unshift({ t: label, amt, d: today(), s: score }); S.txns = S.txns.slice(0, 60); save(); }
+function earn(amt, label, score) {
+  S.bucks += amt; S.txns.unshift({ t: label, amt, d: today(), s: score });
+  if (/^Activity/.test(label)) {   // weekly bonus: 6 activities within 7 days = $1.50
+    const now = Date.now(), wk = S.txns.filter(x => /^Activity/.test(x.t) && now - new Date(x.d).getTime() < 7 * 864e5 + 864e5).length;
+    const recentBonus = S.txns.some(x => x.t === 'Weekly bonus' && now - new Date(x.d).getTime() < 7 * 864e5 + 864e5);
+    if (wk >= 6 && !recentBonus) { S.bucks += 15; S.txns.unshift({ t: 'Weekly bonus', n: '6 activities this week', amt: 15, d: today() }); toast('Weekly bonus +' + usd(15)); }
+  }
+  S.txns = S.txns.slice(0, 60); save();
+}
 const REWARDS = [
   { at: 50, t: 'Coffee on us', d: 'A $5 coffee credit' },
   { at: 150, t: 'Movie night', d: 'A $12 movie credit' },

@@ -590,3 +590,9 @@
 .rh-weeks b.mut{font-size:19px!important}
 .fc-top b.muted{font-size:22px!important}
 #v-wallet .sec>.eyebrow{padding-left:0!important}
+/* four tiles — 2 × 2 */
+.wk-card{grid-template-columns:1fr 1fr!important;gap:10px!important}
+.wk-tile b{font-size:26px!important}
+.wk-tile small{font-size:13.5px!important}
+.wk-chip{font-size:12.5px!important}
+.wk-tile:nth-child(4){background:linear-gradient(135deg,#C98B2B 0%,#E9C46A 100%)}
