@@ -302,7 +302,7 @@ function recoveryCard(last) {
       <text x="26" y="176" font-size="14" font-weight="500" fill="#C0847A">Low</text><text x="274" y="176" text-anchor="end" font-size="14" font-weight="500" fill="#6E9A78">HIGH</text></svg>
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
     <div class="rh-chips">${done ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span>` : `<button class="rh-word rh-todo" data-act="checkin">Complete today’s check-in ${ic('next', 18, 2.4)}</button>`}</div>
-    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><small>Recovery Health Number</small><b>Insights</b></span></button>
+    <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><b>Insights</b><small>Recovery Health Number</small></span></button>
     ${twoWeeks}
   </div>`;
 }
