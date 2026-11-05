@@ -271,11 +271,6 @@ function renderWallet() {
     <button class="btn light" data-act="tab" data-v="home">Back to today</button></div></div>
   ${weekCard()}
   ${scoreEarnCard()}
-  <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Rewards you’re working toward</div>
-    ${REWARDS.map(r => S.bucks >= r.at
-      ? `<div class="goal done"><span class="tick">${ic('check', 18, 2.4)}</span><div><b>${r.t}</b><small>${r.d}</small></div><span class="tag">Unlocked</span></div>`
-      : `<div class="goal"><div class="r"><b>${r.t}</b><span>${usd(S.bucks)} / ${usd(r.at)}</span></div><div class="muted" style="font-size:13px;margin-bottom:10px">${r.d}</div><div class="prog"><i style="width:${clamp(S.bucks / r.at * 100, 0, 100)}%"></i></div></div>`).join('')}</div>
-  ${bonusCard()}
   <div class="sec"><div class="eyebrow" style="margin-bottom:12px">How to earn</div><div class="group">${[['Daily check-in', '+' + usd(10)], ['Complete an activity', '+' + usd(5)], ['Streak bonus (up to)', '+' + usd(5)], ['Any tool, once a day', '+' + usd(3)]].map(([a, b]) => `<div class="txn"><div class="t">${a}</div><b>${b}</b></div>`).join('')}</div></div>
   <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Recent activity</div><div class="group">${S.txns.length ? S.txns.slice(0, 8).map(x => `<div class="txn"><div class="ic">${ic('coin', 20)}</div><div class="t">${esc(x.t)}<small>${x.s != null ? `Score ${x.s} · ` : ''}${dateWord(x.d)}</small></div><b>+${usd(x.amt)}</b></div>`).join('') : '<p class="muted" style="padding:16px 0;font-size:14px">Complete your first check-in to start earning.</p>'}</div></div>`;
   countUp($('#wb'), S.bucks, 900, 0, v => usd(v));
