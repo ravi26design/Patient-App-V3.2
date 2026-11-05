@@ -562,3 +562,7 @@
 #v-wallet .bal-card small{color:rgba(255,255,255,.78)!important}
 #v-wallet .bal-grid>div{background:rgba(255,255,255,.18)!important}
 #v-wallet .bal-card .btn.light{background:#fff!important;color:#2B2F36!important}
+
+/* Check-in prompt — earn card centred, no coin icon */
+.trig-earn{justify-content:center!important;text-align:center}
+.trig-earn>div{text-align:center}
