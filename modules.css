@@ -573,3 +573,13 @@
 .wk-tile small{font-size:12.5px!important}
 .wk-tile b{font-size:22px!important}
 .wk-chip{padding:5px 9px!important;font-size:11.5px!important;white-space:nowrap}
+
+/* Wallet "This week" — no white backing, gradient tiles */
+.wk-card{background:transparent!important;box-shadow:none!important;padding:0!important}
+.wk-tile{color:#fff;box-shadow:0 10px 22px rgba(52,80,107,.14)}
+.wk-tile:nth-child(1){background:linear-gradient(135deg,#CF7F72 0%,#E2B779 100%)}
+.wk-tile:nth-child(2){background:linear-gradient(135deg,#4F82B0 0%,#8DB5DA 100%)}
+.wk-tile:nth-child(3){background:linear-gradient(135deg,#4E9479 0%,#9CC8A6 100%)}
+.wk-tile small{color:rgba(255,255,255,.82)!important}
+.wk-tile b,.wk-tile b.g{color:#fff!important}
+.wk-tile .wk-chip,.wk-tile .wk-chip.a{background:rgba(255,255,255,.22)!important;color:#fff!important}
