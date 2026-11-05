@@ -603,3 +603,4 @@
 .fpr-sheet.cx-sheet h2{margin-top:16px}
 .fpr-sheet p b{color:#26323D;font-weight:700}
 .fpr-sheet .t-r,.fpr-ic.t-r{--p:#F8E5E2;--a:#B8584C}.fpr-ic.t-a{--p:#F7EFD7;--a:#9A7A2E}.fpr-ic.t-g{--p:#E1ECE2;--a:#4E7A5E}.fpr-ic.t-b{--p:#DEEAF4;--a:#4B77A6}
+#v-wallet .sec:has(>.se-card){padding-top:8px!important}
