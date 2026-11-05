@@ -289,7 +289,7 @@ function renderWallet() {
   ${weekCard()}
   ${scoreEarnCard()}
   <div class="sec"><div class="eyebrow" style="margin-bottom:12px">How to earn</div><div class="group">${[['Daily check-in', '+' + usd(10)], ['Complete an activity', '+' + usd(5)], ['Streak bonus (up to)', '+' + usd(15)], ['Weekly bonus · 6 activities', '+' + usd(15)], ['Any tool, once a day', '+' + usd(3)]].map(([a, b]) => `<div class="txn"><div class="t">${a}</div><b>${b}</b></div>`).join('')}</div></div>
-  <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Recent activity</div><div class="group">${S.txns.length ? walletRows().map(x => `<div class="txn${x.t === 'Weekly bonus' ? ' txn-bonus' : ''}"><div class="t">${x.t === 'Weekly bonus' ? ic('sparkle', 18, 2) : ''}${esc(x.t)}<small>${x.n ? x.n + ' · ' : ''}${x.s != null ? `Score ${x.s} · ` : ''}${dateWord(x.d)}</small></div><b>+${usd(x.amt)}</b></div>`).join('') : '<p class="muted" style="padding:16px 0;font-size:14px">Complete your first check-in to start earning.</p>'}</div></div>`;
+  <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Recent activity</div><div class="group">${S.txns.length ? walletRows().map(x => `<div class="txn"><div class="t">${esc(x.t)}<small>${x.n ? x.n + ' · ' : ''}${x.s != null ? `Score ${x.s} · ` : ''}${dateWord(x.d)}</small></div><b>+${usd(x.amt)}</b></div>`).join('') : '<p class="muted" style="padding:16px 0;font-size:14px">Complete your first check-in to start earning.</p>'}</div></div>`;
   countUp($('#wb'), S.bucks, 900, 0, v => usd(v));
 }
 
