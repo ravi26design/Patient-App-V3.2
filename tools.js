@@ -258,8 +258,7 @@ function scoreEarnCard() {
   const done = days.filter(x => x.h), latest = S.history[S.history.length - 1] || done[done.length - 1].h, total = days.reduce((a, x) => a + x.e, 0);
   const cols = days.map(x => `<div class="se-col ${x.now ? 'now' : ''} ${x.h ? '' : 'empty'}"><em class="se-e">${x.h ? '+' + usd(x.e) : '·'}</em>
     <div class="se-bar">${x.h ? `<i style="height:${x.h.overall}%;background:${scoreCol(x.h.overall / 10)}"></i>` : ''}</div><span class="se-s">${x.h ? x.h.overall : '–'}</span><small>${x.l}</small></div>`).join('');
-  return `<div class="sec"><div class="eyebrow" style="margin-bottom:12px">Score & earnings · this week</div><div class="se-card">
-    <div class="se-sum"><div><small>Latest score</small><b>${latest.overall}</b><span class="se-pill">${word(latest.overall)}</span></div><div><small>Earned</small><b>+${usd(total)}</b><span class="se-pill gold">${done.length} check-in${done.length === 1 ? '' : 's'}</span></div></div>
+  return `<div class="sec"><div class="se-card">
     <div class="se-cols">${cols}</div></div></div>`;
 }
 /* Recent activity rows: every earning, plus sample activity rows for check-in days that have none, and the weekly bonus (6 activities in 7 days = $1.50) */
