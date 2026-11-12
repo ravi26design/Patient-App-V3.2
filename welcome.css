@@ -437,3 +437,5 @@ html.gated .fx-x{display:none!important}
 .rw-week .rw-dots i.today{box-shadow:0 0 0 3px #F8E7BD}
 .rw-week .rw-dots .tday span{font-weight:700;color:#26323D}
 .rw-week .rw-dots span{font-size:12px}
+.rw-week{margin-bottom:18px!important}
+.rw-week+.bal-card{margin-top:0!important}
