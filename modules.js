@@ -351,11 +351,11 @@ function renderScore(root) {
       <div class="rr-side"><span class="rr-pill ${overall >= 55 ? 'ok' : 'low'}">${overall >= 75 ? 'Strong' : overall >= 55 ? 'Steady' : overall >= 40 ? 'Building' : 'Needs care'}</span><b>${side[0]} ${side[1]}</b>
         <div class="rr-mini"><span class="up"><i></i>${hi.label}<em>${hi.v.toFixed(1)}</em></span><span class="dn"><i></i>${lo.label}<em>${lo.v.toFixed(1)}</em></span></div></div></div>
     <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
-    ${got ? `<div class="rr-earn"><span class="rr-eic">${ic('check', 18, 2.8)}</span><div><b>Check-in complete</b><small>${e.st ? 'Includes a ' + usd(e.st) + ' streak bonus' : 'Added to your wallet'}</small></div><strong>+${usd(got)}</strong></div>` : ''}
+    ${e.base ? `<div class="rr-earn"><span class="rr-eic">${ic('check', 18, 2.8)}</span><div><b>Check-in complete</b></div><strong>+${usd(e.base)}</strong></div>` : ''}
     <div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
       <p>${f.why}.</p>
       <div class="rr-meta"><span>${ic('clock', 14, 2)}${f.mins} min</span><span>${ic('check', 14, 2.4)}${f.steps.length} short steps</span></div>
-      ${fin ? '' : `<div class="rr-reward"><span class="rr-coin">${ic('coin', 24, 1.7)}</span><div><b>Finish to earn</b><span>Today becomes ${usd(got + 20)}</span></div><strong>+${usd(20)}</strong></div>`}
+      ${fin ? '' : `<div class="rr-reward"><span class="rr-coin">${ic('coin', 24, 1.7)}</span><div><b>Finish to earn</b><span>Today becomes ${usd(e.base + 20)}</span></div><strong>+${usd(20)}</strong></div>`}
       <button class="btn" data-act="${fin ? 'ci-later' : 'fpr-go'}" data-k="${focusKey({ vals })}">${fin ? 'Back to Home' : 'Start activity'} ${ic('next', 18, 2.4)}</button></div></div></div>`;
   setTimeout(() => {
     const p = $('.rr-fill', root); if (p) { p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)'; p.style.strokeDashoffset = p.dataset.off; }
