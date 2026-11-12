@@ -421,7 +421,7 @@ const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target']
 function fpSteps(k) {
   const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.max / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
-  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' view' : ''}"></i>`).join('')}</div>
+  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' vw' : ''}"></i>`).join('')}</div>
     <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
       <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
       <g class="fx-badge"><circle cx="150" cy="104" r="96" fill="#fff" opacity=".28"/><circle cx="150" cy="104" r="70" fill="#fff" opacity=".42"/><circle class="fx-halo" cx="150" cy="104" r="52" fill="#fff" opacity=".7"/>

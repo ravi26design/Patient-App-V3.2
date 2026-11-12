@@ -326,4 +326,9 @@ html.gated .fx-x{display:none!important}
 .fx-nav .fx-next{flex:1;margin-top:0!important}
 #fp-steps .fx-nav .fx-next{margin-top:0!important}
 .fx-back{flex:none;width:58px;height:58px;border-radius:50%;border:1.5px solid #D5D9DE;background:#fff;color:#35597D;display:grid;place-items:center;box-shadow:0 6px 14px rgba(38,50,61,.06)}
-.fx-seg i.view{box-shadow:0 0 0 2px rgba(74,110,150,.28)}
+.fx-seg i.vw{box-shadow:0 0 0 2px rgba(74,110,150,.28)}
+
+.fx-seg i{display:block!important;position:relative!important;inset:auto!important;transform:none!important;opacity:1!important;min-height:0!important;height:6px!important;flex:1}
+.fx-seg i.vw{box-shadow:0 0 0 3px rgba(74,110,150,.22)}
+.fx-seg{gap:6px!important}
+.fx-nav .fx-next{box-shadow:0 12px 26px rgba(74,110,150,.28)}
