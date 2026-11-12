@@ -320,3 +320,10 @@ html.gated .fx-x{display:none!important}
 .fx-halo{opacity:.7!important;animation:none!important}
 .fx-art{background:linear-gradient(180deg,#D6E4F2 0%,#E8F0F8 100%)}
 .fx-wrap{padding-top:48px!important}
+
+/* step navigation */
+.fx-nav{display:flex;gap:10px;margin-top:auto}
+.fx-nav .fx-next{flex:1;margin-top:0!important}
+#fp-steps .fx-nav .fx-next{margin-top:0!important}
+.fx-back{flex:none;width:58px;height:58px;border-radius:50%;border:1.5px solid #D5D9DE;background:#fff;color:#35597D;display:grid;place-items:center;box-shadow:0 6px 14px rgba(38,50,61,.06)}
+.fx-seg i.view{box-shadow:0 0 0 2px rgba(74,110,150,.28)}

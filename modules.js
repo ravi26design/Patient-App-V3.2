@@ -419,9 +419,9 @@ const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be 
 const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target'], meds: ['book', 'shower', 'clock', 'shield', 'heart'], risk: ['pin', 'target', 'run', 'phone', 'moon'],
   stress: ['stop', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
 function fpSteps(k) {
-  const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.step / tot * 100);
+  const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.max / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
-  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.step ? 'done' : i === n ? 'now' : ''}"></i>`).join('')}</div>
+  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' view' : ''}"></i>`).join('')}</div>
     <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
       <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
       <g class="fx-badge"><circle cx="150" cy="104" r="96" fill="#fff" opacity=".28"/><circle cx="150" cy="104" r="70" fill="#fff" opacity=".42"/><circle class="fx-halo" cx="150" cy="104" r="52" fill="#fff" opacity=".7"/>
@@ -430,18 +430,19 @@ function fpSteps(k) {
       <path class="fx-w fx-w3" d="M-40 262 C30 232 100 214 170 232 S270 262 340 236 V320 H-40Z" fill="#4A6E96"/></svg>
       <span class="fx-time" id="fp-timer">0:00</span></div>
     <small class="fx-eye">${ic('sparkle', 14, 2)}${fin ? 'Review' : 'Do this now'}</small><h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1]}</p>
-    <button class="btn fx-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>Next step</button>`;
+    <div class="fx-nav">${n > 0 ? `<button class="fx-back" data-act="fp-back" data-k="${k}" aria-label="Previous step">${ic('back', 22, 2.2)}</button>` : ''}<button class="btn fx-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>Next step</button></div>`;
 }
 function fpTick() {
   const b = $('#fp-next'); if (!b) return;
-  const fin = S.focusDone === today(), left = fin ? 0 : Math.max(0, Math.ceil(FP_MIN - (Date.now() - FP.t0) / 1000)), f = FOCUS[b.dataset.k], last = FP.step === f.steps.length - 1;
-  b.style.setProperty('--p', Math.min(100, (Date.now() - FP.t0) / (FP_MIN * 10)) + '%'); b.disabled = left > 0; b.textContent = left > 0 ? 'Next step · ' + left + 's' : last ? (fin ? 'Done' : 'Finish activity') : 'Next step';
+  const fin = S.focusDone === today(), left = fin || FP.step < FP.max ? 0 : Math.max(0, Math.ceil(FP_MIN - (Date.now() - FP.t0) / 1000)), f = FOCUS[b.dataset.k], last = FP.step === f.steps.length - 1;
+  const locked = !fin && FP.step === FP.max;
+  b.style.setProperty('--p', Math.min(100, (Date.now() - FP.t0) / (FP_MIN * 10)) + '%'); b.disabled = left > 0; b.textContent = left > 0 ? 'Next step · ' + left + 's' : last ? (fin ? 'Done' : FP.step === FP.max ? 'Finish activity' : 'Next step') : 'Next step';
   const t = $('#fp-timer'); if (t) { const s = Math.floor((Date.now() - FP.t00) / 1000); t.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 }
 function focusPage(k) {
   const f = FOCUS[k]; if (!f) return; const fin = S.focusDone === today();
   S.inAct = fin ? null : k; save();
-  FP.step = !fin && S.fpProg && S.fpProg.d === today() && S.fpProg.k === k ? S.fpProg.n : 0; FP.t0 = FP.t00 = Date.now();
+  FP.max = fin ? f.steps.length : (S.fpProg && S.fpProg.d === today() && S.fpProg.k === k ? S.fpProg.n : 0); FP.step = fin ? 0 : FP.max; FP.t0 = FP.t00 = Date.now();
   const day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   const l = pushLayer(`<div class="fx-wrap"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Activity</span><button class="fx-help" data-act="help">Help</button></div>
     <h1 class="fx-title">${f.page}</h1><div id="fp-steps">${fpSteps(k)}</div></div>`, 'fx-layer');
@@ -509,12 +510,16 @@ Object.assign(ACT, {
   'fx-wallet': () => { $$('.layer').forEach(popLayer); go('wallet'); },
   'fpr-go': el => { popLayer(layerOf(el)); focusPage(el.dataset.k); },
   'fp-next': el => {
-    if (el.disabled || (Date.now() - FP.t0) / 1000 < FP_MIN) return; const k = el.dataset.k, f = FOCUS[k];
-    if (S.focusDone === today()) { FP.step++; if (FP.step >= f.steps.length) return popLayer(layerOf(el)); FP.t0 = Date.now(); $('#fp-steps').innerHTML = fpSteps(k); fpTick(); return; }
-    FP.step++; S.fpProg = { d: today(), k, n: FP.step }; save();
+    const k = el.dataset.k, f = FOCUS[k], fin = S.focusDone === today(), show = () => { $('#fp-steps').innerHTML = fpSteps(k); fpTick(); };
+    if (el.disabled) return;
+    if (fin) { FP.step++; if (FP.step >= f.steps.length) return popLayer(layerOf(el)); return show(); }
+    if (FP.step < FP.max) { FP.step++; return show(); }       // revisiting an earlier step
+    if ((Date.now() - FP.t0) / 1000 < FP_MIN) return;
+    FP.step++; FP.max = FP.step; S.fpProg = { d: today(), k, n: FP.max }; save();
     if (FP.step >= f.steps.length) return fpComplete(k, layerOf(el));
-    FP.t0 = Date.now(); $('#fp-steps').innerHTML = fpSteps(k); fpTick();
+    FP.t0 = Date.now(); show();
   },
+  'fp-back': el => { if (FP.step > 0) { FP.step--; $('#fp-steps').innerHTML = fpSteps(el.dataset.k); fpTick(); } },
   'fp-why': el => { const p = el.nextElementSibling; p.hidden = !p.hidden; el.classList.toggle('open', !p.hidden); },
   'fp-speak': el => { const f = FOCUS[el.dataset.k]; if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device'); if (speechSynthesis.speaking) return speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(f.page + '. ' + f.why + '. ' + f.steps.map(x => x[0] + '. ' + x[1]).join(' ')); u.rate = .95; speechSynthesis.speak(u); },
   'pf-add': () => openAddPerson(),
