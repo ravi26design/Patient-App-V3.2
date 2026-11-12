@@ -124,3 +124,24 @@
 .rd-welcome .rd-cardh{margin-top:4px;font-size:24px;line-height:1.2;letter-spacing:-.03em}
 .rd-welcome .rd-cardp{margin:-4px 0 4px;padding:0 4px;font-size:15px;line-height:1.45;color:var(--muted)}
 .rd-welcome .rd-cicard .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:58px;border-radius:29px!important;box-shadow:0 10px 22px rgba(108,159,204,.35)!important}
+
+/* check-in art, richer */
+.rd-welcome .rd-ci-art{height:262px;background:
+  radial-gradient(120% 90% at 18% 8%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 55%),
+  radial-gradient(90% 80% at 88% 96%,rgba(138,178,214,.38) 0%,rgba(138,178,214,0) 60%),
+  linear-gradient(165deg,#E9F2FB 0%,#D5E5F5 100%)}
+.rd-welcome .rd-spin{width:176px;height:176px;margin-top:-14px}
+.rd-welcome .rd-spin-core{width:132px;height:132px;background:radial-gradient(circle at 32% 24%,#A9CAE8 0%,#6C9FCC 46%,#4A7EAE 100%);box-shadow:0 18px 34px rgba(63,110,160,.38),0 2px 0 rgba(255,255,255,.35) inset,0 -10px 18px rgba(40,80,130,.22) inset;border:1.5px solid rgba(255,255,255,.55)}
+.rd-welcome .rd-spin-core b{text-shadow:0 1px 2px rgba(30,70,120,.25)}
+.rd-welcome .rd-spin-ring{color:rgba(255,255,255,.95);filter:drop-shadow(0 0 4px rgba(79,130,176,.35))}
+.rd-welcome .rd-spin-ring circle:first-child{stroke:rgba(79,130,176,.45)}
+.rd-welcome .rd-spin-ring circle:last-child{fill:#fff;filter:drop-shadow(0 0 6px rgba(255,255,255,.9))}
+.rd-welcome .rd-pulse{width:132px;height:132px;margin:-79px 0 0 -66px;border-color:rgba(255,255,255,.85);animation:rdRipple 3.6s ease-out infinite}
+@keyframes rdRipple{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.75);opacity:0}}
+.rd-welcome .rd-spk{color:#fff;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.rd-welcome .rd-fl{position:absolute;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.8);color:#4F82B0;box-shadow:0 6px 14px rgba(63,110,160,.16);animation:rdFloat 5s ease-in-out infinite}
+.rd-welcome .rd-fl.f1{left:30px;top:34px;color:#C56A5E}
+.rd-welcome .rd-fl.f2{right:30px;top:96px;color:#4E7A5E;animation-delay:1.2s}
+.rd-welcome .rd-fl.f3{left:44px;bottom:52px;color:#7C6BB5;animation-delay:2.4s}
+@keyframes rdFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.rd-welcome .rd-tap{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#4F82B0;opacity:.85}
