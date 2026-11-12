@@ -421,7 +421,7 @@ const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target']
 function fpSteps(k) {
   const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.max / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
-  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' vw' : ''}"></i>`).join('')}</div>
+  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' vw' : ''}${i <= FP.max ? ' go' : ''}"${i <= FP.max ? ` data-act="fp-goto" data-i="${i}" data-k="${k}" role="button" aria-label="Go to step ${i + 1}"` : ''}></i>`).join('')}</div>
     <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
       <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
       <g class="fx-badge"><circle cx="150" cy="104" r="96" fill="#fff" opacity=".28"/><circle cx="150" cy="104" r="70" fill="#fff" opacity=".42"/><circle class="fx-halo" cx="150" cy="104" r="52" fill="#fff" opacity=".7"/>
@@ -519,6 +519,7 @@ Object.assign(ACT, {
     if (FP.step >= f.steps.length) return fpComplete(k, layerOf(el));
     FP.t0 = Date.now(); show();
   },
+  'fp-goto': el => { const i = +el.dataset.i; if (i <= FP.max && i !== FP.step) { FP.step = i; $('#fp-steps').innerHTML = fpSteps(el.dataset.k); fpTick(); } },
   'fp-back': el => { if (FP.step > 0) { FP.step--; $('#fp-steps').innerHTML = fpSteps(el.dataset.k); fpTick(); } },
   'fp-why': el => { const p = el.nextElementSibling; p.hidden = !p.hidden; el.classList.toggle('open', !p.hidden); },
   'fp-speak': el => { const f = FOCUS[el.dataset.k]; if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device'); if (speechSynthesis.speaking) return speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(f.page + '. ' + f.why + '. ' + f.steps.map(x => x[0] + '. ' + x[1]).join(' ')); u.rate = .95; speechSynthesis.speak(u); },
