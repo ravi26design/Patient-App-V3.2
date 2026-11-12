@@ -50,11 +50,13 @@ function renderProfile() {
     ${via === 'phone' ? emailFld(p, 'Email') : phoneFld(p, 'Mobile number')}
     <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="text" readonly inputmode="none" placeholder="dd/mm/yyyy" data-act="dob-open" data-iso="${esc(p.dob)}" value="${esc(dobFmt(p.dob))}">${ic('down', 16)}</div></div>
     <div class="fld"><span class="lbl">Language</span><div class="lang"><button class="${p.lang === 'en' ? 'on' : ''}" data-act="pick-lang" data-k="en">${p.lang === 'en' ? ic('check', 16, 2.6) : ''}English</button><button class="${p.lang === 'es' ? 'on' : ''}" data-act="pick-lang" data-k="es">${p.lang === 'es' ? ic('check', 16, 2.6) : ''}Spanish</button></div></div>
+    <p class="consent-req">Both are required to continue.</p>
     <label class="consent"><input type="checkbox" id="c1" ${p.terms ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span>I agree to Rudra Health AI’s <u>Terms of Use</u> and <u>Privacy Policy</u>.</span></label>
     <label class="consent"><input type="checkbox" id="c2" ${p.contact ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span><b>Contact me</b> - OK to send check-in reminders and support by text or email. Msg &amp; data rates may apply.</span></label>` : ''}
     </div>
-    <div class="step-foot"><button class="btn" id="prof-go" data-act="prof-next" ${pStep === 1 ? 'disabled' : ''}>${obEdit && pStep === 2 ? 'Save' : 'Continue'} ${obEdit && pStep === 2 ? '' : ic('next', 16, 2.4)}</button></div></div>`;
+    <div class="step-foot"><button class="btn" id="prof-go" data-act="prof-next" ${pStep === 1 || (pStep === 2 && !(p.terms && p.contact)) ? 'disabled' : ''}>${obEdit && pStep === 2 ? 'Save' : 'Continue'} ${obEdit && pStep === 2 ? '' : ic('next', 16, 2.4)}</button></div></div>`;
   const ph = $('#ph');
+  if (pStep === 2) { const gate = () => { $('#prof-go').disabled = !($('#c1').checked && $('#c2').checked); }; ['c1', 'c2'].forEach(id => $('#' + id).addEventListener('change', gate)); gate(); }
   const fmt = el => { if ($('#cc').value !== '+1') return; const d = el.value.replace(/\D/g, '').slice(0, 10);
     el.value = d.length > 6 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : d.length > 3 ? `(${d.slice(0, 3)}) ${d.slice(3)}` : d.length ? `(${d}` : ''; };
   if (ph) ph.addEventListener('input', () => fmt(ph));   // (555) 123-4567 formatting for +1
@@ -124,6 +126,7 @@ function profileNext() {
     if (S.verified === contact) { pStep = 2; return renderProfile(); }   // already verified this contact
     return otpSheet(contact);
   }
+  if (!($('#c1').checked && $('#c2').checked)) return toast('Please agree to both to continue');
   S.name = $('#nm').value.trim(); S.last = $('#ln').value.trim();
   S.profile = { ...S.profile, ...(via === 'phone' ? { email: $('#em').value.trim() } : { cc: $('#cc').value, phone: $('#ph').value.trim() }) }; save();
   // the second contact and everything else on this screen is optional
