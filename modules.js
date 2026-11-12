@@ -539,7 +539,7 @@ function triggerSheet() {
       <div class="rd-art rd-ci-art"><span class="rd-pulse p1"></span><span class="rd-pulse p2"></span><span class="rd-fl f1">${ic('heart', 16, 2)}</span><span class="rd-fl f2">${ic('leaf', 16, 2)}</span><span class="rd-fl f3">${ic('moon', 16, 2)}</span><span class="rd-spk k1">${ic('sparkle', 18, 1.8)}</span><span class="rd-spk k2">${ic('sparkle', 14, 1.8)}</span><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
         <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button><span class="rd-tap">Tap to begin</span></div>
-      <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(30)}</span></div>
+      <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(10)}</span></div>
       <h2 class="rd-cardh">${first ? 'Your first check-in' : 'How are you doing today?'}</h2>
       <p class="rd-cardp">${first ? 'One question at a time, no right answers.' : 'One question at a time. Take your time.'}</p>
       <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
