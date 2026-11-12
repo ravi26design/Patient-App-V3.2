@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+  <defs>
+    <linearGradient id="naBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F8FC"/><stop offset="1" stop-color="#EAF1FA"/></linearGradient>
+    <linearGradient id="naHood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2A39C"/><stop offset="1" stop-color="#DE7B75"/></linearGradient>
+    <linearGradient id="naSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6D3B3"/><stop offset="1" stop-color="#EDBE98"/></linearGradient>
+    <linearGradient id="naHill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D3E3F7"/><stop offset="1" stop-color="#BCD5F0"/></linearGradient>
+    <linearGradient id="naHill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ACC9EC"/><stop offset="1" stop-color="#8FB6E3"/></linearGradient>
+    <linearGradient id="naCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F6F8FC"/></linearGradient>
+    <radialGradient id="naSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FBE6BE" stop-opacity=".95"/><stop offset="1" stop-color="#FBE6BE" stop-opacity="0"/></radialGradient>
+    <filter id="naSh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#2B3E5E" flood-opacity=".16"/></filter>
+    <filter id="naSoft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2B3E5E" flood-opacity=".14"/></filter>
+  </defs><rect width="480" height="320" fill="url(#naBg)"/>
+  <circle cx="400" cy="64" r="150" fill="url(#naSun)"/>
+  <path d="M330 -20 C420 0 470 70 450 150 C540 120 540 -40 420 -50 Z" fill="#DCE8F7" opacity=".65"/>
+  <circle cx="64" cy="70" r="72" fill="#F6E6E3" opacity=".6"/>
+  <!-- confetti -->
+  <g opacity=".85">
+    <circle cx="214" cy="40" r="4" fill="#F0C46A"/><circle cx="236" cy="22" r="2.6" fill="#8FB7DE"/>
+    <circle cx="26" cy="150" r="3.4" fill="#E9A59E"/><circle cx="462" cy="226" r="3.6" fill="#F0C46A"/>
+    <path d="M300 30 l5 0 M302.5 27.5 l0 5" stroke="#8FB7DE" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M40 40 l5 0 M42.5 37.5 l0 5" stroke="#E9A59E" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+  <!-- rolling hills -->
+  <path d="M0 262 C70 238 140 248 210 262 C290 278 380 252 480 258 L480 320 L0 320 Z" fill="url(#naHill1)"/>
+  <path d="M0 290 C90 268 170 282 250 292 C340 303 420 284 480 288 L480 320 L0 320 Z" fill="url(#naHill2)"/>
+  <!-- plants -->
+  <g>
+    <path d="M18 306 C6 268 18 240 42 230 C44 266 38 292 26 308 Z" fill="#7FA8D8"/>
+    <path d="M42 310 C40 272 56 250 80 246 C74 284 62 304 48 312 Z" fill="#A3C2E8"/>
+    <path d="M466 310 C478 272 462 244 438 238 C438 278 446 302 458 314 Z" fill="#7FA8D8"/>
+    <path d="M446 314 C440 286 450 266 468 260 C470 288 462 306 452 316 Z" fill="#A3C2E8"/>
+  </g><g>
+    <ellipse cx="150" cy="316" rx="84" ry="8" fill="#2B3E5E" opacity=".12"/>
+    <!-- left arm -->
+    <path d="M96 254 C88 276 86 292 90 304" fill="none" stroke="url(#naHood)" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="90" cy="308" r="10" fill="url(#naSkin)"/>
+    <!-- torso -->
+    <path d="M80 320 C80 252 108 224 150 224 C192 224 220 252 220 320 Z" fill="url(#naHood)"/>
+    <path d="M118 236 C130 252 170 252 182 236 C182 260 168 272 150 272 C132 272 118 260 118 236 Z" fill="#D9706A" opacity=".55"/>
+    <path d="M132 252 L130 290 M168 252 L170 290" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+    <circle cx="130" cy="293" r="3.2" fill="#fff"/><circle cx="170" cy="293" r="3.2" fill="#fff"/>
+    <path d="M110 296 h80 a6 6 0 0 1 6 6 v18 h-92 v-18 a6 6 0 0 1 6 -6 z" fill="#fff" opacity=".16"/>
+    <path d="M204 254 C196 276 176 280 160 268" fill="none" stroke="url(#naHood)" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="158" cy="266" r="10" fill="url(#naSkin)"/>
+    <!-- neck -->
+    <rect x="137" y="196" width="26" height="34" rx="12" fill="#E7B58F"/>
+    <!-- hair back + bun -->
+    <circle cx="150" cy="108" r="16" fill="#3F2F25"/>
+    <path d="M104 172 C98 112 152 96 182 116 C204 130 202 164 196 186 C190 150 178 140 164 140 C150 138 128 146 118 186 Z" fill="#3F2F25"/>
+    <!-- ears -->
+    <circle cx="107" cy="170" r="8" fill="#EDBE98"/><circle cx="193" cy="170" r="8" fill="#EDBE98"/>
+    <!-- head -->
+    <circle cx="150" cy="164" r="44" fill="url(#naSkin)"/>
+    <!-- fringe -->
+    <path d="M108 164 C106 124 146 108 178 124 C192 132 194 150 192 166 C186 146 172 138 156 140 C144 142 124 146 112 170 Z" fill="#4A3A2E"/>
+    <path d="M128 126 C140 118 156 118 168 124" fill="none" stroke="#6A5445" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+    <!-- face -->
+    <path d="M128 156 q8 -6 16 0 M156 156 q8 -6 16 0" fill="none" stroke="#4A3A2E" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="137" cy="168" r="4.2" fill="#3A2E26"/><circle cx="163" cy="168" r="4.2" fill="#3A2E26"/>
+    <circle cx="138.6" cy="166.4" r="1.4" fill="#fff"/><circle cx="164.6" cy="166.4" r="1.4" fill="#fff"/>
+    <path d="M142 180 C148 187 156 187 162 180" fill="none" stroke="#B5584C" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="127" cy="178" r="6" fill="#F2A79D" opacity=".55"/><circle cx="173" cy="178" r="6" fill="#F2A79D" opacity=".55"/>
+  </g><g filter="url(#naSoft)">
+    <path d="M62 38 h74 a15 15 0 0 1 15 15 v26 a15 15 0 0 1 -15 15 h-22 l-12 14 -6 -14 h-35 a15 15 0 0 1 -15 -15 v-26 a15 15 0 0 1 15 -15 z" fill="#fff"/>
+  </g><path d="M99 90 c-8 -6 -20 -1 -20 9 c0 10 20 19 20 19 c0 0 20 -9 20 -19 c0 -10 -12 -15 -20 -9 z" fill="#E9776F" transform="translate(0 -22) scale(1)"/><g filter="url(#naSh)"><rect x="248" y="70" width="210" height="150" rx="20" fill="url(#naCard)"/></g>
+  <text x="270" y="100" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="800" fill="#2E3238" textLength="80" lengthAdjust="spacingAndGlyphs">Your people</text>
+  <text x="270" y="116" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#868C92" textLength="94" lengthAdjust="spacingAndGlyphs">always one tap away</text>
+  <g font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">
+    <circle cx="288" cy="146" r="17" fill="#fff"/><circle cx="288" cy="146" r="15" fill="#7C8CD8"/><text x="288" y="150">R</text>
+    <circle cx="318" cy="146" r="17" fill="#fff"/><circle cx="318" cy="146" r="15" fill="#6E9FCB"/><text x="318" y="150">T</text>
+    <circle cx="348" cy="146" r="17" fill="#fff"/><circle cx="348" cy="146" r="15" fill="#E2B458"/><text x="348" y="150">M</text>
+    <circle cx="378" cy="146" r="17" fill="#fff"/><circle cx="378" cy="146" r="15" fill="#EEF0EC"/><text x="378" y="150" fill="#7E858C">+9</text>
+  </g>
+  <rect x="270" y="174" width="130" height="16" rx="8" fill="#E3EEFA"/><rect x="270" y="196" width="86" height="12" rx="6" fill="#EDF1F8"/>
+  <g filter="url(#naSoft)"><circle cx="434" cy="190" r="16" fill="#E9776F"/></g>
+  <path d="M434 198 c-8 -5 -11 -10 -11 -13 c0 -4 5 -6 8 -3 c1 1 2 2 3 3 c1 -1 2 -2 3 -3 c3 -3 8 -1 8 3 c0 3 -3 8 -11 13 z" fill="#fff"/>
+</svg>
