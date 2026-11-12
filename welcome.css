@@ -377,3 +377,15 @@ html.gated .fx-x{display:none!important}
 .fx-card .fx-sd{margin-bottom:0!important}
 .fx-num{position:absolute;right:16px;top:8px;font-family:'Lora',Georgia,serif;font-size:44px;line-height:1;font-weight:500;color:#E6EDF4}
 .fx-card .fx-st{font-size:23px!important}
+/* clean & calm step page */
+.fx-layer:not(.fx-done-l) .fx-card{margin:22px 4px 0!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0}
+.fx-num,.fx-prog b,.fx-card .fx-eye{display:none!important}
+.fx-title{font-size:26px!important;margin:10px 0 10px!important}
+.fx-seg{margin:8px 0 18px!important}
+.fx-art{aspect-ratio:1/.68!important;box-shadow:none!important;border-radius:28px!important}
+.fx-time{background:rgba(255,255,255,.85)!important;font-size:14px!important;padding:5px 12px!important}
+.fx-card .fx-st{font-size:24px!important;margin:0 0 10px!important}
+.fx-card .fx-sd{font-size:16px!important;line-height:1.6;color:#66727E!important;max-width:320px}
+.fx-nav{padding-top:12px}
+.fx-wk{font-size:11px!important}
+.fx-wrap.fx-done .fx-title{font-size:32px!important;margin:0!important}
