@@ -319,7 +319,7 @@ function bonusCard() {
 /* ═════════ CHECK-IN RESULT — speedometer modal, then back to Home ═════════ */
 function renderScore(root) {
   const vals = strengthVals(CI.a), overall = Math.round(finalPts());
-  const prev = S.history.length ? S.history[S.history.length - 1].overall : null;
+  const pi = CI.saved ? S.history.length - 2 : S.history.length - 1, prev = pi >= 0 ? S.history[pi].overall : null;
   CI.res = { vals, overall, prev };
   if (!CI.saved) {
     CI.saved = true;
@@ -360,7 +360,7 @@ function renderScore(root) {
     const p = $('.rr-fill', root); if (p) { p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)'; p.style.strokeDashoffset = p.dataset.off; }
     const n = $('#g-num', root); if (n) countUp(n, overall, 1200, 0);
   }, 150);
-  if (CI.first) setTimeout(confetti, 600);
+  if (CI.first && !CI.resumed) setTimeout(confetti, 600);
   layer._cleanup = () => { CI = null; };
 }
 
@@ -576,7 +576,13 @@ const updGate = () => document.documentElement.classList.toggle('gated', gateOn(
 function gateRoute() {
   updGate(); if (!gateOn() || $$('.layer').length) return false;
   if (!checkedInToday()) { S.remindOn = true; triggerSheet(); return true; }
-  const last = S.history[S.history.length - 1]; if (last) { focusPage(focusKey(last)); return true; }
+  const last = S.history[S.history.length - 1];
+  if (last && last.raw) {   // refresh after the check-in: come back to the result page
+    CI = { i: 0, a: JSON.parse(JSON.stringify(last.raw)), done: {}, touched: {}, layer: null, saved: true, resumed: true, first: !!(S.loop && S.loop.earned) };
+    CI.layer = pushLayer('<div id="ci-root" style="display:flex;flex-direction:column;flex:1"></div>'); CI.layer._cleanup = () => { CI = null; };
+    renderScore($('#ci-root', CI.layer)); return true;
+  }
+  if (last) { focusPage(focusKey(last)); return true; }
   return false;
 }
 document.addEventListener('DOMContentLoaded', () => { gateRoute(); });
