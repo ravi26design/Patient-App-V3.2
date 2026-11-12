@@ -224,3 +224,9 @@ html.gated [data-act="ci-exit"],html.gated [data-act="ci-close"],html.gated .rr-
 .rd-result .rr-earn b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
 .rd-result .rr-earn small{font-size:12.5px;color:#5F7A67}
 .rd-result .rr-earn strong{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:500;color:#3F6B4E}
+/* finish-to-earn: same look as the green "Earn up to" chip */
+.rd-result .rr-reward{background:#E1ECE2!important;border-radius:22px;padding:14px 18px;gap:12px;color:#3F6B4E}
+.rd-result .rr-coin{width:auto;height:auto;background:none;box-shadow:none;border-radius:0;color:#3F6B4E}
+.rd-result .rr-reward b{color:#3F6B4E;font-size:16px}
+.rd-result .rr-reward>div span{color:#5F7A67;font-size:13px;white-space:nowrap}
+.rd-result .rr-reward strong{font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.02em;color:#3F6B4E}
