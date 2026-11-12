@@ -530,10 +530,9 @@ function triggerSheet() {
   if (S.remindOn === false || checkedInToday() || $$('.layer').length) return;
   const first = !S.history.length, day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   pushLayer(`<div class="rd-welcome"><div class="rd-pad">
-    <div class="rd-top rd-hdr"><span class="rd-wkpill">${ic('calendar', 15, 2)}Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
-    <div class="rd-lines">
-      <div class="rd-ln"><div class="r"><span class="n">1</span><b>Check-in</b></div><em>+${usd(10)}</em><i></i></div>
-      <div class="rd-ln act"><div class="r"><span class="n">2</span><b>Activity</b></div><em>+${usd(15)}</em><i></i></div></div>
+    <div class="rd-top rd-hdr"><span class="rd-wk">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
+    <div class="rd-prog"><div class="seg"><i></i><i></i></div>
+      <div class="lbl"><span>Check-in <b>+${usd(10)}</b></span><span>Activity <b>+${usd(15)}</b></span></div></div>
     <h1 class="rd-h1"><span class="g">${first ? 'Welcome,' : greeting() + ','}</span> ${esc(S.name || 'friend')}</h1>
     <p class="rd-p">${first ? 'Your first week starts today.' : 'One minute for you, then one small step.'}</p>
         <div class="rd-card rd-cicard">
