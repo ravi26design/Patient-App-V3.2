@@ -459,7 +459,7 @@ function claimPopup() {
   const today$ = 10 + 20;   // check-in $1.00 + activity $2.00
   const day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   const bonusLine = wk >= 6 ? 'Weekly bonus unlocked · ' + usd(15) + ' added' : (6 - wk) + ' more ' + (6 - wk === 1 ? 'activity' : 'activities') + ' this week for the ' + usd(15) + ' bonus';
-  pushLayer(`<div class="fx-wrap fx-done"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Complete</span><button class="fx-help" data-act="help">Help</button></div>
+  pushLayer(`<div class="fx-wrap fx-done"><div class="fx-top"><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Complete</span><button class="fx-help" data-act="help">Help</button></div>
     <div class="fx-steps2"><div><i></i><span>Check-in done</span></div><div><i></i><span>Activity done</span></div></div>
     <div class="fx-hero"><svg viewBox="0 0 220 150" aria-hidden="true"><circle cx="110" cy="75" r="72" fill="#E4EEE6"/><circle cx="110" cy="75" r="54" fill="#D3E4D7"/><circle class="fx-halo2" cx="110" cy="75" r="40" fill="#fff" opacity=".85"/><circle cx="110" cy="75" r="34" fill="#fff"/>
       <g transform="translate(84 49) scale(2.17)" fill="none" stroke="#3F6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${P.checkc}</g>

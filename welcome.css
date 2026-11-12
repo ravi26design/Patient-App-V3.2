@@ -423,3 +423,9 @@ html.gated .fx-x{display:none!important}
 .fx-week .rw-dots i.today{box-shadow:0 0 0 3px #F8E7BD;border-color:#4A6E96}
 .fx-week .rw-dots .tday span{font-weight:700;color:#26323D}
 .fx-week .rw-dots span{font-size:11.5px}
+
+/* earnings tiles in warm yellow */
+.fx-done .fx-tile{background:linear-gradient(135deg,#FCF1D2 0%,#F8E4AE 100%)!important}
+.fx-done .fx-tile span{color:#8A5A12!important}
+.fx-done .fx-tile .fx-tic{background:#fff!important;color:#C48A2C!important}
+.fx-done .fx-tile b{color:#3B2A0B!important}
