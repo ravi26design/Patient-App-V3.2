@@ -466,7 +466,7 @@ function claimPopup() {
       <g fill="#E0B454"><path d="M26 34l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".9"/><path d="M190 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" opacity=".8"/><circle cx="184" cy="112" r="4" opacity=".7"/><circle cx="34" cy="108" r="3" opacity=".6"/></g></svg>
       <h1 class="fx-title">${k === 'cravings' ? 'You rode it out.' : 'Well done.'}</h1><p class="fx-sub">Today’s check-in and activity are complete.</p></div>
     <div class="fx-tiles"><div class="fx-tile"><span class="fx-tic">${ic('bolt', 18, 2)}</span><b>+${usd(20)}</b><span>Activity earnings</span></div><div class="fx-tile"><span class="fx-tic">${ic('coin', 18, 2)}</span><b>${usd(today$)}</b><span>Today’s earnings</span></div></div>
-    <div class="fx-week"><div class="fx-wh"><b>This week</b><span>${n} of 6 activities</span></div><div class="fx-dots">${[0, 1, 2, 3, 4, 5].map(i => `<span class="${i < n ? 'on' : ''}">${i < n ? ic('check', 16, 3) : i + 1}</span>`).join('')}</div><p class="fx-bonus">${bonusLine}</p></div>
+    <div class="fx-week"><div class="fx-wh"><b>This week</b><span>${n} of 6 activities</span></div><div class="rw-dots">${weekDays(0).map((x, i) => { const ci = S.txns.some(t => t.d === x.d && /^Daily check-in/.test(t.t)), ac = S.txns.some(t => t.d === x.d && /^Activity/.test(t.t)); const full = ci && ac, half = !full && (ci || ac); return `<div class="${x.now ? 'tday' : ''}"><i class="${full ? 'full' : half ? 'half' : ''}${x.now ? ' today' : ''}">${x.now && full ? ic('check', 18, 3) : ''}</i><span>${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span></div>`; }).join('')}</div><p class="fx-bonus">${bonusLine}</p></div>
     <button class="btn fx-next" data-act="fx-wallet">Go to Rewards</button></div>`, 'fx-layer');
   setTimeout(confetti, 300);
 }

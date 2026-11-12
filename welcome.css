@@ -415,3 +415,11 @@ html.gated .fx-x{display:none!important}
 .rw-week p{margin:12px 0 0;font-size:13.5px;line-height:1.45;color:#6B7682}
 .rw-visa .rw-vt b,.rw-visa .rw-vt span,.rw-visa .rw-vb span{color:#fff!important}
 .fx-done .fx-week+.fx-next{margin-top:20px!important}
+
+/* completion page week row */
+.fx-week .rw-dots{margin-top:14px}
+.fx-week .rw-dots i{width:36px;height:36px}
+.fx-week .rw-dots i.full{background:#4A6E96;border-color:#4A6E96;box-shadow:none}
+.fx-week .rw-dots i.today{box-shadow:0 0 0 3px #F8E7BD;border-color:#4A6E96}
+.fx-week .rw-dots .tday span{font-weight:700;color:#26323D}
+.fx-week .rw-dots span{font-size:11.5px}
