@@ -235,3 +235,7 @@ html.gated [data-act="ci-exit"],html.gated [data-act="ci-close"],html.gated .rr-
 .rd-result .rr-reward{display:inline-flex!important;align-items:center;gap:8px;align-self:flex-start;height:36px;padding:0 16px!important;margin:0 0 16px!important;border-radius:18px!important;background:#E1ECE2!important;color:#3F6B4E;font-size:15px;font-weight:600}
 .rd-result .rr-reward svg{color:#3F6B4E}
 .rd-result .rr-reward span{font-size:15px!important;font-weight:600;color:#3F6B4E!important;white-space:nowrap}
+/* check-in complete row: warm amber */
+.rd-result .rr-earn{background:linear-gradient(135deg,#FCF3DF 0%,#F8E8C8 100%)!important}
+.rd-result .rr-eic{background:#C48A2C!important;box-shadow:0 6px 12px rgba(196,138,44,.3)!important}
+.rd-result .rr-earn strong{color:#8A5A12!important}
