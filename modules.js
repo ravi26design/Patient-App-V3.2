@@ -417,22 +417,22 @@ function focusPrompt() {
 }
 const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
 function fpSteps(k) {
-  const f = FOCUS[k], tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.step / tot * 100);
+  const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.step / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
-  return `<div class="fx-prog"><span>Practice</span><b>${pct}% done</b></div><div class="fx-bar"><i style="width:${pct}%"></i></div>
+  return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.step ? 'done' : i === n ? 'now' : ''}"></i>`).join('')}</div>
     <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
       <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
-      <g style="transform:translate(${x}px,${y}px)" class="fx-dot"><circle r="17" fill="#2D4059"/></g>
+      <g style="transform:translate(${x}px,${y}px)" class="fx-dot"><circle class="fx-halo" r="30" fill="#2D4059" opacity=".12"/><circle r="17" fill="#2D4059"/><circle cx="-5" cy="-6" r="4" fill="#fff" opacity=".25"/></g>
       <path class="fx-w fx-w2" d="M-40 200 C20 168 80 150 130 172 S230 232 340 185 V320 H-40Z" fill="#7899C6"/>
       <path class="fx-w fx-w3" d="M-40 262 C30 232 100 214 170 232 S270 262 340 236 V320 H-40Z" fill="#4A6E96"/></svg>
       <span class="fx-time" id="fp-timer">0:00</span></div>
-    <h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1]}</p>
+    <small class="fx-eye">${ic('sparkle', 14, 2)}${fin ? 'Review' : 'Do this now'}</small><h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1]}</p>
     <button class="btn fx-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>Next step</button>`;
 }
 function fpTick() {
   const b = $('#fp-next'); if (!b) return;
   const fin = S.focusDone === today(), left = fin ? 0 : Math.max(0, Math.ceil(FP_MIN - (Date.now() - FP.t0) / 1000)), f = FOCUS[b.dataset.k], last = FP.step === f.steps.length - 1;
-  b.disabled = left > 0; b.textContent = left > 0 ? 'Next step · ' + left + 's' : last ? (fin ? 'Done' : 'Finish activity') : 'Next step';
+  b.style.setProperty('--p', Math.min(100, (Date.now() - FP.t0) / (FP_MIN * 10)) + '%'); b.disabled = left > 0; b.textContent = left > 0 ? 'Next step · ' + left + 's' : last ? (fin ? 'Done' : 'Finish activity') : 'Next step';
   const t = $('#fp-timer'); if (t) { const s = Math.floor((Date.now() - FP.t00) / 1000); t.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 }
 function focusPage(k) {
