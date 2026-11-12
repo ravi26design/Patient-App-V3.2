@@ -433,6 +433,7 @@ function fpTick() {
 }
 function focusPage(k) {
   const f = FOCUS[k]; if (!f) return; const fin = S.focusDone === today();
+  S.inAct = fin ? null : k; save();
   FP.step = !fin && S.fpProg && S.fpProg.d === today() && S.fpProg.k === k ? S.fpProg.n : 0; FP.t0 = Date.now();
   const l = pushLayer(`<div class="layer-top fin-head md-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">${f.page}</span><button class="plain-btn" data-act="fp-speak" data-k="${k}" aria-label="Read aloud">${ic('speaker', 22)}</button></div>
     <div class="layer-body md-body fp-body">
@@ -445,7 +446,7 @@ function focusPage(k) {
 }
 function fpComplete(k, layer) {
   if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(20, 'Activity: ' + FOCUS[k].page); }
-  S.fpProg = null; save(); popLayer(layer); if (tab === 'home') renderHome(); setTimeout(claimPopup, 400);
+  S.fpProg = null; S.inAct = null; save(); popLayer(layer); if (tab === 'home') renderHome(); setTimeout(claimPopup, 400);
 }
 function claimPopup() {
   if ($$('.layer').length) return;
@@ -578,12 +579,12 @@ function gateRoute() {
   updGate(); if (!gateOn() || $$('.layer').length) return false;
   if (!checkedInToday()) { S.remindOn = true; triggerSheet(); return true; }
   const last = S.history[S.history.length - 1];
-  if (last && last.raw) {   // refresh after the check-in: come back to the result page
+  if (last && last.raw && !S.inAct) {   // refresh after the check-in: come back to the result page
     CI = { i: 0, a: JSON.parse(JSON.stringify(last.raw)), done: {}, touched: {}, layer: null, saved: true, resumed: true, first: !!(S.loop && S.loop.earned) };
     CI.layer = pushLayer('<div id="ci-root" style="display:flex;flex-direction:column;flex:1"></div>'); CI.layer._cleanup = () => { CI = null; };
     renderScore($('#ci-root', CI.layer)); return true;
   }
-  if (last) { focusPage(focusKey(last)); return true; }
+  if (last) { focusPage(S.inAct || focusKey(last)); return true; }
   return false;
 }
 document.addEventListener('DOMContentLoaded', () => { gateRoute(); });

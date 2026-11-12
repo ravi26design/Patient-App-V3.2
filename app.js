@@ -27,7 +27,7 @@ S.history = (S.history || []).filter(h => h && Number.isFinite(h.overall) && h.v
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
 /* a page refresh starts the check-in fresh: drop saved survey answers and today's completion */
 /* …but a check-in finished today with its activity still pending is kept, so a refresh returns to the result page */
-if (S.focusDone !== today() && S.lastCheckin === today() && S.history.length) { /* resume */ } else { S.history = []; S.lastCheckin = null; S.loop = {}; S.lastActivity = null; } save();
+if (S.lastCheckin === today() && S.history.length) { /* resume */ } else { S.history = []; S.lastCheckin = null; S.loop = {}; S.lastActivity = null; } save();
 const checkedInToday = () => S.lastCheckin === today();
 
 /* journey stage flags (deck: "How will we handle phases of treatment?") */
