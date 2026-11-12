@@ -388,23 +388,48 @@ function focusPrompt() {
   const last = S.history[S.history.length - 1]; if (!last || S.focusDone === today() || $$('.layer').length) return;
   const k = focusKey(last), f = FOCUS[k];
   const l = pushLayer(`<div class="sheet cx-sheet fpr-sheet"><span class="grab"></span><span class="fpr-ic t-${f.tone}">${ic(f.icon, 28, 1.7)}</span>
-    <h2>One more step for today</h2><p>Complete today’s activity, <b>${f.page}</b>, to earn <b>${usd(15)}</b>.</p>
+    <h2>One more step for today</h2><p>Complete today’s personalized activity, <b>${f.page}</b>, to earn a total of <b>${usd(15)}</b>.</p>
     <button class="btn" data-act="fpr-go" data-k="${k}">Start activity</button><button class="btn ghost" data-act="close-layer">Maybe later</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
 }
+const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
+function fpSteps(k) {
+  const f = FOCUS[k], fin = S.focusDone === today(), n = fin ? f.steps.length : FP.step;
+  return `<div class="fp-card fp-steps"><h3>How to do it</h3><p class="fp-sub">${fin ? 'You completed every step today.' : 'Follow the steps in order — each one unlocks after a short pause.'}</p>
+    ${f.steps.map(([t, d], i) => {
+      const st = i < n ? 'done' : i === n ? 'now' : 'lock';
+      return `<div class="fp-step ${st}"><span class="fp-n">${st === 'done' ? ic('check', 16, 2.8) : st === 'lock' ? ic('lock', 15, 2) : i + 1}</span><div><b>${t}</b>${st === 'lock' ? '' : `<p>${d}</p>`}
+        ${st === 'now' ? `<button class="btn fp-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>${i === f.steps.length - 1 ? 'Finish activity' : 'Complete step ' + (i + 1)}</button>` : ''}</div></div>`;
+    }).join('')}
+    <div class="fp-prog"><i style="width:${Math.round(n / f.steps.length * 100)}%"></i></div><small class="fp-pc">${n} of ${f.steps.length} steps</small></div>`;
+}
+function fpTick() {
+  const b = $('#fp-next'); if (!b) return;
+  const left = Math.max(0, Math.ceil(FP_MIN - (Date.now() - FP.t0) / 1000)), f = FOCUS[b.dataset.k], last = FP.step === f.steps.length - 1;
+  b.disabled = left > 0; b.textContent = left > 0 ? 'Available in ' + left + 's' : last ? 'Finish activity' : 'Complete step ' + (FP.step + 1);
+}
 function focusPage(k) {
-  const f = FOCUS[k]; if (!f) return; FP.done = new Set(); const fin = S.focusDone === today();
+  const f = FOCUS[k]; if (!f) return; const fin = S.focusDone === today();
+  FP.step = !fin && S.fpProg && S.fpProg.d === today() && S.fpProg.k === k ? S.fpProg.n : 0; FP.t0 = Date.now();
   const l = pushLayer(`<div class="layer-top fin-head md-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">${f.page}</span><button class="plain-btn" data-act="fp-speak" data-k="${k}" aria-label="Read aloud">${ic('speaker', 22)}</button></div>
     <div class="layer-body md-body fp-body">
-      <div class="fp-card fp-focus"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>TODAY’S FOCUS</small><b>${f.name}</b></div></div>
-      <div class="fp-card fp-hero"><span class="fp-hero-ic">${ic(f.hero, 34, 1.7)}</span><small>WHY THIS HELPS TODAY</small><h2>${f.why}</h2><span class="fp-xp">EARN +20 XP</span></div>
-      <div class="fp-card"><h3>How to do it</h3><p class="fp-sub">Tap each step to check it off as you go — take all the time you need.</p>
-        ${f.steps.map(([t, d], i) => `<button class="fp-step" data-act="fp-step" data-i="${i}"><span class="fp-n">${i + 1}</span><div><b>${t}</b><p>${d}</p></div></button>`).join('')}</div>
+      <div class="fp-card fp-focus"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>TODAY’S PERSONALIZED ACTIVITY</small><b>${f.name}</b></div></div>
+      <div class="fp-card fp-hero"><span class="fp-hero-ic">${ic(f.hero, 34, 1.7)}</span><small>WHY THIS HELPS TODAY</small><h2>${f.why}</h2><span class="fp-xp">EARN ${usd(15)}</span></div>
+      <div id="fp-steps">${fpSteps(k)}</div>
       <button class="fp-why" data-act="fp-why"><span>${ic('stetho', 22, 1.7)}Why this works</span>${ic('down', 20, 2)}</button><p class="fp-wp" hidden>${f.works}</p>
-      <button class="btn fp-done" data-act="fp-done" data-k="${k}"${fin ? ' disabled' : ''}>${fin ? 'Completed today ✓' : 'I did it · +20 XP'}</button>
-      <p class="fp-foot">There’s no timer and no wrong way. Completing an activity syncs to your care team.</p></div>`, 'md-layer fp-layer');
+      <p class="fp-foot">There’s no wrong way. Completing an activity syncs to your care team.</p></div>`, 'md-layer fp-layer');
+  const t = setInterval(fpTick, 500); l._cleanup = () => clearInterval(t); fpTick();
 }
-
+function fpComplete(k, layer) {
+  if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(15, 'Activity: ' + FOCUS[k].page); }
+  S.fpProg = null; save(); popLayer(layer); if (tab === 'home') renderHome(); setTimeout(claimPopup, 400);
+}
+function claimPopup() {
+  if ($$('.layer').length) return;
+  pushLayer(`<div class="cm-wrap"><div class="cm-card clm-card"><span class="clm-ic">${ic('coin', 34, 1.6)}</span><h3>You claimed ${usd(15)}</h3>
+    <p>For completing today’s check-in and personalized activity. Great work showing up for yourself.</p><button class="btn" data-act="close-layer">Done</button></div></div>`, 'ci-modal');
+  setTimeout(confetti, 300);
+}
 
 /* ═════════ WALLET — this week ═════════ */
 function applyTheme(t) {
@@ -443,13 +468,14 @@ Object.assign(ACT, {
   'wk-nav': el => { if (el.disabled) return; WK.back = Math.max(0, WK.back + +el.dataset.d); const y = $('#v-wallet').scrollTop; renderWallet(); $('#v-wallet').scrollTop = y; },
   'focus-open': el => focusPage(el.dataset.k),
   'fpr-go': el => { popLayer(layerOf(el)); focusPage(el.dataset.k); },
-  'fp-step': el => { const i = +el.dataset.i; FP.done.has(i) ? FP.done.delete(i) : FP.done.add(i); el.classList.toggle('on', FP.done.has(i)); const n = $('.fp-n', el); n.innerHTML = FP.done.has(i) ? ic('check', 16, 2.8) : i + 1; },
+  'fp-next': el => {
+    if (el.disabled || (Date.now() - FP.t0) / 1000 < FP_MIN) return; const k = el.dataset.k, f = FOCUS[k];
+    FP.step++; S.fpProg = { d: today(), k, n: FP.step }; save();
+    if (FP.step >= f.steps.length) return fpComplete(k, layerOf(el));
+    FP.t0 = Date.now(); $('#fp-steps').innerHTML = fpSteps(k); fpTick();
+  },
   'fp-why': el => { const p = el.nextElementSibling; p.hidden = !p.hidden; el.classList.toggle('open', !p.hidden); },
   'fp-speak': el => { const f = FOCUS[el.dataset.k]; if (!window.speechSynthesis) return toast('Read-aloud isn’t supported on this device'); if (speechSynthesis.speaking) return speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(f.page + '. ' + f.why + '. ' + f.steps.map(x => x[0] + '. ' + x[1]).join(' ')); u.rate = .95; speechSynthesis.speak(u); },
-  'fp-done': el => {
-    if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(15, 'Activity: ' + FOCUS[el.dataset.k].page); save(); toast('Nice work — +' + usd(15)); confetti(); }
-    popLayer(layerOf(el)); if (tab === 'home') renderHome();
-  },
   'pf-add': () => openAddPerson(),
   'ap-sw': el => { const on = !el.classList.contains('on'); el.classList.toggle('on', on); el.setAttribute('aria-checked', on); },
   'ap-save': el => {

@@ -611,3 +611,16 @@
 .wk-nav{display:flex;gap:8px}
 .wk-nav button{width:32px;height:32px;border-radius:50%;border:0;display:grid;place-items:center;background:#fff;color:#4F82B0;box-shadow:0 2px 8px rgba(52,80,107,.1);cursor:pointer}
 .wk-nav button:disabled{opacity:.35;cursor:default}
+
+/* guided activity — sequential steps */
+.fp-step{align-items:flex-start}
+.fp-step.done .fp-n{background:#6C9FCC;box-shadow:none;color:#fff}
+.fp-step.now .fp-n{background:#fff;box-shadow:inset 0 0 0 2.5px #6C9FCC;color:#4F82B0}
+.fp-step.lock{opacity:.55}.fp-step.lock .fp-n{color:#8A96A1;box-shadow:inset 0 0 0 2px #D5DDE6}
+.fp-step.done b{color:#5C6975}
+.fp-next{margin-top:12px;width:100%;height:48px;border-radius:24px;font-size:15.5px;font-weight:600}
+.fp-next:disabled{background:#E3EAF2!important;color:#7B8793!important;box-shadow:none}
+.fp-prog{height:6px;margin-top:14px;border-radius:6px;background:#E8EEF4;overflow:hidden}.fp-prog i{display:block;height:100%;border-radius:6px;background:#6C9FCC;transition:width .4s}
+.fp-pc{display:block;margin-top:8px;font-size:12.5px;color:#8A96A1;text-align:center}
+.clm-card .clm-ic{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 14px;border-radius:50%;background:#F7EFD8;color:#B7791F}
+.clm-card h3{font-size:24px}.clm-card p{margin:8px 6px 20px;font-size:15px;line-height:1.5;color:#7B8793}
