@@ -388,7 +388,7 @@ function focusPrompt() {
   const last = S.history[S.history.length - 1]; if (!last || S.focusDone === today() || $$('.layer').length) return;
   const k = focusKey(last), f = FOCUS[k];
   const l = pushLayer(`<div class="sheet cx-sheet fpr-sheet"><span class="grab"></span><span class="fpr-ic t-${f.tone}">${ic(f.icon, 28, 1.7)}</span>
-    <h2>One more step for today</h2><p>Complete today’s personalized activity, <b>${f.page}</b>, to earn a total of <b>${usd(15)}</b>.</p>
+    <h2>One more step for today</h2><p>Complete today’s personalized activity, <b>${f.page}</b>, to earn <b>${usd(20)}</b>.</p>
     <button class="btn" data-act="fpr-go" data-k="${k}">Start activity</button><button class="btn ghost" data-act="close-layer">Maybe later</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
 }
@@ -414,19 +414,19 @@ function focusPage(k) {
   const l = pushLayer(`<div class="layer-top fin-head md-head"><button class="plain-btn" data-act="close-layer" aria-label="Back">${ic('back', 22)}</button><span class="fh-t">${f.page}</span><button class="plain-btn" data-act="fp-speak" data-k="${k}" aria-label="Read aloud">${ic('speaker', 22)}</button></div>
     <div class="layer-body md-body fp-body">
       <div class="fp-card fp-focus"><span class="fc-ic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small>TODAY’S PERSONALIZED ACTIVITY</small><b>${f.name}</b></div></div>
-      <div class="fp-card fp-hero"><span class="fp-hero-ic">${ic(f.hero, 34, 1.7)}</span><small>WHY THIS HELPS TODAY</small><h2>${f.why}</h2><span class="fp-xp">EARN ${usd(15)}</span></div>
+      <div class="fp-card fp-hero"><span class="fp-hero-ic">${ic(f.hero, 34, 1.7)}</span><small>WHY THIS HELPS TODAY</small><h2>${f.why}</h2><span class="fp-xp">EARN ${usd(20)}</span></div>
       <div id="fp-steps">${fpSteps(k)}</div>
       <button class="fp-why" data-act="fp-why"><span>${ic('stetho', 22, 1.7)}Why this works</span>${ic('down', 20, 2)}</button><p class="fp-wp" hidden>${f.works}</p>
       <p class="fp-foot">There’s no wrong way. Completing an activity syncs to your care team.</p></div>`, 'md-layer fp-layer');
   const t = setInterval(fpTick, 500); l._cleanup = () => clearInterval(t); fpTick();
 }
 function fpComplete(k, layer) {
-  if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(15, 'Activity: ' + FOCUS[k].page); }
+  if (S.focusDone !== today()) { S.focusDone = today(); S.activities++; earn(20, 'Activity: ' + FOCUS[k].page); }
   S.fpProg = null; save(); popLayer(layer); if (tab === 'home') renderHome(); setTimeout(claimPopup, 400);
 }
 function claimPopup() {
   if ($$('.layer').length) return;
-  pushLayer(`<div class="cm-wrap"><div class="cm-card clm-card"><span class="clm-ic">${ic('coin', 34, 1.6)}</span><h3>You claimed ${usd(15)}</h3>
+  pushLayer(`<div class="cm-wrap"><div class="cm-card clm-card"><span class="clm-ic">${ic('coin', 34, 1.6)}</span><h3>You claimed ${usd(20)}</h3>
     <p>For completing today’s check-in and personalized activity. Great work showing up for yourself.</p><button class="btn" data-act="close-layer">Done</button></div></div>`, 'ci-modal');
   setTimeout(confetti, 300);
 }
@@ -532,14 +532,14 @@ function triggerSheet() {
   pushLayer(`<div class="rd-welcome"><div class="rd-pad">
     <div class="rd-top rd-hdr"><span class="rd-wk">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
     <div class="rd-prog"><div class="seg"><i></i><i></i></div>
-      <div class="lbl"><span>Check-in <b>+${usd(10)}</b></span><span>Activity <b>+${usd(15)}</b></span></div></div>
+      <div class="lbl"><span>Check-in <b>+${usd(10)}</b></span><span>Activity <b>+${usd(20)}</b></span></div></div>
     <h1 class="rd-h1"><span class="g">${first ? 'Welcome,' : greeting() + ','}</span> ${esc(S.name || 'friend')}</h1>
     <p class="rd-p">${first ? 'Your first week starts today.' : 'One minute for you, then one small step.'}</p>
         <div class="rd-card rd-cicard">
       <div class="rd-art rd-ci-art"><span class="rd-pulse p1"></span><span class="rd-pulse p2"></span><span class="rd-fl f1">${ic('heart', 16, 2)}</span><span class="rd-fl f2">${ic('leaf', 16, 2)}</span><span class="rd-fl f3">${ic('moon', 16, 2)}</span><span class="rd-spk k1">${ic('sparkle', 18, 1.8)}</span><span class="rd-spk k2">${ic('sparkle', 14, 1.8)}</span><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
         <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button><span class="rd-tap">Tap to begin</span></div>
-      <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(25)}</span></div>
+      <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(30)}</span></div>
       <h2 class="rd-cardh">${first ? 'Your first check-in' : 'How are you doing today?'}</h2>
       <p class="rd-cardp">${first ? 'One question at a time, no right answers.' : 'One question at a time. Take your time.'}</p>
       <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
