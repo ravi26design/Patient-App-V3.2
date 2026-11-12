@@ -175,7 +175,7 @@ const VIEWS = ['onb', 'setup', 'home', 'tools', 'wallet', 'me', 'community', 'pr
 function mountViews() {
   $('#views').innerHTML = VIEWS.map(v => `<section class="view${v === 'onb' ? ' noscroll' : ''}" id="v-${v}" hidden></section>`).join('');
 }
-function showView(v) { VIEWS.forEach(x => { $('#v-' + x).hidden = x !== v; }); }
+function showView(v) { VIEWS.forEach(x => { $('#v-' + x).hidden = x !== v; }); document.getElementById('phone').classList.remove('on-intro'); }
 function go(t) {
   tab = t; showView(t);
   $('#nav').hidden = t === 'me';
@@ -202,15 +202,28 @@ const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good n
 
 /* ═════════ ONBOARDING — "How to Play" style cards ═════════ */
 const ONB = [
-  { t: 'Your recovery, one day at a time', p: 'Rudra is a calm companion that helps you check in, understand how you’re doing, and build momentum.', m: 5 },
-  { t: 'Check in for 60 seconds', p: 'Answer a few quick questions each day - one per screen. Just tap your answer and we move on.', m: 0 },
-  { t: 'See your strengths', p: 'Your score shows where you’re strong and where a little care could help. No judgement - just clarity.', m: 1 },
-  { t: 'Try a tool that helps', p: 'Breathing, sounds, movement, mindfulness and more - matched to how you feel today.', m: 5 },
-  { t: 'Personal to you', p: 'Rudra remembers your last answers and focus area, so each check-in and activity fits where you are today.', m: 2 },
-  { t: 'Earn real rewards', p: 'Every check-in and activity adds real dollars to your wallet - cash value you can redeem for rewards you’ll actually enjoy.', m: 0 },
-  { t: 'Go for a milestone', p: 'Streaks and milestones celebrate your progress - small steps, real wins.', m: 5 }
+  { t: 'Your companion between visits', p: 'Recovery happens every day, not just at the clinic. Rudra is with you in between, so you never have to go it alone.' },
+  { t: 'Here for you and your people', p: 'Rudra works alongside your care team. Your information stays private, and you decide what’s shared.' },
+  { t: 'Check in, in about a minute', p: 'A few quick questions each day help you spot patterns early. Honest answers help most - there are no wrong ones.' },
+  { t: 'One small step a day', p: 'Based on your check-in, Rudra picks a short activity for you, like breathing, grounding or a plan for cravings.' },
+  { t: 'Help when it’s hard', p: 'Tap Help any time for crisis lines, tools to ride out a craving, or a quick way to reach your people.' },
+  { t: 'Earn real rewards', p: 'Every check-in and activity earns real money, loaded onto your Rudra card each week. Showing up counts.' },
+  { t: 'Why we do this', p: 'Steady, everyday support helps recovery last. We built Rudra so your effort is noticed and rewarded, one day at a time.' }
 ];
-const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `onb-${n}.jpg?v=10`);
+const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `intro-${n}.jpg?v=2`);
+/* first screen after download: looping video + hello */
+function renderIntro() {
+  showView('onb'); $('#nav').hidden = true; $('#phone').classList.add('on-intro');
+  $('#v-onb').innerHTML = `<div class="intro">
+    <video class="intro-vid" src="assets/intro.mp4" poster="assets/intro-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <div class="intro-shade" aria-hidden="true"></div>
+    <div class="intro-copy"><h1>Meet Rudra, your recovery companion</h1>
+      <p>Support for every day of your recovery.</p></div>
+    <div class="intro-foot"><button class="btn intro-btn" data-act="intro-start">Get started ${ic('next', 16, 2.4)}</button></div></div>`;
+  const v = $('.intro-vid');
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+  else { const pl = v.play(); if (pl && pl.catch) pl.catch(() => { }); }
+}
 let onbI = 0;
 const OB_TOTAL = 4;
 const obHead = (n, back) => `<div class="step-head">${back ? `<button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button>` : ''}<div class="step-bar"><i style="width:${n / OB_TOTAL * 100}%"></i></div><span class="step-n"><b>${n}</b>/${OB_TOTAL}</span></div>`;
@@ -488,4 +501,4 @@ function endCheckin(dest = 'home') { $$('.layer').forEach(l => popLayer(l)); go(
 (() => { let x0 = null; const el = document.getElementById('views');
   el.addEventListener('touchstart', e => { x0 = e.target.closest('.onb2') ? e.touches[0].clientX : null; }, { passive: true });
   el.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-    if (dx < -50 && onbI < ONB.length - 1) renderOnb(onbI + 1); else if (dx > 50 && onbI > 0) renderOnb(onbI - 1); }, { passive: true }); })();
+    if (dx < -50 && onbI < ONB.length - 1) renderOnb(onbI + 1); else if (dx > 50 && onbI > 0) renderOnb(onbI - 1); else if (dx > 50) renderIntro(); }, { passive: true }); })();

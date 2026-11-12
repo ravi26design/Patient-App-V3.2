@@ -414,6 +414,7 @@ const ACT = {
   'insight-done': el => { S.insightDate = today(); save(); toast('Insight reviewed'); popLayer(layerOf(el)); },
   'set-day': el => setDay(+el.dataset.d),
   /* onboarding / setup */
+  'intro-start': () => renderOnb(0),
   'onb-skip': () => startProfile(),
   'onb-go': el => renderOnb(+el.dataset.i),
   'onb-next': () => { if (onbI >= ONB.length - 1) startProfile(); else renderOnb(onbI + 1); },
@@ -430,7 +431,7 @@ const ACT = {
   'trigger-go': el => { popLayer(layerOf(el)); setTimeout(startCheckin, 150); },
   /* me */
   'me-remind': el => { S.remind = el.dataset.k; save(); renderMe(); },
-  'me-replay': () => { renderOnb(0); },
+  'me-replay': () => { renderIntro(); },
   'me-logout': () => { if (confirm('Log out of Rudra Health on this device?')) { try { localStorage.removeItem(KEY); } catch (e) { } S = DEFAULT(); $$('.layer').forEach(popLayer); renderOnb(); } },
   'me-reset': () => { if (confirm('Reset the prototype and clear all data?')) { try { localStorage.removeItem(KEY); } catch (e) { } S = DEFAULT(); $$('.layer').forEach(popLayer); renderOnb(); } }
 };
@@ -457,5 +458,5 @@ document.addEventListener('DOMContentLoaded', function init() {
   const q = new URLSearchParams(location.search);
   if (q.get('reset')) { S = DEFAULT(); save(); }
   if (q.get('day')) { S.onboarded = true; S.name = S.name || 'Alex'; setDay(+q.get('day')); }
-  if (!S.onboarded) renderOnb(); else { go('home'); if (!q.get('notrigger')) setTimeout(triggerSheet, 700); }
+  if (!S.onboarded) renderIntro(); else { go('home'); if (!q.get('notrigger')) setTimeout(triggerSheet, 700); }
 });
