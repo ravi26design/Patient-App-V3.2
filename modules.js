@@ -416,13 +416,16 @@ function focusPrompt() {
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
 }
 const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
+const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target'], meds: ['book', 'shower', 'clock', 'shield', 'heart'], risk: ['pin', 'target', 'run', 'phone', 'moon'],
+  stress: ['stop', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
 function fpSteps(k) {
   const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.step / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
   return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.step ? 'done' : i === n ? 'now' : ''}"></i>`).join('')}</div>
     <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
       <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
-      <g style="transform:translate(${x}px,${y}px)" class="fx-dot"><circle class="fx-halo" r="30" fill="#2D4059" opacity=".12"/><circle r="17" fill="#2D4059"/><circle cx="-5" cy="-6" r="4" fill="#fff" opacity=".25"/></g>
+      <g class="fx-badge"><circle cx="150" cy="104" r="96" fill="#fff" opacity=".28"/><circle cx="150" cy="104" r="70" fill="#fff" opacity=".42"/><circle class="fx-halo" cx="150" cy="104" r="52" fill="#fff" opacity=".7"/>
+        <circle cx="150" cy="104" r="44" fill="#fff"/><g transform="translate(124 78) scale(2.17)" fill="none" stroke="#35597D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${P[(FP_ICONS[k] || [])[n]] || P.sparkle}</g></g>
       <path class="fx-w fx-w2" d="M-40 200 C20 168 80 150 130 172 S230 232 340 185 V320 H-40Z" fill="#7899C6"/>
       <path class="fx-w fx-w3" d="M-40 262 C30 232 100 214 170 232 S270 262 340 236 V320 H-40Z" fill="#4A6E96"/></svg>
       <span class="fx-time" id="fp-timer">0:00</span></div>

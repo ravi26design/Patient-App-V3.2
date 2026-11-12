@@ -310,3 +310,13 @@ html.gated .fx-x{visibility:hidden!important;pointer-events:none}
 .fx-next:disabled{opacity:1!important;color:#fff!important;background:linear-gradient(90deg,#4A6E96 var(--p,0%),#9DB4CC var(--p,0%))!important;box-shadow:none}
 html.gated .fx-x{display:none!important}
 .fx-top{min-height:44px}
+
+/* relevant artwork + tighter top */
+.fx-wrap{padding-top:36px!important}
+.fx-top{min-height:0!important;padding-top:0}
+.fx-title{margin:12px 0 12px!important}
+.fx-badge{animation:fxFloat 4.5s ease-in-out infinite}
+@keyframes fxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.fx-halo{opacity:.7!important;animation:none!important}
+.fx-art{background:linear-gradient(180deg,#D6E4F2 0%,#E8F0F8 100%)}
+.fx-wrap{padding-top:48px!important}
