@@ -194,3 +194,7 @@
 .rd-result .rr-mini em{display:none}
 .rd-result .rr-mini span{display:block;position:relative;padding-left:15px}
 .rd-result .rr-mini i{position:absolute;left:0;top:5px;margin:0}
+
+/* gate: no Home until check-in + activity are done */
+html.gated #views,html.gated #nav{visibility:hidden!important}
+html.gated [data-act="ci-exit"],html.gated [data-act="ci-close"],html.gated .rr-later,html.gated .md-head [data-act="close-layer"]{visibility:hidden!important;pointer-events:none}

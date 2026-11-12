@@ -567,3 +567,18 @@ function triggerSheet() {
       <p class="rd-cardp">${first ? 'One question at a time, no right answers.' : 'One question at a time. Take your time.'}</p>
       <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
 }
+
+
+/* ═════════ GATE — Home stays hidden until today's check-in and activity are done ═════════ */
+const GATE_ON = !/notrigger|nogate/.test(location.search);
+const gateOn = () => GATE_ON && !!S.onboarded && (!checkedInToday() || S.focusDone !== today());
+const updGate = () => document.documentElement.classList.toggle('gated', gateOn());
+function gateRoute() {
+  updGate(); if (!gateOn() || $$('.layer').length) return false;
+  if (!checkedInToday()) { S.remindOn = true; triggerSheet(); return true; }
+  const last = S.history[S.history.length - 1]; if (last) { focusPage(focusKey(last)); return true; }
+  return false;
+}
+document.addEventListener('DOMContentLoaded', () => { gateRoute(); });
+let gateIdle = 0;
+setInterval(() => { updGate(); gateIdle = gateOn() && !$$('.layer').length ? gateIdle + 1 : 0; if (gateIdle >= 2) { gateIdle = 0; gateRoute(); } }, 350);
