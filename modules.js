@@ -456,7 +456,7 @@ function claimPopup() {
   if ($$('.layer').length) return;
   const k = S.lastAct || Object.keys(FOCUS)[0], f = FOCUS[k] || FOCUS.cravings, now = Date.now();
   const wk = S.txns.filter(x => /^Activity/.test(x.t) && now - new Date(x.d).getTime() < 8 * 864e5).length, n = Math.min(wk, 6);
-  const today$ = S.txns.filter(x => x.d === today()).reduce((t, x) => t + x.amt, 0);
+  const today$ = 10 + 20;   // check-in $1.00 + activity $2.00
   const day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   const bonusLine = wk >= 6 ? 'Weekly bonus unlocked · ' + usd(15) + ' added' : (6 - wk) + ' more ' + (6 - wk === 1 ? 'activity' : 'activities') + ' this week for the ' + usd(15) + ' bonus';
   pushLayer(`<div class="fx-wrap fx-done"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Complete</span><button class="fx-help" data-act="help">Help</button></div>
