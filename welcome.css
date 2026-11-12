@@ -429,3 +429,11 @@ html.gated .fx-x{display:none!important}
 .fx-done .fx-tile span{color:#8A5A12!important}
 .fx-done .fx-tile .fx-tic{background:#fff!important;color:#C48A2C!important}
 .fx-done .fx-tile b{color:#3B2A0B!important}
+
+/* Rewards week row */
+.rw-week .rw-dots i{width:38px;height:38px}
+.rw-week .rw-dots i.full{background:#4A6E96;border-color:#4A6E96;box-shadow:none}
+.rw-week .rw-dots i.half{background:linear-gradient(90deg,#4A6E96 50%,#fff 50%);border-color:#4A6E96}
+.rw-week .rw-dots i.today{box-shadow:0 0 0 3px #F8E7BD}
+.rw-week .rw-dots .tday span{font-weight:700;color:#26323D}
+.rw-week .rw-dots span{font-size:12px}

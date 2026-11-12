@@ -285,14 +285,14 @@ function walletRows() {
 /* Rewards: Visa card, earned tiles and the 7-day week tracker */
 function rwCards() {
   const days = weekDays(0), has = (d, re) => S.txns.some(x => x.d === d && re.test(x.t));
-  const st = days.map(x => ({ full: has(x.d, /^Daily check-in/) && has(x.d, /^Activity/), half: has(x.d, /^Daily check-in/) || has(x.d, /^Activity/) }));
+  const st = days.map(x => { if (x.now) { const f = has(x.d, /^Daily check-in/) && has(x.d, /^Activity/); return { full: f, half: !f && (has(x.d, /^Daily check-in/) || has(x.d, /^Activity/)), now: true }; } return x.h ? { full: x.e >= 11, half: x.e < 11 } : { full: false, half: false }; });   // earlier days use the same sample data as the graph below
   const fulls = st.filter(x => x.full).length, todayAmt = S.txns.filter(x => x.d === today()).reduce((a, x) => a + x.amt, 0), weekAmt = days.reduce((a, x) => a + S.txns.filter(y => y.d === x.d).reduce((b, y) => b + y.amt, 0), 0);
   const loaded = S.loaded || 0;
   return `<div class="rw-visa"><div class="rw-vt"><b>Rudra Visa</b><span>VISA</span></div><small>Loaded onto your card</small><div class="rw-amt">${usd(loaded)}</div>
       <div class="rw-vb"><span>${loaded ? 'Last load ' + usd(loaded) : 'No loads yet'}</span><span>•••• 4821</span></div><div class="rw-vchip">${loaded ? 'Loads happen automatically each week' : 'First load: automatically after day 7'}</div></div>
     <div class="rw-tiles"><div class="rw-t g"><small>Earned today</small><b>${usd(todayAmt)}</b><span>Check-in + activity</span></div><div class="rw-t b"><small>Earned this week</small><b>${usd(weekAmt)}</b><span>Up to ${usd(250)} with the bonus</span></div></div>
     <div class="rw-week"><div class="rw-wh"><b>This week</b><span>${fulls} of 6 full days</span></div>
-      <div class="rw-dots">${st.map((x, i) => `<div><i class="${x.full ? 'full' : x.half ? 'half' : ''}">${x.full ? ic('check', 18, 3) : ''}</i><span>${i + 1}</span></div>`).join('')}</div>
+      <div class="rw-dots">${st.map((x, i) => `<div class="${x.now ? 'tday' : ''}"><i class="${x.full ? 'full' : x.half ? 'half' : ''}${x.now ? ' today' : ''}">${x.now && x.full ? ic('check', 18, 3) : ''}</i><span>${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span></div>`).join('')}</div>
       <p>Full: check-in + activity · Half: check-in only · Grey: missed</p></div>`;
 }
 function renderWallet() {
