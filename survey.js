@@ -39,6 +39,21 @@ const ILLUS = {
   confidence: IL('<path d="M100 26l30 10v22c0 20-14 32-30 38-16-6-30-18-30-38V36z" fill="#B9DCC2"/><path d="M100 26l30 10v22c0 20-14 32-30 38z" fill="#9CCBA8"/><path d="M100 44l5.4 11 12 1.7-8.7 8.5 2 12-10.7-5.7-10.7 5.7 2-12-8.7-8.5 12-1.7z" fill="#fff"/>', '#E8F2EA')
 };
 const illus = k => ILLUS[k] || '';
+/* artwork for each question: soft rings in one tone with a simple line icon (style from V3.2) */
+const RQ_TONE = { lav: ['#F1EEF8', '#E2DCF1', '#B9AFDB', '#4B3F8A'], blue: ['#EAF1F8', '#D6E4F0', '#A9C4DE', '#2F5D7C'], sage: ['#EAF2EB', '#D6E7D8', '#A9CBAE', '#2F6B45'],
+  amber: ['#FAF2E2', '#F3E3C2', '#E7C88E', '#86560F'], coral: ['#FBEDEA', '#F5D8D2', '#E9ADA2', '#9A4136'] };
+const RQ_ART = {
+  meds: ['blue', 'pill'], craving: ['lav', 'wave'], risk: ['amber', 'shield'], stress: ['blue', 'wind'], pleasant: ['amber', 'sun'],
+  depressed: ['blue', 'cloud'], angry: ['coral', 'flame'], anxious: ['amber', 'pulse'], relaxed: ['sage', 'leaf'], happy: ['amber', 'smile'],
+  sleep: ['lav', 'moon'], pain: ['coral', 'bolt'], motivation: ['sage', 'rocket'], confidence: ['blue', 'shield'], unreported: ['lav', 'chat'], substances: ['sage', 'checkc']
+};
+function rqArt(k) {
+  const [tone, icon] = RQ_ART[k] || ['blue', 'sparkle'], [a, b, c, d] = RQ_TONE[tone];
+  const g = icon === 'wave' ? '<path d="M-26 0c9-13 17-13 26 0s17 13 26 0" fill="none" stroke-width="5" stroke-linecap="round"/>'
+    : `<g transform="translate(-24 -24) scale(2)" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${P[icon] || P.sparkle || ''}</g>`;
+  return `<svg class="rq-art" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96" fill="${a}"/><circle r="72" fill="${b}"/><circle class="rq-core" r="50" fill="${c}"/><g stroke="${d}" color="${d}">${g}</g></svg>`;
+}
+
 /* ═════════ the screens ═════════ */
 const sl = (k, q, lo, hi, icon, tone, eLo, eHi, inv) => ({ k, q, lo, hi, icon, tone, eLo, eHi, inv });
 /* related questions clubbed onto one screen */
@@ -132,22 +147,22 @@ function screenReady(s) {
 function bodyHTML(s) {
   const raw = lastRaw();
   if (s.id === 'meds') {
-    return `${raw && raw.meds != null ? `<div class="q-memory">Last time: ${MED_OPTS[raw.meds][0]}</div>` : ''}
+    return `<div class="rq-mid sm">${rqArt('meds')}</div>${raw && raw.meds != null ? `<div class="q-memory">Last time: ${MED_OPTS[raw.meds][0]}</div>` : ''}
       <div class="choices">${MED_OPTS.map(([l, i], k) => `<button class="choice ${CI.a.meds === k ? 'sel' : ''}" data-act="ci-pick" data-k="${k}"><span class="c-ic">${ic(i, 26, 1.8)}</span><b>${l}</b></button>`).join('')}</div>`;
   }
   if (s.type === 'sliders') {
     return `<div class="scards">${s.items.map(it => {
       const v = num(CI.a, it.k), last = raw && raw[it.k] != null ? raw[it.k] : null;
-      return `<div class="scard">${illus(it.k) || `<span class="s-ic tn-${it.tone}">${ic(it.icon, 26, 1.7)}</span>`}<b class="s-q">${it.q}</b><div class="s-val" id="sv-${it.k}">${v}</div>
+      return `<div class="scard"><div class="rq-mid">${rqArt(it.k)}</div><b class="s-q">${it.q}</b><div class="s-val" id="sv-${it.k}">${v}</div>
         <div class="s-row"><span class="emo">${it.eLo}<small>0</small></span><input class="s-range" type="range" min="0" max="10" step="1" value="${v}" data-k="${it.k}" data-s="${s.id}" style="--p:${v * 10}%" aria-label="${esc(it.q)}"><span class="emo">${it.eHi}<small>10</small></span></div>
         <div class="s-lab"><span>${it.lo}</span><span>${it.hi}</span></div>${last != null ? `<div class="s-last">Last time: ${last}</div>` : ''}</div>`;
     }).join('')}</div>`;
   }
   if (s.id === 'unreported') {
-    return `<div class="yn"><button class="choice ${CI.a.unreported === 'yes' ? 'sel' : ''}" data-act="ci-yn" data-v="yes"><span class="c-ic">${ic('checkc', 26, 1.8)}</span><b>Yes</b></button><button class="choice ${CI.a.unreported === 'no' ? 'sel' : ''}" data-act="ci-yn" data-v="no"><span class="c-ic">${ic('xc', 26, 1.8)}</span><b>No</b></button></div>
+    return `${CI.a.unreported === 'yes' ? '' : `<div class="rq-mid sm">${rqArt('unreported')}</div>`}<div class="yn"><button class="choice ${CI.a.unreported === 'yes' ? 'sel' : ''}" data-act="ci-yn" data-v="yes"><span class="c-ic">${ic('checkc', 26, 1.8)}</span><b>Yes</b></button><button class="choice ${CI.a.unreported === 'no' ? 'sel' : ''}" data-act="ci-yn" data-v="no"><span class="c-ic">${ic('xc', 26, 1.8)}</span><b>No</b></button></div>
       ${CI.a.unreported === 'yes' ? `<p class="cal-note">Select the date when you used. You can log for the last 1 week. You can add multiple entries.</p>${calendarHTML()}` : ''}`;
   }
-  return `<div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>
+  return `<div class="rq-mid xs">${rqArt('substances')}</div><div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>
     <div class="sub-other" id="sub-other" ${(CI.a.subs || []).includes('Other') ? '' : 'hidden'}><input id="sub-other-in" placeholder="Which one? Enter the name" value="${esc(CI.a.other || '')}" autocomplete="off"></div>`;
 }
 

@@ -629,3 +629,12 @@
 
 /* one question per page — the question is already the page title */
 .q-wrap .scards .scard .s-q{display:none}
+
+/* question artwork (rings + line icon) */
+.rq-mid{display:grid;place-items:center;padding:4px 0 6px}
+.rq-art{width:min(190px,52vw);height:auto;display:block}
+.rq-mid.sm .rq-art{width:150px}
+.rq-mid.xs .rq-art{width:104px}
+.rq-core{transform-origin:center;animation:rqBreath 4s ease-in-out infinite}
+@keyframes rqBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.q-wrap .scard .rq-mid{padding-top:0}
