@@ -1,0 +1,37 @@
+/* Check-in welcome screen (full screen) — shown instead of the "Time for your check-in" sheet.
+   Styles are copied from the V3.2 "Today" screen and only apply inside .rd-welcome. */
+.layer.rd-layer{background:#F7F6F3!important;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.rd-welcome{--rd-bg:#F7F6F3;--rd-ink:#23282F;--rd-muted:#5C6470;--rd-blue:#3F6E99;--rd-blue-d:#2F5D7C;--rd-blue-l:#DEEAF4;--rd-sage:#2F6B45;--rd-sage-l:#E1ECE2;--rd-serif:'Lora',Georgia,'Times New Roman',serif;color:var(--rd-ink);min-height:100%}
+.rd-welcome .rd-eyebrow{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--rd-blue-d)}
+.rd-welcome .rd-eyebrow.muted{color:var(--rd-muted)}
+.rd-welcome .rd-help{font-size:15px;font-weight:600;color:var(--rd-ink);padding:10px 2px;background:none}
+.rd-welcome .rd-top{display:flex;align-items:center;gap:12px;min-height:44px}
+.rd-welcome .rd-top .rd-help{margin-left:auto}
+.rd-welcome .rd-pad{padding:0 20px calc(28px + var(--sab,0px));display:flex;flex-direction:column}
+.rd-welcome .rd-hdr{margin-top:calc(var(--sat,0px) + 4px)}
+.rd-welcome .rd-hdr .rd-eyebrow{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px;letter-spacing:.07em;min-width:0}
+.rd-welcome .rd-lines{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.rd-welcome .rd-lines i{display:block;height:4px;border-radius:2px;background:#E2DED7}
+.rd-welcome .rd-lines span{display:block;font-size:12.5px;font-weight:600;color:var(--rd-muted);margin-top:6px}
+.rd-welcome .rd-h1{font-family:var(--rd-serif)!important;font-weight:600!important;letter-spacing:-.015em!important;color:var(--rd-ink)!important;font-size:30px!important;line-height:1.15!important;margin:20px 0 8px!important}
+.rd-welcome .rd-p{font-size:15.5px;line-height:1.5;color:var(--rd-ink);margin:0 0 18px}
+.rd-welcome .rd-card{background:#fff;border-radius:24px;padding:16px;box-shadow:0 1px 2px rgba(35,40,47,.04),0 10px 28px rgba(35,40,47,.06)}
+.rd-welcome .rd-art{border-radius:18px;overflow:hidden;position:relative}
+.rd-welcome .rd-cicard{display:flex;flex-direction:column;gap:12px}
+.rd-welcome .rd-ci-art{height:236px;background:radial-gradient(circle at 50% 50%,#FBF1DE 0,#F8EEDC 55%,#F1E3C6 100%);display:grid;place-items:center}
+.rd-welcome .rd-spin{position:relative;width:196px;height:196px;border-radius:50%;display:grid;place-items:center;background:none;color:var(--rd-blue)}
+.rd-welcome .rd-spin-ring{position:absolute;inset:0;width:100%;height:100%;color:#E2B76A;animation:rdSpin 14s linear infinite}
+.rd-welcome .rd-spin-core{width:146px;height:146px;border-radius:50%;background:var(--rd-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 12px 30px rgba(63,110,153,.35);animation:rdPulse 2.6s ease-in-out infinite}
+.rd-welcome .rd-spin-core b{font-size:17px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.rd-welcome .rd-spin:active .rd-spin-core{transform:scale(.96)}
+@keyframes rdSpin{to{transform:rotate(360deg)}}
+@keyframes rdPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.rd-welcome .rd-cimeta{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:var(--rd-muted);margin-top:4px}
+.rd-welcome .rd-cimeta .rd-eyebrow{color:var(--rd-blue-d)}
+.rd-welcome .rd-cardh{font-size:19px!important;line-height:1.3!important;font-weight:700!important;letter-spacing:-.015em!important;margin:0!important;font-family:'Inter',sans-serif!important;color:var(--rd-ink)!important}
+.rd-welcome .rd-chips{display:flex;flex-wrap:wrap;gap:8px}
+.rd-welcome .rd-chips span{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
+.rd-welcome .rd-chips .g{background:var(--rd-sage-l);color:var(--rd-sage)}
+.rd-welcome .rd-chips .b{background:var(--rd-blue-l);color:var(--rd-blue-d)}
+.rd-welcome .rd-cicard .btn{margin-top:4px;height:54px;background:var(--rd-blue)!important;color:#fff!important;border-radius:999px!important;font-size:16.5px;font-weight:600;box-shadow:none!important}
+.rd-welcome .rd-later{align-self:center;margin-top:14px;padding:10px 16px;font-size:15px;font-weight:600;color:var(--rd-blue-d);background:none}

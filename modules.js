@@ -523,3 +523,24 @@ document.addEventListener('change', e => {
   if (e.target.id !== 'pf-time') return;
   S.remindTime = e.target.value; const h = +e.target.value.slice(0, 2); S.remind = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'; save(); renderMe(); toast('Check-in time set to ' + remindTime() + ' PT');
 });
+
+
+/* ═════════ Check-in welcome — full screen, replaces the "Time for your check-in" sheet ═════════ */
+function triggerSheet() {
+  if (S.remindOn === false || checkedInToday() || $$('.layer').length) return;
+  const first = !S.history.length, day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
+  pushLayer(`<div class="rd-welcome"><div class="rd-pad">
+    <div class="rd-top rd-hdr"><span class="rd-eyebrow muted">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">Help</button></div>
+    <div class="rd-lines"><div><i></i><span>Check-in</span></div><div><i></i><span>Activity</span></div></div>
+    <h1 class="rd-h1">${first ? 'Welcome' : greeting()}, ${esc(S.name || 'friend')}</h1>
+    <p class="rd-p">${first ? 'Your first week starts today.' : 'One minute for you, then one small step.'}</p>
+    <div class="rd-card rd-cicard">
+      <div class="rd-art rd-ci-art"><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
+        <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
+        <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button></div>
+      <div class="rd-cimeta"><span class="rd-eyebrow">Today’s check-in</span><span>About 1 min</span></div>
+      <h2 class="rd-cardh">${first ? 'Your first check-in. One question at a time, no right answers.' : 'How are you doing today? One question at a time.'}</h2>
+      <div class="rd-chips"><span class="g">+${usd(10)} check-in</span><span class="b">Then an activity, +${usd(15)}</span></div>
+      <button class="btn" data-act="trigger-go">Start check-in</button></div>
+    <button class="rd-later" data-act="close-layer">Maybe later</button></div></div>`, 'rd-layer');
+}
