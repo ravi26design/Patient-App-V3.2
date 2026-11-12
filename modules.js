@@ -540,6 +540,5 @@ function triggerSheet() {
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button></div>
       <div class="rd-cimeta"><span class="rd-eyebrow">Today’s check-in</span><span>About 1 min</span></div>
       <h2 class="rd-cardh">${first ? 'Your first check-in. One question at a time, no right answers.' : 'How are you doing today? One question at a time.'}</h2>
-      <button class="btn" data-act="trigger-go">Start check-in</button></div>
-    <button class="rd-later" data-act="close-layer">Maybe later</button></div></div>`, 'rd-layer');
+      <button class="btn" data-act="trigger-go">Start check-in</button></div></div></div>`, 'rd-layer');
 }
