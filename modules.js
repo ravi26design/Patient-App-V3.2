@@ -355,7 +355,7 @@ function renderScore(root) {
     <div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
       <p>${f.why}.</p>
       <div class="rr-meta"><span>${ic('clock', 14, 2)}${f.mins} min</span><span>${ic('check', 14, 2.4)}${f.steps.length} short steps</span></div>
-      <div class="rr-reward"><span class="rr-coin">${ic('coin', 24, 1.7)}</span><div><b>${fin ? 'Activity completed' : 'Finish to earn'}</b><span>${fin ? 'Reward added to your wallet' : 'Today becomes ' + usd(e.base + 20)}</span></div><strong>+${usd(20)}</strong></div>
+      <div class="rr-reward">${ic('coin', 18, 2)}<span>${fin ? usd(20) + ' earned for activity' : 'Finish to earn ' + usd(20)}</span></div>
       <button class="btn" data-act="${fin ? 'ci-later' : 'fpr-go'}" data-k="${focusKey({ vals })}">${fin ? 'Back to Home' : 'Start activity'} ${ic('next', 18, 2.4)}</button></div></div></div>`;
   setTimeout(() => {
     const p = $('.rr-fill', root); if (p) { p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)'; p.style.strokeDashoffset = p.dataset.off; }

@@ -230,3 +230,8 @@ html.gated [data-act="ci-exit"],html.gated [data-act="ci-close"],html.gated .rr-
 .rd-result .rr-reward b{color:#3F6B4E;font-size:16px}
 .rd-result .rr-reward>div span{color:#5F7A67;font-size:13px;white-space:nowrap}
 .rd-result .rr-reward strong{font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.02em;color:#3F6B4E}
+
+/* reward pill — same as the "Earn up to" chip */
+.rd-result .rr-reward{display:inline-flex!important;align-items:center;gap:8px;align-self:flex-start;height:36px;padding:0 16px!important;margin:0 0 16px!important;border-radius:18px!important;background:#E1ECE2!important;color:#3F6B4E;font-size:15px;font-weight:600}
+.rd-result .rr-reward svg{color:#3F6B4E}
+.rd-result .rr-reward span{font-size:15px!important;font-weight:600;color:#3F6B4E!important;white-space:nowrap}
