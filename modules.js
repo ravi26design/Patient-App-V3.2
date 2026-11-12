@@ -467,7 +467,6 @@ function claimPopup() {
       <h1 class="fx-title">${k === 'cravings' ? 'You rode it out.' : 'Well done.'}</h1><p class="fx-sub">Today’s check-in and activity are complete.</p></div>
     <div class="fx-tiles"><div class="fx-tile"><span class="fx-tic">${ic('bolt', 18, 2)}</span><b>+${usd(20)}</b><span>Activity earnings</span></div><div class="fx-tile"><span class="fx-tic">${ic('coin', 18, 2)}</span><b>${usd(today$)}</b><span>Today’s earnings</span></div></div>
     <div class="fx-week"><div class="fx-wh"><b>This week</b><span>${n} of 6 activities</span></div><div class="fx-dots">${[0, 1, 2, 3, 4, 5].map(i => `<span class="${i < n ? 'on' : ''}">${i < n ? ic('check', 16, 3) : i + 1}</span>`).join('')}</div><p class="fx-bonus">${bonusLine}</p></div>
-    <div class="fx-toolkit"><span class="fx-ti">${ic(f.icon, 24, 1.7)}</span><div><b>${f.page}</b><small>Added to your toolkit · revisit anytime</small></div></div>
     <button class="btn fx-next" data-act="fx-wallet">Go to Rewards</button></div>`, 'fx-layer');
   setTimeout(confetti, 300);
 }

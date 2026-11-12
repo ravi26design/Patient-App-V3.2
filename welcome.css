@@ -414,3 +414,4 @@ html.gated .fx-x{display:none!important}
 .rw-dots span{font-size:13px;color:#6B7682}
 .rw-week p{margin:12px 0 0;font-size:13.5px;line-height:1.45;color:#6B7682}
 .rw-visa .rw-vt b,.rw-visa .rw-vt span,.rw-visa .rw-vb span{color:#fff!important}
+.fx-done .fx-week+.fx-next{margin-top:20px!important}
