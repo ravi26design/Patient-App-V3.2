@@ -333,13 +333,34 @@ function renderScore(root) {
     const e = earnCalc(false);
     if (e.first) { earn(e.base, 'Daily check-in', overall); if (e.st) earn(e.st, 'Streak bonus'); S.loop.earned = 1; save(); }
   }
-  const layer = CI.layer; layer.classList.add('ci-modal');
-  const delta = prev == null ? '' : `<div class="cm-delta ${overall >= prev ? 'up' : 'down'}">${overall >= prev ? '▲' : '▼'} ${Math.abs(overall - prev)} vs. last check-in</div>`;
-  root.innerHTML = `<div class="cm-wrap"><div class="cm-card"><h3>Your recovery score</h3><div class="fin-gauge">${gauge(overall)}</div>${delta}<p class="cm-note">Taking you home…</p></div></div>`;
-  animateScore(root, overall, 0);
+  const layer = CI.layer; layer.classList.add('rd-layer');
+  const day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1, first = !!CI.first;
+  const f = FOCUS[focusKey({ vals })], fin = S.focusDone === today();
+  const e = earnCalc(false), got = e.base + e.st, srt = Q.map(q => ({ ...q, v: vals[q.k] })).sort((a, b) => b.v - a.v), hi = srt[0], lo = srt[srt.length - 1];
+  const d = prev == null ? null : overall - prev;
+  const side = d == null ? ['First', 'check-in'] : d > 0 ? ['▲ ' + d, 'from last time'] : d < 0 ? ['▼ ' + -d, 'from last time'] : ['Same', 'as last time'];
+  const A = Math.PI * 70, off = A * (1 - clamp(overall / 100, 0, 1));
+  root.innerHTML = `<div class="rd-welcome rd-result"><div class="rd-pad">
+    <div class="rd-top rd-hdr"><span class="rd-wk">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
+    <div class="rd-prog"><div class="seg"><i class="on"></i><i></i></div><div class="lbl"><span>Check-in done</span><span>Activity</span></div></div>
+    <h1 class="rd-h1 rr-h1">${first && !prev ? 'Your first check-in is done.' : 'Your check-in is done.'}</h1>
+    <div class="rr-score"><div class="rr-arc"><svg viewBox="0 0 180 100" aria-hidden="true"><defs><linearGradient id="rrg" x1="0" x2="1"><stop offset="0" stop-color="#C9D8E8"/><stop offset="1" stop-color="#5E8DB8"/></linearGradient></defs>
+        <path d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="#E8EDF3" stroke-width="14" stroke-linecap="round"/>
+        <path class="rr-fill" d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${A}" data-off="${off}"/></svg>
+        <div class="rr-num"><b id="g-num" data-score="${overall}">0</b><small>RECOVERY SCORE</small></div></div>
+      <div class="rr-side"><b>${side[0]}</b><span>${side[1]}</span><i class="rr-dot"></i></div></div>
+    <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
+    ${got ? `<span class="rr-earn">${ic('check', 14, 3)}${usd(got)} earned for check-in</span>` : ''}
+    <div class="rd-card rr-next"><small class="rr-eye">NEXT UP · ${f.mins} MIN</small><h2>${f.page}</h2><p>${f.why}.</p>
+      ${fin ? '' : `<div class="rr-reward"><div><b>Finish to earn</b><span>Today becomes ${usd(got + 20)}</span></div><strong>+${usd(20)}</strong></div>`}
+      <button class="btn" data-act="${fin ? 'ci-later' : 'fpr-go'}" data-k="${focusKey({ vals })}">${fin ? 'Back to Home' : 'Start activity'} ${ic('next', 18, 2.4)}</button>
+      ${fin ? '' : '<button class="rr-later" data-act="ci-later">Maybe later</button>'}</div></div></div>`;
+  setTimeout(() => {
+    const p = $('.rr-fill', root); if (p) { p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)'; p.style.strokeDashoffset = p.dataset.off; }
+    const n = $('#g-num', root); if (n) countUp(n, overall, 1200, 0);
+  }, 150);
   if (CI.first) setTimeout(confetti, 600);
-  const tm = setTimeout(() => { if (CI && CI.layer === layer) { endCheckin('home'); setTimeout(focusPrompt, 500); } }, 5200);
-  layer._cleanup = () => { clearTimeout(tm); CI = null; };
+  layer._cleanup = () => { CI = null; };
 }
 
 
@@ -467,6 +488,7 @@ Object.assign(ACT, {
   'cx-yes': el => { popLayer(layerOf(el)); ACT['ci-close'](); },
   'wk-nav': el => { if (el.disabled) return; WK.back = Math.max(0, WK.back + +el.dataset.d); const y = $('#v-wallet').scrollTop; renderWallet(); $('#v-wallet').scrollTop = y; },
   'focus-open': el => focusPage(el.dataset.k),
+  'ci-later': () => endCheckin('home'),
   'fpr-go': el => { popLayer(layerOf(el)); focusPage(el.dataset.k); },
   'fp-next': el => {
     if (el.disabled || (Date.now() - FP.t0) / 1000 < FP_MIN) return; const k = el.dataset.k, f = FOCUS[k];
