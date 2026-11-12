@@ -459,14 +459,16 @@ function claimPopup() {
   const today$ = S.txns.filter(x => x.d === today()).reduce((t, x) => t + x.amt, 0);
   const day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   const bonusLine = wk >= 6 ? 'Weekly bonus unlocked · ' + usd(15) + ' added' : (6 - wk) + ' more ' + (6 - wk === 1 ? 'activity' : 'activities') + ' this week for the ' + usd(15) + ' bonus';
-  pushLayer(`<div class="fx-wrap fx-done"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Activity complete</span><button class="fx-help" data-act="help">Help</button></div>
+  pushLayer(`<div class="fx-wrap fx-done"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Week ${Math.ceil(day / 7)} · Day ${dIn} · Complete</span><button class="fx-help" data-act="help">Help</button></div>
     <div class="fx-steps2"><div><i></i><span>Check-in done</span></div><div><i></i><span>Activity done</span></div></div>
-    <h1 class="fx-title">${k === 'cravings' ? 'You rode it out.' : 'Well done.'}</h1>
-    <div class="fx-tiles"><div class="fx-tile"><b>+${usd(20)}</b><span>Activity earnings</span></div><div class="fx-tile"><b>${usd(today$)}</b><span>Today’s earnings</span></div></div>
-    <div class="fx-dots">${[0, 1, 2, 3, 4, 5].map(i => `<span class="${i < n ? 'on' : ''}">${i < n ? ic('check', 16, 3) : ''}</span>`).join('')}</div>
-    <p class="fx-bonus">${bonusLine}</p>
-    <p class="fx-tool">${f.page} is now in your toolkit.</p>
-    <button class="btn fx-next" data-act="fx-wallet">Go to Wallet</button></div>`, 'fx-layer');
+    <div class="fx-hero"><svg viewBox="0 0 220 150" aria-hidden="true"><circle cx="110" cy="75" r="72" fill="#E4EEE6"/><circle cx="110" cy="75" r="54" fill="#D3E4D7"/><circle class="fx-halo2" cx="110" cy="75" r="40" fill="#fff" opacity=".85"/><circle cx="110" cy="75" r="34" fill="#fff"/>
+      <g transform="translate(84 49) scale(2.17)" fill="none" stroke="#3F6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${P.checkc}</g>
+      <g fill="#E0B454"><path d="M26 34l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".9"/><path d="M190 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" opacity=".8"/><circle cx="184" cy="112" r="4" opacity=".7"/><circle cx="34" cy="108" r="3" opacity=".6"/></g></svg>
+      <h1 class="fx-title">${k === 'cravings' ? 'You rode it out.' : 'Well done.'}</h1><p class="fx-sub">Today’s check-in and activity are complete.</p></div>
+    <div class="fx-tiles"><div class="fx-tile"><span class="fx-tic">${ic('bolt', 18, 2)}</span><b>+${usd(20)}</b><span>Activity earnings</span></div><div class="fx-tile"><span class="fx-tic">${ic('coin', 18, 2)}</span><b>${usd(today$)}</b><span>Today’s earnings</span></div></div>
+    <div class="fx-week"><div class="fx-wh"><b>This week</b><span>${n} of 6 activities</span></div><div class="fx-dots">${[0, 1, 2, 3, 4, 5].map(i => `<span class="${i < n ? 'on' : ''}">${i < n ? ic('check', 16, 3) : i + 1}</span>`).join('')}</div><p class="fx-bonus">${bonusLine}</p></div>
+    <div class="fx-toolkit"><span class="fx-ti">${ic(f.icon, 24, 1.7)}</span><div><b>${f.page}</b><small>Added to your toolkit · revisit anytime</small></div></div>
+    <button class="btn fx-next" data-act="fx-wallet">Go to Rewards</button></div>`, 'fx-layer');
   setTimeout(confetti, 300);
 }
 

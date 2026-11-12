@@ -284,7 +284,7 @@ function walletRows() {
 }
 function renderWallet() {
   const nr = nextReward();
-  $('#v-wallet').innerHTML = `<div class="wal-top"><h1>Wallet</h1></div>
+  $('#v-wallet').innerHTML = `<div class="wal-top"><h1>Rewards</h1></div>
   <div class="pad"><div class="bal-card"><small>Total Balance</small><div class="bal" id="wb">$0.00</div>    <div class="bal-grid"><div><small>Total check-ins</small><b>${26 + S.history.length}</b></div><div><small>Total Activities</small><b>${S.activities}</b></div></div>
     <button class="btn light" data-act="tab" data-v="home">Back to today</button></div></div>
   ${weekCard()}

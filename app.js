@@ -197,7 +197,7 @@ function renderNav() {
       : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${line}</svg>`}</i><span>${l}</span></button>`; };
   $('#nav').innerHTML = [['home', 'Home'], ['community', 'Community']].map(item).join('')
     + `<button class="nav-help" data-act="help" aria-label="Help">${ic('plus', 28, 2.6)}<span>HELP</span></button>`
-    + [['progress', 'Progress'], ['wallet', 'Wallet']].map(item).join('');
+    + [['progress', 'Progress'], ['wallet', 'Rewards']].map(item).join('');
 }
 const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good night' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; };
 
@@ -266,7 +266,7 @@ function homeLine() {
 /* Today's loop: Survey → Score → Activity → Earn → Wallet → (next trigger) */
 function loopCard(rec) {
   const L = S.loop.date === today() ? S.loop : {};
-  const steps = [['Survey', !!L.survey, 'checkin'], ['Score', !!L.score, 'score'], ['Activity', !!L.activity, 'activity'], ['Earn', !!L.earned, 'wallet'], ['Wallet', !!L.wallet, 'wallet']];
+  const steps = [['Survey', !!L.survey, 'checkin'], ['Score', !!L.score, 'score'], ['Activity', !!L.activity, 'activity'], ['Earn', !!L.earned, 'wallet'], ['Rewards', !!L.wallet, 'wallet']];
   const cur = steps.findIndex(x => !x[1]);
   return `<div class="loop"><div class="eyebrow">Today’s loop</div><div class="loop-steps">${steps.map(([l, d, a], i) => `<button class="ls ${d ? 'done' : i === cur ? 'cur' : ''}" data-act="loop" data-s="${a}"><i>${d ? ic('check', 14, 3) : i + 1}</i><span>${l}</span></button>`).join('')}</div>
     <p class="loop-n">${ic('life', 15)}<span>Next reminder: <b>${nextTrigger()}</b></span></p></div>`;

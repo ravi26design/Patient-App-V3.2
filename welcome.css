@@ -341,3 +341,30 @@ html.gated .fx-x{display:none!important}
 .fx-seg i,.fx-seg i.now,.fx-seg i.vw,.fx-seg i.go{height:6px!important;box-shadow:none!important;transform:none!important}
 .fx-seg i.now{background:#E3E1DB!important}
 .fx-seg i.done{background:#4A6E96!important}
+
+/* completion page, richer */
+.fx-done{padding-top:46px!important}
+.fx-done .fx-steps2{margin-top:14px}
+.fx-hero{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:10px}
+.fx-hero svg{width:min(210px,58%);height:auto}
+.fx-halo2{animation:fxPulse 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes fxPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.fx-done .fx-title{margin:0!important;font-size:32px}
+.fx-sub{margin:6px 0 0;font-size:15.5px;color:#5C6975}
+.fx-done .fx-tiles{margin-top:18px}
+.fx-tile{position:relative;padding:14px 16px 14px!important}
+.fx-tic{display:grid!important;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;color:#3F6B4E!important;margin:0 0 10px!important}
+.fx-tile b{font-size:26px!important}
+.fx-week{margin-top:14px;padding:16px 16px 14px;border-radius:22px;background:#fff;box-shadow:0 2px 6px rgba(52,80,107,.04),0 12px 28px rgba(74,110,150,.08)}
+.fx-wh{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
+.fx-wh b{font-weight:600;color:#26323D}.fx-wh span{font-size:13.5px;color:#5C6975}
+.fx-week .fx-dots{margin-top:12px}
+.fx-week .fx-dots span{width:40px;height:40px;font-size:14px;font-weight:600;color:#9AA4AE;background:#F4F3EF;border:0}
+.fx-week .fx-dots span.on{color:#fff;background:#4A6E96;box-shadow:0 0 0 3px #F8E7BD}
+.fx-week .fx-bonus{margin:12px 0 0;font-size:14px}
+.fx-toolkit{display:flex;align-items:center;gap:14px;margin-top:12px;padding:14px 16px;border-radius:22px;background:#fff;box-shadow:0 2px 6px rgba(52,80,107,.04),0 12px 28px rgba(74,110,150,.08)}
+.fx-ti{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:#E3EDF7;color:#4F82B0}
+.fx-toolkit b{display:block;font-size:16px;font-weight:600;color:#26323D}
+.fx-toolkit small{font-size:13px;color:#5C6975}
+.fx-done .fx-next{margin-top:auto!important}
+.fx-done .fx-toolkit+.fx-next{margin-top:20px!important}
