@@ -68,3 +68,13 @@
 .rd-welcome .rd-wk-n svg{flex:none;color:#B7912F}
 .rd-welcome .rd-wk-n b{font-weight:700}
 .rd-welcome .rd-later{align-self:center;margin-top:12px;padding:10px 16px;font-size:15px;font-weight:600;color:var(--cta-d);background:none}
+
+/* two-step progress lines (check-in, then activity) */
+.rd-welcome .rd-lines{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.rd-welcome .rd-lines i{display:block;height:6px;border-radius:3px;background:#D8E4F0}
+.rd-welcome .rd-lines span{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-top:8px;font-size:13px;font-weight:600;color:var(--muted)}
+.rd-welcome .rd-lines em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--cta-d)}
+.rd-welcome .rd-lines > div:last-child em{color:#3F6B4E}
+.rd-welcome .rd-lines .on i{background:var(--cta)}
+.rd-welcome .rd-lines .on span{color:var(--cta-d)}
+.rd-welcome .rd-h1{margin-top:22px}

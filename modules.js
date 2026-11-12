@@ -531,19 +531,15 @@ function triggerSheet() {
   const first = !S.history.length, day = Math.max(1, S.day || 1), dIn = ((day - 1) % 7) + 1;
   pushLayer(`<div class="rd-welcome"><div class="rd-pad">
     <div class="rd-top rd-hdr"><span class="rd-eyebrow muted">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
+    <div class="rd-lines"><div><i></i><span>Check-in<em>+${usd(10)}</em></span></div><div><i></i><span>Activity<em>+${usd(15)}</em></span></div></div>
     <h1 class="rd-h1"><span class="g">${first ? 'Welcome,' : greeting() + ','}</span> ${esc(S.name || 'friend')}</h1>
     <p class="rd-p">${first ? 'Your first week starts today.' : 'One minute for you, then one small step.'}</p>
-    <div class="rd-steps"><div class="rd-step"><span class="ic">${ic('checkc', 20, 1.8)}</span><div><b>Check-in</b><small>+${usd(10)}</small></div></div>
-      <div class="rd-step act"><span class="ic">${ic('bolt', 20, 1.8)}</span><div><b>Activity</b><small>+${usd(15)}</small></div></div></div>
-    <div class="rd-card rd-cicard">
+        <div class="rd-card rd-cicard">
       <div class="rd-art rd-ci-art"><span class="rd-blob b1"></span><span class="rd-blob b2"></span><span class="rd-spk k1">${ic('sparkle', 18, 1.8)}</span><span class="rd-spk k2">${ic('sparkle', 14, 1.8)}</span><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
         <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button></div>
       <div class="rd-cimeta"><span class="rd-eyebrow">Today’s check-in</span><span>About 1 min</span></div>
       <h2 class="rd-cardh">${first ? 'Your first check-in. One question at a time, no right answers.' : 'How are you doing today? One question at a time.'}</h2>
       <button class="btn" data-act="trigger-go">Start check-in</button></div>
-    <div class="rd-card rd-week"><div class="rd-wk-h"><b>Your first week</b><span>Day ${dIn} of 7</span></div>
-      <div class="rd-wk-d">${[1, 2, 3, 4, 5, 6, 7].map(k => `<span class="rd-wd ${k < dIn ? 'past' : k === dIn ? 'now' : ''}"><i>${k < dIn ? ic('check', 14, 3) : ''}</i><small>${k}</small></span>`).join('')}</div>
-      <p class="rd-wk-n">${ic('sparkle', 16, 1.8)}<span>Complete <b>6 activities</b> this week to earn a <b>${usd(15)}</b> bonus.</span></p></div>
     <button class="rd-later" data-act="close-layer">Maybe later</button></div></div>`, 'rd-layer');
 }
