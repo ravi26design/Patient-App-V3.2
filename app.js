@@ -293,13 +293,13 @@ function rhArc(cx, cy, r, a0, a1) {   // angles in degrees, 180 = left … 0 = r
   const [x0, y0] = p(a0), [x1, y1] = p(a1);
   return `M${x0.toFixed(1)} ${y0.toFixed(1)}A${r} ${r} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`;
 }
-function rhArcs() {
-  const cols = ['#CD8A80', '#DFA46B', '#E4C873', '#B4CB9B', '#8FB287'], seg = 36, gap = 3.5;
-  return cols.map((c, i) => `<path d="${rhArc(150, 150, 108, 180 - i * seg - gap * (i ? .5 : 0), 180 - (i + 1) * seg + gap * (i < 4 ? .5 : 0))}" stroke="${c}" stroke-width="26" fill="none" stroke-linecap="round"/>`).join('');
+let rhN = 0;
+function rhArcs() {   // one continuous red → orange → yellow → green arc
+  const id = 'rhg' + (++rhN);
+  return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="42" y1="0" x2="258" y2="0"><stop offset="0" stop-color="#CD8A80"/><stop offset=".28" stop-color="#DFA46B"/><stop offset=".5" stop-color="#E4C873"/><stop offset=".74" stop-color="#B4CB9B"/><stop offset="1" stop-color="#8FB287"/></linearGradient></defs><path d="${rhArc(150, 150, 108, 180, 0)}" stroke="url(#${id})" stroke-width="26" fill="none" stroke-linecap="round"/>`;
 }
 function recoveryCard(last) {
-  const cols = ['#CD8A80', '#DFA46B', '#E4C873', '#B4CB9B', '#8FB287'], seg = 36, gap = 3.5;
-  const arcs = cols.map((c, i) => `<path d="${rhArc(150, 150, 108, 180 - i * seg - gap * (i ? .5 : 0), 180 - (i + 1) * seg + gap * (i < 4 ? .5 : 0))}" stroke="${c}" stroke-width="26" fill="none" stroke-linecap="round"/>`).join('');
+  const arcs = rhArcs();
   const done = !!last && checkedInToday();   // the gauge stays at zero until today's check-in is done
   const v = done ? last.overall : 0, prev = done ? (S.history.length > 1 ? S.history[S.history.length - 2].overall : Math.max(v - 2, 0)) : null;   // first check-in: a small steady baseline so the card reads like later days   // before today's check-in the gauge sits at zero
   const word = v >= 85 ? 'Excellent' : v >= 70 ? 'Above average' : v >= 55 ? 'Steady' : v >= 40 ? 'Building' : 'Needs care';
