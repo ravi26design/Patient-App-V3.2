@@ -626,3 +626,6 @@
 .clm-card h3{font-size:24px}.clm-card p{margin:8px 6px 20px;font-size:15px;line-height:1.5;color:#7B8793}
 
 .consent-req{margin:6px 2px 10px;font-size:13px;font-weight:500;color:#8A96A1}
+
+/* one question per page — the question is already the page title */
+.q-wrap .scards .scard .s-q{display:none}

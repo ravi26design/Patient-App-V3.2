@@ -42,7 +42,8 @@ const illus = k => ILLUS[k] || '';
 /* ═════════ the screens ═════════ */
 const sl = (k, q, lo, hi, icon, tone, eLo, eHi, inv) => ({ k, q, lo, hi, icon, tone, eLo, eHi, inv });
 /* related questions clubbed onto one screen */
-const grp = (id, ctx, title, sub, ...items) => ({ id, type: 'sliders', ctx, title, sub, items });
+/* one question per page: each slider becomes its own screen, keeping the group's context line */
+const grp = (id, ctx, title, sub, ...items) => items.map(it => ({ id: it.k, type: 'sliders', ctx, title: it.q, sub: title, items: [it] }));
 const SCREENS = [
   { id: 'meds', type: 'choice' },
   grp('past-24', 'Past 24 hours', 'Thinking about the past 24 hours…', null,
@@ -50,7 +51,7 @@ const SCREENS = [
     sl('risk', 'Riskiest moment? (people, places, or things that threaten your recovery)', 'No risk', 'Extreme risk', 'alert', 'amber', '😌', '😰', true),
     sl('stress', 'Most stressful moment?', 'No stress', 'Extreme stress', 'wind', 'blue', '😌', '😩', true),
     sl('pleasant', 'Most pleasant moment?', 'Not at all pleasant', 'Extremely pleasant', 'sun', 'amber', '😕', '😄', false)),
-  grp('emotions', 'Emotions', 'Rate the strength of each of these emotions', null,
+  grp('emotions', 'Emotions', 'Rate how strong this emotion is right now', null,
     sl('depressed', 'Depressed?', 'Not at all', 'Extremely', 'cloud', 'slate', '🙂', '😢', true),
     sl('angry', 'Angry?', 'Not at all', 'Extremely', 'flame', 'coral', '🙂', '😠', true),
     sl('anxious', 'Anxious?', 'Not at all', 'Extremely', 'pulse', 'amber', '🙂', '😰', true),
@@ -64,7 +65,7 @@ const SCREENS = [
     sl('confidence', 'Confidence you can?', 'Not confident', 'Extremely confident', 'shield', 'blue', '😟', '😎', false)),
   { id: 'unreported', type: 'yesno', title: 'Have you used opioids that you didn’t report?' },
   { id: 'substances', type: 'multi', title: 'Which of these drugs have you used in the past 24 hours?' }
-];
+].flat();
 const MED_OPTS = [['Yes, my full dose', 'checkc'], ['Only part of my dose', 'partial'], ['No, I didn’t take it', 'xc']];
 const SUBS = [['Alcohol', 'beer'], ['Cannabis (marijuana, pot, hash, K2, spice, etc.)', 'leaf'], ['Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)', 'bolt'],
   ['Inhalants (nitrous, glue, petrol, paint thinner, etc.)', 'wind'], ['Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)', 'pill'],
