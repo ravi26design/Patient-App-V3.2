@@ -215,3 +215,12 @@ html.gated [data-act="ci-exit"],html.gated [data-act="ci-close"],html.gated .rr-
 .rd-result .rr-nic.t-a{background:#F8EBD2;color:#9A6A1B}
 .rd-result .rr-nic.t-p{background:#E9E4F4;color:#6B5BA8}
 .rd-result .rr-nic.t-g{background:#E1ECE2;color:#4E7A5E}
+
+/* earned row */
+.rd-result .rr-earn{align-self:stretch;display:flex;align-items:center;gap:12px;height:auto;padding:12px 16px 12px 12px;border-radius:22px;background:linear-gradient(135deg,#EAF4EC 0%,#DCEBDF 100%);color:var(--ink);box-shadow:0 1px 0 rgba(255,255,255,.7) inset}
+.rd-result .rr-eic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#4E7A5E;color:#fff;box-shadow:0 6px 12px rgba(78,122,94,.28)}
+.rd-result .rr-earn svg{box-sizing:border-box;padding:0;background:none;border-radius:0;width:18px;height:18px;color:#fff}
+.rd-result .rr-earn>div{flex:1;min-width:0}
+.rd-result .rr-earn b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
+.rd-result .rr-earn small{font-size:12.5px;color:#5F7A67}
+.rd-result .rr-earn strong{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:500;color:#3F6B4E}
