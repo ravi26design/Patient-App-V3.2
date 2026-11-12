@@ -352,10 +352,11 @@ function renderScore(root) {
         <div class="rr-mini"><span class="up"><i></i>${hi.label}<em>${hi.v.toFixed(1)}</em></span><span class="dn"><i></i>${lo.label}<em>${lo.v.toFixed(1)}</em></span></div></div></div>
     <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
     ${got ? `<span class="rr-earn">${ic('check', 14, 3)}${usd(got)} earned for check-in</span>` : ''}
-    <div class="rd-card rr-next"><small class="rr-eye">NEXT UP · ${f.mins} MIN</small><h2>${f.page}</h2><p>${f.why}.</p>
-      ${fin ? '' : `<div class="rr-reward"><div><b>Finish to earn</b><span>Today becomes ${usd(got + 20)}</span></div><strong>+${usd(20)}</strong></div>`}
-      <button class="btn" data-act="${fin ? 'ci-later' : 'fpr-go'}" data-k="${focusKey({ vals })}">${fin ? 'Back to Home' : 'Start activity'} ${ic('next', 18, 2.4)}</button>
-      ${fin ? '' : '<button class="rr-later" data-act="ci-later">Maybe later</button>'}</div></div></div>`;
+    <div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
+      <p>${f.why}.</p>
+      <div class="rr-meta"><span>${ic('clock', 14, 2)}${f.mins} min</span><span>${ic('check', 14, 2.4)}${f.steps.length} short steps</span></div>
+      ${fin ? '' : `<div class="rr-reward"><span class="rr-coin">${ic('coin', 24, 1.7)}</span><div><b>Finish to earn</b><span>Today becomes ${usd(got + 20)}</span></div><strong>+${usd(20)}</strong></div>`}
+      <button class="btn" data-act="${fin ? 'ci-later' : 'fpr-go'}" data-k="${focusKey({ vals })}">${fin ? 'Back to Home' : 'Start activity'} ${ic('next', 18, 2.4)}</button></div></div></div>`;
   setTimeout(() => {
     const p = $('.rr-fill', root); if (p) { p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)'; p.style.strokeDashoffset = p.dataset.off; }
     const n = $('#g-num', root); if (n) countUp(n, overall, 1200, 0);
