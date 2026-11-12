@@ -344,11 +344,12 @@ function renderScore(root) {
     <div class="rd-top rd-hdr"><span class="rd-wk">Week ${Math.ceil(day / 7)} · Day ${dIn}</span><button class="rd-help" data-act="help">${ic('plus', 14, 2.8)}Help</button></div>
     <div class="rd-prog"><div class="seg"><i class="on"></i><i></i></div><div class="lbl"><span>Check-in <b>+${usd(10)}</b></span><span>Activity <b>+${usd(20)}</b></span></div></div>
     <h1 class="rd-h1 rr-h1">${first && !prev ? 'Your first check-in is done.' : 'Your check-in is done.'}</h1>
-    <div class="rr-score"><div class="rr-arc"><svg viewBox="0 0 180 100" aria-hidden="true"><defs><linearGradient id="rrg" x1="0" x2="1"><stop offset="0" stop-color="#C9D8E8"/><stop offset="1" stop-color="#5E8DB8"/></linearGradient></defs>
+    <div class="rr-score"><div class="rr-arc"><svg viewBox="0 0 180 100" aria-hidden="true"><defs><linearGradient id="rrg" x1="0" x2="1"><stop offset="0" stop-color="#BBD0E6"/><stop offset="1" stop-color="#4F82B0"/></linearGradient></defs>
         <path d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="#E8EDF3" stroke-width="14" stroke-linecap="round"/>
         <path class="rr-fill" d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${A}" data-off="${off}"/></svg>
-        <div class="rr-num"><b id="g-num" data-score="${overall}">0</b><small>RECOVERY SCORE</small></div></div>
-      <div class="rr-side"><b>${side[0]}</b><span>${side[1]}</span><i class="rr-dot"></i></div></div>
+        <div class="rr-num"><b id="g-num" data-score="${overall}">0</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
+      <div class="rr-side"><span class="rr-pill ${overall >= 55 ? 'ok' : 'low'}">${overall >= 75 ? 'Strong' : overall >= 55 ? 'Steady' : overall >= 40 ? 'Building' : 'Needs care'}</span><b>${side[0]} ${side[1]}</b>
+        <div class="rr-mini"><span class="up"><i></i>${hi.label}<em>${hi.v.toFixed(1)}</em></span><span class="dn"><i></i>${lo.label}<em>${lo.v.toFixed(1)}</em></span></div></div></div>
     <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
     ${got ? `<span class="rr-earn">${ic('check', 14, 3)}${usd(got)} earned for check-in</span>` : ''}
     <div class="rd-card rr-next"><small class="rr-eye">NEXT UP · ${f.mins} MIN</small><h2>${f.page}</h2><p>${f.why}.</p>
