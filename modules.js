@@ -348,7 +348,7 @@ function renderScore(root) {
         <path d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="#E8EDF3" stroke-width="14" stroke-linecap="round"/>
         <path class="rr-fill" d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${A}" data-off="${off}"/></svg>
         <div class="rr-num"><b id="g-num" data-score="${overall}">0</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
-      <div class="rr-side"><span class="rr-pill ${overall >= 55 ? 'ok' : 'low'}">${overall >= 75 ? 'Strong' : overall >= 55 ? 'Steady' : overall >= 40 ? 'Building' : 'Needs care'}</span><b>${side[0]} ${side[1]}</b>
+      <div class="rr-side"><b>${side[0]} ${side[1]}</b>
         <div class="rr-mini"><span class="up"><i></i>${hi.label}<em>${hi.v.toFixed(1)}</em></span><span class="dn"><i></i>${lo.label}<em>${lo.v.toFixed(1)}</em></span></div></div></div>
     <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
     ${e.base ? `<div class="rr-earn"><span class="rr-eic">${ic('check', 18, 2.8)}</span><div><b>Check-in complete</b></div><strong>+${usd(e.base)}</strong></div>` : ''}
