@@ -536,10 +536,11 @@ function triggerSheet() {
     <h1 class="rd-h1"><span class="g">${first ? 'Welcome,' : greeting() + ','}</span> ${esc(S.name || 'friend')}</h1>
     <p class="rd-p">${first ? 'Your first week starts today.' : 'One minute for you, then one small step.'}</p>
         <div class="rd-card rd-cicard">
-      <div class="rd-art rd-ci-art"><span class="rd-blob b1"></span><span class="rd-blob b2"></span><span class="rd-spk k1">${ic('sparkle', 18, 1.8)}</span><span class="rd-spk k2">${ic('sparkle', 14, 1.8)}</span><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
+      <div class="rd-art rd-ci-art"><span class="rd-pulse p1"></span><span class="rd-pulse p2"></span><span class="rd-spk k1">${ic('sparkle', 18, 1.8)}</span><span class="rd-spk k2">${ic('sparkle', 14, 1.8)}</span><button class="rd-spin" data-act="trigger-go" aria-label="Start check-in">
         <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button></div>
-      <div class="rd-cimeta"><span class="rd-eyebrow">Today’s check-in</span><span>About 1 min</span></div>
-      <h2 class="rd-cardh">${first ? 'Your first check-in. One question at a time, no right answers.' : 'How are you doing today? One question at a time.'}</h2>
-      <button class="btn" data-act="trigger-go">Start check-in</button></div></div></div>`, 'rd-layer');
+      <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(25)}</span></div>
+      <h2 class="rd-cardh">${first ? 'Your first check-in' : 'How are you doing today?'}</h2>
+      <p class="rd-cardp">${first ? 'One question at a time, no right answers.' : 'One question at a time. Take your time.'}</p>
+      <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
 }
