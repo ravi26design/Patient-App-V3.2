@@ -336,3 +336,4 @@ html.gated .fx-x{display:none!important}
 .fx-seg i.go{cursor:pointer;overflow:visible!important}
 .fx-seg i.go::before{content:"";position:absolute;left:0;right:0;top:-14px;bottom:-14px}
 .fx-seg i.go:active{transform:scaleY(1.6)!important}
+.fx-seg i.now::after{display:none!important;animation:none!important}
