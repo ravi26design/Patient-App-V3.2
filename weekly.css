@@ -14,3 +14,4 @@
 .rc-days{display:flex;gap:10px;margin-top:8px}.rc-days span{flex:1;text-align:center;font-size:12.5px;color:#6B7682}
 .rc-go{margin-top:auto!important}
 .rc-chart+.rc-go{margin-top:22px!important}
+.rc-tiles div{border:1.5px solid #E6CF8A}

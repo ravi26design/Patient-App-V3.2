@@ -8,65 +8,148 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F7F5F1;--card:#fff;--ink:#26323D;--sub:#5C6975;--line:#E3E1DB;--blue:#4A6E96;--tint:#E8F0F8;--gold:#FBF1D4}
+:root{--bg:#F7F5F1;--card:#fff;--ink:#26323D;--sub:#5C6975;--line:#E6E3DC;--blue:#4A6E96;--dark:#35597D}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:760px;margin:0 auto;padding:40px 20px 72px}
-.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
-h1{margin:8px 0 10px;font-family:'Lora',Georgia,serif;font-size:40px;line-height:1.1;font-weight:500;letter-spacing:-.02em}
-.lead{margin:0;font-size:17px;line-height:1.55;color:var(--sub);max-width:600px}
-.tip{margin:22px 0 0;padding:14px 16px;border-radius:16px;background:var(--tint);color:#3F6488;font-size:14.5px;line-height:1.5}
-h2{margin:38px 0 14px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
-.card{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border-radius:22px;background:var(--card);box-shadow:0 2px 6px rgba(52,80,107,.04),0 12px 28px rgba(74,110,150,.08);text-decoration:none;color:inherit;border:1.5px solid transparent;transition:transform .15s,border-color .15s}
-.card:hover{border-color:var(--blue);transform:translateY(-2px)}
-.top{display:flex;align-items:center;gap:10px}
-.num{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--tint);color:var(--blue);font-size:13px;font-weight:700}
-.card h3{margin:0;font-size:17px;font-weight:600}
-.card p{margin:0;font-size:14.5px;line-height:1.5;color:var(--sub);flex:1}
-.url{margin-top:6px;font:12.5px/1.4 ui-monospace,Menlo,monospace;color:#7A8591;word-break:break-all}
-.go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:14.5px;font-weight:600;color:var(--blue)}
-.new{margin-left:auto;padding:3px 9px;border-radius:999px;background:var(--gold);color:#8E6D1E;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.foot{margin-top:40px;font-size:14px;color:var(--sub);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;margin:20px 0 0;padding:44px 28px 40px;border-radius:32px;background:linear-gradient(135deg,#3A5675 0%,#4F7299 55%,#6C9FCC 100%);color:#fff}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero::before{width:320px;height:320px;right:-90px;top:-120px}
+.hero::after{width:200px;height:200px;right:70px;bottom:-110px;background:rgba(255,255,255,.07)}
+.eyebrow{position:relative;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+h1{position:relative;margin:10px 0 12px;font-family:'Lora',Georgia,serif;font-size:46px;line-height:1.05;font-weight:500;letter-spacing:-.02em}
+.lead{position:relative;margin:0;max-width:520px;font-size:17.5px;line-height:1.55;color:rgba(255,255,255,.88)}
+.hero-row{position:relative;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:24px;background:#fff;color:var(--dark);font-size:15.5px;font-weight:600;box-shadow:0 10px 24px rgba(20,40,70,.22);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.stat{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:18px;background:rgba(255,255,255,.18);font-size:14px;font-weight:500}
+.stat b{font-weight:700}
+
+/* journey strip */
+.jr{margin-top:26px;padding:18px 18px 14px;border-radius:26px;background:var(--card);box-shadow:0 2px 6px rgba(52,80,107,.04),0 14px 32px rgba(74,110,150,.08)}
+.jr h2{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.jr-row{display:flex;align-items:center;gap:6px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}
+.jr-row a{flex:none;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 8px;border-radius:20px;background:var(--t);color:var(--c);font-size:14px;font-weight:600;transition:transform .15s,box-shadow .15s;white-space:nowrap}
+.jr-row a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(52,80,107,.14)}
+.jr-row a i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff;font-style:normal;font-size:12px;font-weight:700}
+.jr-row .ar{flex:none;color:#B5BDC6;font-size:16px}
+
+/* sections */
+.sec{margin-top:40px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.sec-h span{display:grid;place-items:center;width:34px;height:34px;border-radius:12px;background:var(--t);color:var(--c)}
+.sec-h h2{margin:0;font-size:20px;font-weight:600}
+.sec-h small{margin-left:auto;font-size:13.5px;color:var(--sub)}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+.card{position:relative;display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:26px;background:var(--card);box-shadow:0 2px 6px rgba(52,80,107,.04),0 14px 32px rgba(74,110,150,.08);border:1.5px solid transparent;transition:transform .18s,border-color .18s,box-shadow .18s;scroll-margin-top:20px}
+.card:hover{transform:translateY(-3px);border-color:var(--c);box-shadow:0 2px 6px rgba(52,80,107,.05),0 20px 40px rgba(74,110,150,.14)}
+.card-top{display:flex;align-items:flex-start;gap:14px}
+.ic{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:18px;background:var(--t);color:var(--c)}
+.ic svg{width:26px;height:26px}
+.card h3{margin:2px 0 0;font-size:18px;font-weight:600;letter-spacing:-.01em}
+.n{position:absolute;top:18px;right:18px;font-size:13px;font-weight:700;color:#B5BDC6}
+.new{display:inline-block;margin-left:8px;padding:3px 9px;border-radius:999px;background:#FBF1D4;color:#8E6D1E;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;vertical-align:2px}
+.card p{margin:0;font-size:15px;line-height:1.55;color:var(--sub);flex:1}
+.acts{display:flex;gap:10px;align-items:center}
+.open{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:22px;background:var(--c);color:#fff;font-size:15px;font-weight:600}
+.cp{flex:none;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:22px;border:1.5px solid var(--line);background:#fff;color:var(--sub);font:600 14px 'Inter',sans-serif;cursor:pointer;transition:border-color .15s,color .15s}
+.cp:hover{border-color:var(--c);color:var(--c)}
+.cp.ok{border-color:#5E9A74;color:#3F6B4E;background:#EAF4EC}
+
+.tip{display:flex;gap:12px;align-items:flex-start;margin-top:40px;padding:16px 18px;border-radius:20px;background:#E8F0F8;color:#3F6488;font-size:14.5px;line-height:1.55}
+.tip svg{flex:none;width:22px;height:22px;margin-top:1px}
+.foot{margin-top:24px;text-align:center;font-size:14px;color:var(--sub)}
 .foot a{color:var(--blue);font-weight:600}
 </style>
 </head>
 <body>
 <main class="wrap">
-  <div class="eyebrow">Rudra Health · Patient app</div>
-  <h1>Flow map</h1>
-  <p class="lead">Every flow in the app, one tap away. Pick a flow to open the app at exactly that screen.</p>
-  <div class="tip">Best viewed on a phone, or in a narrow browser window. Flows open with demo data, so a screen may show sample numbers.</div>
+  <header class="hero">
+    <div class="eyebrow">Rudra Health · Patient app</div>
+    <h1>Flow map</h1>
+    <p class="lead">Every flow in the app, one tap away. Pick a flow to open the app at exactly that screen.</p>
+    <div class="hero-row">
+      <a class="btn" id="start" href="#">Start from the beginning
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="stat"><b id="count">11</b> flows</span><span class="stat">Opens at the exact screen</span>
+    </div>
+  </header>
 
-  <h2>Getting started</h2>
-  <div class="grid">
-    <a class="card" href="index.html?reset=1&nogate=1&notrigger=1"><div class="top"><span class="num">1</span><h3>Intro &amp; onboarding</h3></div><p>The first screen after download: looping intro video, then the welcome pages and consent.</p><div class="url">index.html?reset=1</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=home&nogate=1&notrigger=1"><div class="top"><span class="num">2</span><h3>Home</h3></div><p>The Home tab with the recovery score gauge, insights and the location pin.</p><div class="url">index.html?flow=home</div><span class="go">Open flow →</span></a>
+  <section class="jr" aria-label="The patient journey">
+    <h2>The patient journey</h2>
+    <div class="jr-row" id="journey"></div>
+  </section>
+
+  <div id="sections"></div>
+
+  <div class="tip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>
+    <span>Best viewed on a phone, or in a narrow browser window. Flows open with demo data, so a screen may show sample numbers.</span>
   </div>
-
-  <h2>Daily loop</h2>
-  <div class="grid">
-    <a class="card" href="index.html?flow=checkin&nogate=1&notrigger=1"><div class="top"><span class="num">3</span><h3>Daily check-in</h3></div><p>One question per screen about medication, cravings, safety, stress, emotions, body and drive.</p><div class="url">index.html?flow=checkin</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=result&nogate=1&notrigger=1"><div class="top"><span class="num">4</span><h3>Check-in result</h3></div><p>The full-screen score page after the check-in, with the earned row and the next activity.</p><div class="url">index.html?flow=result</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=activity&nogate=1&notrigger=1"><div class="top"><span class="num">5</span><h3>Activity</h3></div><p>The guided activity, one step per screen, with a back button and tap-to-jump progress.</p><div class="url">index.html?flow=activity</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=complete&nogate=1&notrigger=1"><div class="top"><span class="num">6</span><h3>Activity complete</h3></div><p>The completion page with today's earnings and the week tracker.</p><div class="url">index.html?flow=complete</div><span class="go">Open flow →</span></a>
-  </div>
-
-  <h2>Weekly &amp; rewards</h2>
-  <div class="grid">
-    <a class="card" href="index.html?flow=weekly&nogate=1&notrigger=1"><div class="top"><span class="num">7</span><h3>Weekly recap</h3><span class="new">New</span></div><p>After one week, the first daily check-in shows last week's total earnings, then continues to the check-in.</p><div class="url">index.html?flow=weekly</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=rewards&nogate=1&notrigger=1"><div class="top"><span class="num">8</span><h3>Rewards</h3></div><p>The Rudra Visa card, earned today and this week, and the Mon–Sun week tracker.</p><div class="url">index.html?flow=rewards</div><span class="go">Open flow →</span></a>
-  </div>
-
-  <h2>More</h2>
-  <div class="grid">
-    <a class="card" href="index.html?flow=location&nogate=1&notrigger=1"><div class="top"><span class="num">9</span><h3>Location check-in</h3></div><p>The map with a flagged place and four quick questions about it.</p><div class="url">index.html?flow=location</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=progress&nogate=1&notrigger=1"><div class="top"><span class="num">10</span><h3>Progress</h3></div><p>Charts of your scores and trends over time.</p><div class="url">index.html?flow=progress</div><span class="go">Open flow →</span></a>
-    <a class="card" href="index.html?flow=community&nogate=1&notrigger=1"><div class="top"><span class="num">11</span><h3>Community</h3></div><p>Rooms and posts from people in recovery.</p><div class="url">index.html?flow=community</div><span class="go">Open flow →</span></a>
-  </div>
-
   <p class="foot">Want a clean slate? <a href="index.html?reset=1&nogate=1&notrigger=1">Reset all demo data</a> and start from the intro.</p>
 </main>
+
+<script>
+const ICON = {
+  play: '<path d="M8 5v14l11-7z"/>',
+  home: '<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
+  gauge: '<path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.4"/>',
+  steps: '<path d="M4 18h5v-5h5V8h6"/><path d="M17 5l3 3-3 3"/>',
+  trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a2 2 0 0 0 2 4M16 6h3a2 2 0 0 1-2 4M12 13v4M9 20h6"/>',
+  cal: '<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M9 3v4M15 3v4"/><path d="M8.5 14.5l2 2 4-4"/>',
+  card: '<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 11h18M7 16h3"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+  chat: '<path d="M12 4C7.6 4 4 7.1 4 11c0 2 .9 3.7 2.4 5L5.800 20l3.900-1.800c.7.200 1.500.3 2.300.3 4.400 0 8-3.100 8-7S16.400 4 12 4z"/>',
+  map: '<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>'
+};
+const G = {
+  start: { name: 'Getting started', c: '#4A6E96', t: '#E3EDF7', ic: 'play', note: '2 flows' },
+  daily: { name: 'Daily loop', c: '#4F8062', t: '#E2F0E6', ic: 'check', note: '4 flows' },
+  week: { name: 'Weekly & rewards', c: '#A9822A', t: '#FBF1D4', ic: 'trophy', note: '2 flows' },
+  more: { name: 'More', c: '#6C5FA8', t: '#ECE8F7', ic: 'map', note: '3 flows' }
+};
+const Q = '&nogate=1&notrigger=1';
+const FLOWS = [
+  { g: 'start', t: 'Intro & onboarding', d: 'The first screen after download: looping intro video, then the welcome pages and consent.', href: 'index.html?reset=1' + Q, ic: 'play' },
+  { g: 'start', t: 'Home', d: 'The Home tab with the recovery score gauge, insights and the location pin.', href: 'index.html?flow=home' + Q, ic: 'home' },
+  { g: 'daily', t: 'Daily check-in', d: 'One question per screen about medication, cravings, safety, stress, emotions, body and drive.', href: 'index.html?flow=checkin' + Q, ic: 'check' },
+  { g: 'daily', t: 'Check-in result', d: 'The full-screen score page after the check-in, with the earned row and the next activity.', href: 'index.html?flow=result' + Q, ic: 'gauge' },
+  { g: 'daily', t: 'Activity', d: 'The guided activity, one step per screen, with a back button and tap-to-jump progress.', href: 'index.html?flow=activity' + Q, ic: 'steps' },
+  { g: 'daily', t: 'Activity complete', d: 'The completion page with today\'s earnings and the week tracker.', href: 'index.html?flow=complete' + Q, ic: 'trophy' },
+  { g: 'week', t: 'Weekly recap', d: 'After one week, the first daily check-in shows last week\'s total earnings, then continues to the check-in.', href: 'index.html?flow=weekly' + Q, ic: 'cal', isNew: true },
+  { g: 'week', t: 'Rewards', d: 'The Rudra Visa card, earned today and this week, and the Mon–Sun week tracker.', href: 'index.html?flow=rewards' + Q, ic: 'card' },
+  { g: 'more', t: 'Location check-in', d: 'The map with a flagged place and four quick questions about it.', href: 'index.html?flow=location' + Q, ic: 'pin' },
+  { g: 'more', t: 'Progress', d: 'Charts of your scores and trends over time.', href: 'index.html?flow=progress' + Q, ic: 'chart' },
+  { g: 'more', t: 'Community', d: 'Rooms and posts from people in recovery.', href: 'index.html?flow=community' + Q, ic: 'chat' }
+];
+const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
+FLOWS.forEach((f, i) => f.n = i + 1);
+document.getElementById('count').textContent = FLOWS.length;
+document.getElementById('start').href = FLOWS[0].href;
+
+// journey strip: the order a patient meets the flows
+const JR = [1, 2, 3, 4, 5, 6, 8, 7];
+document.getElementById('journey').innerHTML = JR.map((n, i) => { const f = FLOWS[n - 1], g = G[f.g];
+  return (i ? '<span class="ar">›</span>' : '') + `<a href="#f${n}" style="--c:${g.c};--t:${g.t}"><i>${n}</i>${f.t}</a>`; }).join('');
+
+// sections
+document.getElementById('sections').innerHTML = Object.keys(G).map(k => { const g = G[k], list = FLOWS.filter(f => f.g === k);
+  return `<section class="sec" style="--c:${g.c};--t:${g.t}"><div class="sec-h"><span>${svg(g.ic)}</span><h2>${g.name}</h2><small>${list.length} flow${list.length > 1 ? 's' : ''}</small></div><div class="grid">${list.map(f =>
+    `<article class="card" id="f${f.n}"><span class="n">${String(f.n).padStart(2, '0')}</span><div class="card-top"><span class="ic">${svg(f.ic)}</span><div><h3>${f.t}${f.isNew ? '<span class="new">New</span>' : ''}</h3></div></div><p>${f.d}</p>
+      <div class="acts"><a class="open" href="${f.href}">Open flow <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><button class="cp" type="button" data-h="${f.href}">Copy link</button></div></article>`).join('')}</div></section>`; }).join('');
+
+// copy link
+document.addEventListener('click', e => { const b = e.target.closest('.cp'); if (!b) return;
+  const url = new URL(b.dataset.h, location.href).href, done = () => { b.classList.add('ok'); b.textContent = 'Copied'; setTimeout(() => { b.classList.remove('ok'); b.textContent = 'Copy link'; }, 1600); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, () => window.prompt('Copy this link', url));
+  else window.prompt('Copy this link', url); });
+</script>
 </body>
 </html>
