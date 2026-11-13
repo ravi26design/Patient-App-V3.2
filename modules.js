@@ -631,36 +631,67 @@ document.addEventListener('DOMContentLoaded', () => { gateRoute(); });
 let gateIdle = 0;
 setInterval(() => { updGate(); gateIdle = gateOn() && !$$('.layer').length ? gateIdle + 1 : 0; if (gateIdle >= 2) { gateIdle = 0; gateRoute(); } }, 350);
 
-/* ── Nearby support map ── */
-const MP_KIND = { meet: ['Meetings', '#4F82B0', 'chat'], clinic: ['Clinics', '#5E9A74', 'heart'], pharm: ['Pharmacy', '#D9A441', 'pill'], crisis: ['Crisis', '#C97B6E', 'phone'] };
-const MP_PLACES = [
-  { n: 'Hope Street Recovery Meeting', k: 'meet', d: '0.4 mi', t: 'Tonight · 7:00 PM', a: '214 Hope St', x: 92, y: 112 },
-  { n: 'CareWell Pharmacy', k: 'pharm', d: '0.3 mi', t: 'Open until 9:00 PM', a: '12 Main St', x: 178, y: 170 },
-  { n: 'Riverside Treatment Clinic', k: 'clinic', d: '0.8 mi', t: 'Open until 6:00 PM', a: '80 River Rd', x: 238, y: 84 },
-  { n: 'Community Crisis Center', k: 'crisis', d: '1.2 mi', t: 'Open 24 hours', a: '5 Oak Ave', x: 262, y: 196 },
-  { n: 'Sunrise Support Group', k: 'meet', d: '1.5 mi', t: 'Tomorrow · 8:00 AM', a: '40 Maple Ct', x: 52, y: 200 }];
-const MP = { f: 'all', sel: 0 };
-function mpMap(list) {
-  const pins = list.map(p => { const i = MP_PLACES.indexOf(p), on = i === MP.sel, c = MP_KIND[p.k][1];
-    return `<g class="mp-pin${on ? ' on' : ''}" transform="translate(${p.x} ${p.y}) scale(${on ? 1.3 : 1})" data-act="mp-sel" data-i="${i}" role="button" aria-label="${p.n}"><path d="M0 0C-9-11-15-17-15-24a15 15 0 1 1 30 0c0 7-6 13-15 24z" fill="${c}" stroke="#fff" stroke-width="2"/><circle cy="-24" r="6" fill="#fff"/></g>`; }).join('');
-  return `<svg viewBox="0 0 320 250" preserveAspectRatio="xMidYMid slice" aria-label="Map of nearby support"><rect width="320" height="250" fill="#EAF0F6"/>
-    <path d="M-10 40 C60 20 110 60 160 44 S260 20 330 50 V-10 H-10Z" fill="#DCEBDD"/><path d="M200 250 C210 215 250 205 290 214 S330 232 330 250Z" fill="#DCEBDD"/><rect x="18" y="150" width="54" height="40" rx="12" fill="#DCEBDD"/>
-    <path d="M-10 140 C50 120 90 150 150 134 S250 120 330 150" fill="none" stroke="#CFE1F1" stroke-width="22" stroke-linecap="round"/>
-    <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"><path d="M-10 90 H330"/><path d="M-10 214 H330"/><path d="M120 -10 V260"/><path d="M214 -10 V260"/><path d="M40 -10 L90 260" stroke-width="6"/></g>
-    <g fill="none" stroke="#F6F8FB" stroke-width="4" stroke-linecap="round"><path d="M-10 170 H330"/><path d="M268 -10 V260"/><path d="M-10 60 H330"/></g>
-    <g transform="translate(150 130)"><circle r="26" fill="#4F82B0" opacity=".14" class="mp-pulse"/><circle r="9" fill="#fff"/><circle r="6" fill="#4F82B0"/></g>${pins}</svg>`;
+/* ── Location check-in (flow from Version 2.0): map + a short survey about a place Rudra noticed ── */
+Object.assign(P, {
+  building: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/>',
+  users: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14c2.5 0 4 2 4 5"/>',
+  store: '<path d="M4 9l1.5-5h13L20 9"/><path d="M4 9a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0"/><path d="M5 12v8h14v-8"/>',
+  hotel: '<path d="M3 19V7M3 14h18v5M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+  helpc: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17v.01"/>',
+  briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/>',
+  utensils: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 4.5-3 7h3v11"/>',
+  cup: '<path d="M5 8h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2 2 0 0 1 0 4H17M8 3v2M12 3v2"/>',
+  bag: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  meh: '<circle cx="12" cy="12" r="9"/><path d="M8 15h8M9 9.5v.01M15 9.5v.01"/>',
+  frown: '<circle cx="12" cy="12" r="9"/><path d="M8 16c1-1.5 2.5-2 4-2s3 .5 4 2M9 9.5v.01M15 9.5v.01"/>',
+  minusc: '<circle cx="12" cy="12" r="9"/><path d="M8 12h8"/>'
+});
+const LC_Q = [
+  { key: 'place', type: 'single', icons: ['home', 'building', 'users', 'store', 'hotel', 'helpc'], q: 'Which of the following best describes this place?', options: [
+    { t: 'My home' }, { t: 'A shelter, group home, or other temporary residence' }, { t: 'Someone else’s home' },
+    { t: 'A restaurant, business, public place, or other non-residential place' }, { t: 'A hotel or vacation rental', end: true }, { t: 'I do not recognize this location or was just passing by', end: true }] },
+  { key: 'activities', type: 'multi', icons: ['briefcase', 'book', 'sparkle', 'heart', 'dumbbell', 'home', 'users', 'moon', 'utensils', 'cup', 'beer', 'bag', 'drop', 'pill', 'users', 'bulb', 'pulse', 'x'], q: 'Which of the following best describes what you typically do here?', hint: 'Check all that apply.', options: [
+    'Work', 'Take classes', 'Religious or spiritual activities', 'Volunteer or community service', 'Exercise or play sports', 'Visit family or friend(s) at their home', 'Socialize', 'Relax', 'Eat a meal',
+    'Drink a non-alcoholic beverage (e.g., coffee, tea, smoothie)', 'Drink alcohol', 'Shop for food, products (e.g., clothes, cars, appliances) or services (e.g., haircut)', 'Buy alcohol (for later use; e.g., liquor store)',
+    'Get treatment to manage my recovery (e.g. counseling, talk therapy, medications)', 'Attend an NA/AA or other peer-led group to manage my recovery', 'Get general (beyond recovery) mental health care', 'Get physical health care', 'None of the above'] },
+  { key: 'pleasant', type: 'single', icons: ['smile', 'smile', 'meh', 'frown', 'frown'], q: 'Visits to this location are', options: [
+    { t: 'Always/Almost Always Pleasant' }, { t: 'Sometimes Pleasant' }, { t: 'Neither Pleasant or Unpleasant' }, { t: 'Sometimes Unpleasant' }, { t: 'Always/Almost Always Unpleasant' }] },
+  { key: 'support', type: 'single', icons: ['shield', 'heart', 'minusc', 'alert', 'alert'], q: 'Visits to this location provide', options: [
+    { t: 'Strong support to my recovery' }, { t: 'Some support to my recovery' }, { t: 'Do not affect my recovery' }, { t: 'Some risk to my recovery' }, { t: 'Strong risk to my recovery' }] }
+];
+const LC = { step: 0, ans: {}, skip: false };
+const lcT = o => typeof o === 'string' ? o : o.t;
+const LC_PIN = c => `<svg viewBox="0 0 24 24" fill="${c}" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>`;
+function lcMap() {
+  return `<div class="lc-map"><svg class="lc-svg" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="260" fill="#ECE7DE"/><rect width="300" height="16" fill="#C7DDE3"/>
+    <path d="M0 150 Q45 132 90 148 T175 160 L175 260 L0 260 Z" fill="#CFE3B8"/><rect x="210" y="24" width="90" height="80" rx="6" fill="#CFE3B8"/><path d="M-10 220 Q120 205 310 224 L310 260 L-10 260 Z" fill="#DFE9CE"/>
+    <g stroke="#fff" stroke-width="8" fill="none"><path d="M-10 74 L310 66"/><path d="M-10 182 L310 196"/><path d="M92 -10 L108 270"/><path d="M204 -10 L222 270"/></g><g stroke="#fff" stroke-width="4" fill="none"><path d="M-10 126 L310 120"/><path d="M150 -10 L150 270"/></g>
+    <g fill="#D9D3C9"><rect x="26" y="86" width="54" height="60" rx="3"/><rect x="118" y="84" width="62" height="62" rx="3"/><rect x="232" y="130" width="58" height="46" rx="3"/><rect x="28" y="200" width="48" height="34" rx="3"/><rect x="120" y="196" width="60" height="40" rx="3"/></g></svg>
+    <img class="lc-img" alt="" src="https://staticmap.openstreetmap.de/staticmap.php?center=45.5152,-122.6784&zoom=16&size=680x560&maptype=mapnik" onerror="this.remove()">
+    <button class="lc-fab lc-back" type="button" data-act="close-layer" aria-label="Back">${ic('back', 20, 2.2)}</button>
+    <div class="lc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
+    <button class="lc-fab lc-loc" type="button" aria-label="Recenter">${ic('target', 18, 2)}</button>
+    <span class="lc-pin lc-flag" style="top:50%;left:50%"><span class="lc-pulse"></span><span class="lc-time">30+ min</span>${LC_PIN('#C25445')}</span>
+    ${[[33, 24], [64, 31], [42, 73], [72, 62]].map(([t, l]) => `<span class="lc-pin lc-alt" style="top:${t}%;left:${l}%">${LC_PIN('#6E9E80')}</span>`).join('')}</div>`;
 }
-function mpBody() {
-  const list = MP_PLACES.filter(p => MP.f === 'all' || p.k === MP.f), sel = MP_PLACES[MP.sel];
-  if (!list.includes(sel)) MP.sel = MP_PLACES.indexOf(list[0]);
-  return `<div class="mp-map">${mpMap(list)}</div>
-    <div class="mp-chips">${[['all', 'All', '#26323D']].concat(Object.entries(MP_KIND).map(([k, v]) => [k, v[0], v[1]])).map(([k, l, c]) => `<button class="${MP.f === k ? 'on' : ''}" style="--c:${c}" data-act="mp-f" data-f="${k}">${l}</button>`).join('')}</div>
-    <div class="mp-list">${list.map(p => { const i = MP_PLACES.indexOf(p), kd = MP_KIND[p.k], on = i === MP.sel;
-      return `<div class="mp-row${on ? ' on' : ''}" data-act="mp-sel" data-i="${i}" style="--c:${kd[1]}"><span class="mp-ic">${ic(kd[2], 20, 1.8)}</span><div><b>${p.n}</b><small>${kd[0]} · ${p.d} · ${p.t}</small></div>${on ? `<a class="mp-dir" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n + ' ' + p.a)}" target="_blank" rel="noopener">${ic('send', 16, 2)}Directions</a>` : ''}</div>`; }).join('')}</div>`;
+function lcRender() {
+  const it = LC_Q[LC.step], total = LC.skip ? 1 : LC_Q.length, sel = LC.ans[it.key], last = LC.skip || LC.step >= LC_Q.length - 1;
+  const ok = it.type === 'multi' ? Array.isArray(sel) && sel.length > 0 : !!sel;
+  $('#lc-sheet').innerHTML = `<div class="lc-top"><button class="lc-bk" type="button" data-act="lc-back" aria-label="Back">${ic('back', 20, 2.4)}</button><div class="lc-bar"><i style="width:${Math.round((LC.step + 1) / total * 100)}%"></i></div><span class="lc-cnt"><b>${LC.step + 1}</b>/${total}</span></div>
+    <div class="lc-content">${LC.step === 0 ? '<p class="lc-intro">Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p>' : ''}
+    <h2 class="lc-q">${it.q}</h2>${it.hint ? `<p class="lc-hint">${it.hint}</p>` : ''}
+    <div class="lc-opts">${it.options.map((o, i) => { const t = lcT(o), on = it.type === 'multi' ? Array.isArray(sel) && sel.includes(t) : sel === t;
+      return `<button class="lc-opt${on ? ' on' : ''}" type="button" data-act="lc-pick" data-i="${i}"><span class="lc-oi">${ic((it.icons && it.icons[i]) || 'pin', 20, 1.8)}</span><span class="lc-ot">${esc(t)}</span></button>`; }).join('')}</div></div>
+    <div class="lc-foot"><button class="btn lc-next" type="button" data-act="lc-next"${ok ? '' : ' disabled'}>${last ? 'Submit' : 'Next'}</button></div>`;
 }
 Object.assign(ACT, {
-  'open-map': () => { MP.f = 'all'; MP.sel = 0; pushLayer(`<div class="mp-wrap"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Near you</span><button class="fx-help" data-act="help">Help</button></div>
-    <h1 class="fx-title">Support nearby</h1><p class="mp-sub">Meetings, clinics and pharmacies close to you.</p><div id="mp-body">${mpBody()}</div></div>`, 'fx-layer'); },
-  'mp-f': el => { MP.f = el.dataset.f; $('#mp-body').innerHTML = mpBody(); },
-  'mp-sel': el => { MP.sel = +el.dataset.i; $('#mp-body').innerHTML = mpBody(); }
+  'open-map': () => { LC.step = 0; LC.ans = {}; LC.skip = false; pushLayer(`<div class="lc-wrap">${lcMap()}<div class="lc-sheet" id="lc-sheet"></div></div>`, 'lc-layer'); lcRender(); },
+  'lc-pick': el => { const it = LC_Q[LC.step], t = lcT(it.options[+el.dataset.i]);
+    if (it.type === 'multi') { let arr = LC.ans[it.key] || []; if (t === 'None of the above') arr = arr.includes(t) ? [] : [t]; else { arr = arr.filter(x => x !== 'None of the above'); const k = arr.indexOf(t); k >= 0 ? arr.splice(k, 1) : arr.push(t); } LC.ans[it.key] = arr; }
+    else { LC.ans[it.key] = t; if (it.key === 'place') LC.skip = !!it.options[+el.dataset.i].end; }
+    lcRender(); },
+  'lc-next': el => { if (el.disabled) return; const last = LC.skip || LC.step >= LC_Q.length - 1;
+    if (last) { S.locDone = today(); save(); $$('.lc-bdg').forEach(b => b.remove()); popLayer(layerOf(el)); toast('Location check-in complete'); return; }
+    LC.step++; lcRender(); const l = $('.lc-layer'); if (l) l.scrollTop = 0; },
+  'lc-back': el => { if (LC.step > 0) { LC.step--; if (LC.step === 0) LC.skip = false; lcRender(); } else popLayer(layerOf(el)); }
 });
