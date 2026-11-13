@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rudra Health · Flow map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F1;--card:#fff;--ink:#26323D;--sub:#5C6975;--line:#E3E1DB;--blue:#4A6E96;--tint:#E8F0F8;--gold:#FBF1D4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 72px}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+h1{margin:8px 0 10px;font-family:'Lora',Georgia,serif;font-size:40px;line-height:1.1;font-weight:500;letter-spacing:-.02em}
+.lead{margin:0;font-size:17px;line-height:1.55;color:var(--sub);max-width:600px}
+.tip{margin:22px 0 0;padding:14px 16px;border-radius:16px;background:var(--tint);color:#3F6488;font-size:14.5px;line-height:1.5}
+h2{margin:38px 0 14px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border-radius:22px;background:var(--card);box-shadow:0 2px 6px rgba(52,80,107,.04),0 12px 28px rgba(74,110,150,.08);text-decoration:none;color:inherit;border:1.5px solid transparent;transition:transform .15s,border-color .15s}
+.card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.top{display:flex;align-items:center;gap:10px}
+.num{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--tint);color:var(--blue);font-size:13px;font-weight:700}
+.card h3{margin:0;font-size:17px;font-weight:600}
+.card p{margin:0;font-size:14.5px;line-height:1.5;color:var(--sub);flex:1}
+.url{margin-top:6px;font:12.5px/1.4 ui-monospace,Menlo,monospace;color:#7A8591;word-break:break-all}
+.go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:14.5px;font-weight:600;color:var(--blue)}
+.new{margin-left:auto;padding:3px 9px;border-radius:999px;background:var(--gold);color:#8E6D1E;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.foot{margin-top:40px;font-size:14px;color:var(--sub);line-height:1.6}
+.foot a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="eyebrow">Rudra Health · Patient app</div>
+  <h1>Flow map</h1>
+  <p class="lead">Every flow in the app, one tap away. Pick a flow to open the app at exactly that screen.</p>
+  <div class="tip">Best viewed on a phone, or in a narrow browser window. Flows open with demo data, so a screen may show sample numbers.</div>
+
+  <h2>Getting started</h2>
+  <div class="grid">
+    <a class="card" href="index.html?reset=1&nogate=1&notrigger=1"><div class="top"><span class="num">1</span><h3>Intro &amp; onboarding</h3></div><p>The first screen after download: looping intro video, then the welcome pages and consent.</p><div class="url">index.html?reset=1</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=home&nogate=1&notrigger=1"><div class="top"><span class="num">2</span><h3>Home</h3></div><p>The Home tab with the recovery score gauge, insights and the location pin.</p><div class="url">index.html?flow=home</div><span class="go">Open flow →</span></a>
+  </div>
+
+  <h2>Daily loop</h2>
+  <div class="grid">
+    <a class="card" href="index.html?flow=checkin&nogate=1&notrigger=1"><div class="top"><span class="num">3</span><h3>Daily check-in</h3></div><p>One question per screen about medication, cravings, safety, stress, emotions, body and drive.</p><div class="url">index.html?flow=checkin</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=result&nogate=1&notrigger=1"><div class="top"><span class="num">4</span><h3>Check-in result</h3></div><p>The full-screen score page after the check-in, with the earned row and the next activity.</p><div class="url">index.html?flow=result</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=activity&nogate=1&notrigger=1"><div class="top"><span class="num">5</span><h3>Activity</h3></div><p>The guided activity, one step per screen, with a back button and tap-to-jump progress.</p><div class="url">index.html?flow=activity</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=complete&nogate=1&notrigger=1"><div class="top"><span class="num">6</span><h3>Activity complete</h3></div><p>The completion page with today's earnings and the week tracker.</p><div class="url">index.html?flow=complete</div><span class="go">Open flow →</span></a>
+  </div>
+
+  <h2>Weekly &amp; rewards</h2>
+  <div class="grid">
+    <a class="card" href="index.html?flow=weekly&nogate=1&notrigger=1"><div class="top"><span class="num">7</span><h3>Weekly recap</h3><span class="new">New</span></div><p>After one week, the first daily check-in shows last week's total earnings, then continues to the check-in.</p><div class="url">index.html?flow=weekly</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=rewards&nogate=1&notrigger=1"><div class="top"><span class="num">8</span><h3>Rewards</h3></div><p>The Rudra Visa card, earned today and this week, and the Mon–Sun week tracker.</p><div class="url">index.html?flow=rewards</div><span class="go">Open flow →</span></a>
+  </div>
+
+  <h2>More</h2>
+  <div class="grid">
+    <a class="card" href="index.html?flow=location&nogate=1&notrigger=1"><div class="top"><span class="num">9</span><h3>Location check-in</h3></div><p>The map with a flagged place and four quick questions about it.</p><div class="url">index.html?flow=location</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=progress&nogate=1&notrigger=1"><div class="top"><span class="num">10</span><h3>Progress</h3></div><p>Charts of your scores and trends over time.</p><div class="url">index.html?flow=progress</div><span class="go">Open flow →</span></a>
+    <a class="card" href="index.html?flow=community&nogate=1&notrigger=1"><div class="top"><span class="num">11</span><h3>Community</h3></div><p>Rooms and posts from people in recovery.</p><div class="url">index.html?flow=community</div><span class="go">Open flow →</span></a>
+  </div>
+
+  <p class="foot">Want a clean slate? <a href="index.html?reset=1&nogate=1&notrigger=1">Reset all demo data</a> and start from the intro.</p>
+</main>
+</body>
+</html>
