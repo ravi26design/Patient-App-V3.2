@@ -216,7 +216,7 @@ const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `intro-${n}.jpg?v=2`);
 function renderIntro() {
   showView('onb'); $('#nav').hidden = true; $('#phone').classList.add('on-intro');
   $('#v-onb').innerHTML = `<div class="intro">
-    <video class="intro-vid" src="assets/intro.mp4" poster="assets/intro-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <video class="intro-vid" src="assets/intro.mp4?v=2" poster="assets/intro-poster.jpg?v=2" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
     <div class="intro-shade" aria-hidden="true"></div>
     <div class="intro-copy"><h1>Meet Rudra, your recovery companion</h1>
       <p>Support for every day of your recovery.</p></div>
