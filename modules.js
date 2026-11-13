@@ -429,7 +429,7 @@ function fpSteps(k) {
       <path class="fx-w fx-w2" d="M-40 200 C20 168 80 150 130 172 S230 232 340 185 V320 H-40Z" fill="#7899C6"/>
       <path class="fx-w fx-w3" d="M-40 262 C30 232 100 214 170 232 S270 262 340 236 V320 H-40Z" fill="#4A6E96"/></svg>
       <span class="fx-time" id="fp-timer">0:00</span></div>
-    <div class="fx-card"><span class="fx-num">${String(n + 1).padStart(2, '0')}</span><small class="fx-eye">${ic('sparkle', 14, 2)}${FP.step < FP.max || fin ? 'Review' : 'Do this now'}</small><h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1].replace(/ — /g, ', ')}</p></div>
+    <div class="fx-card"><span class="fx-num">${String(n + 1).padStart(2, '0')}</span><small class="fx-eye">${ic('sparkle', 14, 2)}${FP.step < FP.max || fin ? 'Review' : 'Do this now'}</small><h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1].replace(/ — /g, ' - ')}</p></div>
     <div class="fx-nav">${n > 0 ? `<button class="fx-back" data-act="fp-back" data-k="${k}" aria-label="Previous step">${ic('back', 22, 2.2)}</button>` : ''}<button class="btn fx-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>Next step</button></div>`;
 }
 function fpTick() {
