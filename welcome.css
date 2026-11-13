@@ -449,3 +449,7 @@ html.gated .fx-x{display:none!important}
 .fx-card .fx-st{text-align:left!important;font-size:24px!important;margin:0 0 8px!important}
 .fx-card .fx-sd{text-align:left!important;max-width:none!important;margin:0!important;font-size:16px!important;line-height:1.55;color:#5C6975!important}
 .fx-nav{padding-top:18px}
+
+/* CTA: flat colour, no progress fill */
+.fx-next:disabled{background:#9DB4CC!important;background-image:none!important}
+.fx-next:not(:disabled){background:#4A6E96!important;background-image:none!important}
