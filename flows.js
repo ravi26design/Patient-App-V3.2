@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!S.onboarded) { S.onboarded = true; S.name = S.name || 'John'; save(); }
       $$('.layer').forEach(l => l.parentNode && l.parentNode.removeChild(l));
       const needToday = () => { S.lastCheckin = today(); S.focusDone = null; save(); };
-      const fresh = () => { S.lastCheckin = null; S.day = 1; S.recapWk = null; save(); };
+      const fresh = () => { S.lastCheckin = null; S.day = 1; S.recapWk = null; S.focusDone = null; S.fpProg = null; S.inAct = null; save(); };
       const run = {
         home: () => go('home'),
         checkin: () => { fresh(); go('home'); startCheckin(); },
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: () => { needToday(); S.lastAct = 'cravings'; go('home'); claimPopup(); },
         rewards: () => go('wallet'),
         location: () => { go('home'); ACT['open-map'](); },
-        weekly: () => { S.day = 14; S.recapWk = null; S.lastCheckin = null; save(); go('home'); startCheckin(); },
+        weekly: () => { S.day = 14; S.recapWk = null; S.lastCheckin = null; S.focusDone = null; S.fpProg = null; S.inAct = null; save(); go('home'); startCheckin(); },
         progress: () => go('progress'),
         community: () => go('community')
       }[name];
