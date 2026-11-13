@@ -439,3 +439,13 @@ html.gated .fx-x{display:none!important}
 .rw-week .rw-dots span{font-size:12px}
 .rw-week{margin-bottom:18px!important}
 .rw-week+.bal-card{margin-top:0!important}
+
+/* neat step page: balanced card, no timer chip */
+#fp-timer{display:none!important}
+.fx-prog{font-size:13px!important;font-weight:700!important;letter-spacing:.08em;text-transform:uppercase;color:#4F82B0!important}
+.fx-seg{margin:10px 0 16px!important}
+.fx-art{aspect-ratio:1/.8!important;border-radius:28px!important}
+.fx-layer:not(.fx-done-l) .fx-card{margin:14px 0 0!important;padding:22px 22px 24px!important;background:#fff!important;border-radius:26px!important;box-shadow:0 2px 6px rgba(38,50,61,.04),0 14px 32px rgba(74,110,150,.1)!important;text-align:left!important}
+.fx-card .fx-st{text-align:left!important;font-size:24px!important;margin:0 0 8px!important}
+.fx-card .fx-sd{text-align:left!important;max-width:none!important;margin:0!important;font-size:16px!important;line-height:1.55;color:#5C6975!important}
+.fx-nav{padding-top:18px}
