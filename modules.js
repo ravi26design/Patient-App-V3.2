@@ -668,9 +668,6 @@ function lcMap() {
     <g stroke="#fff" stroke-width="8" fill="none"><path d="M-10 74 L310 66"/><path d="M-10 182 L310 196"/><path d="M92 -10 L108 270"/><path d="M204 -10 L222 270"/></g><g stroke="#fff" stroke-width="4" fill="none"><path d="M-10 126 L310 120"/><path d="M150 -10 L150 270"/></g>
     <g fill="#D9D3C9"><rect x="26" y="86" width="54" height="60" rx="3"/><rect x="118" y="84" width="62" height="62" rx="3"/><rect x="232" y="130" width="58" height="46" rx="3"/><rect x="28" y="200" width="48" height="34" rx="3"/><rect x="120" y="196" width="60" height="40" rx="3"/></g></svg>
     <img class="lc-img" alt="" src="https://staticmap.openstreetmap.de/staticmap.php?center=45.5152,-122.6784&zoom=16&size=680x560&maptype=mapnik" onerror="this.remove()">
-    <button class="lc-fab lc-back" type="button" data-act="close-layer" aria-label="Back">${ic('back', 20, 2.2)}</button>
-    <div class="lc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
-    <button class="lc-fab lc-loc" type="button" aria-label="Recenter">${ic('target', 18, 2)}</button>
     <span class="lc-pin lc-flag" style="top:50%;left:50%"><span class="lc-pulse"></span><span class="lc-time">30+ min</span>${LC_PIN('#C25445')}</span>
     ${[[33, 24], [64, 31], [42, 73], [72, 62]].map(([t, l]) => `<span class="lc-pin lc-alt" style="top:${t}%;left:${l}%">${LC_PIN('#6E9E80')}</span>`).join('')}</div>`;
 }
@@ -678,10 +675,10 @@ function lcRender() {
   const it = LC_Q[LC.step], total = LC.skip ? 1 : LC_Q.length, sel = LC.ans[it.key], last = LC.skip || LC.step >= LC_Q.length - 1;
   const ok = it.type === 'multi' ? Array.isArray(sel) && sel.length > 0 : !!sel;
   $('#lc-sheet').innerHTML = `<div class="lc-top"><button class="lc-bk" type="button" data-act="lc-back" aria-label="Back">${ic('back', 20, 2.4)}</button><div class="lc-bar"><i style="width:${Math.round((LC.step + 1) / total * 100)}%"></i></div><span class="lc-cnt"><b>${LC.step + 1}</b>/${total}</span></div>
-    <div class="lc-content">${LC.step === 0 ? '<p class="lc-intro">Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p>' : ''}
+    <div class="lc-content">${LC.step === 0 ? `<div class="lc-intro"><span class="lc-ii">${ic('pin', 18, 1.8)}</span><p>Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p></div>` : ''}
     <h2 class="lc-q">${it.q}</h2>${it.hint ? `<p class="lc-hint">${it.hint}</p>` : ''}
     <div class="lc-opts">${it.options.map((o, i) => { const t = lcT(o), on = it.type === 'multi' ? Array.isArray(sel) && sel.includes(t) : sel === t;
-      return `<button class="lc-opt${on ? ' on' : ''}" type="button" data-act="lc-pick" data-i="${i}"><span class="lc-oi">${ic((it.icons && it.icons[i]) || 'pin', 20, 1.8)}</span><span class="lc-ot">${esc(t)}</span></button>`; }).join('')}</div></div>
+      return `<button class="lc-opt${on ? ' on' : ''}" type="button" data-act="lc-pick" data-i="${i}"><span class="lc-oi">${ic((it.icons && it.icons[i]) || 'pin', 20, 1.8)}</span><span class="lc-ot">${esc(t)}</span><span class="lc-ck ${it.type === 'multi' ? 'sq' : ''}">${on ? ic('check', 14, 3.2) : ''}</span></button>`; }).join('')}</div></div>
     <div class="lc-foot"><button class="btn lc-next" type="button" data-act="lc-next"${ok ? '' : ' disabled'}>${last ? 'Submit' : 'Next'}</button></div>`;
 }
 Object.assign(ACT, {

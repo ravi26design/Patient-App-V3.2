@@ -497,3 +497,24 @@ html.gated .fx-x{display:none!important}
 /* Rewards week circles: slightly smaller */
 .rw-week .rw-dots i{width:32px;height:32px}
 .rw-week .rw-dots i svg{width:15px;height:15px}
+
+/* location page: neat & clean */
+.lc-map{height:36%!important;min-height:230px!important}
+.lc-sheet{min-height:calc(100% - 36% + 24px)!important;padding:14px 20px 0!important}
+.lc-top{margin-bottom:18px!important}
+.lc-bk{width:38px!important;height:38px!important;box-shadow:none!important;border:1.5px solid #E3E1DB}
+.lc-bar{height:5px!important}
+.lc-cnt{font-size:13.5px!important;font-weight:600}
+.lc-intro{display:flex;gap:10px;align-items:flex-start;margin:0 0 18px!important;padding:12px 14px;border-radius:16px;background:#E9F0F7}
+.lc-intro p{margin:0;font-size:13.5px;line-height:1.5;color:#46607A}
+.lc-ii{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff;color:#4F82B0}
+.lc-q{font-size:24px!important;line-height:1.22!important}
+.lc-opts{gap:10px!important;margin-top:18px!important}
+.lc-opt{padding:12px 14px!important;border-radius:16px!important;font-size:15px!important;box-shadow:0 1px 3px rgba(38,50,61,.04);position:relative}
+.lc-ot{flex:1}
+.lc-ck{flex:none;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.8px solid #CBD2DA;background:#fff;color:#fff}
+.lc-ck.sq{border-radius:7px}
+.lc-opt.on .lc-ck{background:#4A6E96;border-color:#4A6E96}
+.lc-opt.on{background:#EEF4FA!important}
+.lc-foot{box-shadow:0 -14px 16px -10px #F7F5F1}
+.lc-next:disabled{color:rgba(255,255,255,.9)!important}
