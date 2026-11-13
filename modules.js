@@ -630,3 +630,37 @@ function gateRoute() {
 document.addEventListener('DOMContentLoaded', () => { gateRoute(); });
 let gateIdle = 0;
 setInterval(() => { updGate(); gateIdle = gateOn() && !$$('.layer').length ? gateIdle + 1 : 0; if (gateIdle >= 2) { gateIdle = 0; gateRoute(); } }, 350);
+
+/* ── Nearby support map ── */
+const MP_KIND = { meet: ['Meetings', '#4F82B0', 'chat'], clinic: ['Clinics', '#5E9A74', 'heart'], pharm: ['Pharmacy', '#D9A441', 'pill'], crisis: ['Crisis', '#C97B6E', 'phone'] };
+const MP_PLACES = [
+  { n: 'Hope Street Recovery Meeting', k: 'meet', d: '0.4 mi', t: 'Tonight · 7:00 PM', a: '214 Hope St', x: 92, y: 112 },
+  { n: 'CareWell Pharmacy', k: 'pharm', d: '0.3 mi', t: 'Open until 9:00 PM', a: '12 Main St', x: 178, y: 170 },
+  { n: 'Riverside Treatment Clinic', k: 'clinic', d: '0.8 mi', t: 'Open until 6:00 PM', a: '80 River Rd', x: 238, y: 84 },
+  { n: 'Community Crisis Center', k: 'crisis', d: '1.2 mi', t: 'Open 24 hours', a: '5 Oak Ave', x: 262, y: 196 },
+  { n: 'Sunrise Support Group', k: 'meet', d: '1.5 mi', t: 'Tomorrow · 8:00 AM', a: '40 Maple Ct', x: 52, y: 200 }];
+const MP = { f: 'all', sel: 0 };
+function mpMap(list) {
+  const pins = list.map(p => { const i = MP_PLACES.indexOf(p), on = i === MP.sel, c = MP_KIND[p.k][1];
+    return `<g class="mp-pin${on ? ' on' : ''}" transform="translate(${p.x} ${p.y}) scale(${on ? 1.3 : 1})" data-act="mp-sel" data-i="${i}" role="button" aria-label="${p.n}"><path d="M0 0C-9-11-15-17-15-24a15 15 0 1 1 30 0c0 7-6 13-15 24z" fill="${c}" stroke="#fff" stroke-width="2"/><circle cy="-24" r="6" fill="#fff"/></g>`; }).join('');
+  return `<svg viewBox="0 0 320 250" preserveAspectRatio="xMidYMid slice" aria-label="Map of nearby support"><rect width="320" height="250" fill="#EAF0F6"/>
+    <path d="M-10 40 C60 20 110 60 160 44 S260 20 330 50 V-10 H-10Z" fill="#DCEBDD"/><path d="M200 250 C210 215 250 205 290 214 S330 232 330 250Z" fill="#DCEBDD"/><rect x="18" y="150" width="54" height="40" rx="12" fill="#DCEBDD"/>
+    <path d="M-10 140 C50 120 90 150 150 134 S250 120 330 150" fill="none" stroke="#CFE1F1" stroke-width="22" stroke-linecap="round"/>
+    <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"><path d="M-10 90 H330"/><path d="M-10 214 H330"/><path d="M120 -10 V260"/><path d="M214 -10 V260"/><path d="M40 -10 L90 260" stroke-width="6"/></g>
+    <g fill="none" stroke="#F6F8FB" stroke-width="4" stroke-linecap="round"><path d="M-10 170 H330"/><path d="M268 -10 V260"/><path d="M-10 60 H330"/></g>
+    <g transform="translate(150 130)"><circle r="26" fill="#4F82B0" opacity=".14" class="mp-pulse"/><circle r="9" fill="#fff"/><circle r="6" fill="#4F82B0"/></g>${pins}</svg>`;
+}
+function mpBody() {
+  const list = MP_PLACES.filter(p => MP.f === 'all' || p.k === MP.f), sel = MP_PLACES[MP.sel];
+  if (!list.includes(sel)) MP.sel = MP_PLACES.indexOf(list[0]);
+  return `<div class="mp-map">${mpMap(list)}</div>
+    <div class="mp-chips">${[['all', 'All', '#26323D']].concat(Object.entries(MP_KIND).map(([k, v]) => [k, v[0], v[1]])).map(([k, l, c]) => `<button class="${MP.f === k ? 'on' : ''}" style="--c:${c}" data-act="mp-f" data-f="${k}">${l}</button>`).join('')}</div>
+    <div class="mp-list">${list.map(p => { const i = MP_PLACES.indexOf(p), kd = MP_KIND[p.k], on = i === MP.sel;
+      return `<div class="mp-row${on ? ' on' : ''}" data-act="mp-sel" data-i="${i}" style="--c:${kd[1]}"><span class="mp-ic">${ic(kd[2], 20, 1.8)}</span><div><b>${p.n}</b><small>${kd[0]} · ${p.d} · ${p.t}</small></div>${on ? `<a class="mp-dir" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n + ' ' + p.a)}" target="_blank" rel="noopener">${ic('send', 16, 2)}Directions</a>` : ''}</div>`; }).join('')}</div>`;
+}
+Object.assign(ACT, {
+  'open-map': () => { MP.f = 'all'; MP.sel = 0; pushLayer(`<div class="mp-wrap"><div class="fx-top"><button class="fx-x" data-act="close-layer" aria-label="Close">${ic('x', 20, 2.2)}</button><span class="fx-wk">Near you</span><button class="fx-help" data-act="help">Help</button></div>
+    <h1 class="fx-title">Support nearby</h1><p class="mp-sub">Meetings, clinics and pharmacies close to you.</p><div id="mp-body">${mpBody()}</div></div>`, 'fx-layer'); },
+  'mp-f': el => { MP.f = el.dataset.f; $('#mp-body').innerHTML = mpBody(); },
+  'mp-sel': el => { MP.sel = +el.dataset.i; $('#mp-body').innerHTML = mpBody(); }
+});

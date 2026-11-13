@@ -348,7 +348,7 @@ function renderHome() {
   const wdone = week.filter(x => x.done).length;
   v.innerHTML = `
   <div class="oh-top"><div class="oh-lead"><button class="oh-chip" data-act="tab" data-v="me" aria-label="Profile">${ic('user', 22, 1.6)}</button><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai"></div>
-    <div class="oh-actions"><button class="oh-chip" data-act="help" aria-label="Location">${ic('pin', 22, 1.6)}</button></div></div>
+    <div class="oh-actions"><button class="oh-chip" data-act="open-map" aria-label="Nearby support map">${ic('pin', 22, 1.6)}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${recoveryCard(last)}
   ${focusCard()}

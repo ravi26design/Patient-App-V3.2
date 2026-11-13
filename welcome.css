@@ -457,3 +457,25 @@ html.gated .fx-x{display:none!important}
 /* step illustration */
 .fx-art{aspect-ratio:1/.8!important;background:#E3EDF8!important}
 .fx-art svg{width:100%;height:100%}
+
+/* nearby support map */
+.mp-wrap{min-height:100%;display:flex;flex-direction:column;padding:48px 20px calc(24px + var(--sab,0px));color:#26323D}
+.mp-sub{margin:-4px 0 14px;font-size:15.5px;color:#5C6975}
+.mp-map{border-radius:26px;overflow:hidden;aspect-ratio:320/250;box-shadow:0 14px 34px rgba(74,110,150,.16)}
+.mp-map svg{display:block;width:100%;height:100%}
+.mp-pin{cursor:pointer;transition:transform .2s}
+.mp-pulse{animation:mpPulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes mpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+.mp-chips{display:flex;gap:8px;margin:14px -20px 4px;padding:0 20px;overflow-x:auto;scrollbar-width:none}
+.mp-chips::-webkit-scrollbar{display:none}
+.mp-chips button{flex:none;height:38px;padding:0 16px;border-radius:19px;border:1.5px solid #DCE2E8;background:#fff;font:600 14.5px/1 'Inter',sans-serif;color:#5C6975}
+.mp-chips button.on{background:var(--c);border-color:var(--c);color:#fff}
+.mp-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.mp-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:#fff;border:1.5px solid transparent;box-shadow:0 2px 6px rgba(52,80,107,.04),0 10px 24px rgba(74,110,150,.07);flex-wrap:wrap}
+.mp-row.on{border-color:var(--c)}
+.mp-ic{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--c)}
+.mp-row>div{flex:1;min-width:0}
+.mp-row b{display:block;font-size:15.5px;font-weight:600}
+.mp-row small{display:block;margin-top:2px;font-size:13px;color:#6B7682}
+.mp-dir{flex-basis:100%;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:22px;background:var(--c);color:#fff!important;font-weight:600;font-size:15px;text-decoration:none}
+.mp-wrap .fx-title{margin:18px 0 12px!important}
