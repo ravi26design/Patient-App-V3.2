@@ -418,17 +418,31 @@ function focusPrompt() {
 const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
 const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target'], meds: ['book', 'shower', 'clock', 'shield', 'heart'], risk: ['pin', 'target', 'run', 'phone', 'moon'],
   stress: ['stop', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
+/* step illustration: a calm landscape, each step in its own colour */
+const FP_PAL = [['#E3EDF8', '#F4F8FD', '#A9C3E3', '#7FA3CF', '#4A6E96', '#35597D'], ['#E4F1E8', '#F5FAF6', '#B5D6BF', '#8DB89A', '#4F8062', '#3A6A4C'], ['#FCEBDD', '#FEF6EE', '#F2C6A6', '#E3A57F', '#B8704A', '#9A5A38'],
+  ['#EAE6F7', '#F7F5FC', '#C5BDE6', '#A398D1', '#6C5FA8', '#54488C'], ['#DCF1F0', '#F2FAFA', '#A8D8D8', '#78BDBE', '#3C8A8C', '#2C7274'], ['#FBF1D9', '#FEF9EC', '#F1DB9E', '#E0BE6A', '#B08A2E', '#8E6D1E']];
+function fpArt(k, n) {
+  const c = FP_PAL[n % 6], g = 'fpg' + n, ico = P[(FP_ICONS[k] || [])[n]] || P.sparkle;
+  const tree = (x, y, s, col) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${col}"><path d="M0 -34 L11 -12 H6 L14 4 H-14 L-6 -12 H-11Z"/><rect x="-2" y="4" width="4" height="8" rx="1"/></g>`;
+  return `<svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs>
+    <rect width="300" height="240" fill="url(#${g})"/>
+    <circle cx="232" cy="62" r="34" fill="#fff" opacity=".55"/><circle cx="232" cy="62" r="22" fill="#fff" opacity=".8"/>
+    <g fill="#fff" opacity=".85"><rect x="28" y="52" width="58" height="14" rx="7"/><rect x="44" y="40" width="36" height="14" rx="7"/><rect x="190" y="116" width="52" height="12" rx="6" opacity=".7"/></g>
+    <g fill="${c[3]}" opacity=".7"><circle cx="40" cy="108" r="3"/><circle cx="262" cy="104" r="2.5"/><circle cx="112" cy="30" r="2.5"/><circle cx="276" cy="30" r="2"/></g>
+    <path class="fx-w fx-w1" d="M-30 150 C40 118 100 112 160 134 S260 160 340 126 V260 H-30Z" fill="${c[2]}"/>
+    ${tree(246, 150, .8, c[3])}${tree(268, 156, .55, c[3])}
+    <path class="fx-w fx-w2" d="M-30 182 C30 150 96 144 150 164 S250 196 340 160 V260 H-30Z" fill="${c[3]}"/>
+    ${tree(40, 176, .9, c[4])}${tree(64, 184, .6, c[4])}
+    <path d="M-30 222 C40 196 110 192 170 206 S270 224 340 200 V260 H-30Z" fill="${c[4]}"/>
+    <path d="M148 240 C152 224 168 214 196 206" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+    <g class="fx-badge"><ellipse cx="150" cy="148" rx="40" ry="6" fill="#000" opacity=".08"/><rect x="104" y="48" width="92" height="92" rx="30" fill="#fff" style="filter:drop-shadow(0 10px 18px rgba(38,50,61,.16))"/><rect x="112" y="56" width="76" height="76" rx="24" fill="${c[0]}" opacity=".7"/>
+      <g transform="translate(119 66) scale(2.4)" fill="none" stroke="${c[5]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ico}</g></g></svg>`;
+}
 function fpSteps(k) {
   const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.max / tot * 100);
   const x = 46 + (tot > 1 ? n / (tot - 1) : 0) * 208, y = [122, 88, 116, 82, 110, 78][n % 6];
   return `<div class="fx-prog"><span>Step ${n + 1} of ${tot}</span><b>${pct}% done</b></div><div class="fx-seg">${f.steps.map((_, i) => `<i class="${i < FP.max ? 'done' : i === FP.max ? 'now' : ''}${i === n ? ' vw' : ''}${i <= FP.max ? ' go' : ''}"${i <= FP.max ? ` data-act="fp-goto" data-i="${i}" data-k="${k}" role="button" aria-label="Go to step ${i + 1}"` : ''}></i>`).join('')}</div>
-    <div class="fx-art"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#E1EBF5"/>
-      <path class="fx-w fx-w1" d="M-40 150 C20 105 80 90 140 112 S250 175 340 125 V320 H-40Z" fill="#BBCDE2"/>
-      <g class="fx-badge"><circle cx="150" cy="104" r="96" fill="#fff" opacity=".28"/><circle cx="150" cy="104" r="70" fill="#fff" opacity=".42"/><circle class="fx-halo" cx="150" cy="104" r="52" fill="#fff" opacity=".7"/>
-        <circle cx="150" cy="104" r="44" fill="#fff"/><g transform="translate(124 78) scale(2.17)" fill="none" stroke="#35597D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${P[(FP_ICONS[k] || [])[n]] || P.sparkle}</g></g>
-      <path class="fx-w fx-w2" d="M-40 200 C20 168 80 150 130 172 S230 232 340 185 V320 H-40Z" fill="#7899C6"/>
-      <path class="fx-w fx-w3" d="M-40 262 C30 232 100 214 170 232 S270 262 340 236 V320 H-40Z" fill="#4A6E96"/></svg>
-      <span class="fx-time" id="fp-timer">0:00</span></div>
+    <div class="fx-art">${fpArt(k, n)}<span class="fx-time" id="fp-timer">0:00</span></div>
     <div class="fx-card"><span class="fx-num">${String(n + 1).padStart(2, '0')}</span><small class="fx-eye">${ic('sparkle', 14, 2)}${FP.step < FP.max || fin ? 'Review' : 'Do this now'}</small><h2 class="fx-st">${st[0]}</h2><p class="fx-sd">${st[1].replace(/ — /g, ' - ')}</p></div>
     <div class="fx-nav">${n > 0 ? `<button class="fx-back" data-act="fp-back" data-k="${k}" aria-label="Previous step">${ic('back', 22, 2.2)}</button>` : ''}<button class="btn fx-next" id="fp-next" data-act="fp-next" data-k="${k}" disabled>Next step</button></div>`;
 }
