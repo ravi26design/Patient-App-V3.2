@@ -417,23 +417,26 @@ function focusPrompt() {
 }
 const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
 const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target'], meds: ['book', 'shower', 'clock', 'shield', 'heart'], risk: ['pin', 'target', 'run', 'phone', 'moon'],
-  stress: ['stop', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
+  stress: ['pause', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
 /* step illustration: a calm landscape, each step in its own colour */
 const FP_PAL = [['#E3EDF8', '#F4F8FD', '#A9C3E3', '#7FA3CF', '#4A6E96', '#35597D'], ['#E4F1E8', '#F5FAF6', '#B5D6BF', '#8DB89A', '#4F8062', '#3A6A4C'], ['#FCEBDD', '#FEF6EE', '#F2C6A6', '#E3A57F', '#B8704A', '#9A5A38'],
   ['#EAE6F7', '#F7F5FC', '#C5BDE6', '#A398D1', '#6C5FA8', '#54488C'], ['#DCF1F0', '#F2FAFA', '#A8D8D8', '#78BDBE', '#3C8A8C', '#2C7274'], ['#FBF1D9', '#FEF9EC', '#F1DB9E', '#E0BE6A', '#B08A2E', '#8E6D1E']];
 function fpArt(k, n) {
   const c = FP_PAL[n % 6], g = 'fpg' + n, ico = P[(FP_ICONS[k] || [])[n]] || P.sparkle;
   const tree = (x, y, s, col) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${col}"><path d="M0 -34 L11 -12 H6 L14 4 H-14 L-6 -12 H-11Z"/><rect x="-2" y="4" width="4" height="8" rx="1"/></g>`;
-  return `<svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs>
+  return `<svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient><radialGradient id="${g}r"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="${g}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[3]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient><linearGradient id="${g}d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[4]}"/><stop offset="1" stop-color="${c[5]}"/></linearGradient></defs>
     <rect width="300" height="240" fill="url(#${g})"/>
+    <circle cx="150" cy="94" r="118" fill="url(#${g}r)"/>
+    <g stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"><path d="M232 20v-8M232 112v8M180 62h-8M292 62h-8M196 26l-5-5M268 98l5 5M268 26l5-5M196 98l-5 5"/></g>
     <circle cx="232" cy="62" r="34" fill="#fff" opacity=".55"/><circle cx="232" cy="62" r="22" fill="#fff" opacity=".8"/>
     <g fill="#fff" opacity=".85"><rect x="28" y="52" width="58" height="14" rx="7"/><rect x="44" y="40" width="36" height="14" rx="7"/><rect x="190" y="116" width="52" height="12" rx="6" opacity=".7"/></g>
+    <g fill="none" stroke="${c[5]}" stroke-width="1.8" stroke-linecap="round" opacity=".55"><path d="M70 92q5-6 10 0q5-6 10 0"/><path d="M96 74q4-5 8 0q4-5 8 0"/></g>
     <g fill="${c[3]}" opacity=".7"><circle cx="40" cy="108" r="3"/><circle cx="262" cy="104" r="2.5"/><circle cx="112" cy="30" r="2.5"/><circle cx="276" cy="30" r="2"/></g>
     <path class="fx-w fx-w1" d="M-30 150 C40 118 100 112 160 134 S260 160 340 126 V260 H-30Z" fill="${c[2]}"/>
     ${tree(246, 150, .8, c[3])}${tree(268, 156, .55, c[3])}
-    <path class="fx-w fx-w2" d="M-30 182 C30 150 96 144 150 164 S250 196 340 160 V260 H-30Z" fill="${c[3]}"/>
+    <path class="fx-w fx-w2" d="M-30 182 C30 150 96 144 150 164 S250 196 340 160 V260 H-30Z" fill="url(#${g}h)"/>
     ${tree(40, 176, .9, c[4])}${tree(64, 184, .6, c[4])}
-    <path d="M-30 222 C40 196 110 192 170 206 S270 224 340 200 V260 H-30Z" fill="${c[4]}"/>
+    <path d="M-30 222 C40 196 110 192 170 206 S270 224 340 200 V260 H-30Z" fill="url(#${g}d)"/>
     <path d="M148 240 C152 224 168 214 196 206" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>
     <g class="fx-badge"><ellipse cx="150" cy="148" rx="40" ry="6" fill="#000" opacity=".08"/><rect x="104" y="48" width="92" height="92" rx="30" fill="#fff" style="filter:drop-shadow(0 10px 18px rgba(38,50,61,.16))"/><rect x="112" y="56" width="76" height="76" rx="24" fill="${c[0]}" opacity=".7"/>
       <g transform="translate(119 66) scale(2.4)" fill="none" stroke="${c[5]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ico}</g></g></svg>`;

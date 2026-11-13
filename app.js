@@ -54,6 +54,7 @@ const P = {
   life: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/>',
   send: '<path d="M4 12l16-8-6 17-3-7-7-2z"/>',
   play: '<path d="M7 4l13 8-13 8z" fill="currentColor"/>',
+  pause: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7M14 8.5v7"/>',
   stop: '<rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>',
   search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
   lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
