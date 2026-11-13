@@ -675,7 +675,7 @@ function lcRender() {
   const it = LC_Q[LC.step], total = LC.skip ? 1 : LC_Q.length, sel = LC.ans[it.key], last = LC.skip || LC.step >= LC_Q.length - 1;
   const ok = it.type === 'multi' ? Array.isArray(sel) && sel.length > 0 : !!sel;
   $('#lc-sheet').innerHTML = `<div class="lc-top"><button class="lc-bk" type="button" data-act="lc-back" aria-label="Back">${ic('back', 20, 2.4)}</button><div class="lc-bar"><i style="width:${Math.round((LC.step + 1) / total * 100)}%"></i></div><span class="lc-cnt"><b>${LC.step + 1}</b>/${total}</span></div>
-    <div class="lc-content">${LC.step === 0 ? `<div class="lc-intro"><span class="lc-ii">${ic('pin', 18, 1.8)}</span><p>Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p></div>` : ''}
+    <div class="lc-content">${LC.step === 0 ? `<div class="lc-intro"><p>Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p></div>` : ''}
     <h2 class="lc-q">${it.q}</h2>${it.hint ? `<p class="lc-hint">${it.hint}</p>` : ''}
     <div class="lc-opts">${it.options.map((o, i) => { const t = lcT(o), on = it.type === 'multi' ? Array.isArray(sel) && sel.includes(t) : sel === t;
       return `<button class="lc-opt${on ? ' on' : ''}" type="button" data-act="lc-pick" data-i="${i}"><span class="lc-oi">${ic((it.icons && it.icons[i]) || 'pin', 20, 1.8)}</span><span class="lc-ot">${esc(t)}</span><span class="lc-ck ${it.type === 'multi' ? 'sq' : ''}">${on ? ic('check', 14, 3.2) : ''}</span></button>`; }).join('')}</div></div>
