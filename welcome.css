@@ -493,3 +493,7 @@ html.gated .fx-x{display:none!important}
 .lc-next{display:block;width:100%;height:56px;border-radius:28px!important;background:#4A6E96!important;color:#fff!important;font-size:17px;font-weight:600;box-shadow:0 12px 26px rgba(74,110,150,.28)}
 .lc-next:disabled{background:#9DB4CC!important;box-shadow:none}
 .lc-bdg{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#C25445;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;box-shadow:0 0 0 2px #fff}
+
+/* Rewards week circles: slightly smaller */
+.rw-week .rw-dots i{width:32px;height:32px}
+.rw-week .rw-dots i svg{width:15px;height:15px}
