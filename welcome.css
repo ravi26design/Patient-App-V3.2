@@ -538,3 +538,20 @@ html.gated .fx-x{display:none!important}
 
 /* sign-up / setup CTAs: same height as the intro CTA (54px) */
 #v-setup .btn{height:54px!important;border-radius:999px!important;font-size:17px;font-weight:600}
+
+/* one primary CTA colour everywhere: the sign-up blue (#6C9FCC) */
+.intro-foot .btn.intro-btn,
+#v-onb .onb2 .onb-foot2 .btn,
+#v-setup .btn:not(:disabled),
+.fx-next:not(:disabled),
+.lc-next:not(:disabled),
+.rd-welcome .rd-cicard .btn,
+.rd-result .rr-next .btn,
+.sheet.trig .btn:not(.ghost):not(.lo-yes){background:#6C9FCC!important;background-image:none!important;color:#fff!important}
+.fx-next:disabled,.lc-next:disabled{background:#B7CFE6!important;background-image:none!important;color:#fff!important}
+.fx-nav .fx-next,.lc-next{box-shadow:0 10px 22px rgba(108,159,204,.35)!important}
+.fx-nav .fx-next:disabled,.lc-next:disabled{box-shadow:none!important}
+
+/* onboarding option cards: a little lighter */
+.ob-page .mgrid .mtile,.ob-page .mgrid .mtile.on{background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 76%,#fff) 0%,color-mix(in srgb,color-mix(in srgb,var(--c1) 45%,var(--c2)) 76%,#fff) 55%,color-mix(in srgb,var(--c2) 80%,#fff) 100%)!important}
+.ob-page .mgrid .mtile b{text-shadow:0 1px 4px color-mix(in srgb,var(--ink) 55%,transparent)}
