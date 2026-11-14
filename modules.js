@@ -698,8 +698,8 @@ Object.assign(ACT, {
   'me-logout': () => {
     if ($('.lo-sheet')) return;
     const l = pushLayer(`<div class="sheet trig lo-sheet"><span class="grab"></span><span class="lo-ic">${ic('out', 30, 1.7)}</span>
-      <h2>Are you sure you want to log out?</h2>
-      <p class="trig-p">You’ll need to start again on this device, and your check-ins and rewards here will be cleared.</p>
+      <h2>Log out of Rudra?</h2>
+      <p class="trig-p">Are you sure? You’ll need to start again on this device, and your check-ins and rewards here will be cleared.</p>
       <button class="btn lo-yes" data-act="lo-yes">Yes, log out</button><button class="btn ghost" data-act="close-layer">Cancel</button></div>`, 'sheet-wrap');
     l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   },
