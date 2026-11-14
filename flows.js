@@ -1,7 +1,10 @@
 /* Flow links: open index.html?flow=<name> to jump straight to a screen (used by flows.html).
    Loads last; runs after the normal boot in tools.js. */
 document.addEventListener('DOMContentLoaded', () => {
-  const name = new URLSearchParams(location.search).get('flow'); if (!name) return;
+  const qs = new URLSearchParams(location.search), name = qs.get('flow');
+  // one-shot links: drop ?flow and ?reset from the address so a refresh (or a log out then refresh) is not forced back in
+  if (name || qs.has('reset')) { qs.delete('flow'); qs.delete('reset'); try { history.replaceState(null, '', location.pathname + (qs.toString() ? '?' + qs.toString() : '') + location.hash); } catch (e) { } }
+  if (!name) return;
   setTimeout(() => {
     try {
       if (!S.onboarded) { S.onboarded = true; S.name = S.name || 'John'; save(); }
