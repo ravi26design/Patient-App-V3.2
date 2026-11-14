@@ -535,3 +535,6 @@ html.gated .fx-x{display:none!important}
 .lo-ic{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;margin:4px auto 0;color:#B5574A;background:radial-gradient(circle at 30% 25%,#FDF4F2,#F4D3CD 70%);box-shadow:0 10px 28px rgba(201,123,110,.3)}
 .lo-sheet .trig-p{text-align:center;margin-left:auto;margin-right:auto}
 .lo-yes{background:#C25445!important;color:#fff!important;box-shadow:0 12px 26px rgba(194,84,69,.28)!important}
+
+/* sign-up / setup CTAs: same height as the intro CTA (54px) */
+#v-setup .btn{height:54px!important;border-radius:999px!important;font-size:17px;font-weight:600}
