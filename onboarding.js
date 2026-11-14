@@ -19,7 +19,11 @@ function leaveOnboarding(msg) {
   if (obEdit) { obEdit = null; save(); go('me'); if (msg) toast(msg); return; }
 }
 function finishOnboarding() {
-  S.onboarded = true; save(); go('home');
+  S.onboarded = true; save();
+  // Home stays hidden until today's check-in and activity are done: lock it now and go straight to the check-in prompt
+  if (typeof updGate === 'function') updGate();
+  go('home');
+  if (typeof gateRoute === 'function' && gateRoute()) return;
   setTimeout(triggerSheet, 700);
 }
 
