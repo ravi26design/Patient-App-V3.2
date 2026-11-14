@@ -522,3 +522,10 @@ html.gated .fx-x{display:none!important}
 /* location intro: plain text, no card or icon */
 .lc-intro{background:none!important;padding:0!important;margin:0 0 16px!important;border-radius:0!important}
 .lc-intro p{font-size:14.5px!important;line-height:1.55;color:#5C6975!important}
+
+/* location sheet: white background */
+.lc-sheet,.lc-foot{background:#fff!important}
+.lc-foot{box-shadow:0 -14px 16px -10px #fff!important}
+.lc-opt{border-color:#E3E7EC!important;box-shadow:none!important}
+.lc-opt.on{background:#EEF4FA!important;border-color:#4A6E96!important}
+.lc-bk{border-color:#E3E7EC!important}
