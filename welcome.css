@@ -564,3 +564,8 @@ html.gated .fx-x{display:none!important}
 .rd-welcome .rd-spin-core{background:radial-gradient(circle at 32% 24%,#9CC8F0 0%,#5E9BD6 48%,#3F7FC0 100%)!important;box-shadow:0 18px 34px rgba(63,127,192,.42),0 2px 0 rgba(255,255,255,.4) inset,0 -10px 18px rgba(30,80,150,.18) inset!important}
 .rd-welcome .rd-spin-ring circle:first-child{stroke:rgba(63,127,192,.7)!important}
 .rd-welcome .rd-tap{color:#3F7FC0!important;opacity:1!important}
+
+/* result card: score trend line graph */
+.rd-result .rr-trend{display:flex;flex-direction:column;gap:2px;margin-top:2px}
+.rd-result .rr-trend svg{display:block}
+.rd-result .rr-trend small{font-size:11.5px;font-weight:600;letter-spacing:.03em;color:var(--muted)}

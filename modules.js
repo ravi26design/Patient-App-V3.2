@@ -349,7 +349,7 @@ function renderScore(root) {
         <path class="rr-fill" d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${A}" data-off="${off}"/></svg>
         <div class="rr-num"><b id="g-num" data-score="${overall}">0</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
       <div class="rr-side"><b>${side[0]} ${side[1]}</b>
-        <div class="rr-mini"><span class="up"><i></i>${hi.label}<em>${hi.v.toFixed(1)}</em></span><span class="dn"><i></i>${lo.label}<em>${lo.v.toFixed(1)}</em></span></div></div></div>
+        <div class="rr-trend">${rrTrend(S.history.map(h => h.overall).slice(-7), overall)}</div></div></div></div>
     <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
     ${e.base ? `<div class="rr-earn"><span class="rr-eic">${ic('check', 18, 2.8)}</span><div><b>Check-in complete</b></div><strong>+${usd(e.base)}</strong></div>` : ''}
     <div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
@@ -610,6 +610,21 @@ function triggerSheet() {
       <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
 }
 
+
+
+/* little line graph of recent recovery scores (last 7 check-ins); a single score shows a dot with a dashed path ahead */
+function rrTrend(prevs, cur) {
+  const v = prevs.length && prevs[prevs.length - 1] === cur && CI && CI.saved ? prevs : prevs.concat(cur);
+  const w = 132, h = 62, py = 8, px = 6;
+  if (v.length < 2) {
+    const y = h - py - (cur / 100) * (h - 2 * py);
+    return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" aria-hidden="true"><path d="M${px} ${y.toFixed(1)}H${w - px}" stroke="#B9CCE0" stroke-width="2" stroke-dasharray="3 6" stroke-linecap="round"/><circle cx="${px + 3}" cy="${y.toFixed(1)}" r="9" fill="#6C9FCC" opacity=".18"/><circle cx="${px + 3}" cy="${y.toFixed(1)}" r="5" fill="#5B8FC0" stroke="#fff" stroke-width="2"/></svg><small>Your trend builds here</small>`;
+  }
+  const mn = Math.max(0, Math.min(...v) - 8), mx = Math.min(100, Math.max(...v) + 8), st = (w - 2 * px) / (v.length - 1);
+  const pts = v.map((x, i) => [px + i * st, h - py - ((x - mn) / ((mx - mn) || 1)) * (h - 2 * py)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '), l = pts[pts.length - 1];
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" aria-hidden="true"><defs><linearGradient id="rtg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6C9FCC" stop-opacity=".28"/><stop offset="1" stop-color="#6C9FCC" stop-opacity="0"/></linearGradient></defs><path d="${d} L${l[0].toFixed(1)} ${h} L${px} ${h}Z" fill="url(#rtg)"/><path d="${d}" fill="none" stroke="#5B8FC0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${l[0].toFixed(1)}" cy="${l[1].toFixed(1)}" r="4.5" fill="#5B8FC0" stroke="#fff" stroke-width="2"/></svg><small>Last ${v.length} check-ins</small>`;
+}
 
 /* ═════════ GATE — Home stays hidden until today's check-in and activity are done ═════════ */
 const GATE_ON = !/notrigger|nogate/.test(location.search);
