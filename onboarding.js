@@ -191,7 +191,7 @@ function renderStep(n) {
   if (n === 1) {
     const all = [...MEDS, ...S.meds.filter(m => !MEDS.includes(m))];
     v.innerHTML = `<div class="ob-page">${stepHead(1)}<h1 class="step-h">Which <em>medications</em> are you currently taking?</h1><p class="step-p">Select all that apply, or add your own.</p>${addRow('meds', 'Type a medication…')}
-      <div class="mgrid" id="mgrid">${all.map((m, i) => tile('meds', m, 'pill', i, S.meds.includes(m))).join('')}</div>${cont()}</div>`;
+      <div class="mgrid med-grid" id="mgrid">${all.map((m, i) => tile('meds', m, 'pill', i, S.meds.includes(m))).join('')}</div>${cont()}</div>`;
   } else {
     v.innerHTML = `<div class="ob-page">${stepHead(2)}<h1 class="step-h">Connect your <em>care team</em></h1><p class="step-p">Link your clinic to securely sync appointments and your treatment plan. This is optional.</p>
       <div class="fld"><label class="lbl" for="cn">Clinic name</label><input class="inp" id="cn" placeholder="Enter clinic name" value="${esc(S.clinic.name)}" autocomplete="off"></div>

@@ -579,3 +579,18 @@ html.gated .fx-x{display:none!important}
 .oh-prog .lbl span{font-size:13px;font-weight:500;color:var(--muted)}
 .oh-prog .lbl b{margin-left:4px;font-weight:600;color:var(--cta-d)}
 .oh-prog .lbl span:last-child b{color:#4E7A5E}
+
+/* onboarding medications: clean white cards, 3 columns, colour dot (matches the Version 2 style) */
+.ob-page .med-grid{grid-template-columns:repeat(3,1fr)!important;gap:10px!important}
+.ob-page .med-grid .mtile{--dot:#6A5AA0;--dotbg:#E8E4F3;height:auto!important;min-height:112px;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:12px;padding:16px 3px 14px!important;border-radius:20px!important;background:#fff!important;background-image:none!important;border:2px solid transparent!important;box-shadow:0 1px 3px rgba(52,80,107,.06),0 6px 16px rgba(52,80,107,.05)!important;text-align:center}
+.ob-page .med-grid .mtile::after{display:none!important}
+.ob-page .med-grid .mtile .plus,.ob-page .med-grid .mtile b small{display:none!important}
+.ob-page .med-grid .mtile .mi{position:static!important;width:42px!important;height:42px!important;border-radius:50%!important;background:var(--dotbg)!important;display:grid;place-items:center;color:transparent!important;font-size:0}
+.ob-page .med-grid .mtile .mi *{display:none!important}
+.ob-page .med-grid .mtile .mi::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--dot)}
+.ob-page .med-grid .mtile b{position:static;font-size:12px!important;font-weight:700!important;line-height:1.2;letter-spacing:-.02em;color:#26323D!important;text-shadow:none!important;text-align:center;max-width:100%;overflow-wrap:break-word}
+.ob-page .med-grid .mtile.on{border-color:#5B8FC0!important;background:#fff!important}
+.ob-page .med-grid .mtile:nth-child(6n+2){--dot:#4E7A5E;--dotbg:#E1ECE2}
+.ob-page .med-grid .mtile:nth-child(6n+3){--dot:#4A6F9E;--dotbg:#DDE8F4}
+.ob-page .med-grid .mtile:nth-child(6n+4){--dot:#9A6F1E;--dotbg:#F8EBD2}
+.ob-page .med-grid .mtile:nth-child(6n+5){--dot:#A8584C;--dotbg:#F6E1DD}
