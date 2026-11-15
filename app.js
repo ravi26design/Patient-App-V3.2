@@ -351,7 +351,6 @@ function renderHome() {
     <div class="oh-actions"><button class="oh-chip" data-act="open-map" aria-label="Location check-in">${ic('pin', 22, 1.6)}${S.locDone === today() ? '' : '<span class="lc-bdg">2</span>'}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${recoveryCard(last)}
-  ${focusCard()}
 `;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
 }
