@@ -162,7 +162,7 @@ function bodyHTML(s) {
     return `${CI.a.unreported === 'yes' ? '' : `<div class="rq-mid sm">${rqArt('unreported')}</div>`}<div class="yn"><button class="choice ${CI.a.unreported === 'yes' ? 'sel' : ''}" data-act="ci-yn" data-v="yes"><span class="c-ic">${ic('checkc', 26, 1.8)}</span><b>Yes</b></button><button class="choice ${CI.a.unreported === 'no' ? 'sel' : ''}" data-act="ci-yn" data-v="no"><span class="c-ic">${ic('xc', 26, 1.8)}</span><b>No</b></button></div>
       ${CI.a.unreported === 'yes' ? `<p class="cal-note">Select the date when you used. You can log for the last 1 week. You can add multiple entries.</p>${calendarHTML()}` : ''}`;
   }
-  return `<div class="rq-mid xs">${rqArt('substances')}</div><div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>
+  return `<div class="subs">${SUBS.map(([l, i]) => `<button class="sub ${(CI.a.subs || []).includes(l === NONE ? NONE : l) ? 'sel' : ''}" data-act="ci-sub" data-v="${esc(l)}"><span class="c-ic">${ic(i, 24, 1.8)}</span><b>${l}</b><i>${ic('check', 14, 3)}</i></button>`).join('')}</div>
     <div class="sub-other" id="sub-other" ${(CI.a.subs || []).includes('Other') ? '' : 'hidden'}><input id="sub-other-in" placeholder="Which one? Enter the name" value="${esc(CI.a.other || '')}" autocomplete="off"></div>`;
 }
 
