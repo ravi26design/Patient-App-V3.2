@@ -568,7 +568,7 @@ h1,h2,h3{font-family:var(--font);font-weight:700;letter-spacing:-.03em}
 .tn-green{background:#FBE6E3;color:#D9766D}.tn-slate{background:#EEF2F6;color:#7B8A9A}
 .s-q{display:block;font-size:15.5px;font-weight:600;line-height:1.35}
 .s-val{font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--green);line-height:1.1;margin:6px 0 8px}
-.s-row{display:grid;grid-template-columns:34px 1fr 34px;gap:10px;align-items:center}
+.s-row{display:grid;grid-template-columns:18px 1fr 22px;gap:6px;align-items:center}
 .emo{display:flex;flex-direction:column;align-items:center;font-size:24px;line-height:1}
 .emo small{font-size:12px;font-weight:700;color:var(--muted);margin-top:2px}
 .s-lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px}
