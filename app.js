@@ -372,6 +372,7 @@ function renderHome() {
   <div class="oh-top"><div class="oh-lead"><button class="oh-chip" data-act="tab" data-v="me" aria-label="Profile">${ic('user', 22, 1.6)}</button><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai"></div>
     <div class="oh-actions"><button class="oh-chip" data-act="open-map" aria-label="Location check-in">${ic('pin', 22, 1.6)}${S.locDone === today() ? '' : '<span class="lc-bdg">2</span>'}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
+  <div class="oh-prog"><div class="seg"><i class="${done ? 'on' : ''}"></i><i class="${S.focusDone === today() ? 'on' : ''}"></i></div><div class="lbl"><span>Check-in <b>+${usd(10)}</b></span><span>Activity <b>+${usd(20)}</b></span></div></div>
   ${homeScoreCard(last)}
   ${homeNextCard(last)}
 `;

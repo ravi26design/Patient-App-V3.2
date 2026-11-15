@@ -569,3 +569,13 @@ html.gated .fx-x{display:none!important}
 .rd-result .rr-trend,.oh-score .rr-trend{display:flex;flex-direction:column;gap:2px;margin-top:2px}
 .rd-result .rr-trend svg,.oh-score .rr-trend svg{display:block}
 .rd-result .rr-trend small,.oh-score .rr-trend small{font-size:11.5px;font-weight:600;letter-spacing:.03em;color:var(--muted)}
+
+/* Home: check-in / activity progress bar */
+.oh-prog{margin:18px 4px 14px}
+.oh-prog .seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex-wrap:nowrap}
+.oh-prog .seg i{display:block;height:4px;border-radius:2px;background:#DCE6F0}
+.oh-prog .seg i.on{background:var(--cta)}
+.oh-prog .lbl{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.oh-prog .lbl span{font-size:13px;font-weight:500;color:var(--muted)}
+.oh-prog .lbl b{margin-left:4px;font-weight:600;color:var(--cta-d)}
+.oh-prog .lbl span:last-child b{color:#4E7A5E}
