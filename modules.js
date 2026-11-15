@@ -415,7 +415,7 @@ function focusPrompt() {
     <button class="btn" data-act="fpr-go" data-k="${k}">Start activity</button><button class="btn ghost" data-act="close-layer">Maybe later</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
 }
-const FP_MIN = 8;   // seconds each step stays locked, so the activity can't be tapped through
+const FP_MIN = 3;   // seconds each step stays locked, so the activity can't be tapped through
 const FP_ICONS = { cravings: ['chat', 'clock', 'run', 'game', 'phone', 'target'], meds: ['book', 'shower', 'clock', 'shield', 'heart'], risk: ['pin', 'target', 'run', 'phone', 'moon'],
   stress: ['pause', 'wind', 'smile', 'target', 'chat'], emotions: ['chat', 'pulse', 'leaf', 'heart', 'send'], body: ['pulse', 'run', 'drop', 'moon', 'phone'], drive: ['bulb', 'sparkle', 'sun', 'rocket', 'chat'] };
 /* step illustration: a calm landscape, each step in its own colour */
