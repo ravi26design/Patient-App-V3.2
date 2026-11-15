@@ -605,8 +605,8 @@ function triggerSheet() {
         <svg class="rd-spin-ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/><circle cx="100" cy="8" r="6" fill="currentColor"/></svg>
         <span class="rd-spin-core">${ic('plus', 40, 2.6)}<b>Check in</b></span></button><span class="rd-tap">Tap to begin</span></div>
       <div class="rd-cimeta"><span class="rd-chip t">${ic('clock', 14, 2)}About 1 min</span><span class="rd-chip g">${ic('coin', 14, 2)}Earn up to ${usd(10)}</span></div>
-      <h2 class="rd-cardh">${first ? 'Your first check-in' : 'How are you doing today?'}</h2>
-      <p class="rd-cardp">${first ? 'One question at a time, no right answers.' : 'One question at a time. Take your time.'}</p>
+      <h2 class="rd-cardh">${first ? 'Your first check-in. One question at a time, no right answers.' : 'How are you doing today?'}</h2>
+      ${first ? '' : '<p class="rd-cardp">One question at a time. Take your time.</p>'}
       <button class="btn" data-act="trigger-go">Start check-in ${ic('next', 18, 2.4)}</button></div></div></div>`, 'rd-layer');
 }
 
