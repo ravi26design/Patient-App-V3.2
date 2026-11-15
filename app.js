@@ -361,7 +361,7 @@ function homeNextCard(last) {
     <p>${f.why}.</p>
     <div class="rr-meta"><span>${ic('clock', 14, 2)}${f.mins} min</span><span>${ic('check', 14, 2.4)}${f.steps.length} short steps</span></div>
     <div class="rr-reward">${ic('coin', 18, 2)}<span>${fin ? usd(20) + ' earned for activity' : 'Finish to earn ' + usd(20)}</span></div>
-    ${fin ? '' : `<button class="btn" data-act="fpr-go" data-k="${k}">Start activity ${ic('next', 18, 2.4)}</button>`}</div></div>`;
+    <button class="btn" data-act="fpr-go" data-k="${k}">Start activity ${ic('next', 18, 2.4)}</button></div></div>`;
 }
 function renderHome() {
   const v = $('#v-home'), done = checkedInToday(), last = S.history[S.history.length - 1];
