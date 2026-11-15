@@ -326,7 +326,6 @@ function recoveryCard(last) {
       <div class="rh-num"><b>${v}</b><small>OUT OF 100</small></div></div>
     <div class="rh-chips">${done ? `<span class="rh-word">${word}</span><span class="rh-delta ${d > 3 ? 'up' : d < -3 ? 'down' : ''}">${arrow}<b>${d == null ? '–' : Math.abs(d)}</b><em>${dtxt}</em></span>` : `<button class="rh-word rh-todo" data-act="checkin">Complete today’s check-in ${ic('next', 18, 2.4)}</button>`}</div>
     <button class="rh-xp" data-act="insights"><span class="rh-xp-ic">${ic('bulb', 24, 1.6)}</span><span class="rh-xp-t"><b>Insights</b><small>Recovery Health Score Details</small></span></button>
-    ${twoWeeks}
   </div>`;
 }
 function streaksCard() {
