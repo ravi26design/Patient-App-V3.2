@@ -154,7 +154,7 @@ function bodyHTML(s) {
     return `<div class="scards">${s.items.map(it => {
       const v = num(CI.a, it.k), last = raw && raw[it.k] != null ? raw[it.k] : null;
       return `<div class="scard"><div class="rq-mid">${rqArt(it.k)}</div><b class="s-q">${it.q}</b><div class="s-val" id="sv-${it.k}">${v}</div>
-        <div class="s-row"><span class="emo">${it.eLo}<small>0</small></span><input class="s-range" type="range" min="0" max="10" step="1" value="${v}" data-k="${it.k}" data-s="${s.id}" style="--p:${v * 10}%" aria-label="${esc(it.q)}"><span class="emo">${it.eHi}<small>10</small></span></div>
+        <div class="s-row"><span class="emo"><small>0</small></span><input class="s-range" type="range" min="0" max="10" step="1" value="${v}" data-k="${it.k}" data-s="${s.id}" style="--p:${v * 10}%" aria-label="${esc(it.q)}"><span class="emo"><small>10</small></span></div>
         <div class="s-lab"><span>${it.lo}</span><span>${it.hi}</span></div>${last != null ? `<div class="s-last">Last time: ${last}</div>` : ''}</div>`;
     }).join('')}</div>`;
   }
