@@ -147,7 +147,7 @@ function screenReady(s) {
 function bodyHTML(s) {
   const raw = lastRaw();
   if (s.id === 'meds') {
-    return `<div class="rq-mid sm">${rqArt('meds')}</div>${raw && raw.meds != null ? `<div class="q-memory">Last time: ${MED_OPTS[raw.meds][0]}</div>` : ''}
+    return `${raw && raw.meds != null ? `<div class="q-memory">Last time: ${MED_OPTS[raw.meds][0]}</div>` : ''}
       <div class="choices">${MED_OPTS.map(([l, i], k) => `<button class="choice ${CI.a.meds === k ? 'sel' : ''}" data-act="ci-pick" data-k="${k}"><span class="c-ic">${ic(i, 26, 1.8)}</span><b>${l}</b></button>`).join('')}</div>`;
   }
   if (s.type === 'sliders') {
