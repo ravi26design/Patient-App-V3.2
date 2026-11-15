@@ -352,6 +352,17 @@ function homeScoreCard(last) {
     <div class="rr-num"><b>${v}</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
     <div class="rr-side"><b>${side}</b><div class="rr-trend">${typeof rrTrend === 'function' ? rrTrend(hist.slice(0, -1).map(h => h.overall).slice(-6), v) : ''}</div></div></div></div>`;
 }
+
+/* Home "Next up" activity card (same as the check-in result page) */
+function homeNextCard(last) {
+  if (typeof FOCUS === 'undefined' || typeof focusKey !== 'function' || !last) return '';
+  const k = focusKey(last), f = FOCUS[k], fin = S.focusDone === today();
+  return `<div class="oh-score oh-next"><div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
+    <p>${f.why}.</p>
+    <div class="rr-meta"><span>${ic('clock', 14, 2)}${f.mins} min</span><span>${ic('check', 14, 2.4)}${f.steps.length} short steps</span></div>
+    <div class="rr-reward">${ic('coin', 18, 2)}<span>${fin ? usd(20) + ' earned for activity' : 'Finish to earn ' + usd(20)}</span></div>
+    ${fin ? '' : `<button class="btn" data-act="fpr-go" data-k="${k}">Start activity ${ic('next', 18, 2.4)}</button>`}</div></div>`;
+}
 function renderHome() {
   const v = $('#v-home'), done = checkedInToday(), last = S.history[S.history.length - 1];
   const rec = recommend(last ? last.vals : null);
@@ -362,6 +373,7 @@ function renderHome() {
     <div class="oh-actions"><button class="oh-chip" data-act="open-map" aria-label="Location check-in">${ic('pin', 22, 1.6)}${S.locDone === today() ? '' : '<span class="lc-bdg">2</span>'}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
   ${homeScoreCard(last)}
+  ${homeNextCard(last)}
 `;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
 }
