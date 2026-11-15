@@ -349,8 +349,8 @@ function renderScore(root) {
         <path class="rr-fill" d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${A}" data-off="${off}"/></svg>
         <div class="rr-num"><b id="g-num" data-score="${overall}">0</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
       <div class="rr-side"><b>${side[0]} ${side[1]}</b>
-        <div class="rr-trend">${rrTrend(S.history.map(h => h.overall).slice(-7), overall)}</div></div></div></div>
-    <p class="rr-ins">${hi.label} is your strongest area today. ${lo.label} could use a little care.</p>
+        <div class="rr-trend">${rrTrend(S.history.map(h => h.overall).slice(-7), overall)}</div></div></div>
+    <p class="rr-ins"><b class="hi">${hi.label}</b> is your strongest area today. <b class="lo">${lo.label}</b> could use a little care.</p>
     ${e.base ? `<div class="rr-earn"><span class="rr-eic">${ic('check', 18, 2.8)}</span><div><b>Check-in complete</b></div><strong>+${usd(e.base)}</strong></div>` : ''}
     <div class="rd-card rr-next"><div class="rr-nh"><span class="rr-nic t-${f.tone}">${ic(f.icon, 26, 1.7)}</span><div><small class="rr-eye">NEXT UP</small><h2>${f.page}</h2></div></div>
       <p>${f.why}.</p>
