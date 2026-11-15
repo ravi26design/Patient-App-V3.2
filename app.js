@@ -340,6 +340,18 @@ function streaksCard() {
       <p>${left ? `${left} day${left === 1 ? '' : 's'} to your ${goal}-day milestone` : `You reached your ${goal}-day milestone`}</p></div>
   </div>`;
 }
+
+/* Home score card: same card as the check-in result (arc + score + trend line) */
+function homeScoreCard(last) {
+  const hist = S.history, v = last ? last.overall : 0, prev = hist.length > 1 ? hist[hist.length - 2].overall : null, d = prev == null ? null : v - prev;
+  const side = d == null ? 'First check-in' : d > 0 ? '▲ ' + d + ' from last time' : d < 0 ? '▼ ' + -d + ' from last time' : 'Same as last time';
+  const A = Math.PI * 70, off = A * (1 - clamp(v / 100, 0, 1));
+  return `<div class="oh-score"><div class="rr-score"><div class="rr-arc"><svg viewBox="0 0 180 100" aria-hidden="true"><defs><linearGradient id="rrgh" x1="0" x2="1"><stop offset="0" stop-color="#BBD0E6"/><stop offset="1" stop-color="#4F82B0"/></linearGradient></defs>
+    <path d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="#E8EDF3" stroke-width="14" stroke-linecap="round"/>
+    <path d="M20 90A70 70 0 0 1 160 90" fill="none" stroke="url(#rrgh)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${A}" stroke-dashoffset="${off}"/></svg>
+    <div class="rr-num"><b>${v}</b></div><small class="rr-cap">RECOVERY SCORE</small></div>
+    <div class="rr-side"><b>${side}</b><div class="rr-trend">${typeof rrTrend === 'function' ? rrTrend(hist.slice(0, -1).map(h => h.overall).slice(-6), v) : ''}</div></div></div></div>`;
+}
 function renderHome() {
   const v = $('#v-home'), done = checkedInToday(), last = S.history[S.history.length - 1];
   const rec = recommend(last ? last.vals : null);
@@ -349,7 +361,7 @@ function renderHome() {
   <div class="oh-top"><div class="oh-lead"><button class="oh-chip" data-act="tab" data-v="me" aria-label="Profile">${ic('user', 22, 1.6)}</button><img class="oh-logo" src="assets/logo.webp" alt="RudraHealth.ai"></div>
     <div class="oh-actions"><button class="oh-chip" data-act="open-map" aria-label="Location check-in">${ic('pin', 22, 1.6)}${S.locDone === today() ? '' : '<span class="lc-bdg">2</span>'}</button></div></div>
   <h1 class="oh-hey"><span>Hey,</span> ${esc(S.name || 'friend')}</h1><p class="oh-sub">Take a breath - one small step today.</p>
-  ${recoveryCard(last)}
+  ${homeScoreCard(last)}
 `;
   setTimeout(() => { const n = $('#rh-needle'); if (n) n.style.transform = `rotate(${-90 + 180 * clamp(((last && checkedInToday()) ? last.overall : 0) / 100, 0, 1)}deg)`; }, 120);
 }
