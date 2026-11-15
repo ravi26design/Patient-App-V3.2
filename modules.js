@@ -619,11 +619,6 @@ function gateRoute() {
   updGate(); if (!gateOn() || $$('.layer').length) return false;
   if (!checkedInToday()) { S.remindOn = true; triggerSheet(); return true; }
   const last = S.history[S.history.length - 1];
-  if (last && last.raw && !S.inAct) {   // refresh after the check-in: come back to the result page
-    CI = { i: 0, a: JSON.parse(JSON.stringify(last.raw)), done: {}, touched: {}, layer: null, saved: true, resumed: true, first: !!(S.loop && S.loop.earned) };
-    CI.layer = pushLayer('<div id="ci-root" style="display:flex;flex-direction:column;flex:1"></div>'); CI.layer._cleanup = () => { CI = null; };
-    renderScore($('#ci-root', CI.layer)); return true;
-  }
   if (last) { focusPage(S.inAct || focusKey(last)); return true; }
   return false;
 }
