@@ -423,23 +423,34 @@ const FP_PAL = [['#E3EDF8', '#F4F8FD', '#A9C3E3', '#7FA3CF', '#4A6E96', '#35597D
   ['#EAE6F7', '#F7F5FC', '#C5BDE6', '#A398D1', '#6C5FA8', '#54488C'], ['#DCF1F0', '#F2FAFA', '#A8D8D8', '#78BDBE', '#3C8A8C', '#2C7274'], ['#FBF1D9', '#FEF9EC', '#F1DB9E', '#E0BE6A', '#B08A2E', '#8E6D1E']];
 function fpArt(k, n) {
   const c = FP_PAL[n % 6], g = 'fpg' + n, ico = P[(FP_ICONS[k] || [])[n]] || P.sparkle;
-  const tree = (x, y, s, col) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${col}"><path d="M0 -34 L11 -12 H6 L14 4 H-14 L-6 -12 H-11Z"/><rect x="-2" y="4" width="4" height="8" rx="1"/></g>`;
-  return `<svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient><radialGradient id="${g}r"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="${g}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[3]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient><linearGradient id="${g}d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[4]}"/><stop offset="1" stop-color="${c[5]}"/></linearGradient></defs>
+  const sx = [232, 70, 236, 64, 228, 76][n % 6];   // sun moves a little from step to step
+  const tree = (x, y, s, col) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${col}"><path d="M0 -36 L9 -16 H5 L12 -2 H7 L15 12 H-15 L-7 -2 H-12 L-5 -16 H-9Z"/><rect x="-2" y="12" width="4" height="7" rx="1"/></g>`;
+  const refl = [0, 1, 2, 3, 4].map(i => `<rect x="${sx - 14 + i * 2}" y="${158 + i * 9}" width="${28 - i * 4}" height="2.4" rx="1.2" fill="#fff" opacity="${.7 - i * .1}"/>`).join('');
+  return `<svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>
+    <linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[2]}" stop-opacity=".85"/><stop offset=".5" stop-color="${c[0]}"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <radialGradient id="${g}s"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".35" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${g}l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[2]}"/><stop offset="1" stop-color="${c[3]}"/></linearGradient>
+    <linearGradient id="${g}m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[3]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient>
+    <linearGradient id="${g}d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[4]}"/><stop offset="1" stop-color="${c[5]}"/></linearGradient>
+    <linearGradient id="${g}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".75"/></linearGradient></defs>
     <rect width="300" height="240" fill="url(#${g})"/>
-    <circle cx="150" cy="94" r="118" fill="url(#${g}r)"/>
-    <g stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"><path d="M232 20v-8M232 112v8M180 62h-8M292 62h-8M196 26l-5-5M268 98l5 5M268 26l5-5M196 98l-5 5"/></g>
-    <circle cx="232" cy="62" r="34" fill="#fff" opacity=".55"/><circle cx="232" cy="62" r="22" fill="#fff" opacity=".8"/>
-    <g fill="#fff" opacity=".85"><rect x="28" y="52" width="58" height="14" rx="7"/><rect x="44" y="40" width="36" height="14" rx="7"/><rect x="190" y="116" width="52" height="12" rx="6" opacity=".7"/></g>
-    <g fill="none" stroke="${c[5]}" stroke-width="1.8" stroke-linecap="round" opacity=".55"><path d="M70 92q5-6 10 0q5-6 10 0"/><path d="M96 74q4-5 8 0q4-5 8 0"/></g>
-    <g fill="${c[3]}" opacity=".7"><circle cx="40" cy="108" r="3"/><circle cx="262" cy="104" r="2.5"/><circle cx="112" cy="30" r="2.5"/><circle cx="276" cy="30" r="2"/></g>
-    <path class="fx-w fx-w1" d="M-30 150 C40 118 100 112 160 134 S260 160 340 126 V260 H-30Z" fill="${c[2]}"/>
-    ${tree(246, 150, .8, c[3])}${tree(268, 156, .55, c[3])}
-    <path class="fx-w fx-w2" d="M-30 182 C30 150 96 144 150 164 S250 196 340 160 V260 H-30Z" fill="url(#${g}h)"/>
-    ${tree(40, 176, .9, c[4])}${tree(64, 184, .6, c[4])}
-    <path d="M-30 222 C40 196 110 192 170 206 S270 224 340 200 V260 H-30Z" fill="url(#${g}d)"/>
-    <path d="M148 240 C152 224 168 214 196 206" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>
-    <g class="fx-badge"><ellipse cx="150" cy="148" rx="40" ry="6" fill="#000" opacity=".08"/><rect x="104" y="48" width="92" height="92" rx="30" fill="#fff" style="filter:drop-shadow(0 10px 18px rgba(38,50,61,.16))"/><rect x="112" y="56" width="76" height="76" rx="24" fill="${c[0]}" opacity=".7"/>
-      <g transform="translate(119 66) scale(2.4)" fill="none" stroke="${c[5]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ico}</g></g></svg>`;
+    <circle cx="${sx}" cy="70" r="92" fill="url(#${g}s)"/><circle cx="${sx}" cy="70" r="26" fill="#fff"/><circle cx="${sx}" cy="70" r="19" fill="#fff"/>
+    <g fill="#fff" opacity=".9"><rect x="30" y="46" width="60" height="13" rx="6.5"/><rect x="48" y="35" width="36" height="13" rx="6.5"/><rect x="${sx > 150 ? 70 : 196}" y="104" width="54" height="11" rx="5.5" opacity=".75"/></g>
+    <g fill="none" stroke="${c[5]}" stroke-width="1.7" stroke-linecap="round" opacity=".5"><path d="M${sx > 150 ? 92 : 206} 86q5-6 10 0q5-6 10 0"/><path d="M${sx > 150 ? 118 : 232} 70q4-5 8 0q4-5 8 0"/></g>
+    <path d="M-10 150 L38 100 L66 126 L104 84 L142 124 L176 98 L214 128 L250 96 L310 150Z" fill="url(#${g}m)" opacity=".75"/>
+    <path d="M104 84 L92 98 L100 96 L106 104 L112 96 L120 99Z M250 96 L240 107 L246 105 L251 111 L257 105 L262 108Z" fill="#fff" opacity=".7"/>
+    <path d="M-10 150 C40 128 84 124 130 138 S230 146 310 128 V160 H-10Z" fill="${c[3]}" opacity=".85"/>
+    <rect y="120" width="300" height="48" fill="url(#${g}h)"/>
+    <rect y="146" width="300" height="100" fill="url(#${g}l)"/>
+    ${refl}
+    <g fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".55"><path d="M40 176q14-5 28 0t28 0"/><path d="M170 190q16-5 32 0t32 0"/><path d="M92 206q12-4 24 0t24 0"/></g>
+    <path d="M-10 212 C30 176 82 166 120 190 C138 202 124 232 100 250 H-10Z" fill="url(#${g}d)"/>
+    <path d="M310 206 C272 174 224 170 190 192 C174 204 190 232 214 250 H310Z" fill="url(#${g}d)" opacity=".92"/>
+    ${tree(26, 186, 1, c[5])}${tree(52, 196, .7, c[5])}${tree(274, 184, .95, c[5])}${tree(250, 194, .65, c[5])}
+    <g fill="#fff" opacity=".85"><circle cx="40" cy="96" r="2.4"/><circle cx="262" cy="130" r="2"/><circle cx="118" cy="22" r="2.2"/><circle cx="170" cy="38" r="1.6"/><circle cx="12" cy="130" r="1.8"/></g>
+    <g class="fx-badge"><circle cx="150" cy="106" r="62" fill="url(#${g}s)" opacity=".9"/><ellipse cx="150" cy="168" rx="38" ry="6" fill="${c[5]}" opacity=".16"/>
+      <rect x="106" y="62" width="88" height="88" rx="30" fill="#fff" opacity=".92" style="filter:drop-shadow(0 12px 22px rgba(38,50,61,.2))"/><rect x="114" y="70" width="72" height="72" rx="23" fill="${c[0]}"/>
+      <g transform="translate(120 76) scale(2.5)" fill="none" stroke="${c[5]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ico}</g></g></svg>`;
 }
 function fpSteps(k) {
   const f = FOCUS[k], fin = S.focusDone === today(), tot = f.steps.length, n = Math.min(FP.step, tot - 1), st = f.steps[n], pct = Math.round(FP.max / tot * 100);
@@ -482,8 +493,7 @@ function claimPopup() {
       <g transform="translate(84 49) scale(2.17)" fill="none" stroke="#3F6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${P.checkc}</g>
       <g fill="#E0B454"><path d="M26 34l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".9"/><path d="M190 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" opacity=".8"/><circle cx="184" cy="112" r="4" opacity=".7"/><circle cx="34" cy="108" r="3" opacity=".6"/></g></svg>
       <h1 class="fx-title">${k === 'cravings' ? 'You rode it out.' : 'Well done.'}</h1><p class="fx-sub">Today’s check-in and activity are complete.</p></div>
-    <div class="fx-tiles"><div class="fx-tile"><span class="fx-tic">${ic('bolt', 18, 2)}</span><b>+${usd(20)}</b><span>Activity earnings</span></div><div class="fx-tile"><span class="fx-tic">${ic('coin', 18, 2)}</span><b>${usd(today$)}</b><span>Today’s earnings</span></div></div>
-    <div class="fx-week"><div class="fx-wh"><b>This week</b><span>${n} of 6 activities</span></div><div class="rw-dots">${weekDays(0).map((x, i) => { const ci = S.txns.some(t => t.d === x.d && /^Daily check-in/.test(t.t)), ac = S.txns.some(t => t.d === x.d && /^Activity/.test(t.t)); const full = ci && ac, half = !full && (ci || ac); return `<div class="${x.now ? 'tday' : ''}"><i class="${full ? 'full' : half ? 'half' : ''}${x.now ? ' today' : ''}">${x.now && full ? ic('check', 18, 3) : ''}</i><span>${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span></div>`; }).join('')}</div><p class="fx-bonus">${bonusLine}</p></div>
+    <div class="fx-tiles"><div class="fx-tile"><span class="fx-tic">${ic('bolt', 18, 2)}</span><b>+${usd(20)}</b><span>Activity earnings</span></div></div>
     <button class="btn fx-next" data-act="fx-wallet">Go to Rewards</button></div>`, 'fx-layer');
   setTimeout(confetti, 300);
 }
