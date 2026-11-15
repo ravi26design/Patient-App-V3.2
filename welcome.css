@@ -600,3 +600,6 @@ html.gated .fx-x{display:none!important}
 .rd-result .rr-ins b{font-weight:700}
 .rd-result .rr-ins .hi{color:#3F6B4E}
 .rd-result .rr-ins .lo{color:#B5604F}
+
+/* activity step text: no card background */
+.fx-layer:not(.fx-done-l) .fx-card{background:none!important;box-shadow:none!important;padding:8px 4px 0!important;border-radius:0!important}
