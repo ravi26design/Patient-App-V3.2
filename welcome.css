@@ -673,3 +673,6 @@ html.gated .fx-x{display:none!important}
 /* Home: very light outlines on pills and chips */
 .rr-reward,.rr-earn,.rr-meta span{border-width:1px!important}
 .oh-next .rr-reward,.rd-card .rr-reward,.rr-next .rr-reward{border:1px solid #D3E6D8!important}
+
+/* half-filled day: visible light outline around the whole circle */
+.rw-dots i.half{border:2px solid #A9C3E3!important;background:linear-gradient(90deg,#4A6E96 50%,#fff 50%)!important;background-clip:padding-box}
