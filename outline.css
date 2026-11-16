@@ -24,3 +24,6 @@
 /* check-in answer cards */
 .choice{border:1.5px solid var(--card-line)}
 .choice.sel{border-color:#6C9FCC}
+
+/* wrappers and inner blocks are not cards: no outline box around them */
+.oh-score,.oh-next,.rr-trend,.rr-side,.rr-arc{border:0!important}
