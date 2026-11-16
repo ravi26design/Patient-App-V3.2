@@ -38,3 +38,9 @@
 
 /* Home top bar: same colour as the page background */
 #v-home .oh-top{background:#E8EFF7!important}
+
+/* Rewards: very light outline on every card */
+.rw-t.g{border:1px solid #D3E6D8!important}
+.rw-t.b{border:1px solid #D3E2F2!important}
+.rw-visa{border:1px solid rgba(255,255,255,.32)!important}
+.rw-week{border:1px solid #E0EAF4!important}
