@@ -222,7 +222,7 @@ function renderCI() {
   renderScore(root);
 }
 /* a short "preparing your report" moment between the last question and the result */
-/* Option B: a machine-learning "analysing" screen (open with ?prep=2) */
+/* The machine-learning "analysing" screen (now the default) */
 function prepScreenB(root) {
   const sig = ['Cravings', 'Stress', 'Mood', 'Sleep', 'Pain', 'Energy', 'Confidence'];
   const layers = [[40, 90, 140, 190], [25, 65, 105, 145, 185], [65, 115, 165], [90, 140]], xs = [26, 96, 164, 234];
@@ -248,7 +248,7 @@ function prepScreenB(root) {
   setTimeout(() => { if (CI && CI.layer === lay && CI.prepared && !CI.saved) renderScore(root); }, total + 400);
 }
 function prepScreen(root) {
-  if (new URLSearchParams(location.search).get('prep') === '2') return prepScreenB(root);
+  if (new URLSearchParams(location.search).get('prep') !== '1') return prepScreenB(root);   // the analysing screen is the default; ?prep=1 shows the earlier checklist
   const steps = ['Reviewing your answers', 'Calculating your Recovery Score', 'Comparing with your recent days', 'Spotting what is going well', 'Writing your summary', 'Choosing today’s activity'];
   root.innerHTML = `<div class="prep"><div class="prep-orb"><svg viewBox="0 0 140 140" aria-hidden="true"><circle class="po-bg" cx="70" cy="70" r="58"/><circle class="po-ring" cx="70" cy="70" r="58"/></svg><span class="po-core">${ic('pulse', 38, 1.8)}</span><i class="po-dot d1"></i><i class="po-dot d2"></i><i class="po-dot d3"></i></div>
     <h1>Preparing your daily check-in report</h1><p>Just a moment while we put it together for you.</p>
