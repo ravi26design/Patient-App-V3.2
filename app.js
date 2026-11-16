@@ -497,9 +497,9 @@ function renderScore(root) {
   root.innerHTML = `<div class="layer-top"><button class="icon-btn" data-act="ci-close" aria-label="Close">${ic('x', 20)}</button><h3>Your recovery score</h3></div>
   <div class="layer-body" style="padding-top:4px">
     <div class="fin-gauge">${gauge(overall)}${delta}</div><div class="white-sheet">
-    <div class="str-h"><h3>Your strengths</h3><span class="muted" style="font-size:14px">(Out of 10)</span></div>
+    <div class="str-h"><h3>Your strengths</h3><span class="muted" style="font-size:16px">(Out of 10)</span></div>
     <div>${strengthsHTML(vals)}</div>
-    ${f.trends && S.history.length > 2 ? `<div class="trend"><div class="eyebrow" style="margin-bottom:8px">In context · your trend</div>${sparkline(S.history.slice(-14).map(h => h.overall), 300, 56)}<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px" class="muted"><span>Streak ${S.streak} days · next: ${nextMilestone()}</span><b style="color:var(--sage-dk)">${trendWord()}</b></div><div style="margin-top:10px;font-size:13px;color:var(--gold-dk);display:flex;align-items:center;gap:6px">${ic('coin', 14)}<span>${nextReward().at - S.bucks > 0 ? `${usd(nextReward().at - S.bucks)} to “${nextReward().t}”` : 'Reward unlocked!'}</span></div></div>` : ''}
+    ${f.trends && S.history.length > 2 ? `<div class="trend"><div class="eyebrow" style="margin-bottom:8px">In context · your trend</div>${sparkline(S.history.slice(-14).map(h => h.overall), 300, 56)}<div style="display:flex;justify-content:space-between;font-size:12px;margin-top:6px" class="muted"><span>Streak ${S.streak} days · next: ${nextMilestone()}</span><b style="color:var(--sage-dk)">${trendWord()}</b></div><div style="margin-top:10px;font-size:12px;color:var(--gold-dk);display:flex;align-items:center;gap:6px">${ic('coin', 14)}<span>${nextReward().at - S.bucks > 0 ? `${usd(nextReward().at - S.bucks)} to “${nextReward().t}”` : 'Reward unlocked!'}</span></div></div>` : ''}
     ${insightHTML(CI.res)}
     ${nextStepHTML(rec)}
   </div></div>`;
@@ -519,7 +519,7 @@ function finishCheckinReward(didActivity) {
     ${coinStack(130)}
     <div class="eyebrow" style="margin-top:6px">Score ${score} · today’s earnings</div><div class="big-amt">+${usd(e.total)}</div><div class="eyebrow">Added to your wallet</div>
     <div class="break"><div><span>Today’s score</span><span>${score}</span></div><div><span>Daily check-in</span><span>+${usd(e.base)}</span></div><div><span>Activity${e.act ? ` · Level ${ROMAN[lvl]}` : ''}</span><span>${e.act ? '+' + usd(e.act) : '—'}</span></div><div><span>Streak bonus (${S.streak} day${S.streak === 1 ? '' : 's'})</span><span>+${usd(e.st)}</span></div><div><span>Wallet balance</span><span style="color:var(--purple)">${usd(S.bucks)}</span></div></div>
-    <div style="width:100%;text-align:left;margin-bottom:6px;font-size:13px" class="muted">${nr.at - S.bucks > 0 ? `${usd(nr.at - S.bucks)} to “${nr.t}” — ${nr.d}` : `Unlocked: ${nr.t}`}</div><div class="prog"><i style="width:0" data-w="${prog}"></i></div>
+    <div style="width:100%;text-align:left;margin-bottom:6px;font-size:12px" class="muted">${nr.at - S.bucks > 0 ? `${usd(nr.at - S.bucks)} to “${nr.t}” — ${nr.d}` : `Unlocked: ${nr.t}`}</div><div class="prog"><i style="width:0" data-w="${prog}"></i></div>
     <div class="next-trig">${ic('life', 18)}<div><b>Next reminder</b><small>${nextTrigger()}</small></div></div>
     <div style="flex:1;min-height:14px"></div><button class="btn" data-act="ci-wallet">View wallet</button><button class="btn ghost" data-act="ci-end">Back to today</button></div>`;
   setTimeout(() => { const p = $('.prog i', root); if (p) p.style.width = p.dataset.w + '%'; }, 150);

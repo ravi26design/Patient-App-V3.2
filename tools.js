@@ -116,7 +116,7 @@ function guidePlayer(g, ctx) {
   const total = steps.reduce((a, s) => a + s.s, 0);
   const done = () => {
     clearInterval(tick); clearTimeout(timer);
-    $('.player', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><div class="big-emoji" style="background:rgba(255,255,255,.14);color:#fff">${ic('check', 42, 2.4)}</div><h2 style="font-size:38px">Well done</h2><p style="color:rgba(255,255,255,.65);font-size:16px;line-height:1.5;max-width:280px">You took about ${Math.max(1, Math.round(total / 60))} minute${total >= 90 ? 's' : ''} for yourself. Notice how you feel now.</p></div>${endBtn(ctx, g.id)}`;
+    $('.player', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><div class="big-emoji" style="background:rgba(255,255,255,.14);color:#fff">${ic('check', 42, 2.4)}</div><h2 style="font-size:42px">Well done</h2><p style="color:rgba(255,255,255,.65);font-size:16px;line-height:1.5;max-width:280px">You took about ${Math.max(1, Math.round(total / 60))} minute${total >= 90 ? 's' : ''} for yourself. Notice how you feel now.</p></div>${endBtn(ctx, g.id)}`;
   };
   const next = () => {
     clearInterval(tick); clearTimeout(timer); i++;
@@ -147,8 +147,8 @@ function breathPlayer(ctx) {
   let timers = [], key = ctx && ctx.checkin ? 'coherent' : '478';
   l._cleanup = () => timers.forEach(clearTimeout);
   const intro = () => {
-    $('#bp', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;justify-content:center;width:100%"><h1 style="font-size:38px;margin-bottom:8px">Choose a rhythm</h1><p class="hint" style="margin-bottom:22px">Sit comfortably. Follow the circle — in through your nose, out slowly through your mouth.</p>
-    ${Object.entries(PATTERNS).map(([k, p]) => `<button class="sound-row ${k === key ? 'on' : ''}" style="background:rgba(255,255,255,.1)" data-act="bp-pick" data-k="${k}"><div style="flex:1"><b style="font-size:22px;font-family:var(--serif)">${p.name}</b><div style="font-size:13px;opacity:.7;margin-top:3px">${p.d}</div></div></button>`).join('')}</div><button class="btn light" id="bp-go">Begin</button>`;
+    $('#bp', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;justify-content:center;width:100%"><h1 style="font-size:42px;margin-bottom:8px">Choose a rhythm</h1><p class="hint" style="margin-bottom:22px">Sit comfortably. Follow the circle — in through your nose, out slowly through your mouth.</p>
+    ${Object.entries(PATTERNS).map(([k, p]) => `<button class="sound-row ${k === key ? 'on' : ''}" style="background:rgba(255,255,255,.1)" data-act="bp-pick" data-k="${k}"><div style="flex:1"><b style="font-size:20px;font-family:var(--serif)">${p.name}</b><div style="font-size:12px;opacity:.7;margin-top:3px">${p.d}</div></div></button>`).join('')}</div><button class="btn light" id="bp-go">Begin</button>`;
     $$('[data-act=bp-pick]', l).forEach(b => b.addEventListener('click', () => { key = b.dataset.k; $$('[data-act=bp-pick]', l).forEach(x => x.classList.toggle('on', x === b)); }));
     $('#bp-go', l).addEventListener('click', run);
   };
@@ -172,7 +172,7 @@ function breathPlayer(ctx) {
   };
   const complete = () => {
     timers.forEach(clearTimeout);
-    $('#bp', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><div class="big-emoji" style="background:rgba(255,255,255,.14);color:#fff">${ic('check', 42, 2.4)}</div><h2 style="font-size:38px">Well done</h2><p style="color:rgba(255,255,255,.65);font-size:16px;line-height:1.5;max-width:280px">Notice your shoulders, your jaw, your breath. How do you feel?</p></div>${endBtn(ctx, 'breath')}`;
+    $('#bp', l).innerHTML = `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><div class="big-emoji" style="background:rgba(255,255,255,.14);color:#fff">${ic('check', 42, 2.4)}</div><h2 style="font-size:42px">Well done</h2><p style="color:rgba(255,255,255,.65);font-size:16px;line-height:1.5;max-width:280px">Notice your shoulders, your jaw, your breath. How do you feel?</p></div>${endBtn(ctx, 'breath')}`;
   };
   intro();
 }
@@ -203,7 +203,7 @@ function soundList() {
 }
 function soundPlayer(i, ctx) {
   const s = SOUNDS[i], mins = ctx && ctx.checkin ? [0, 2, 3, 5][F().level] : 5; let left = mins * 60, on = true, tm;
-  const l = pushLayer(`${playerTop(s.t)}<div class="player"><div class="orb-wrap"><div class="orb" id="so" style="background:radial-gradient(circle at 35% 30%,#fff3,${s.bg.match(/#[0-9A-F]{6}/gi)[0]} 70%);animation:breathe 6s ease-in-out infinite;font-size:44px" id="so"><span id="st">${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}</span></div></div>
+  const l = pushLayer(`${playerTop(s.t)}<div class="player"><div class="orb-wrap"><div class="orb" id="so" style="background:radial-gradient(circle at 35% 30%,#fff3,${s.bg.match(/#[0-9A-F]{6}/gi)[0]} 70%);animation:breathe 6s ease-in-out infinite;font-size:42px" id="so"><span id="st">${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}</span></div></div>
     <div class="phase" id="sp">Playing</div><div class="hint">Headphones recommended. Close your eyes and let the sound do the work.</div>
     ${ctx && ctx.checkin ? '' : `<div class="seg" style="justify-content:center;margin-bottom:16px">${[5, 10, 15].map(m => `<button data-m="${m}" class="${m === mins ? 'on' : ''}" style="background:rgba(255,255,255,.12);color:#fff">${m} min</button>`).join('')}</div>`}
     <div style="display:flex;gap:10px;width:100%"><button class="btn light" id="sp-t" style="flex:1">Pause</button><div style="flex:1">${endBtn(ctx, 'sound')}</div></div></div>`, 'dark');
@@ -239,7 +239,7 @@ function emotionsList() {
 function lesson(i, ctx) {
   const e = EPISODES[i];
   pushLayer(`<div class="layer-top"><button class="icon-btn" data-act="close-layer" aria-label="Close">${ic(ctx && ctx.checkin ? 'x' : 'back', 20)}</button></div>
-  <div class="layer-body lesson"><div class="step-meta">Episode ${i + 1} of 10</div><h1>${e[0]}</h1><p>${e[1]}</p><p style="color:#fff;font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.35;border-left:3px solid var(--rose);padding-left:14px">${e[2]}</p>
+  <div class="layer-body lesson"><div class="step-meta">Episode ${i + 1} of 10</div><h1>${e[0]}</h1><p>${e[1]}</p><p style="color:#fff;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;border-left:3px solid var(--rose);padding-left:14px">${e[2]}</p>
   <div style="flex:1;min-height:20px"></div><button class="btn light" data-act="lesson-done" data-i="${i}" data-ck="${ctx && ctx.checkin ? 1 : 0}">${ctx && ctx.checkin ? 'Done · collect reward' : 'Mark as done'}</button></div>`, 'dark');
 }
 
@@ -346,7 +346,7 @@ function renderMe() {
 
 /* ═════════ HELP SHEET ═════════ */
 function helpSheet() {
-  const l = pushLayer(`<div class="sheet"><h2>You’re not alone</h2><p class="muted" style="font-size:15px;line-height:1.45">Help is free, private and available right now.</p>
+  const l = pushLayer(`<div class="sheet"><h2>You’re not alone</h2><p class="muted" style="font-size:16px;line-height:1.45">Help is free, private and available right now.</p>
     <a class="help-row" href="tel:988" style="text-decoration:none;color:inherit"><div class="ico" style="background:var(--coral-lt);color:var(--coral)">${ic('phone', 20)}</div><div><b>Call 988</b><span class="d">Suicide & Crisis Lifeline · 24/7</span></div></a>
     <a class="help-row" href="sms:741741&body=HOME" style="text-decoration:none;color:inherit"><div class="ico" style="background:var(--sky);color:#4A7FB0">${ic('sms', 20)}</div><div><b>Text HOME to 741741</b><span class="d">Crisis Text Line</span></div></a>
     <a class="help-row" href="tel:911" style="text-decoration:none;color:inherit"><div class="ico" style="background:#FBE6E3;color:#D9766D">${ic('phone', 20)}</div><div><b>Call 911</b><span class="d">Emergency or suspected overdose</span></div></a>
@@ -361,7 +361,7 @@ function viewScore() {
   const last = S.history[S.history.length - 1]; if (!last) return;
   const prev = S.history.length > 1 ? S.history[S.history.length - 2].overall : null;
   const l = pushLayer(`<div class="layer-top"><button class="icon-btn" data-act="close-layer" aria-label="Close">${ic('x', 20)}</button><h3>Your recovery score</h3></div><div class="layer-body" style="padding:4px 0 0"><div class="fin-gauge">${gauge(last.overall)}</div><div class="white-sheet">
-    <div class="str-h"><h3>Your strengths</h3><span class="muted" style="font-size:14px">(Out of 10)</span></div>${strengthsHTML(last.vals)}</div></div>`, 'indigo');
+    <div class="str-h"><h3>Your strengths</h3><span class="muted" style="font-size:16px">(Out of 10)</span></div>${strengthsHTML(last.vals)}</div></div>`, 'indigo');
   animateScore(l, last.overall, 0);
 }
 

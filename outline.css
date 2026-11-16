@@ -98,3 +98,4 @@
 /* completion page: larger bolt icon in a larger circle */
 .fx-done .fx-tile .fx-tic{width:56px!important;height:56px!important}
 .fx-done .fx-tile .fx-tic svg{width:28px!important;height:28px!important}
+.nav .nav-help span{transform:translateY(-3px)}

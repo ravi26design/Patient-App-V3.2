@@ -239,7 +239,7 @@ function renderCommunity() {
 }
 function roomsSheet() {
   const cnt = k => POSTS.filter(p => k === 'all' || p.channel === k).length;
-  const l = pushLayer(`<div class="sheet rooms-sheet"><span class="grab"></span><h2>All Rooms</h2><p class="muted" style="font-size:14px;line-height:1.45">Browse every room and jump into the one that fits. Every room is watched over by a certified peer specialist.</p>
+  const l = pushLayer(`<div class="sheet rooms-sheet"><span class="grab"></span><h2>All Rooms</h2><p class="muted" style="font-size:16px;line-height:1.45">Browse every room and jump into the one that fits. Every room is watched over by a certified peer specialist.</p>
     <div class="ar-list">${[['all', ['🌐', 'All Rooms', '#5B7FD6']], ...Object.entries(ROOMS)].map(([k, r]) => `<button class="ar-row${CM.room === k ? ' on' : ''}" data-act="cm-room" data-r="${k}"><i style="--rc:${r[2]}">${r[0]}</i><b>${r[1]}</b><em>${cnt(k)}</em></button>`).join('')}</div>
     <button class="btn ghost" style="margin-top:12px" data-act="close-layer">Close</button></div>`, 'sheet-wrap');
   l.addEventListener('click', e => { if (e.target === l) popLayer(l); });

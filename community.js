@@ -298,7 +298,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   const posts = () => S.room.posts.filter(p => !S.room.hidden.includes(p.id) && (p.status === 'live' || p.by.me));
   const findC = (list, id) => { for (const c of list) { if (c.id === id) return c; const r = findC(c.replies || [], id); if (r) return r; } return null; };
   const ncom = p => p.comments.reduce((a, c) => a + 1 + (c.replies || []).length, 0);
-  const av = (by, s = 40) => `<span class="zrm-av" style="width:${s}px;height:${s}px;background:${by.c};font-size:${Math.round(s * .4)}px">${esc((by.anon ? '?' : by.n).charAt(0))}</span>`;
+  const av = (by, s = 40) => `<span class="zrm-av" style="width:${s}px;height:${s}px;background:${by.c};font-size:${s < 34 ? 12 : s < 50 ? 16 : 20}px">${esc((by.anon ? '?' : by.n).charAt(0))}</span>`;
   const who = by => by.anon ? 'Anonymous member' : esc(by.n);
   const badge = by => by.mod ? `<span class="zrm-modb">${ic('shield', 11, 2.4)}Moderator</span>` : by.me ? '<span class="zrm-you">You</span>' : '';
 
@@ -512,7 +512,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     l.addEventListener('click', e => { if (e.target === l) return popLayer(l); const b = e.target.closest('.zrm-mi'); if (!b) return;
       if (b.dataset.k === 'del') { S.room.posts = S.room.posts.filter(x => x.id !== pid); save(); popLayer(l); refreshFeed(); toast('Post deleted'); }
       if (b.dataset.k === 'hide') { S.room.hidden.push(pid); save(); popLayer(l); refreshFeed(); toast('Post hidden'); }
-      if (b.dataset.k === 'rep') { $('.zrm-sheet', l).innerHTML = `<span class="zrm-grab"></span><h2 class="zcm-lh" style="font-size:22px">What’s wrong with this post?</h2><div class="zcm-chips col" style="margin:12px 0">${['Unkind or shaming', 'Buying, selling or sharing drugs', 'Someone may be in danger', 'Private information', 'Something else'].map(r => `<button class="zcm-chip zrm-rr">${r}</button>`).join('')}</div><button class="btn ghost" data-act="close-layer">Cancel</button>`; }
+      if (b.dataset.k === 'rep') { $('.zrm-sheet', l).innerHTML = `<span class="zrm-grab"></span><h2 class="zcm-lh" style="font-size:20px">What’s wrong with this post?</h2><div class="zcm-chips col" style="margin:12px 0">${['Unkind or shaming', 'Buying, selling or sharing drugs', 'Someone may be in danger', 'Private information', 'Something else'].map(r => `<button class="zcm-chip zrm-rr">${r}</button>`).join('')}</div><button class="btn ghost" data-act="close-layer">Cancel</button>`; }
       if (e.target.closest('.zrm-rr')) { popLayer(l); toast(`Thanks. ${MOD.n} will look at it soon.`); } });
   }
   function rules() {

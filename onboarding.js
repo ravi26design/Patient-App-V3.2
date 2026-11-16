@@ -145,7 +145,7 @@ function otpSheet(contact) {
   let code = String(Math.floor(100000 + Math.random() * 900000)), left = 30, timer;
   const l = pushLayer(`<div class="otp-x-wrap"><button class="otp-x" data-act="close-layer" aria-label="Close">${ic('x', 20)}</button></div>
     <div class="sheet otp"><span class="grab"></span><span class="otp-ic">${ic('chat', 28)}</span><h2>Enter the code</h2>
-    <p class="muted" style="font-size:15px;line-height:1.5">We sent a 6-digit code to <b>${esc(contact)}</b>.</p>
+    <p class="muted" style="font-size:16px;line-height:1.5">We sent a 6-digit code to <b>${esc(contact)}</b>.</p>
     <div class="demo-code">Demo code <b id="dc">${code}</b></div>
     <div class="otp-boxes" id="otp">${[0, 1, 2, 3, 4, 5].map(i => `<input inputmode="numeric" maxlength="1" autocomplete="${i ? 'off' : 'one-time-code'}" aria-label="Digit ${i + 1}">`).join('')}</div>
     <p class="otp-err" id="oerr" role="alert"></p>
