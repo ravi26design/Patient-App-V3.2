@@ -26,4 +26,7 @@
 .choice.sel{border-color:#6C9FCC}
 
 /* wrappers and inner blocks are not cards: no outline box around them */
-.oh-score,.oh-next,.rr-trend,.rr-side,.rr-arc{border:0!important}
+.oh-score,.oh-next,.rr-trend,.rr-arc{border:0!important}
+
+/* divider between the score and the trend */
+.rr-side{border:0!important;border-left:1.5px solid rgba(108,159,204,.28)!important}

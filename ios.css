@@ -70,13 +70,13 @@ h2.rw-h,.rw-h{font-size:28px;font-weight:700}
 /* ── tab bar: floating glass capsule ── */
 .nav{width:calc(100% - 32px);max-width:360px;height:64px;bottom:calc(14px + var(--sab));padding:5px;border-radius:32px;gap:0;
   background:rgba(250,250,252,.72);-webkit-backdrop-filter:saturate(180%) blur(28px);backdrop-filter:saturate(180%) blur(28px);
-  border:.5px solid rgba(255,255,255,.7);box-shadow:0 8px 30px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.06)}
+  border:.5px solid rgba(255,255,255,.7);box-shadow:0 0 0 .5px rgba(0,0,0,.06)}
 .nav button{height:54px;border-radius:27px;color:#8A8A8E;font-size:10px;font-weight:500;letter-spacing:0;gap:2px}
 .nav button.on{background:rgba(0,122,255,.12);color:var(--ios-blue)}
 .nav svg{stroke-width:1.9}
 
 /* ── surfaces: white grouped cards, no shadows ── */
-.row-w,.t2,.streak-card,.loop,.mem-card,.se-card,.more-card,.row-card,.coach-card,.next-trig,.set-row,.searchbar,.sheet,.msg-coach,.goal,.trend,.coach-panel{box-shadow:none!important}
+.row-w,.t2,.streak-card,.loop,.mem-card,.se-card,.more-card,.row-card,.coach-card,.next-trig,.set-row,.searchbar,.sheet,.msg-coach,.goal,.trend,.coach-panel{box-shadow:none !important}
 .row-w{background:#fff;border-radius:var(--r-card);padding:12px 14px 12px 14px;gap:12px}
 .row-w b{font-size:17px;font-weight:600;letter-spacing:-.02em}
 .row-w small{font-size:14px;color:var(--muted);margin-top:1px}
@@ -115,7 +115,7 @@ h2.rw-h,.rw-h{font-size:28px;font-weight:700}
 .promo{background:var(--ios-blue);border-radius:var(--r-card)}
 .demo-strip,.seg button{box-shadow:none}
 .seg button{background:var(--fill);color:var(--label);border-radius:8px}
-.seg button.on{background:#fff;color:var(--label);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg button.on{background:#fff;color:var(--label);box-shadow:none}
 
 /* ── week row / streak ── */
 .wd i{border-color:var(--sep)}
@@ -183,14 +183,14 @@ h2.rw-h,.rw-h{font-size:28px;font-weight:700}
 .segs i{border-radius:2px}
 
 /* ── check-in progress ring, players, speedometer ── */
-.orb{background:radial-gradient(circle at 35% 30%,#9CCBFF,#3395FF 60%,#007AFF);box-shadow:0 20px 50px rgba(0,122,255,.3)}
+.orb{background:radial-gradient(circle at 35% 30%,#9CCBFF,#3395FF 60%,#007AFF);box-shadow:none}
 .ring svg circle:first-child{stroke:var(--fill)}
 .ring svg circle:last-child{stroke:var(--ios-blue)}
 .q-card{background:var(--ios-blue)!important;border-radius:24px}
 .q-nav button{background:#fff;box-shadow:none;color:var(--ios-blue)}
 .sound-row.on{box-shadow:0 0 0 2px var(--ios-blue) inset}
 .sound-row[style*="rgba(255,255,255,.1)"]{background:#fff!important;box-shadow:none}
-.player .seg button{background:var(--fill)!important;box-shadow:none!important;color:var(--label)!important}
+.player .seg button{background:var(--fill)!important;box-shadow:none !important;color:var(--label)!important}
 .player .seg button.on{background:var(--ios-blue)!important;color:#fff!important}
 .big-emoji{background:var(--sage-lt)!important}
 .ls.done i{background:var(--ios-green);border-color:var(--ios-green)}
@@ -259,7 +259,7 @@ h2.rw-h,.rw-h{font-size:28px;font-weight:700}
 
 /* ── onboarding: hero image + copy ── */
 .onb-segs{margin-top:calc(var(--sat) + 14px)}
-.onb-img{margin-top:20px;border-radius:28px;overflow:hidden;background:#fff;aspect-ratio:3/2;flex:none;animation:slideIn .35s cubic-bezier(.2,.8,.2,1);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.onb-img{margin-top:20px;border-radius:28px;overflow:hidden;background:#fff;aspect-ratio:3/2;flex:none;animation:slideIn .35s cubic-bezier(.2,.8,.2,1);box-shadow:none}
 .onb-img img{display:block;width:100%;height:100%;object-fit:cover}
 .onb-copy{margin-top:28px;text-align:left;padding:0 4px}
 .onb-copy h2{font-size:30px;line-height:1.12;margin-bottom:10px}

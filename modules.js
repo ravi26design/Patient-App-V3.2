@@ -482,7 +482,7 @@ function fpArt(k, n) {
     ${tree(26, 186, 1, c[5])}${tree(52, 196, .7, c[5])}${tree(274, 184, .95, c[5])}${tree(250, 194, .65, c[5])}
     <g fill="#fff" opacity=".85"><circle cx="40" cy="96" r="2.4"/><circle cx="262" cy="130" r="2"/><circle cx="118" cy="22" r="2.2"/><circle cx="170" cy="38" r="1.6"/><circle cx="12" cy="130" r="1.8"/></g>
     <g class="fx-badge"><circle cx="150" cy="112" r="78" fill="url(#${g}s)" opacity=".95"/><ellipse cx="150" cy="176" rx="52" ry="7" fill="${c[5]}" opacity=".16"/>
-      <circle cx="150" cy="112" r="62" fill="#fff" opacity=".93" style="filter:drop-shadow(0 12px 22px rgba(38,50,61,.2))"/><circle cx="150" cy="112" r="54" fill="${c[0]}"/>
+      <circle cx="150" cy="112" r="62" fill="#fff" opacity=".93"/><circle cx="150" cy="112" r="54" fill="${c[0]}"/>
       <g transform="translate(110 72) scale(.8)">${(FP_MOT[(FP_MAP[k] || [])[n]] || FP_MOT.heart)(c[5], c[3], c[2])}</g></g></svg>`;
 }
 function fpSteps(k) {
