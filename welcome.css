@@ -627,3 +627,10 @@ html.gated .fx-x{display:none!important}
   radial-gradient(70% 60% at 0% 0%,rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 60%),
   linear-gradient(160deg,#DDEEFF 0%,#BCD9F8 100%)!important}
 .rd-result .rr-ins{border:1.5px solid rgba(108,159,204,.4)!important}
+/* completion page: centred earnings tile, softer glow, more room */
+.fx-wrap.fx-done{background:radial-gradient(70% 38% at 50% 42%,#E6F1E8 0%,rgba(230,241,232,0) 70%)}
+.fx-done .fx-hero svg{width:min(236px,64%)}
+.fx-wrap.fx-done .fx-tiles{margin-top:30px}
+.fx-done .fx-tile{grid-template-columns:auto auto!important;justify-content:center;column-gap:18px;padding:20px 22px!important;border:1.5px solid rgba(224,180,84,.4);box-shadow:0 10px 26px rgba(196,138,44,.16)}
+.fx-done .fx-tile .fx-tic{width:48px;height:48px;box-shadow:0 4px 12px rgba(196,138,44,.2)}
+.fx-done .fx-tile b{font-size:32px!important}
