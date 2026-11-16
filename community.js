@@ -505,9 +505,9 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   }
   function postMenu(pid) {
     const p = S.room.posts.find(x => x.id === pid); if (!p) return;
-    const l = pushLayer(`<div class="zrm-sheet"><span class="zrm-grab"></span>
-      ${p.by.me ? `<button class="zrm-mi" data-k="del">${ic('xc', 20, 1.8)}<span><b>Delete post</b><small>Removes it for everyone</small></span></button>`
-        : `<button class="zrm-mi" data-k="rep">${ic('alert', 20, 1.8)}<span><b>Report to ${MOD.n}</b><small>Only the moderator sees who reported</small></span></button><button class="zrm-mi" data-k="hide">${ic('eye', 20, 1.8)}<span><b>Hide this post</b><small>You won’t see it again</small></span></button>`}
+    const l = pushLayer(`<div class="zrm-sheet"><span class="zrm-grab"></span><h2 class="zmi-t">Post options</h2>
+      ${p.by.me ? `<button class="zrm-mi mi-coral" data-k="del"><i class="zmi-i">${ic('xc', 20, 1.9)}</i><span><b>Delete post</b><small>Removes it for everyone</small></span>${ic('next', 16, 2.4)}</button>`
+        : `<button class="zrm-mi mi-coral" data-k="rep"><i class="zmi-i">${ic('alert', 20, 1.9)}</i><span><b>Report to ${MOD.n}</b><small>Only the moderator sees who reported</small></span>${ic('next', 16, 2.4)}</button><button class="zrm-mi mi-blue" data-k="hide"><i class="zmi-i">${ic('eye', 20, 1.9)}</i><span><b>Hide this post</b><small>You won’t see it again</small></span>${ic('next', 16, 2.4)}</button>`}
       <button class="btn ghost" data-act="close-layer">Cancel</button></div>`, 'sheet-wrap');
     l.addEventListener('click', e => { if (e.target === l) return popLayer(l); const b = e.target.closest('.zrm-mi'); if (!b) return;
       if (b.dataset.k === 'del') { S.room.posts = S.room.posts.filter(x => x.id !== pid); save(); popLayer(l); refreshFeed(); toast('Post deleted'); }

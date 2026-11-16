@@ -914,3 +914,24 @@
 .zrm-t3.zg-blue{background:linear-gradient(160deg,#C4DAF2 0%,#D6E6F7 100%)!important;border:1px solid #AAC8E8!important}
 .zrm-t3.zg-blue .zri{color:#3F6E99!important;background:#fff!important}
 .zc-who .zc-sw,.zc-who.is-anon .zc-sw{background:#fff!important}
+
+/* post options sheet */
+.zrm-sheet{padding:12px 20px calc(22px + var(--sab))!important;border-radius:28px 28px 0 0!important}
+.zrm-grab{margin:0 auto 14px!important}
+.zmi-t{font:800 20px var(--f-ui)!important;color:#26323D;margin:0 0 14px!important;text-align:left}
+.zrm-sheet .zrm-mi{display:flex;align-items:center;gap:14px;width:100%;padding:14px!important;margin-bottom:10px;border-radius:20px;border:1px solid transparent!important;text-align:left}
+.zrm-mi.mi-coral{background:#FBEBE7;border-color:#F6DAD4!important}
+.zrm-mi.mi-blue{background:#E3EEF9;border-color:#D6E5F4!important}
+.zrm-mi .zmi-i{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;background:#fff;font-style:normal}
+.zrm-mi.mi-coral .zmi-i{color:#A9564D}.zrm-mi.mi-blue .zmi-i{color:#3F6E99}
+.zrm-mi>span{flex:1;min-width:0}
+.zrm-mi b{font:800 16px var(--f-ui)!important;color:#26323D}
+.zrm-mi small{margin-top:2px;font:500 13px/1.35 var(--f-body)!important;color:#6B7785!important}
+.zrm-mi>svg:last-child{flex:none;color:#8A95A1}
+.zrm-sheet>.btn.ghost{height:50px!important;margin-top:4px;border-radius:25px!important;background:#fff!important;color:#4F82B0!important;border:1.5px solid #6C9FCC!important;font-weight:700}
+.zrm-sheet .zcm-chips.col{gap:10px}
+.zrm-sheet .zcm-chips.col .zcm-chip{background:#fff;border:1px solid #DCE8F3;border-radius:16px;padding:14px 16px;text-align:left;font-weight:700}
+
+/* Meeting cards: blue one deeper so it stands out from the page */
+.zmf.zg-blue{background:linear-gradient(160deg,#C4DAF2 0%,#D6E6F7 100%)!important;border-color:#AAC8E8!important}
+.zmf.zg-blue .zmf-tag{color:#2F5E8A!important}
