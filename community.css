@@ -762,3 +762,11 @@
 .zev-day:nth-child(4n+2){border:1.5px solid rgba(108,159,204,.4)!important}
 .zev-day:nth-child(4n+3){border:1.5px solid rgba(111,160,121,.4)!important}
 .zev-tip{border:1.5px solid rgba(108,159,204,.4)!important}
+
+/* Events outlines: clean pastel tones, a touch deeper than each fill */
+.zrm-hero2.zev-hero{border-color:#B7D8C1!important}
+.zev-card.zg-blue,.zev-day:nth-child(4n+2),.zev-tip{border-color:#BFD7EE!important}
+.zev-card.zg-coral,.zev-row{border-color:#F1C7BF!important}
+.zev-card.zg-sage,.zev-day:nth-child(4n+3){border-color:#BCD9C3!important}
+.zev-card.zg-gold,.zev-day:nth-child(4n+1){border-color:#EBD698!important}
+.zev-step{border-color:#BCD9C3!important}
