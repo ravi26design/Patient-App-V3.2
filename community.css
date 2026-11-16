@@ -482,3 +482,15 @@
 .zrx-list{border:1px solid #E6EDF4;box-shadow:0 2px 12px rgba(79,130,176,.08)!important}
 .zev-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .zev-card{min-width:0}
+
+/* meeting cards: light colour fills */
+.zmf{position:relative}
+.zmf.zg-blue{--zt:#E6EFF9;--zb:#D3E2F2;--za:#3F6E99}
+.zmf.zg-coral{--zt:#FBEBE7;--zb:#F2D5CF;--za:#A9564D}
+.zmf.zg-sage{--zt:#E8F1E9;--zb:#D2E2D4;--za:#4E6E54}
+.zmf.zg-gold{--zt:#F9F1DC;--zb:#EBDDB4;--za:#8E6620}
+.zmf{background:linear-gradient(160deg,var(--zt) 0%,#fff 130%)!important;border:1px solid var(--zb)!important;box-shadow:0 3px 14px rgba(46,50,56,.06)!important}
+.zmf-tag{background:rgba(255,255,255,.9)!important;color:var(--za)!important}
+.zmf-ini{position:absolute;right:16px;top:16px;display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.9);color:var(--za);font:800 16px var(--f-ui);letter-spacing:.02em;box-shadow:0 2px 8px rgba(46,50,56,.06)}
+.zmf h2{padding-right:56px}
+.zmf-acts .alt{background:rgba(255,255,255,.95)!important;border-color:var(--zb)!important;color:var(--za)!important}
