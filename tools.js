@@ -464,7 +464,8 @@ function triggerSheet() {
 document.addEventListener('DOMContentLoaded', function init() {
   mountViews();
   const q = new URLSearchParams(location.search);
-  if (q.get('reset')) { S = DEFAULT(); save(); }
+  /* never sign the user out on its own: a ?reset link only clears data after they confirm */
+  if (q.get('reset') && (!S.onboarded || confirm('Reset the prototype and sign out? All data on this device will be cleared.'))) { S = DEFAULT(); save(); }
   if (q.get('day')) { S.onboarded = true; S.name = S.name || 'Alex'; setDay(+q.get('day')); }
   if (!S.onboarded) renderIntro(); else { go('home'); if (!q.get('notrigger')) setTimeout(triggerSheet, 700); }
 });
