@@ -298,10 +298,8 @@ function rwCards() {
 function renderWallet() {
   const nr = nextReward();
   $('#v-wallet').innerHTML = `<div class="wal-top"><h1>Rewards</h1></div>
-  <div class="pad">${rwCards()}<div class="bal-card"><small>Total Balance</small><div class="bal" id="wb">$0.00</div>    <div class="bal-grid"><div><small>Total check-ins</small><b>${26 + S.history.length}</b></div><div><small>Total Activities</small><b>${S.activities}</b></div></div>
-    <button class="btn light" data-act="tab" data-v="home">Back to today</button></div></div>
+  <div class="pad">${rwCards()}</div>
   `;
-  countUp($('#wb'), S.bucks + 91, 900, 0, v => usd(v));
 }
 
 /* ═════════ COMMUNITY / PROGRESS ═════════ */
