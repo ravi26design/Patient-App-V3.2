@@ -227,7 +227,7 @@ function renderIntro() {
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
   else { const pl = v.play(); if (pl && pl.catch) pl.catch(() => { }); }
 }
-let onbI = 0;
+let onbI = 0, onbTimer = null;
 const OB_TOTAL = 4;
 const obHead = (n, back) => `<div class="step-head">${back ? `<button class="back-c" data-act="ob-back" aria-label="Back">${ic('back', 20)}</button>` : ''}<div class="step-bar"><i style="width:${n / OB_TOTAL * 100}%"></i></div><span class="step-n"><b>${n}</b>/${OB_TOTAL}</span></div>`;
 function renderOnb(i = 0) {
@@ -238,6 +238,8 @@ function renderOnb(i = 0) {
     <div class="onb-copy" key="t${i}"><span class="intro-ic">${ic(s.i, 24, 1.9)}</span><h2>${s.t}</h2><p>${s.p}</p></div>
     <div class="onb-dots" role="tablist" aria-label="Intro pages">${ONB.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-act="onb-go" data-i="${k}" aria-label="Page ${k + 1}"></button>`).join('')}</div>
     <div class="foot-row onb-foot2"><button class="btn" data-act="onb-next">${last ? 'Get started' : 'Next'} ${ic('next', 16, 2.4)}</button></div></div>`;
+  clearTimeout(onbTimer);
+  if (!last) onbTimer = setTimeout(() => { const r = $('#v-onb .onb2'); if (r && r.offsetParent !== null && onbI === i) renderOnb(i + 1); }, 4000);   // auto-advance every 4 seconds
 }
 /* ── trigger: a time of day tied to something already in the user's routine (anchor habit) ── */
 const REMIND = {
@@ -528,3 +530,19 @@ function endCheckin(dest = 'home') { $$('.layer').forEach(l => popLayer(l)); go(
   el.addEventListener('touchstart', e => { x0 = e.target.closest('.onb2') ? e.touches[0].clientX : null; }, { passive: true });
   el.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
     if (dx < -50 && onbI < ONB.length - 1) renderOnb(onbI + 1); else if (dx > 50 && onbI > 0) renderOnb(onbI - 1); else if (dx > 50) renderIntro(); }, { passive: true }); })();
+
+/* intro: swipe left / right to move between the video page and the slides */
+(function () {
+  let x0 = null, y0 = 0;
+  const host = e => e.target.closest && e.target.closest('#v-onb .onb2, #v-onb .intro');
+  document.addEventListener('pointerdown', e => { if (host(e) && !e.target.closest('button')) { x0 = e.clientX; y0 = e.clientY; } else x0 = null; });
+  document.addEventListener('pointerup', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+    const h = host(e); if (!h) return;
+    if (h.classList.contains('intro')) { if (dx < 0) renderOnb(0); return; }
+    if (dx < 0) { if (onbI < ONB.length - 1) renderOnb(onbI + 1); }
+    else if (onbI > 0) renderOnb(onbI - 1); else renderIntro();
+  });
+})();
