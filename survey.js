@@ -218,7 +218,18 @@ function renderCI() {
     <div class="ci-foot"><button class="btn" id="ci-adv" data-act="ci-adv" ${screenReady(s) ? '' : 'disabled'}>${last ? 'See my score' : 'Next'} ${ic('next', 16, 2.4)}</button></div>`;
     return;
   }
+  if (!CI.prepared) { CI.prepared = true; prepScreen(root); return; }
   renderScore(root);
+}
+/* a short "preparing your report" moment between the last question and the result */
+function prepScreen(root) {
+  const steps = ['Reviewing your answers', 'Calculating your Recovery Score', 'Spotting what is going well', 'Choosing today’s activity'];
+  root.innerHTML = `<div class="prep"><div class="prep-orb"><svg viewBox="0 0 140 140" aria-hidden="true"><circle class="po-bg" cx="70" cy="70" r="58"/><circle class="po-ring" cx="70" cy="70" r="58"/></svg><span class="po-core">${ic('pulse', 38, 1.8)}</span><i class="po-dot d1"></i><i class="po-dot d2"></i><i class="po-dot d3"></i></div>
+    <h1>Preparing your daily check-in report</h1><p>Just a moment while we put it together for you.</p>
+    <ul class="prep-steps">${steps.map((t, i) => `<li style="--i:${i}"><span class="ps-ck">${ic('check', 14, 3)}</span>${t}</li>`).join('')}</ul></div>`;
+  CI.layer && (CI.layer.scrollTop = 0);
+  const lay = CI.layer;
+  setTimeout(() => { if (CI && CI.layer === lay && CI.prepared && !CI.saved) renderScore(root); }, 4200);
 }
 function advance() {
   if (!CI) return; const s = SCREENS[CI.i]; if (!screenReady(s)) return;

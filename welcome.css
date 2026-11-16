@@ -634,3 +634,26 @@ html.gated .fx-x{display:none!important}
 .fx-done .fx-tile{grid-template-columns:auto auto!important;justify-content:center;column-gap:18px;padding:20px 22px!important;border:1.5px solid rgba(224,180,84,.4);box-shadow:0 10px 26px rgba(196,138,44,.16)}
 .fx-done .fx-tile .fx-tic{width:48px;height:48px;box-shadow:0 4px 12px rgba(196,138,44,.2)}
 .fx-done .fx-tile b{font-size:32px!important}
+
+/* preparing your report */
+.prep{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px calc(40px + var(--sab,0px));background:radial-gradient(70% 40% at 50% 34%,#E4F0FC 0%,rgba(228,240,252,0) 70%)}
+.prep-orb{position:relative;width:150px;height:150px;display:grid;place-items:center;margin-bottom:30px}
+.prep-orb svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.prep .po-bg{fill:none;stroke:#DCE9F6;stroke-width:8}
+.prep .po-ring{fill:none;stroke:#6C9FCC;stroke-width:8;stroke-linecap:round;stroke-dasharray:365;stroke-dashoffset:365;animation:poFill 3.8s cubic-bezier(.4,.1,.3,1) forwards}
+.prep .po-core{position:relative;display:grid;place-items:center;width:92px;height:92px;border-radius:50%;background:#fff;color:#4F82B0;box-shadow:0 12px 30px rgba(79,130,176,.22);animation:poPulse 1.8s ease-in-out infinite}
+.prep .po-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:#E0B454;opacity:.85;animation:poFloat 3s ease-in-out infinite}
+.prep .po-dot.d1{top:6px;right:18px}.prep .po-dot.d2{bottom:14px;left:6px;background:#8DB89A;animation-delay:.6s}.prep .po-dot.d3{top:40px;left:-6px;width:6px;height:6px;animation-delay:1.2s}
+.prep h1{font-family:'Lora',Georgia,serif;font-size:26px;line-height:1.2;font-weight:500;letter-spacing:-.01em;color:#26323D;margin:0;max-width:300px}
+.prep>p{font-size:15.5px;line-height:1.45;color:#6B7785;margin:10px 0 28px;max-width:280px}
+.prep-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;text-align:left}
+.prep-steps li{display:flex;align-items:center;gap:12px;font-size:15.5px;color:#9AA5B1;opacity:0;animation:psIn .5s ease forwards;animation-delay:calc(var(--i) * .9s + .2s)}
+.prep-steps li .ps-ck{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid #D3DCE5;color:transparent;background:#fff;animation:psDone .35s ease forwards;animation-delay:calc(var(--i) * .9s + .8s)}
+.prep-steps li{animation-name:psIn,psText;animation-duration:.5s,.35s;animation-delay:calc(var(--i) * .9s + .2s),calc(var(--i) * .9s + .8s)}
+@keyframes poFill{to{stroke-dashoffset:0}}
+@keyframes poPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes poFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes psIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes psText{to{color:#26323D}}
+@keyframes psDone{to{background:#6C9FCC;border-color:#6C9FCC;color:#fff}}
+@media (prefers-reduced-motion:reduce){.prep .po-core,.prep .po-dot{animation:none}}
