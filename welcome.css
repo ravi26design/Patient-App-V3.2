@@ -612,3 +612,11 @@ html.gated .fx-x{display:none!important}
   linear-gradient(160deg,#E4F2FF 0%,#C4E0FC 100%)!important}
 /* insight card: light tint of the primary CTA blue */
 .rd-result .rr-ins{background:#E4EEF8!important;box-shadow:0 1px 3px rgba(52,80,107,.05)!important}
+/* completion page: content centred between the steps bar and the button; tile = icon left, text right */
+.fx-wrap.fx-done .fx-hero{margin-top:auto!important}
+.fx-wrap.fx-done .fx-tiles{margin-bottom:auto!important}
+.fx-wrap.fx-done .fx-next{margin-top:16px!important}
+.fx-done .fx-tile{display:grid!important;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;text-align:left;padding:18px 20px!important}
+.fx-done .fx-tile .fx-tic{grid-row:1/3;margin:0!important;width:44px;height:44px}
+.fx-done .fx-tile b{grid-column:2;margin:0}
+.fx-done .fx-tile>span:not(.fx-tic){grid-column:2;margin-top:2px}
