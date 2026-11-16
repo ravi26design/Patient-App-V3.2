@@ -44,3 +44,12 @@
 .rw-t.b{border:1px solid #D3E2F2!important}
 .rw-visa{border:1px solid rgba(255,255,255,.32)!important}
 .rw-week{border:1px solid #E0EAF4!important}
+
+/* Help: no shadow, a light outline in each card's own tone */
+.md-911,.md-opt,.md-reassure{box-shadow:none!important}
+.md-911{border:1px solid #F0CFC9!important}
+.md-opt.t-r{border:1px solid #F0CFC9!important}
+.md-opt.t-a{border:1px solid #EADDB2!important}
+.md-opt.t-g{border:1px solid #CADFD0!important}
+.md-opt.t-b{border:1px solid #C9DBEE!important}
+.md-reassure{border:1px solid #DCE8F3!important}
