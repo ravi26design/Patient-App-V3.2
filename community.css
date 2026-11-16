@@ -681,3 +681,9 @@
 .zc-tp.on{box-shadow:0 0 0 2px #6C9FCC!important;border-color:transparent!important}
 .zrm-compose2 em{display:none!important}
 .zc-swt small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zrm-room2.big .zrm-compose2{box-shadow:inset 0 0 0 1px rgba(108,159,204,.16)!important}
+.zc-types{flex-wrap:nowrap!important;overflow-x:auto!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-left:-20px!important;margin-right:-20px!important;padding:3px 20px 5px!important;scroll-snap-type:x proximity}
+.zc-types::-webkit-scrollbar{display:none}
+.zc-tp{flex:0 0 auto!important;scroll-snap-align:start}
+.zc-types{scroll-snap-type:none!important;scroll-padding-left:20px}.zc-tp{scroll-snap-align:none!important}
+.zc-note{background:transparent!important;padding:2px 4px!important;border:0!important}
