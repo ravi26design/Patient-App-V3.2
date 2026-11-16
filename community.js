@@ -555,15 +555,15 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     if (!RX || !RX.l.isConnected) return;
     const { k } = RX, T = RX.topic, has = tp => T === 'all' || (Array.isArray(tp) ? tp.includes(T) : tp === T);
     const name = k === 'saved' ? 'Saved' : RCATS.find(c => c[0] === k)[1];
-    const row = (act, attrs, lead, title, sub) => `<button class="zrx-item" data-act="${act}" ${attrs}>${lead}<span class="tx"><b>${esc(title)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span>${ic('next', 16, 2.4)}</button>`;
-    const art = j => row('zcm-read', `data-id="${j.id}"`, `<span class="lead" style="background:${SRC[j.src].c}">${ic('paper', 16, 2)}</span>`, j.t, `${j.min} min read`);
-    const pod = ([p, i]) => row('zrx-pod', `data-i="${i}"`, `<span class="lead" style="background:${p.c}">${ic('headph', 16, 2)}</span>`, p.n, p.h);
-    const book = ([b, i]) => row('zrx-book', `data-i="${i}"`, `<span class="lead bk" style="background:${b.c}"></span>`, b.n, b.a);
+    const row = (act, attrs, lead, title, sub, tone) => `<button class="zrx-item tn-${tone || 'blue'}" data-act="${act}" ${attrs}>${lead}<span class="tx"><b>${esc(title)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span>${ic('next', 16, 2.4)}</button>`;
+    const art = j => row('zcm-read', `data-id="${j.id}"`, `<span class="lead" style="background:${SRC[j.src].c}">${ic('paper', 16, 2)}</span>`, j.t, `${j.min} min read`, toneOf(j.tp));
+    const pod = ([p, i]) => row('zrx-pod', `data-i="${i}"`, `<span class="lead" style="background:${p.c}">${ic('headph', 16, 2)}</span>`, p.n, p.h, toneOf(p.tp));
+    const book = ([b, i]) => row('zrx-book', `data-i="${i}"`, `<span class="lead bk">${cover(b, i)}</span>`, b.n, b.a, toneOf(b.tp));
     let list = '';
     if (k === 'journal') list = JOURNAL.filter(j => has(j.tp)).map(art).join('');
     if (k === 'listen') list = PODS.map((p, i) => [p, i]).filter(([p]) => has(p.tp)).map(pod).join('');
     if (k === 'read') list = BOOKS.map((b, i) => [b, i]).filter(([b]) => has(b.tp)).map(book).join('');
-    if (k === 'web') list = SITES.filter(g => has(g.tp)).map(g => `<p class="zrx-g">${g.g}</p>${g.items.map(s => `<a class="zrx-item" href="${s.u}" target="_blank" rel="noopener"><span class="lead" style="background:${s.c}">${ic('globe', 16, 2)}</span><span class="tx"><b>${esc(s.n)}</b><small>${host(s.u)}</small></span>${ic('ext', 15, 2.2)}</a>`).join('')}`).join('');
+    if (k === 'web') list = SITES.filter(g => has(g.tp)).map(g => `<p class="zrx-g tn-${toneOf(g.tp)}">${g.g}</p>${g.items.map(s => `<a class="zrx-item tn-${toneOf(g.tp)}" href="${s.u}" target="_blank" rel="noopener"><span class="lead" style="background:${s.c}">${ic('globe', 16, 2)}</span><span class="tx"><b>${esc(s.n)}</b><small>${host(s.u)}</small></span>${ic('ext', 15, 2.2)}</a>`).join('')}`).join('');
     if (k === 'saved') { const sv = S.resSaved; list = [...JOURNAL.filter(j => sv.includes(j.id)).map(art), ...PODS.map((p, i) => [p, i]).filter(([, i]) => sv.includes('p' + i)).map(pod), ...BOOKS.map((b, i) => [b, i]).filter(([, i]) => sv.includes('b' + i)).map(book)].join(''); }
     setLay(RX.l, `<h1 class="zcm-lh">${name}</h1>
       ${k === 'saved' ? '' : `<div class="zrx-chips">${RX_TOP.map(([t, l]) => `<button class="${T === t ? 'on' : ''}" data-act="zrx-topic" data-t="${t}">${l}</button>`).join('')}</div>`}
@@ -574,10 +574,28 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     const x = kind === 'pod' ? PODS[i] : BOOKS[i], id = (kind === 'pod' ? 'p' : 'b') + i, sv = S.resSaved.includes(id), q = encodeURIComponent(x.n);
     const main = kind === 'pod' ? `<a class="btn" href="https://podcasts.apple.com/us/search?term=${q}" target="_blank" rel="noopener">${ic('play', 16, 2.4)} Listen</a><a class="zrx-alt" href="https://open.spotify.com/search/${q}/podcasts" target="_blank" rel="noopener">Or open in Spotify</a>`
       : x.u ? `<a class="btn" href="${x.u}" target="_blank" rel="noopener">Read free</a>` : `<button class="btn" data-act="zrc-reading" data-id="${id}">${S.reading.includes(id) ? ic('check', 16, 2.6) + ' Reading now' : 'I’m reading this'}</button>`;
-    return `<div class="zrx-d"><span class="cov ${kind === 'book' ? 'bk' : ''}" style="background:${x.c}">${kind === 'pod' ? ic('headph', 34, 1.6) : esc(x.n)}</span>
+    return `<div class="zrx-d"><span class="cov ${kind === 'book' ? 'bk' : ''}"${kind === 'book' ? '' : ` style="background:${x.c}"`}>${kind === 'pod' ? ic('headph', 34, 1.6) : kind === 'book' ? cover(x, i) : esc(x.n)}</span>
       <h1>${esc(x.n)}</h1><small>${esc(kind === 'pod' ? x.h : `${x.a} · ${x.y}`)}</small><p>${esc(x.w)}</p>${x.warn ? `<span class="warn">${x.warn}</span>` : ''}</div>
       <div class="zcm-fill"></div>${main}<button class="zrx-save ${sv ? 'on' : ''}" data-act="zrc-save" data-id="${id}">${ic('mark', 16, 2.2)}${sv ? 'Saved' : 'Save'}</button>`;
   }
+  /* dummy book cover: spine, gradient, a simple motif and abstract title lines (no real cover art is used) */
+  /* one soft colour per category, so the list reads by topic */
+  const TONE = { moud: 'blue', safety: 'coral', health: 'sage', recovery: 'gold', rel: 'blush', family: 'blush', friends: 'blush', faith: 'lav', work: 'sky', housing: 'sand', legal: 'slate', mind: 'lav' };
+  const toneOf = tp => TONE[Array.isArray(tp) ? tp[0] : tp] || 'blue';
+  const shade = (hex, f) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255, m = c => Math.max(0, Math.min(255, Math.round(c + (f > 0 ? (255 - c) * f : c * f)))); return '#' + [m(r), m(g), m(b)].map(v => v.toString(16).padStart(2, '0')).join(''); };
+  const cover = (b, i) => {
+    const c = b.c, hi = shade(c, .28), lo = shade(c, -.28), id = 'bc' + i, v = i % 5;
+    const motif = [
+      `<circle cx="60" cy="62" r="26" fill="#fff" opacity=".22"/><circle cx="60" cy="62" r="15" fill="#fff" opacity=".3"/>`,
+      `<path d="M10 100q25-30 50-6t50-6V140H10z" fill="#fff" opacity=".22"/><path d="M10 112q25-24 50-4t50-4V140H10z" fill="#fff" opacity=".18"/>`,
+      `<path d="M60 36l6 18h19l-15 11 6 18-16-11-16 11 6-18-15-11h19z" fill="#fff" opacity=".3"/>`,
+      `<rect x="26" y="40" width="68" height="3" fill="#fff" opacity=".35"/><rect x="26" y="50" width="48" height="3" fill="#fff" opacity=".25"/><rect x="26" y="60" width="58" height="3" fill="#fff" opacity=".2"/><circle cx="84" cy="96" r="14" fill="#fff" opacity=".22"/>`,
+      `<path d="M60 30c14 12 20 26 0 52c-20-26-14-40 0-52z" fill="#fff" opacity=".28"/><path d="M60 82v22" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>`
+    ][v];
+    return `<svg viewBox="0 0 120 168" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${hi}"/><stop offset="1" stop-color="${lo}"/></linearGradient></defs>
+      <rect width="120" height="168" fill="url(#${id})"/><rect width="10" height="168" fill="#000" opacity=".2"/><rect x="10" width="2" height="168" fill="#fff" opacity=".18"/>${motif}
+      <rect x="24" y="116" width="72" height="9" rx="3" fill="#fff" opacity=".88"/><rect x="24" y="130" width="50" height="6" rx="3" fill="#fff" opacity=".55"/><rect x="24" y="148" width="34" height="4" rx="2" fill="#fff" opacity=".4"/></svg>`;
+  };
   function rxDetail(kind, i) { const l = cmLayer(rxDetailHTML(kind, i), '', ''); l._rx = { kind, i }; }
   Object.assign(ACT, {
     'zrx-open': el => rxOpen(el.dataset.k),
