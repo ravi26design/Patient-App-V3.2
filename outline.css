@@ -35,3 +35,6 @@
 :root{--page-bg:linear-gradient(180deg,#E7EFF7 0%,#ECEFF6 45%,#EEEBF4 100%)}
 .phone,.view,.layer,.setup,.onb2,#v-home,.layer.rd-layer{background:var(--page-bg)!important}
 .md-layer,.zcm-lay{background:var(--page-bg)!important}
+
+/* Home top bar: same colour as the page background */
+#v-home .oh-top{background:#E8EFF7!important}

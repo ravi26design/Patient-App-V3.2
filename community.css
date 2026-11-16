@@ -909,3 +909,7 @@
 .zrm-quick .zq-support{border-color:#F6DAD4!important}
 .zrm-quick .zq-question{border-color:#D6E5F4!important}
 .zrm-quick .zq-grat{border-color:#F3E5BD!important}
+
+/* Meetings tile: a deeper blue so it no longer blends into the page background */
+.zrm-t3.zg-blue{background:linear-gradient(160deg,#C4DAF2 0%,#D6E6F7 100%)!important;border:1px solid #AAC8E8!important}
+.zrm-t3.zg-blue .zri{color:#3F6E99!important;background:#fff!important}
