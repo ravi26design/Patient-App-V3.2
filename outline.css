@@ -78,3 +78,6 @@
 .pline{height:5px!important;background:#D3DDE8!important}
 .pline>i{height:5px!important;background:#4F82B0!important}
 .choice,.choice.sel{background:#fff!important}
+
+/* check-in: slider cards and substance options are solid white */
+.scard,.sub,.sub.sel{background:#fff!important}
