@@ -73,3 +73,8 @@
 /* Settings: selected options use the primary CTA colour, no green */
 .st-lang button{box-shadow:none!important;border:1.5px solid #D6E5F4!important}
 .st-lang button.on{background:#6C9FCC!important;border-color:#6C9FCC!important;color:#fff!important}
+
+/* check-in: a clearer progress line and white option cards */
+.pline{height:5px!important;background:#D3DDE8!important}
+.pline>i{height:5px!important;background:#4F82B0!important}
+.choice,.choice.sel{background:#fff!important}
