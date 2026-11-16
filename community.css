@@ -688,3 +688,77 @@
 .zc-types{scroll-snap-type:none!important;scroll-padding-left:20px}.zc-tp{scroll-snap-align:none!important}
 .zc-note{background:transparent!important;padding:2px 4px!important;border:0!important}
 .zrm-feedcard{background:#fff!important}.zrm-fc-ic{background:#E6EFF9!important}
+
+/* Events: light colour fills, in line with Meetings and 1:1 Support */
+.zrm-hero2.zev-hero{background:linear-gradient(155deg,#E1EEE4 0%,#F2F8F3 75%,#fff 140%)!important;border:1.5px solid rgba(110,154,114,.32)!important}
+.zev-hero .zev-pill{background:#fff!important;color:#3F6B4E!important}
+.zev-hero .zri,.zev-hero .go{background:#fff!important;color:#4E8A60!important}
+.zev-hero b{font-size:24px!important}
+.zev-step{background:#fff!important;border:1.5px solid rgba(110,154,114,.35)!important;color:#3F6B4E!important}
+.zev-step.on{background:#E3F0E6!important}
+.zev-card.zg-blue{background:linear-gradient(170deg,#E6EFF9 0%,#fff 130%)!important;border-color:rgba(108,159,204,.32)!important}
+.zev-card.zg-coral{background:linear-gradient(170deg,#FBEBE7 0%,#fff 130%)!important;border-color:rgba(201,128,118,.32)!important}
+.zev-card.zg-sage{background:linear-gradient(170deg,#E8F1E9 0%,#fff 130%)!important;border-color:rgba(110,154,114,.32)!important}
+.zev-card.zg-gold{background:linear-gradient(170deg,#F9F1DC 0%,#fff 130%)!important;border-color:rgba(196,160,92,.38)!important}
+.zev-card .zri{background:#fff!important}
+.zev-card.zg-coral .zri{color:#A9564D!important}.zev-card.zg-sage .zri{color:#4E6E54!important}.zev-card.zg-gold .zri{color:#8E6620!important}
+.zev-card.zg-coral .zev-go{background:#C98076!important}.zev-card.zg-sage .zev-go{background:#7FA488!important}.zev-card.zg-gold .zev-go{background:#C8A24E!important}
+.zev-row{background:linear-gradient(160deg,#FBEBE7 0%,#fff 130%)!important;border-color:rgba(201,128,118,.32)!important}
+.zev-row .zri{background:#fff!important;color:#A9564D!important}
+.zev-day:nth-child(4n+1){background:linear-gradient(170deg,#F9F1DC,#fff 130%)!important}
+.zev-day:nth-child(4n+2){background:linear-gradient(170deg,#E6EFF9,#fff 130%)!important}
+.zev-day:nth-child(4n+3){background:linear-gradient(170deg,#E8F1E9,#fff 130%)!important}
+.zev-day .dt{background:#fff!important}
+
+/* Events: neat, flat and colourful */
+.zrm-hero2.zev-hero{background:linear-gradient(150deg,#CDE5D5 0%,#E6F2E9 100%)!important;border:0!important;border-radius:24px!important}
+.zev-hero b{color:#1F3A2B!important}.zev-hero small{color:#3F6B4E!important}
+.zev-step{border-radius:24px!important;height:48px!important;background:#fff!important;border:1.5px solid #B9D8C2!important}
+.zev-grid{gap:12px!important}
+.zev-card{border-radius:22px!important;padding:16px!important;gap:6px!important}
+.zev-card.zg-blue{background:#DCEAF8!important;border:0!important}
+.zev-card.zg-coral{background:#F9DED7!important;border:0!important}
+.zev-card.zg-sage{background:#DCEBDF!important;border:0!important}
+.zev-card.zg-gold{background:#F6E8C4!important;border:0!important}
+.zev-card b{font-size:16px!important;color:#26323D!important}
+.zev-card small{color:#52606E!important;margin-bottom:14px!important}
+.zev-card .zri{width:44px!important;height:44px!important;border-radius:14px!important;background:#fff!important}
+.zev-card.zg-blue .zri{color:#3F6E99!important}
+.zev-card.zg-blue .zev-go{background:#5E93C4!important}
+.zev-card.zg-coral .zev-go{background:#C98076!important}
+.zev-card.zg-sage .zev-go{background:#6FA079!important}
+.zev-card.zg-gold .zev-go{background:#BF9A45!important}
+.zev-go{height:40px!important;border-radius:20px!important;font-size:13.5px!important}
+.zev-row{background:#F9DED7!important;border:0!important;border-radius:22px!important}
+.zev-days{gap:12px!important}
+.zev-day{border:0!important;border-radius:22px!important;flex:0 0 160px!important}
+.zev-day:nth-child(4n+1){background:#F6E8C4!important}
+.zev-day:nth-child(4n+2){background:#DCEAF8!important}
+.zev-day:nth-child(4n+3){background:#DCEBDF!important}
+.zev-day .dt{background:#fff!important;color:#26323D!important}
+.zev-tip{background:#DCEAF8!important;border:0!important;border-radius:22px!important}
+.zrc-lbl{margin:26px 2px 12px!important}
+
+/* Events hero: more polish */
+.zrm-hero2.zev-hero{position:relative;overflow:hidden;padding:20px 18px 20px!important;background:linear-gradient(150deg,#BFDFC9 0%,#DDEEE2 55%,#EEF7F0 100%)!important}
+.zev-hero::before{content:'';position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.35);pointer-events:none}
+.zev-hero::after{content:'';position:absolute;right:46px;bottom:-60px;width:130px;height:130px;border-radius:50%;background:rgba(111,160,121,.16);pointer-events:none}
+.zev-hero>*{position:relative;z-index:1}
+.zev-hero .zri{width:60px!important;height:60px!important;border-radius:20px!important;background:#fff!important;color:#3F7A52!important;box-shadow:0 0 0 6px rgba(255,255,255,.4)!important}
+.zev-hero .zev-pill{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px!important;font:800 12.5px var(--f-ui)!important;background:#fff!important;color:#2F6B45!important}
+.zev-hero .zev-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#3FA564}
+.zev-hero .go{background:#2F6B45!important;color:#fff!important;width:44px!important;height:44px!important}
+.zev-hero b{font-size:27px!important;line-height:1.15!important;margin-top:16px!important;color:#1B3626!important}
+.zev-hero small{font:500 15px/1.4 var(--f-body)!important;color:#35644A!important;margin-top:6px!important}
+
+/* Events: light outline on every card */
+.zrm-hero2.zev-hero{border:1.5px solid rgba(111,160,121,.38)!important}
+.zev-card.zg-blue{border:1.5px solid rgba(108,159,204,.4)!important}
+.zev-card.zg-coral{border:1.5px solid rgba(201,128,118,.4)!important}
+.zev-card.zg-sage{border:1.5px solid rgba(111,160,121,.4)!important}
+.zev-card.zg-gold{border:1.5px solid rgba(196,160,92,.45)!important}
+.zev-row{border:1.5px solid rgba(201,128,118,.4)!important}
+.zev-day:nth-child(4n+1){border:1.5px solid rgba(196,160,92,.45)!important}
+.zev-day:nth-child(4n+2){border:1.5px solid rgba(108,159,204,.4)!important}
+.zev-day:nth-child(4n+3){border:1.5px solid rgba(111,160,121,.4)!important}
+.zev-tip{border:1.5px solid rgba(108,159,204,.4)!important}

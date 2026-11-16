@@ -454,8 +454,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       <a class="zev-row" href="https://www.volunteermatch.org/" target="_blank" rel="noopener"><span class="zri zg-coral">${ic('hand', 22, 1.8)}</span><span class="tx"><b>Volunteer near you</b><small>Helping others is one of the strongest supports in recovery</small></span>${ic('ext', 16, 2.2)}</a>
       <p class="zrc-lbl">Days to mark this year</p>
       <div class="zev-days">${DAYS.map(([d, n, x, u]) => `<a class="zev-day" href="${u}" target="_blank" rel="noopener"><span class="dt">${d}</span><b>${n}</b><small>${x}</small></a>`).join('')}</div>
-      <div class="zev-tip"><span class="zri">${ic('sms', 20, 1.9)}</span><div><b>Going alone is hard</b><small>Ask someone to come with you, or tell them where you’ll be.</small></div><a class="zev-txt" href="sms:">Text someone</a></div>
-      <p class="zev-note">${ic('shield', 13, 2)}Check that an event is alcohol-free before you go. Leaving early is always okay.</p>`;
+      <div class="zev-tip"><span class="zri">${ic('sms', 20, 1.9)}</span><div><b>Going alone is hard</b><small>Ask someone to come with you, or tell them where you’ll be.</small></div><a class="zev-txt" href="sms:">Text someone</a></div>`;
   }
   function roomHTML() { return feedHTML(); }
   /* Meetings, 1:1 Support and Events open as their own screens over the Room */
