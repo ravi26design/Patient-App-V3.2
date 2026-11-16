@@ -222,7 +222,33 @@ function renderCI() {
   renderScore(root);
 }
 /* a short "preparing your report" moment between the last question and the result */
+/* Option B: a machine-learning "analysing" screen (open with ?prep=2) */
+function prepScreenB(root) {
+  const sig = ['Cravings', 'Stress', 'Mood', 'Sleep', 'Pain', 'Energy', 'Confidence'];
+  const layers = [[40, 90, 140, 190], [25, 65, 105, 145, 185], [65, 115, 165], [90, 140]], xs = [26, 96, 164, 234];
+  const lines = []; layers.forEach((a, li) => { if (li < layers.length - 1) a.forEach((y1, i) => layers[li + 1].forEach((y2, j) => lines.push(`<line x1="${xs[li]}" y1="${y1}" x2="${xs[li + 1]}" y2="${y2}" style="--d:${((i * 3 + j * 5 + li * 2) % 9) * .3}s"/>`))); });
+  const nodes = layers.map((a, li) => a.map((y, i) => `<circle cx="${xs[li]}" cy="${y}" r="${li === 0 || li === layers.length - 1 ? 7 : 5.5}" style="--d:${(li * 1.1 + i * .35).toFixed(2)}s"/>`).join('')).join('');
+  root.innerHTML = `<div class="prepb"><span class="pb-tag"><i></i>Rudra Insights is analysing</span>
+    <div class="pb-net"><svg viewBox="0 0 260 230" aria-hidden="true"><g class="pb-lines">${lines.join('')}</g><g class="pb-nodes">${nodes}</g><rect class="pb-scan" x="0" y="0" width="38" height="230"/></svg></div>
+    <h1>Analysing your check-in</h1><p class="pb-sub" id="pb-stage">Reading your 7 signals</p>
+    <div class="pb-meter"><div class="pb-bar"><i id="pb-bar"></i></div><b id="pb-pct">0%</b></div>
+    <div class="pb-chips">${sig.map((t, i) => `<span style="--i:${i}">${t}</span>`).join('')}</div>
+    <div class="pb-sk"><i></i><i></i><i></i></div></div>`;
+  CI.layer && (CI.layer.scrollTop = 0);
+  const lay = CI.layer, stages = ['Reading your 7 signals', 'Looking for patterns', 'Comparing with your recent days', 'Weighing what matters most', 'Estimating your Recovery Score', 'Writing your summary'];
+  const t0 = Date.now(), total = 12000, bar = $('#pb-bar', root), pct = $('#pb-pct', root), stg = $('#pb-stage', root), chips = $$('.pb-chips span', root);
+  const tick = setInterval(() => {
+    if (!CI || CI.layer !== lay || !root.isConnected) return clearInterval(tick);
+    const p = Math.min(1, (Date.now() - t0) / total), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    bar.style.width = (e * 100).toFixed(1) + '%'; pct.textContent = Math.round(e * 100) + '%';
+    stg.textContent = stages[Math.min(stages.length - 1, Math.floor(p * stages.length))];
+    chips.forEach((c, i) => c.classList.toggle('on', p > (i + 1) / (chips.length + 1)));
+    if (p >= 1) clearInterval(tick);
+  }, 120);
+  setTimeout(() => { if (CI && CI.layer === lay && CI.prepared && !CI.saved) renderScore(root); }, total + 400);
+}
 function prepScreen(root) {
+  if (new URLSearchParams(location.search).get('prep') === '2') return prepScreenB(root);
   const steps = ['Reviewing your answers', 'Calculating your Recovery Score', 'Comparing with your recent days', 'Spotting what is going well', 'Writing your summary', 'Choosing today’s activity'];
   root.innerHTML = `<div class="prep"><div class="prep-orb"><svg viewBox="0 0 140 140" aria-hidden="true"><circle class="po-bg" cx="70" cy="70" r="58"/><circle class="po-ring" cx="70" cy="70" r="58"/></svg><span class="po-core">${ic('pulse', 38, 1.8)}</span><i class="po-dot d1"></i><i class="po-dot d2"></i><i class="po-dot d3"></i></div>
     <h1>Preparing your daily check-in report</h1><p>Just a moment while we put it together for you.</p>

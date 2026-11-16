@@ -709,3 +709,31 @@ html.gated .fx-x{display:none!important}
 /* check-in card: white background */
 .rd-welcome .rd-ci-art{background:#fff!important}
 .rd-welcome .rd-ci-art .rd-fl{background:#fff!important;border:1px solid #E6EDF4}
+
+/* Option B: machine-learning "analysing" screen */
+.prepb{min-height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:calc(54px + var(--sat,0px)) 24px calc(30px + var(--sab,0px));background:radial-gradient(70% 36% at 50% 30%,#E6EFFA 0%,rgba(230,239,250,0) 72%)}
+.pb-tag{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px;border-radius:16px;background:#fff;border:1px solid #D6E5F4;font:700 13px var(--f-ui,Inter,sans-serif);color:#3F6E99}
+.pb-tag i{width:8px;height:8px;border-radius:50%;background:#6C9FCC;animation:pbPulse 1.2s ease-in-out infinite}
+.pb-net{width:100%;max-width:300px;margin:18px 0 6px}
+.pb-net svg{width:100%;height:auto;display:block;overflow:visible}
+.pb-lines line{stroke:#BFD3EA;stroke-width:1.1;stroke-dasharray:3 5;animation:pbFlow 2.4s linear infinite;animation-delay:var(--d)}
+.pb-nodes circle{fill:#fff;stroke:#6C9FCC;stroke-width:2;animation:pbNode 2.4s ease-in-out infinite;animation-delay:var(--d);transform-box:fill-box;transform-origin:center}
+.pb-scan{fill:rgba(108,159,204,.14);animation:pbScan 3.2s ease-in-out infinite}
+.prepb h1{font-family:'Lora',Georgia,serif;font-size:26px;line-height:1.2;font-weight:500;color:#26323D;margin:6px 0 0}
+.pb-sub{font-size:15.5px;color:#6B7785;margin:8px 0 18px;min-height:22px}
+.pb-meter{display:flex;align-items:center;gap:12px;width:100%;max-width:300px}
+.pb-bar{flex:1;height:8px;border-radius:4px;background:#D3DDE8;overflow:hidden}
+.pb-bar i{display:block;height:100%;width:0;border-radius:4px;background:#4F82B0}
+.pb-meter b{min-width:44px;text-align:right;font:800 15px var(--f-ui,Inter,sans-serif);color:#3F6E99;font-variant-numeric:tabular-nums}
+.pb-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:20px 0 18px;max-width:320px}
+.pb-chips span{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:15px;background:#fff;border:1px solid #DCE5EE;font:700 12.5px var(--f-ui,Inter,sans-serif);color:#9AA5B1;transition:all .35s}
+.pb-chips span.on{background:#E3EEF9;border-color:#BFD7EE;color:#3F6E99}
+.pb-sk{width:100%;max-width:320px;display:grid;gap:10px}
+.pb-sk i{display:block;height:54px;border-radius:16px;background:linear-gradient(100deg,#fff 30%,#EEF3F8 50%,#fff 70%);background-size:220% 100%;border:1px solid #E3EAF2;animation:pbShimmer 1.6s linear infinite}
+.pb-sk i:nth-child(2){animation-delay:.2s;width:88%}.pb-sk i:nth-child(3){animation-delay:.4s;width:72%}
+@keyframes pbFlow{to{stroke-dashoffset:-16}}
+@keyframes pbNode{0%,100%{transform:scale(1);fill:#fff}50%{transform:scale(1.35);fill:#DCEAF8}}
+@keyframes pbScan{0%{transform:translateX(-40px);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(262px);opacity:0}}
+@keyframes pbPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes pbShimmer{to{background-position:-120% 0}}
+@media (prefers-reduced-motion:reduce){.pb-lines line,.pb-nodes circle,.pb-scan,.pb-tag i,.pb-sk i{animation:none}}
