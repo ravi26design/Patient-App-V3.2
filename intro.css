@@ -36,3 +36,6 @@ html[data-theme="dark"] .phone.on-intro>*{filter:none}
 .intro-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#E58E80;color:#fff;margin:0 0 16px;box-shadow:0 8px 20px rgba(229,142,128,.35)}
 .intro-shade{background:linear-gradient(180deg,rgba(18,23,26,.3) 0%,rgba(18,23,26,0) 16%)!important}
 #v-onb .intro .intro-foot .btn.intro-btn{background:#fff!important;color:#23282F!important}
+.intro-top{justify-content:space-between}
+.intro-skip{height:38px;padding:0 18px;border-radius:19px;border:0;background:rgba(255,255,255,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;font:400 15px/1 inherit;font-family:inherit;cursor:pointer}
+.intro-copy h1{font-size:32px!important;line-height:1.12!important}

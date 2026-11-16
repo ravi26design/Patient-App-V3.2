@@ -219,7 +219,7 @@ function renderIntro() {
   $('#v-onb').innerHTML = `<div class="intro">
     <video class="intro-vid" src="assets/intro.mp4?v=2" poster="assets/intro-poster.jpg?v=2" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
     <div class="intro-shade" aria-hidden="true"></div>
-    <div class="intro-top"><span class="intro-word">Rudra</span></div>
+    <div class="intro-top"><span class="intro-word">Rudra</span><button class="intro-skip" data-act="onb-skip">Skip</button></div>
     <div class="intro-copy"><span class="intro-ic">${ic('heart', 24, 1.9)}</span><h1>Meet Rudra, your recovery companion</h1>
       <p>Support for every day of your recovery.</p></div>
     <div class="intro-foot"><button class="btn intro-btn" data-act="intro-start">Get started ${ic('next', 16, 2.4)}</button></div></div>`;
