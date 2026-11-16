@@ -1,3 +1,22 @@
+/* Remember the tab the user is on, so a refresh brings them back to the same page */
+(function () {
+  const K = 'rudra_tab_v1', TABS = ['home', 'tools', 'community', 'progress', 'wallet', 'me'];
+  let saved = null; try { saved = localStorage.getItem(K); } catch (e) { }   // read before the app's own startup go('home') overwrites it
+  const _go = go;
+  go = function (t) {
+    const r = _go.apply(this, arguments);
+    try { if (TABS.includes(t)) localStorage.setItem(K, t); } catch (e) { }
+    return r;
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      if (new URLSearchParams(location.search).get('flow') || !S.onboarded) return;
+      const t = saved;
+      if (t && TABS.includes(t) && t !== 'home' && typeof tab !== 'undefined' && tab !== t) go(t);
+    } catch (e) { }
+  });
+})();
+
 /* Flow links: open index.html?flow=<name> to jump straight to a screen (used by flows.html).
    Loads last; runs after the normal boot in tools.js. */
 document.addEventListener('DOMContentLoaded', () => {
