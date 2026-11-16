@@ -737,3 +737,4 @@ html.gated .fx-x{display:none!important}
 @keyframes pbPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 @keyframes pbShimmer{to{background-position:-120% 0}}
 @media (prefers-reduced-motion:reduce){.pb-lines line,.pb-nodes circle,.pb-scan,.pb-tag i,.pb-sk i{animation:none}}
+.lc-exit{top:calc(40px + var(--sat,0px))!important}
