@@ -260,9 +260,9 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       <h1>${esc(j.t)}</h1><p class="dek">${esc(j.dek)}</p>
       <div class="zrd-take"><small>The short version</small><ul>${j.take.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>
       <div class="zrd-body">${j.body.map(p => `<p>${esc(p)}</p>`).join('')}</div>
-      <div class="zrd-srcs"><small>Sources</small>${j.srcs.filter(hasLink).map(s => `<a href="${LK[s].u}" target="_blank" rel="noopener"><div>${esc(LK[s].t)}<span>${esc(LK[s].s)}</span></div>${ic('ext', 16, 1.8)}</a>`).join('')}
-      <p class="zcm-src">Written by Rudra for people in recovery. General information, not medical advice. Talk with your care team about your own treatment.</p></div>
-      <div class="zrd-bar"><button class="btn ${on ? '' : 'ghost'}" data-act="zrc-save" data-id="${id}" data-in="1">${on ? 'Saved' : 'Save'}</button><button class="btn" data-act="close-layer">Done</button></div></article>`, '', 'Article');
+      <div class="zrd-srcs"><small>Sources</small>${j.srcs.filter(hasLink).map(s => `<a href="${LK[s].u}" target="_blank" rel="noopener"><i class="zsrc-i">${ic('shield', 18, 1.9)}</i><div>${esc(LK[s].t)}<span>${esc(LK[s].s)}</span></div>${ic('ext', 16, 1.8)}</a>`).join('')}
+      <p class="zcm-src">${ic('info', 16, 2)}<span>Written by Rudra for people in recovery. General information, not medical advice. Talk with your care team about your own treatment.</span></p></div>
+      <div class="zrd-bar"><button class="btn zrd-save ${on ? 'on' : ''}" data-act="zrc-save" data-id="${id}" data-in="1">${ic('mark', 18, 2)}${on ? 'Saved' : 'Save'}</button><button class="btn" data-act="close-layer">Done</button></div></article>`, '', 'Article');
   }
 
   /* ═════════ v47: COMMUNITY ROOM ═════════
@@ -567,7 +567,9 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     if (k === 'saved') { const sv = S.resSaved; list = [...JOURNAL.filter(j => sv.includes(j.id)).map(art), ...PODS.map((p, i) => [p, i]).filter(([, i]) => sv.includes('p' + i)).map(pod), ...BOOKS.map((b, i) => [b, i]).filter(([, i]) => sv.includes('b' + i)).map(book)].join(''); }
     setLay(RX.l, `<h1 class="zcm-lh">${name}</h1>
       ${k === 'saved' ? '' : `<div class="zrx-chips">${RX_TOP.map(([t, l]) => `<button class="${T === t ? 'on' : ''}" data-act="zrx-topic" data-t="${t}">${l}</button>`).join('')}</div>`}
-      <div class="zrx-list">${list || `<div class="zv-empty">${ic(k === 'saved' ? 'mark' : 'search', 32, 1.6)}<b>${k === 'saved' ? 'Nothing saved yet' : 'Nothing here yet'}</b>${k === 'saved' ? '<span>Tap Save on anything you like.</span>' : '<span>Try All.</span>'}</div>`}</div>`);
+      <div class="zrx-list">${list || `<div class="zv-empty ${k === 'saved' ? 'sv' : ''}">${k === 'saved'
+        ? `<span class="zv-art" aria-hidden="true"><svg viewBox="0 0 160 120"><circle cx="80" cy="60" r="52" fill="#E4DDF3"/><circle cx="80" cy="60" r="36" fill="#F1EDFA"/><path d="M56 30h30a6 6 0 0 1 6 6v54l-21-13-21 13V36a6 6 0 0 1 6-6z" fill="#fff" stroke="#8E7CC4" stroke-width="3.5" stroke-linejoin="round"/><path d="M72 22h30a6 6 0 0 1 6 6v54" fill="none" stroke="#B8AADD" stroke-width="3.5" stroke-linecap="round"/><path d="M124 34l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#E0B454"/><circle cx="34" cy="84" r="4" fill="#F0A596"/><circle cx="130" cy="92" r="3" fill="#8DB89A"/></svg></span>`
+        : ic('search', 32, 1.6)}<b>${k === 'saved' ? 'Nothing saved yet' : 'Nothing here yet'}</b>${k === 'saved' ? '<span class="zv-sub">Tap the bookmark on any article, podcast, book or website and it will wait for you here.</span>' : '<span>Try All.</span>'}${k === 'saved' ? '<button class="btn zv-go" data-act="zrx-open" data-k="journal">Browse articles</button>' : ''}</div>`}</div>`);
     const on = $('.zrx-chips .on', RX.l); if (on) on.parentElement.scrollLeft = Math.max(0, on.offsetLeft - 40);
   }
   function rxDetailHTML(kind, i) {
