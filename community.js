@@ -393,10 +393,10 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       ['https://findtreatment.gov/', 'search', 'blue', 'Treatment programs', 'FindTreatment.gov'],
       ['https://warmline.org/', 'phone', 'sage', 'Peer warmlines', 'Call a peer by state']];
     const TALK = [['tel:18006624357', 'phone', 'SAMHSA Helpline', '24/7 · free', 'Call'], ['tel:18009506264', 'chat', 'NAMI HelpLine', 'Weekdays', 'Call'], ['sms:62640?&body=helpline', 'sms', 'Text NAMI', '“helpline” to 62640', 'Text']];
-    return `<section class="zp1-hero"><svg class="zp1-art" viewBox="0 0 160 120" aria-hidden="true"><path d="M8 104c34-16 60-16 86-6s44 8 58-4" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 11" opacity=".75"/>
-        <circle cx="62" cy="30" r="13" fill="#fff" opacity=".95"/><rect x="47" y="47" width="30" height="44" rx="15" fill="#fff" opacity=".95"/>
-        <circle cx="104" cy="36" r="11" fill="#fff" opacity=".7"/><rect x="91" y="51" width="26" height="38" rx="13" fill="#fff" opacity=".7"/>
-        <path d="M77 62c5 2 9 2 14 0" stroke="#B5635A" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+    return `<section class="zp1-hero"><svg class="zp1-art" viewBox="0 0 160 120" aria-hidden="true"><circle cx="104" cy="58" r="50" fill="#D6E6F6"/><circle cx="104" cy="58" r="34" fill="#E6F0FA"/><path d="M10 106c32-14 58-14 84-4s44 8 58-4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10" opacity=".9"/>
+        <circle cx="76" cy="46" r="12" fill="#fff"/><rect x="61" y="62" width="30" height="44" rx="15" fill="#fff"/>
+        <circle cx="116" cy="52" r="10.5" fill="#B9D2EA"/><rect x="103" y="66" width="26" height="40" rx="13" fill="#B9D2EA"/>
+        <path d="M96 38c-7-4-10-8-10-11a5 5 0 0 1 10-1a5 5 0 0 1 10 1c0 3-3 7-10 11z" fill="#E58E80"/></svg>
         <h2>Someone who’s been there</h2><p>A peer specialist walks with you, one-on-one.</p>
         <div class="zp1-tags"><span>${ic('check', 12, 3)}Lived experience</span><span>${ic('check', 12, 3)}Often free</span><span>${ic('check', 12, 3)}Trained</span></div>
         <a class="zp1-cta" href="${ARCO_URL}" target="_blank" rel="noopener">${ic('pin', 18, 2)}Find support near me${ic('ext', 15, 2.2)}</a></section>
@@ -411,13 +411,13 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       <div class="zp1-find">${FIND.map(([u, i, c, n, d]) => `<a class="zg-${c}" href="${u}" target="_blank" rel="noopener"><span class="zri">${ic(i, 22, 1.9)}</span><b>${n}</b><small>${d}</small><i>${ic('ext', 13, 2.4)}</i></a>`).join('')}</div>
 
       <div class="zp1-ask"><span class="zri">${ic('chat', 18, 2)}</span><div><small>Ask your clinic or insurance</small><q>Do you have a peer recovery specialist I can meet with?</q></div>
-        <button data-act="zps-copy" aria-label="Copy this question">Copy</button></div>
+        <button data-act="zps-copy" aria-label="Copy this question"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg>Copy question</button></div>
       <a class="zp1-verify" href="https://internationalcredentialing.org/" target="_blank" rel="noopener">${ic('shield', 16, 2)}Check someone’s peer certification${ic('ext', 13, 2.4)}</a>
 
       <h3 class="zp1-h">Talk to someone today</h3>
-      <div class="zp1-talk">${TALK.map(([u, i, n, d, cta]) => `<a href="${u}"><span class="zri">${ic(i, 18, 2)}</span><b>${n}</b><small>${d}</small><em>${cta}</em></a>`).join('')}</div>
+      <div class="zp1-talk">${TALK.map(([u, i, n, d, cta], k) => `<a class="zt-${k}" href="${u}"><span class="zri">${ic(i, 18, 2)}</span><b>${n}</b><small>${d}</small><em>${cta}</em></a>`).join('')}</div>
 
-      <div class="zp1-sos"><b>${ic('life', 16, 2)}In crisis?</b><a href="tel:988">Call 988</a><a href="sms:988">Text 988</a><a href="tel:911">911</a></div>
+      <div class="zp1-sos"><b>${ic('life', 18, 2)}In crisis?</b><small>Free, private and open 24/7. You do not have to wait.</small><a class="zs-main" href="tel:988">Call 988</a><a href="sms:988">Text 988</a><a href="tel:911">911</a></div>
       <p class="zev-note">${ic('info', 13, 2)}Peer specialists aren’t therapists or doctors. Ask your care team about medication.</p>`;
   }
   function eventsHTML() {
