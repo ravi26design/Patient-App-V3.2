@@ -32,12 +32,12 @@
 .rr-side{border:0!important;border-left:1px solid #E0EAF4!important}
 
 /* page background, a step deeper so the white cards stand out */
-:root{--page-bg:linear-gradient(180deg,#F7F3E6 0%,#F8F5EB 45%,#F6F3EC 100%)}
+:root{--page-bg:linear-gradient(180deg,#FCF1EC 0%,#F7F6F3 300px,#F7F6F3 100%)}
 .phone,.view,.layer,.setup,.onb2,#v-home,.layer.rd-layer{background:var(--page-bg)!important}
 .md-layer,.zcm-lay{background:var(--page-bg)!important}
 
 /* Home top bar: same colour as the page background */
-#v-home .oh-top{background:#F7F3E7!important}
+#v-home .oh-top{background:#FBF1EC!important}
 
 /* Rewards: very light outline on every card */
 .rw-t.g{border:1px solid #D3E6D8!important}
