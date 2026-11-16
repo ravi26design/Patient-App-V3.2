@@ -204,13 +204,13 @@ const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good n
 
 /* ═════════ ONBOARDING — "How to Play" style cards ═════════ */
 const ONB = [
-  { t: 'Your companion between visits', p: 'Recovery happens every day, not just at the clinic. Rudra is with you in between, so you never have to go it alone.' },
-  { t: 'Here for you and your people', p: 'Rudra works alongside your care team. Your information stays private, and you decide what’s shared.' },
-  { t: 'Check in, in about a minute', p: 'A few quick questions each day help you spot patterns early. Honest answers help most - there are no wrong ones.' },
-  { t: 'One small step a day', p: 'Based on your check-in, Rudra picks a short activity for you, like breathing, grounding or a plan for cravings.' },
-  { t: 'Help when it’s hard', p: 'Tap Help any time for crisis lines, tools to ride out a craving, or a quick way to reach your people.' },
-  { t: 'Earn real rewards', p: 'Every check-in and activity earns real money, loaded onto your Rudra card each week. Showing up counts.' },
-  { t: 'Why we do this', p: 'Steady, everyday support helps recovery last. We built Rudra so your effort is noticed and rewarded, one day at a time.' }
+  { t: 'Check in, in about two minutes', p: 'No right answers, just honest ones. You earn $1.00 every time, whatever you answer.' },
+  { t: 'Your score, made simple', p: 'See your Recovery Health score and how it’s trending. Tap Listen or Read for what it means.' },
+  { t: 'Insights made for you', p: 'I learn your usual and point out what’s changing. Every week, a short summary of how it went.' },
+  { t: 'Help the moment a craving hits', p: 'Tap the red Craving button anytime. Get tools matched to what you’re feeling.' },
+  { t: 'You’re not alone', p: 'A moderated Community Room, meetings, 1:1 support and sober events, all in one place.' },
+  { t: 'Care for your whole life', p: 'Faith, health, relationships and work. Plus a journal you can type or talk to.' },
+  { t: 'Earn real rewards', p: '$1.00 for each check-in and a weekly bonus. Missing a day never resets anything.' }
 ];
 const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `intro-${n}.jpg?v=2`);
 /* first screen after download: looping video + hello */
@@ -220,8 +220,8 @@ function renderIntro() {
     <video class="intro-vid" src="assets/intro.mp4?v=2" poster="assets/intro-poster.jpg?v=2" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
     <div class="intro-shade" aria-hidden="true"></div>
     <div class="intro-top"><span class="intro-word">Rudra</span><button class="intro-skip" data-act="onb-skip">Skip</button></div>
-    <div class="intro-copy"><span class="intro-ic">${ic('heart', 24, 1.9)}</span><h1>Meet Rudra, your recovery companion</h1>
-      <p>Support for every day of your recovery.</p></div>
+    <div class="intro-copy"><span class="intro-ic">${ic('heart', 24, 1.9)}</span><h1>Your recovery, one day at a time</h1>
+      <p>I’m Rudra, your recovery companion. Here for the easy days and the hard ones.</p></div>
     <div class="intro-foot"><button class="btn intro-btn" data-act="intro-start">Get started ${ic('next', 16, 2.4)}</button></div></div>`;
   const v = $('.intro-vid');
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
