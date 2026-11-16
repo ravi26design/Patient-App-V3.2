@@ -91,3 +91,6 @@
    It is still sticky, so on a long form it stays reachable at the bottom edge. */
 .setup .step-foot,.ob-page .step-foot{margin-top:24px!important}
 .ob-page .pst:not([hidden])::after{height:0!important}
+
+/* activity steps: the text block is plain text, no outline */
+.fx-card{border:0!important}
