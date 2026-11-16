@@ -571,3 +571,12 @@
 .zp1-help>div.zg-gold,.zp1-find a.zg-gold,.zmf.zg-gold{border-color:rgba(196,160,92,.34)!important}
 .zp1-talk a.zt-1{border-color:rgba(110,154,114,.3)!important}.zp1-talk a.zt-2{border-color:rgba(196,160,92,.34)!important}
 .zrm-t3{border-width:1.5px}
+
+/* crisis card, clearer hierarchy */
+.zp1-sos{grid-template-columns:1fr 1fr!important;gap:10px!important;padding:20px 18px 18px!important;background:linear-gradient(160deg,#FBE5E0 0%,#FDF3EF 75%,#fff 150%)!important;border:1.5px solid rgba(201,100,88,.3)!important;box-shadow:0 8px 20px rgba(201,100,88,.14)!important}
+.zp1-sos b{font:800 20px var(--f-ui)!important;gap:12px!important}
+.zp1-sos b svg{box-sizing:content-box;width:20px;height:20px;padding:10px;border-radius:15px;background:#fff;color:#C25445;box-shadow:0 3px 10px rgba(201,100,88,.2)}
+.zp1-sos small{margin:2px 0 6px!important;font-size:14px!important}
+.zp1-sos a.zs-main{grid-column:1/-1;min-height:54px;border-radius:27px!important;font-size:17px!important}
+.zp1-sos a.zs-main::before{content:'';width:18px;height:18px;margin-right:9px;background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z'/%3E%3C/svg%3E") center/contain no-repeat}
+.zp1-sos a:not(.zs-main){min-height:48px;border:1.5px solid rgba(201,100,88,.25)}
