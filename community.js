@@ -347,7 +347,8 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     const list = posts().filter(p => RM.f === 'all' || (RM.f === 'mine' ? p.by.me : p.tag === RM.f)).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.ts - a.ts);
     return `<div class="zrm-3 q4">${[['meet', 'Meetings', 'people', 'blue'], ['one', '1:1 Support', 'hand', 'coral'], ['events', 'Events', 'calendar', 'sage'], ['res', 'Resources', 'book', 'gold']].map(([k, l, i, c]) => `<button class="zrm-t3 zg-${c}" data-act="zrm-sub" data-k="${k}"><span class="zri">${ic(i, 24, 1.8)}</span><b>${l}</b></button>`).join('')}</div>
       <section class="zrm-room2 big"><div class="zrm-r2-h"><span class="zrm-r2-ic">${ic('chat', 26, 1.8)}</span><div class="zrm-r2-t"><h2>Community Room</h2><span class="zrm-r2-k">${ic('shield', 13, 2.2)}Moderated</span></div><button class="zrm-r2-g" data-act="zrm-rules" aria-label="Room guidelines">${ic('shield', 20, 2)}</button></div>
-        <button class="zrm-compose2 tall" data-act="zrm-new" aria-label="Write a post">${av(me(), 36)}<span>What’s on your mind today? Share a win, a question or a hard moment…</span><em>${ic('plus', 20, 2.6)}</em></button></section>
+        <button class="zrm-compose2 tall" data-act="zrm-new" aria-label="Write a post"><span><b>What’s on your mind today?</b><small>Share a win, a question or a hard moment</small></span><em>${ic('plus', 20, 2.6)}</em></button>
+        <div class="zrm-quick" aria-label="Quick start a post">${[['win', 'Win', 'sparkle'], ['support', 'Need support', 'heart'], ['question', 'Question', 'chat'], ['grat', 'Gratitude', 'leaf']].map(([k, l, i]) => `<button data-act="zrm-new" data-tag="${k}" class="zq-${k}">${ic(i, 17, 1.9)}${l}</button>`).join('')}</div></section>
       ${feedCard()}`;
   }
   const refreshFeed = () => { renderCommunity(); if (SUB && SUB.k === 'feed' && SUB.l.isConnected) drawSub(); };
@@ -356,7 +357,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     ps.forEach(p => { const k = p.by.anon ? 'anon' : p.by.n; if (!seen.includes(k) && av3.length < 4) { seen.push(k); av3.push(p.by); } });
     return `<button class="zrm-feedcard" data-act="zrm-sub" data-k="feed"><span class="zrm-fc-ic">${ic('people', 26, 1.8)}</span>
       <span class="zrm-fc-tx"><b>Community feed</b><small>Wins, questions and support from the room</small>
-        <span class="zrm-fc-meta"><span class="zrm-fc-av">${av3.map(by => av(by, 24)).join('')}</span><em>${ps.length} post${ps.length === 1 ? '' : 's'}${ps[0] ? ' · latest ' + ago(ps[0].ts) : ''}</em></span></span>
+        <span class="zrm-fc-meta"><span class="zrm-fc-av">${av3.map(by => av(by, 24)).join('')}</span><em>${ps.length} post${ps.length === 1 ? '' : 's'}${ps[0] ? ' · ' + ago(ps[0].ts) + ' ago' : ''}</em></span></span>
       <span class="zrm-fc-go">${ic('next', 18, 2.4)}</span></button>`;
   }
   function feedListHTML() {
