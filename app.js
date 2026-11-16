@@ -204,13 +204,13 @@ const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Good n
 
 /* ═════════ ONBOARDING — "How to Play" style cards ═════════ */
 const ONB = [
-  { t: 'Check in, in about two minutes', p: 'No right answers, just honest ones. You earn $1.00 every time, whatever you answer.' },
-  { t: 'Your score, made simple', p: 'See your Recovery Health score and how it’s trending. Tap Listen or Read for what it means.' },
-  { t: 'Insights made for you', p: 'I learn your usual and point out what’s changing. Every week, a short summary of how it went.' },
-  { t: 'Help the moment a craving hits', p: 'Tap the red Craving button anytime. Get tools matched to what you’re feeling.' },
-  { t: 'You’re not alone', p: 'A moderated Community Room, meetings, 1:1 support and sober events, all in one place.' },
-  { t: 'Care for your whole life', p: 'Faith, health, relationships and work. Plus a journal you can type or talk to.' },
-  { t: 'Earn real rewards', p: '$1.00 for each check-in and a weekly bonus. Missing a day never resets anything.' }
+  { i: 'pulse', t: 'Check in, in about two minutes', p: 'No right answers, just honest ones. You earn $1.00 every time, whatever you answer.' },
+  { i: 'target', t: 'Your score, made simple', p: 'See your Recovery Health score and how it’s trending. Tap Listen or Read for what it means.' },
+  { i: 'sparkle', t: 'Insights made for you', p: 'I learn your usual and point out what’s changing. Every week, a short summary of how it went.' },
+  { i: 'bolt', t: 'Help the moment a craving hits', p: 'Tap the red Craving button anytime. Get tools matched to what you’re feeling.' },
+  { i: 'chat', t: 'You’re not alone', p: 'A moderated Community Room, meetings, 1:1 support and sober events, all in one place.' },
+  { i: 'leaf', t: 'Care for your whole life', p: 'Faith, health, relationships and work. Plus a journal you can type or talk to.' },
+  { i: 'coin', t: 'Earn real rewards', p: '$1.00 for each check-in and a weekly bonus. Missing a day never resets anything.' }
 ];
 const ONB_IMG = [1, 2, 3, 4, 5, 6, 7].map(n => `intro-${n}.jpg?v=2`);
 /* first screen after download: looping video + hello */
@@ -235,7 +235,7 @@ function renderOnb(i = 0) {
   const s = ONB[i], last = i === ONB.length - 1;
   $('#v-onb').innerHTML = `<div class="onb2"><div class="onb-top"><span class="intro-word">Rudra</span><button class="skip-link" data-act="onb-skip">Skip</button></div>
     <div class="onb-img" key="${i}"><img src="assets/${ONB_IMG[i]}" alt="" draggable="false"></div>
-    <div class="onb-copy" key="t${i}"><h2>${s.t}</h2><p>${s.p}</p></div>
+    <div class="onb-copy" key="t${i}"><span class="intro-ic">${ic(s.i, 24, 1.9)}</span><h2>${s.t}</h2><p>${s.p}</p></div>
     <div class="onb-dots" role="tablist" aria-label="Intro pages">${ONB.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-act="onb-go" data-i="${k}" aria-label="Page ${k + 1}"></button>`).join('')}</div>
     <div class="foot-row onb-foot2"><button class="btn" data-act="onb-next">${last ? 'Get started' : 'Next'} ${ic('next', 16, 2.4)}</button></div></div>`;
 }

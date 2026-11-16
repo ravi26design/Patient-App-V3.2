@@ -41,3 +41,14 @@ html[data-theme="dark"] .phone.on-intro>*{filter:none}
 .intro-copy h1{font-size:32px!important;line-height:1.12!important}
 #v-onb .onb2 .onb-top{justify-content:space-between!important;align-items:center}
 #v-onb .onb2 .onb-top .intro-word{text-shadow:0 1px 14px rgba(18,23,26,.35)}
+
+/* slides: dark bottom, like the video page */
+#v-onb .onb2{background:#12171a!important;color:#fff!important}
+#v-onb .onb2 .onb-copy h2{color:#fff!important}
+#v-onb .onb2 .onb-copy p{color:rgba(255,255,255,.86)!important;font-weight:400!important}
+#v-onb .onb2 .onb-dots button{background:rgba(255,255,255,.3)!important}
+#v-onb .onb2 .onb-dots button.on{background:#fff!important}
+#v-onb .onb2 .onb-foot2 .btn{background:#fff!important;color:#23282F!important}
+#v-onb .onb2 .onb-top .skip-link{background:rgba(255,255,255,.28)!important;color:#fff!important}
+#v-onb .onb2 .onb-img{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.45) 82%,transparent 100%)!important;mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.45) 82%,transparent 100%)!important}
+#v-onb .onb2 .foot-row.onb-foot2 button.btn{background:#fff!important;color:#23282F!important}
