@@ -348,7 +348,21 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     return `<div class="zrm-3 q4">${[['meet', 'Meetings', 'people', 'blue'], ['one', '1:1 Support', 'hand', 'coral'], ['events', 'Events', 'calendar', 'sage'], ['res', 'Resources', 'book', 'gold']].map(([k, l, i, c]) => `<button class="zrm-t3 zg-${c}" data-act="zrm-sub" data-k="${k}"><span class="zri">${ic(i, 24, 1.8)}</span><b>${l}</b></button>`).join('')}</div>
       <section class="zrm-room2 big"><div class="zrm-r2-h"><span class="zrm-r2-ic">${ic('chat', 26, 1.8)}</span><div class="zrm-r2-t"><h2>Community Room</h2><span class="zrm-r2-k">${ic('shield', 13, 2.2)}Moderated</span></div><button class="zrm-r2-g" data-act="zrm-rules" aria-label="Room guidelines">${ic('shield', 20, 2)}</button></div>
         <button class="zrm-compose2 tall" data-act="zrm-new" aria-label="Write a post">${av(me(), 36)}<span>What’s on your mind today? Share a win, a question or a hard moment…</span><em>${ic('plus', 20, 2.6)}</em></button></section>
-      <div class="zrc-topics zrm-filter" role="tablist" aria-label="Filter posts">${F.map(([k, l]) => `<button class="zcm-chip ${RM.f === k ? 'on' : ''}" role="tab" aria-selected="${RM.f === k}" data-act="zrm-filter" data-k="${k}">${l}</button>`).join('')}</div>
+      ${feedCard()}`;
+  }
+  const refreshFeed = () => { renderCommunity(); if (SUB && SUB.k === 'feed' && SUB.l.isConnected) drawSub(); };
+  function feedCard() {
+    const ps = posts().sort((x, y) => y.ts - x.ts), seen = [], av3 = [];
+    ps.forEach(p => { const k = p.by.anon ? 'anon' : p.by.n; if (!seen.includes(k) && av3.length < 4) { seen.push(k); av3.push(p.by); } });
+    return `<button class="zrm-feedcard" data-act="zrm-sub" data-k="feed"><span class="zrm-fc-ic">${ic('people', 26, 1.8)}</span>
+      <span class="zrm-fc-tx"><b>Community feed</b><small>Wins, questions and support from the room</small>
+        <span class="zrm-fc-meta"><span class="zrm-fc-av">${av3.map(by => av(by, 24)).join('')}</span><em>${ps.length} post${ps.length === 1 ? '' : 's'}${ps[0] ? ' · latest ' + ago(ps[0].ts) : ''}</em></span></span>
+      <span class="zrm-fc-go">${ic('next', 18, 2.4)}</span></button>`;
+  }
+  function feedListHTML() {
+    const F = [['all', 'All'], ['win', 'Wins'], ['support', 'Support'], ['question', 'Questions'], ['grat', 'Gratitude'], ['mine', 'Mine']];
+    const list = posts().filter(p => RM.f === 'all' || (RM.f === 'mine' ? p.by.me : p.tag === RM.f)).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.ts - a.ts);
+    return `<div class="zrc-topics zrm-filter" role="tablist" aria-label="Filter posts">${F.map(([k, l]) => `<button class="zcm-chip ${RM.f === k ? 'on' : ''}" role="tab" aria-selected="${RM.f === k}" data-act="zrm-filter" data-k="${k}">${l}</button>`).join('')}</div>
       <div id="zrm-feed">${list.length ? list.map(postHTML).join('') : `<div class="zrc-empty">${ic('chat', 30, 1.6)}<b>${RM.f === 'mine' ? 'No posts yet' : 'Nothing here yet'}</b><button class="btn" style="margin-top:12px" data-act="zrm-new">Write a post</button></div>`}</div>`;
   }
   const extBtn = (u, label) => `<a class="btn zrm-extbtn" href="${u}" target="_blank" rel="noopener">${label}${ic('ext', 17, 2)}</a>`;
@@ -445,7 +459,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   function roomHTML() { return feedHTML(); }
   /* Meetings, 1:1 Support and Events open as their own screens over the Room */
   let SUB = null;
-  const SUBS = { meet: ['Find a meeting', () => meetingsHTML()], one: ['1:1 Support', () => oneHTML()], events: ['Events', () => eventsHTML()], res: ['Resources', () => resourcesHTML()] };
+  const SUBS = { meet: ['Find a meeting', () => meetingsHTML()], one: ['1:1 Support', () => oneHTML()], events: ['Events', () => eventsHTML()], res: ['Resources', () => resourcesHTML()], feed: ['Community feed', () => feedListHTML()] };
   function openSub(k) { SUB = { k, l: cmLayer('', '', '') }; drawSub(); }
   function drawSub() { if (!SUB || !SUB.l.isConnected) return (SUB = null); const y = SUB.l.scrollTop; setLay(SUB.l, `<h1 class="zcm-lh" style="margin-bottom:14px">${SUBS[SUB.k][0]}</h1>${SUBS[SUB.k][1]()}`); SUB.l.scrollTop = y; }
 
@@ -456,8 +470,8 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     const draw = () => { const ok = st.tag && st.t.trim().length >= 3, risk = CRISIS.test(st.t);
       const TP = { win: ['sparkle', 'Something that went right', 'sage'], support: ['heart', 'Today feels hard', 'blush'], question: ['chat', 'Ask people who’ve been there', 'blue'], grat: ['leaf', 'What you’re thankful for', 'sand'] };
       setLay(l, `<h1 class="zcm-lh zc-title">Share with the room</h1><p class="zc-sub">Cheer someone on, ask a question, or say how today is going.</p>
-        <div class="zc-who">${st.anon ? av({ n: '?', c: '#8A9098', anon: true }, 44) : av(me(), 44)}<div class="zc-wt"><b>${st.anon ? 'Anonymous member' : esc(S.name || 'You')}</b><small>${st.anon ? 'Others won’t see your name. ' + MOD.n + ' still can.' : 'First name only'}</small></div>
-          <button class="zc-sw ${st.anon ? 'on' : ''}" id="zrm-anon" role="switch" aria-checked="${st.anon}" aria-label="Post anonymously"><span>Anonymous</span><i></i></button></div>
+        <div class="zc-who ${st.anon ? 'is-anon' : ''}"><div class="zc-w1">${st.anon ? av({ n: '?', c: '#8A9098', anon: true }, 48) : av(me(), 48)}<div class="zc-wt"><b>${st.anon ? 'Anonymous member' : esc(S.name || 'You')}</b><small>${st.anon ? 'Your name stays hidden from the room.' : 'Posting with your first name'}</small></div></div>
+          <button class="zc-sw ${st.anon ? 'on' : ''}" id="zrm-anon" role="switch" aria-checked="${st.anon}" aria-label="Post anonymously"><span class="zc-swi">${ic(st.anon ? 'eye' : 'people', 18, 2)}</span><span class="zc-swt"><b>Post anonymously</b><small>${st.anon ? MOD.n + ' can still see who posted.' : 'Hide your name from other members'}</small></span><i></i></button></div>
         <p class="zc-lbl">What kind of post?</p>
         <div class="zc-types">${['win', 'support', 'question', 'grat'].map(k => `<button class="zc-tp t-${TP[k][2]} ${st.tag === k ? 'on' : ''}" data-tg="${k}" aria-pressed="${st.tag === k}"><span class="zc-tpi">${ic(TP[k][0], 20, 1.9)}</span><b>${TAGS[k][0]}</b><small>${TP[k][1]}</small><em>${ic('check', 12, 3)}</em></button>`).join('')}</div>
         <div class="zc-box"><textarea id="zrm-ta" class="zrm-ta" maxlength="500" rows="6" placeholder="${st.tag ? PROMPT[st.tag] : 'Pick a kind of post, then write here.'}" aria-label="Your post">${esc(st.t)}</textarea>
@@ -473,7 +487,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       if (e.target.closest('#zrm-anon')) { st.anon = !st.anon; draw(); return; }
       if (e.target.closest('#zrm-post')) {
         const p = { id: 'u' + Date.now().toString(36), by: { ...me(), anon: st.anon }, tag: st.tag, t: st.t.trim(), ts: Date.now(), cheers: 0, cheered: false, status: 'pending', comments: [], flag: CRISIS.test(st.t) };
-        S.room.posts.unshift(p); save(); popLayer(l); RM.rt = 'feed'; RM.f = 'all'; if (tab === 'community') renderCommunity();
+        S.room.posts.unshift(p); save(); popLayer(l); RM.rt = 'feed'; RM.f = 'all'; if (tab === 'community') renderCommunity(); setTimeout(() => { if (SUB && SUB.l && SUB.l.isConnected) drawSub(); else openSub('feed'); }, 280);
         toast(`Posted. ${MOD.n} will review it soon.`);
         setTimeout(() => { p.status = 'live'; save(); if ($('#zrp-' + p.id)) redrawPost(p.id); toast(`${MOD.n} approved your post. It’s live in the room.`); }, 6000);
       } });
@@ -496,8 +510,8 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
         : `<button class="zrm-mi" data-k="rep">${ic('alert', 20, 1.8)}<span><b>Report to ${MOD.n}</b><small>Only the moderator sees who reported</small></span></button><button class="zrm-mi" data-k="hide">${ic('eye', 20, 1.8)}<span><b>Hide this post</b><small>You won’t see it again</small></span></button>`}
       <button class="btn ghost" data-act="close-layer">Cancel</button></div>`, 'sheet-wrap');
     l.addEventListener('click', e => { if (e.target === l) return popLayer(l); const b = e.target.closest('.zrm-mi'); if (!b) return;
-      if (b.dataset.k === 'del') { S.room.posts = S.room.posts.filter(x => x.id !== pid); save(); popLayer(l); renderCommunity(); toast('Post deleted'); }
-      if (b.dataset.k === 'hide') { S.room.hidden.push(pid); save(); popLayer(l); renderCommunity(); toast('Post hidden'); }
+      if (b.dataset.k === 'del') { S.room.posts = S.room.posts.filter(x => x.id !== pid); save(); popLayer(l); refreshFeed(); toast('Post deleted'); }
+      if (b.dataset.k === 'hide') { S.room.hidden.push(pid); save(); popLayer(l); refreshFeed(); toast('Post hidden'); }
       if (b.dataset.k === 'rep') { $('.zrm-sheet', l).innerHTML = `<span class="zrm-grab"></span><h2 class="zcm-lh" style="font-size:22px">What’s wrong with this post?</h2><div class="zcm-chips col" style="margin:12px 0">${['Unkind or shaming', 'Buying, selling or sharing drugs', 'Someone may be in danger', 'Private information', 'Something else'].map(r => `<button class="zcm-chip zrm-rr">${r}</button>`).join('')}</div><button class="btn ghost" data-act="close-layer">Cancel</button>`; }
       if (e.target.closest('.zrm-rr')) { popLayer(l); toast(`Thanks. ${MOD.n} will look at it soon.`); } });
   }
@@ -512,7 +526,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     'zrm-sub': el => openSub(el.dataset.k),
     'zmt-filter': el => { RM.mf = el.dataset.k; drawSub(); },
     'zps-copy': () => { const t = 'Do you have a peer recovery specialist or recovery coach I can meet with?'; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Copied'), () => toast('Couldn’t copy. You can read it aloud instead.')); },
-    'zrm-filter': el => { RM.f = el.dataset.k; renderCommunity(); },
+    'zrm-filter': el => { RM.f = el.dataset.k; if (SUB && SUB.k === 'feed' && SUB.l.isConnected) drawSub(); else renderCommunity(); },
     'zrm-new': el => composer(el.dataset.tag),
     'zrm-rules': () => rules(),
     'zrm-cheer': el => { const p = S.room.posts.find(x => x.id === el.dataset.p); p.cheered = !p.cheered; save(); redrawPost(p.id); },
