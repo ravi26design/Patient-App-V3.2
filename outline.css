@@ -61,3 +61,11 @@
 
 /* Profile header: flat, no glow circles */
 .pf-hero::before,.pf-hero::after{display:none!important}
+
+/* What Helps Me: no box around the row, an outline on each card instead */
+.pf-card:has(.pf-help){border:0!important;background:none!important}
+.pf-help>div{border:1px solid #D6E5F4}
+.pf-help>.hp-g{border-color:#C6DFCD}
+.pf-help>.hp-b{border-color:#C6DCF0}
+.pf-help>.hp-a{border-color:#EDDDA9}
+.pf-help>.hp-r{border-color:#F2CDC5}
