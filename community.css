@@ -886,3 +886,12 @@
 .zrx-item.tn-sky{border-color:#CFE7EC!important}
 .zrx-item.tn-sand{border-color:#EADFCB!important}
 .zrx-item.tn-slate{border-color:#DCE2E9!important}
+
+/* Resources hub: very light outlines */
+.zrx-tile,.zrx-row{border-width:1px!important}
+.zrx-tile.zg-gold{border-color:#F3E5BD!important}
+.zrx-tile.zg-blue{border-color:#D6E5F4!important}
+.zrx-tile.zg-coral{border-color:#F6DAD4!important}
+.zrx-tile.zg-sage{border-color:#D6E8DB!important}
+.zrx-grid+.zrx-row{border-color:#D6E5F4!important}
+.zrx-grid+.zrx-row+.zrx-row{border-color:#E0D9F1!important}
