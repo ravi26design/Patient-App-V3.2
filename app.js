@@ -233,7 +233,7 @@ const obHead = (n, back) => `<div class="step-head">${back ? `<button class="bac
 function renderOnb(i = 0) {
   onbI = i; showView('onb'); $('#nav').hidden = true;
   const s = ONB[i], last = i === ONB.length - 1;
-  $('#v-onb').innerHTML = `<div class="onb2"><div class="onb-top"><button class="skip-link" data-act="onb-skip">Skip</button></div>
+  $('#v-onb').innerHTML = `<div class="onb2"><div class="onb-top"><span class="intro-word">Rudra</span><button class="skip-link" data-act="onb-skip">Skip</button></div>
     <div class="onb-img" key="${i}"><img src="assets/${ONB_IMG[i]}" alt="" draggable="false"></div>
     <div class="onb-copy" key="t${i}"><h2>${s.t}</h2><p>${s.p}</p></div>
     <div class="onb-dots" role="tablist" aria-label="Intro pages">${ONB.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-act="onb-go" data-i="${k}" aria-label="Page ${k + 1}"></button>`).join('')}</div>
