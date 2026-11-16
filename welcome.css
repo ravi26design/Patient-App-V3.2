@@ -688,3 +688,15 @@ html.gated .fx-x{display:none!important}
 /* location check-in: page back button over the map; the step back arrow only shows from step 2 */
 .lc-wrap{position:relative}
 .lc-exit{position:absolute;left:16px;top:calc(54px + var(--sat,0px));z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid #E0EAF4;background:#fff;color:#26323D;display:grid;place-items:center}
+
+/* log out sheet */
+.lo-sheet{padding-top:12px!important;text-align:center}
+.lo-sheet h2{margin:14px 0 6px!important;font-size:27px!important}
+.lo-sheet .trig-p{font-size:16px;color:#5F6B78;margin:0 auto 16px}
+.lo-note{margin:0 0 20px;padding:14px 16px;border-radius:18px;background:#FBEBE7;border:1px solid #F0CFC9;color:#7A4A44;font-size:14px;line-height:1.5;text-align:left}
+.lo-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lo-btns .btn{height:52px!important;margin:0!important;border-radius:26px!important;font-size:15.5px!important;font-weight:700}
+.lo-btns .lo-cancel{background:#fff!important;color:#4F82B0!important;border:1.5px solid #6C9FCC!important}
+.lo-btns .lo-yes{background:#C25445!important;color:#fff!important}
+.lo-btns .btn{width:100%!important;min-width:0;padding:0 10px!important}.lo-btns{width:100%}
+.lo-sheet .trig-p{margin:0 auto 22px!important}

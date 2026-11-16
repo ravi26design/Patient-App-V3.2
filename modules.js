@@ -751,10 +751,10 @@ Object.assign(ACT, {
 Object.assign(ACT, {
   'me-logout': () => {
     if ($('.lo-sheet')) return;
-    const l = pushLayer(`<div class="sheet trig lo-sheet"><span class="grab"></span><span class="lo-ic">${ic('out', 30, 1.7)}</span>
+    const l = pushLayer(`<div class="sheet trig lo-sheet"><span class="grab"></span>
       <h2>Log out of Rudra?</h2>
       <p class="trig-p">Are you sure you want to log out?</p>
-      <button class="btn lo-yes" data-act="lo-yes">Yes, log out</button><button class="btn ghost" data-act="close-layer">Cancel</button></div>`, 'sheet-wrap');
+      <div class="lo-btns"><button class="btn ghost lo-cancel" data-act="close-layer">Cancel</button><button class="btn lo-yes" data-act="lo-yes">Yes, log out</button></div></div>`, 'sheet-wrap');
     l.addEventListener('click', e => { if (e.target === l) popLayer(l); });
   },
   'lo-yes': () => { try { localStorage.removeItem(KEY); } catch (e) { } S = DEFAULT(); $$('.layer').forEach(popLayer); renderOnb(); }
