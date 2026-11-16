@@ -494,3 +494,4 @@
 .zmf-ini{position:absolute;right:16px;top:16px;display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.9);color:var(--za);font:800 16px var(--f-ui);letter-spacing:.02em;box-shadow:0 2px 8px rgba(46,50,56,.06)}
 .zmf h2{padding-right:56px}
 .zmf-acts .alt{background:rgba(255,255,255,.95)!important;border-color:var(--zb)!important;color:var(--za)!important}
+.zmf-ini{display:none!important}.zmf h2{padding-right:0!important}

@@ -381,7 +381,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
     const f = RM.mf || 'all', C = ['blue', 'coral', 'sage', 'gold'], M = MTG.filter(m => f === 'all' || m[4].includes(f));
     return `<p class="zmt-intro">Free groups led by people in recovery. Try a few until one feels right.</p>
       <div class="zrc-topics" role="tablist" aria-label="Filter meetings">${MTF.map(([k, l]) => `<button class="zcm-chip ${f === k ? 'on' : ''}" role="tab" aria-selected="${f === k}" data-act="zmt-filter" data-k="${k}">${l}</button>`).join('')}</div>
-      <div class="zmt-3">${M.map(([t, n, d, L], i) => `<article class="zmf zg-${C[i % 4]}"><span class="zmf-ini" aria-hidden="true">${n.replace(/\b(and|of|for|the)\b/gi, '').split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span><span class="zmf-tag">${t}</span><h2>${n}</h2><p>${d}</p>
+      <div class="zmt-3">${M.map(([t, n, d, L], i) => `<article class="zmf zg-${C[i % 4]}"><span class="zmf-tag">${t}</span><h2>${n}</h2><p>${d}</p>
         <div class="zmf-acts">${L.map(([l, u], k) => `<a class="${k ? 'alt' : 'main'}" href="${u}" target="_blank" rel="noopener" aria-label="${l}: ${n}">${l}${ic('ext', 15, 2.2)}</a>`).join('')}</div></article>`).join('')}</div>
       <p class="zmt-tip">${ic('sparkle', 15, 2)}First time? You can just listen.</p>`;
   }
