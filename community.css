@@ -537,3 +537,21 @@
 .zev-note{display:flex;gap:8px;align-items:flex-start;padding:2px 4px;color:#7C8894!important}
 .zp1-hero{border:1.5px solid rgba(108,159,204,.38)!important}
 .zrm-more svg circle{display:none}.zrm-more svg path{stroke-width:3.4;stroke-linecap:round}.zrm-more{color:#7C8894}
+.zp1-find a>i{display:none!important}
+
+/* 1:1 hero: warm blush style */
+.zp1-hero{background:linear-gradient(160deg,#F0D2C9 0%,#F4E2D6 100%)!important;border:1.5px solid rgba(196,120,104,.28)!important;box-shadow:0 6px 18px rgba(196,120,104,.14)!important}
+.zp1-hero h2{color:#2E3238!important}
+.zp1-hero p{color:#5A4A45!important}
+.zp1-tags span{background:rgba(255,255,255,.82)!important;color:#8E4A42!important;box-shadow:none!important}
+.zp1-cta{background:#A9665C!important;color:#fff!important;box-shadow:0 8px 18px rgba(169,102,92,.3)!important}
+.zp1-art{filter:drop-shadow(0 8px 14px rgba(196,120,104,.18))}
+
+/* "Ask your clinic" card, more polish */
+.zp1-ask{position:relative;overflow:hidden;padding:20px 18px 18px!important;background:linear-gradient(160deg,#E4EEF9 0%,#F2F7FC 70%,#fff 140%)!important;border:1.5px solid rgba(108,159,204,.32)!important;box-shadow:0 6px 18px rgba(79,130,176,.12)!important}
+.zp1-ask::before{content:'\201C';position:absolute;right:14px;top:-18px;font:700 130px/1 'Lora',Georgia,serif;color:rgba(108,159,204,.2);pointer-events:none}
+.zp1-ask small{display:inline-block!important;padding:5px 11px;border-radius:999px;background:#fff;box-shadow:0 1px 4px rgba(79,130,176,.14);margin-bottom:10px!important}
+.zp1-ask q{font-size:21px!important;line-height:1.3!important;max-width:15em}
+.zp1-ask q::before,.zp1-ask q::after{content:none!important}
+.zp1-ask button{margin-top:16px!important;box-shadow:0 8px 18px rgba(108,159,204,.35)}
+.zp1-verify{background:#fff!important;border:1px solid rgba(108,159,204,.3)!important}

@@ -393,9 +393,9 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
       ['https://findtreatment.gov/', 'search', 'blue', 'Treatment programs', 'FindTreatment.gov'],
       ['https://warmline.org/', 'phone', 'sage', 'Peer warmlines', 'Call a peer by state']];
     const TALK = [['tel:18006624357', 'phone', 'SAMHSA Helpline', '24/7 · free', 'Call'], ['tel:18009506264', 'chat', 'NAMI HelpLine', 'Weekdays', 'Call'], ['sms:62640?&body=helpline', 'sms', 'Text NAMI', '“helpline” to 62640', 'Text']];
-    return `<section class="zp1-hero"><svg class="zp1-art" viewBox="0 0 160 120" aria-hidden="true"><circle cx="104" cy="58" r="50" fill="#D6E6F6"/><circle cx="104" cy="58" r="34" fill="#E6F0FA"/><path d="M10 106c32-14 58-14 84-4s44 8 58-4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10" opacity=".9"/>
+    return `<section class="zp1-hero"><svg class="zp1-art" viewBox="0 0 160 120" aria-hidden="true"><circle cx="104" cy="58" r="50" fill="#F4D9D0"/><circle cx="104" cy="58" r="34" fill="#F9E7E0"/><path d="M10 106c32-14 58-14 84-4s44 8 58-4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10" opacity=".9"/>
         <circle cx="76" cy="46" r="12" fill="#fff"/><rect x="61" y="62" width="30" height="44" rx="15" fill="#fff"/>
-        <circle cx="116" cy="52" r="10.5" fill="#B9D2EA"/><rect x="103" y="66" width="26" height="40" rx="13" fill="#B9D2EA"/>
+        <circle cx="116" cy="52" r="10.5" fill="#F0C9BE"/><rect x="103" y="66" width="26" height="40" rx="13" fill="#F0C9BE"/>
         <path d="M96 38c-7-4-10-8-10-11a5 5 0 0 1 10-1a5 5 0 0 1 10 1c0 3-3 7-10 11z" fill="#E58E80"/></svg>
         <h2>Someone who’s been there</h2><p>A peer specialist walks with you, one-on-one.</p>
         <div class="zp1-tags"><span>${ic('check', 12, 3)}Lived experience</span><span>${ic('check', 12, 3)}Often free</span><span>${ic('check', 12, 3)}Trained</span></div>
