@@ -555,3 +555,19 @@
 .zp1-ask q::before,.zp1-ask q::after{content:none!important}
 .zp1-ask button{margin-top:16px!important;box-shadow:0 8px 18px rgba(108,159,204,.35)}
 .zp1-verify{background:#fff!important;border:1px solid rgba(108,159,204,.3)!important}
+.zp1-ask .zri{display:none!important}.zp1-ask{grid-template-columns:1fr!important}.zp1-ask>div{grid-column:1!important}
+
+/* light outline on every Community card */
+.zrm-room2,.zrm-post,.zrm-compose2,.zcm-card,.zc-who,.zrx-item-card,.zrm-hero2,
+.zev-card,.zev-row,.zev-day,.zev-step,.zrx-tile,.zrx-row,.zrx-list,
+.zp1-steps,.zp1-ask,.zp1-verify,.zp1-talk a,.zp1-help>div,.zp1-find a,
+.zrd-take,.zrm-risk,.zmf{border:1.5px solid rgba(108,159,204,.28)!important}
+.zc-box{border-color:rgba(108,159,204,.28)!important}
+.zc-box:focus-within{border-color:#6C9FCC!important}
+.zp1-hero{border:1.5px solid rgba(196,120,104,.28)!important}
+.zrm-post{border-color:rgba(108,159,204,.26)!important}
+.zp1-help>div.zg-coral,.zp1-find a.zg-coral,.zmf.zg-coral{border-color:rgba(201,128,118,.3)!important}
+.zp1-help>div.zg-sage,.zp1-find a.zg-sage,.zmf.zg-sage{border-color:rgba(110,154,114,.3)!important}
+.zp1-help>div.zg-gold,.zp1-find a.zg-gold,.zmf.zg-gold{border-color:rgba(196,160,92,.34)!important}
+.zp1-talk a.zt-1{border-color:rgba(110,154,114,.3)!important}.zp1-talk a.zt-2{border-color:rgba(196,160,92,.34)!important}
+.zrm-t3{border-width:1.5px}

@@ -1,0 +1,26 @@
+/* One light outline for every card in the app (loads last; Community has its own rules in community.css) */
+:root{--card-line:rgba(108,159,204,.28)}
+
+/* Home, check-in prompt, result page */
+.oh-score,.oh-next,.rd-card,.rd-cicard,.rr-score,.rr-next,.rr-earn,.rr-reward,.rr-trend,.rd-welcome .rd-card,
+/* activity pages and completion */
+.fx-card,.fx-tile,.fx-week,
+/* Progress */
+.pg-card,.pg-card2,.pg-stats,.pg-stat,.pg-list,.pg-recent .pg-list,.pg-score,.pg-grid>div,
+/* Rewards */
+.rw-visa,.rw-week,.rw-panel,.rw-tiles>div,.rc-tiles>div,.rc-hero,.rc-chart,.wk-card,.wk-tile,
+/* Profile / Me */
+.pf-hero,.pf-card,.pf-list,.pf-row,
+/* Tools and Help */
+.more-row,.promo,.searchbar,.md-opt,.md-911,.ct-row,.cm-card,.empty-card,
+/* Onboarding and settings rows */
+.consent,.med-grid>*,.set-row,.group,.tool-card,.toolcard{border:1.5px solid var(--card-line)}
+
+/* keep the dark/colour cards readable: the Rudra card and the crisis call keep their own look */
+.rw-visa{border-color:rgba(255,255,255,.18)}
+.md-911{border-color:rgba(255,255,255,.25)}
+/* inner rows that sit inside an outlined card should not double up */
+.pf-list .pf-row,.pg-list .pg-row,.rw-week .rw-dots *{border:0}
+/* check-in answer cards */
+.choice{border:1.5px solid var(--card-line)}
+.choice.sel{border-color:#6C9FCC}

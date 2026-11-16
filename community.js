@@ -592,7 +592,7 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   window.renderCommunity = function () {
     const v = $('#v-community'); if (!v) return;
     ensure();
-    v.innerHTML = `<div class="tools-head"><h1>Community</h1>${helpBtn()}</div><div id="zcm-body">${roomHTML()}</div>`;
+    v.innerHTML = `<div class="tools-head"><h1>Community</h1></div><div id="zcm-body">${roomHTML()}</div>`;
     const on = $('.zrc-topics .zcm-chip.on', v), row = on && on.parentElement; if (on && row) row.scrollLeft = Math.max(0, on.offsetLeft - row.clientWidth / 2 + on.offsetWidth / 2);
   };
   ensure();
