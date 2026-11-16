@@ -254,7 +254,7 @@ const PF_PEOPLE = [
 ];
 function renderMe() {
   const full = [S.name, S.last].filter(Boolean).join(' ') || 'Friend', name = esc(full), ini = esc(full.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'R');
-  const since = new Date(Date.now() - (Math.max(1, S.day || 1) - 1) * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const since = fmtD(new Date(Date.now() - (Math.max(1, S.day || 1) - 1) * 864e5));
   const meds = S.meds && S.meds.length ? S.meds : ['Suboxone 8mg / 2mg'];
   const helps = [['run', 'g', 'Go for a walk'], ['phone', 'b', 'Call someone I trust'], ['music', 'a', 'Listen to music'], ['wind', 'r', 'Breathing exercise']];
   const care = [['sage', 'Dr', 'Dr. Rivera', 'MOUD Prescriber'], ['purple', 'Th', 'Dr. Chen', 'Therapist · CBT'], ['rose', 'Sp', 'Mike R.', 'Sponsor · CPRS']];
@@ -540,7 +540,7 @@ function applyTheme(t) {
 applyTheme(S.theme);
 function weekLabel() {
   if (WK.back === 0) return 'This week'; if (WK.back === 1) return 'Last week';
-  const d = weekDays(), f = x => new Date(x + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const d = weekDays(), f = x => fmtD(x);
   return f(d[0].d) + ' – ' + f(d[6].d);
 }
 function weekCard() {

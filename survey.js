@@ -134,7 +134,7 @@ function qGauge() {
 function updateQGauge() { const b = $('#ci-adv', CI.layer); if (b) b.disabled = !screenReady(SCREENS[CI.i]); }
 
 /* ═════════ screen bodies ═════════ */
-const yesterday = () => { const d = new Date(); d.setDate(d.getDate() - 1); return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }); };
+const yesterday = () => { const d = new Date(); d.setDate(d.getDate() - 1); return fmtD(d); };
 const medName = () => S.meds.length === 1 ? S.meds[0] : S.meds.length > 1 ? 'medications' : 'medication';
 const lastRaw = () => { const p = S.history[S.history.length - 1]; return p && p.raw ? p.raw : null; };
 const screenTitle = s => s.id === 'meds' ? `Did you take your ${medName()} yesterday (${yesterday()})?` : s.title;

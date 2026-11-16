@@ -52,7 +52,7 @@ function renderProfile() {
     ${pStep === 2 ? `<div class="fld"><label class="lbl" for="nm">First name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="nm" maxlength="24" placeholder="First name" value="${esc(S.name)}" autocomplete="given-name" autocapitalize="words"></div></div>
     <div class="fld"><label class="lbl" for="ln">Last name</label><div class="inp-i">${ic('user', 20)}<input class="inp" id="ln" maxlength="24" placeholder="Last name" value="${esc(S.last || '')}" autocomplete="family-name" autocapitalize="words"></div></div>
     ${via === 'phone' ? emailFld(p, 'Email') : phoneFld(p, 'Mobile number')}
-    <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="text" readonly inputmode="none" placeholder="dd/mm/yyyy" data-act="dob-open" data-iso="${esc(p.dob)}" value="${esc(dobFmt(p.dob))}">${ic('down', 16)}</div></div>
+    <div class="fld"><label class="lbl" for="dob">Date of birth</label><div class="inp-i">${ic('calendar', 20)}<input class="inp" id="dob" type="text" readonly inputmode="none" placeholder="mm/dd/yy" data-act="dob-open" data-iso="${esc(p.dob)}" value="${esc(dobFmt(p.dob))}">${ic('down', 16)}</div></div>
     <div class="fld"><span class="lbl">Language</span><div class="lang"><button class="${p.lang === 'en' ? 'on' : ''}" data-act="pick-lang" data-k="en">${p.lang === 'en' ? ic('check', 16, 2.6) : ''}English</button><button class="${p.lang === 'es' ? 'on' : ''}" data-act="pick-lang" data-k="es">${p.lang === 'es' ? ic('check', 16, 2.6) : ''}Spanish</button></div></div>
     <p class="consent-req">Both are required to continue.</p>
     <label class="consent"><input type="checkbox" id="c1" ${p.terms ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span>I agree to Rudra Health AI’s <u>Terms of Use</u> and <u>Privacy Policy</u>.</span></label>
@@ -73,7 +73,7 @@ function renderProfile() {
 
 /* ═════════ date of birth: bottom-sheet wheel picker ═════════ */
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const dobFmt = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? `${m[3]}/${m[2]}/${m[1]}` : ''; };
+const dobFmt = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? `${m[2]}/${m[3]}/${m[1].slice(-2)}` : ''; };
 function dobSheet() {
   const inp = $('#dob'), now = new Date(), maxY = now.getFullYear(), minY = maxY - 110, ROW = 46;
   const m0 = /^(\d{4})-(\d{2})-(\d{2})$/.exec(inp.dataset.iso || '');

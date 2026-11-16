@@ -9,7 +9,9 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
 const daysAgo = n => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
-const dateWord = d => d === today() ? 'Today' : d === daysAgo(1) ? 'Yesterday' : d;
+/* every date shown to the user: MM/DD/YY (accepts a Date or a YYYY-MM-DD string) */
+const fmtD = v => { const d = v instanceof Date ? v : new Date(String(v).slice(0, 10) + 'T12:00:00'); if (isNaN(d)) return ''; return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + String(d.getFullYear()).slice(-2); };
+const dateWord = d => d === today() ? 'Today' : d === daysAgo(1) ? 'Yesterday' : fmtD(d);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 /* ═════════ state ═════════ */
@@ -288,7 +290,7 @@ function memoryCard() {
       ${tile('green', 'leaf', 'Last activity', la || 'Not yet', la ? 'Completed' : 'Pick one below', la ? `<span class="mt-ok">${ic('check', 13, 3)}</span>` : '')}
       ${tile('slate', 'clock', 'Reminder', r.t, r.label.split(' · ')[0])}</div></div>`;
 }
-const dateLine = () => new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+const dateLine = () => fmtD(new Date());
 const ARROW_UR = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8.5 7H17v8.5"/></svg>';
 
 /* ── Recovery Health gauge card (home) ── */

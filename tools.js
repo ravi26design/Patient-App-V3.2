@@ -320,7 +320,7 @@ function renderProgress() {
   $('#v-progress').innerHTML = `<div class="wal-top"><h1>Progress</h1></div>
   <div class="pad"><div class="pg-card"><div class="pg-h"><b>Recovery Health</b><small>Last ${pts.length} check-in${pts.length === 1 ? '' : 's'}</small></div>${chart}</div>
     <div class="pg-stats"><div><b>${n}</b><small>Check-ins</small></div><div><b>${S.streak}</b><small>Day streak</small></div><div><b>${S.bestStreak || S.streak}</b><small>Best streak</small></div><div><b>${avg}</b><small>Average score</small></div></div>
-    <div class="pg-recent"><div class="eyebrow">Recent check-ins</div><div class="pg-list">${h.slice(-7).reverse().map(x => `<div class="pg-row"><span class="pg-ic">${ic('check', 18, 2.2)}</span><div><b>${x.date === today() ? 'Today' : x.date === daysAgo(1) ? 'Yesterday' : new Date(x.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</b><small>${wordOf(x.overall)}</small></div><span class="pg-score">${x.overall}</span></div>`).join('')}</div></div></div>`;
+    <div class="pg-recent"><div class="eyebrow">Recent check-ins</div><div class="pg-list">${h.slice(-7).reverse().map(x => `<div class="pg-row"><span class="pg-ic">${ic('check', 18, 2.2)}</span><div><b>${x.date === today() ? 'Today' : x.date === daysAgo(1) ? 'Yesterday' : fmtD(x.date)}</b><small>${wordOf(x.overall)}</small></div><span class="pg-score">${x.overall}</span></div>`).join('')}</div></div></div>`;
 }
 
 /* ═════════ ME ═════════ */
