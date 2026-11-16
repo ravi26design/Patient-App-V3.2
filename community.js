@@ -310,9 +310,8 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   function postHTML(p) {
     const tg = TAGS[p.tag], n = ncom(p), cheers = p.cheers + (p.cheered ? 1 : 0);
     return `<article class="zrm-post ${p.pinned ? 'pin' : ''} ${p.status === 'pending' ? 'pend' : ''}" id="zrp-${p.id}">
-      ${p.pinned ? `<div class="zrm-pinl">${ic('pin', 13, 2.2)}Pinned by the moderator</div>` : ''}
       ${p.status === 'pending' ? `<div class="zrm-pendl">${ic('clock', 14, 2.2)}<span><b>Waiting for ${MOD.n} to review.</b> Only you can see this for now.${p.flag ? ' Jordan has been told you may need support today.' : ''}</span></div>` : ''}
-      <header class="zrm-ph">${av(p.by)}<div><b>${who(p.by)}${badge(p.by)}</b><small>${p.by.mod ? MOD.role : p.by.day ? 'Day ' + p.by.day : 'Member'} · ${ago(p.ts)}</small></div><button class="zrm-more" data-act="zrm-menu" data-p="${p.id}" aria-label="More options for this post">${ic('more', 20, 1.8)}</button></header>
+      <header class="zrm-ph">${av(p.by)}<div><b>${who(p.by)}${p.by.mod ? '' : badge(p.by)}</b><small>${p.by.mod ? MOD.role : p.by.day ? 'Day ' + p.by.day : 'Member'} · ${ago(p.ts)}</small></div><button class="zrm-more" data-act="zrm-menu" data-p="${p.id}" aria-label="More options for this post">${ic('more', 20, 1.8)}</button></header>
       ${p.pinned ? '' : `<span class="zrm-tag ${tg[1]}">${tg[0]}</span>`}
       <p class="zrm-txt">${esc(p.t)}</p>
       <div class="zrm-acts"><button class="${p.cheered ? 'on' : ''}" data-act="zrm-cheer" data-p="${p.id}" aria-label="${p.cheered ? 'Cheered' : 'Cheer'}: ${cheers}" aria-pressed="${p.cheered}" ${p.status === 'pending' ? 'disabled' : ''}>${ic('heart', 19, 1.9)}<span class="zrm-n">${cheers}</span></button><button data-act="zrm-focus" data-p="${p.id}" aria-label="Comments: ${n}" ${p.status === 'pending' ? 'disabled' : ''}>${ic('chat', 19, 1.9)}<span class="zrm-n">${n}</span></button></div>
