@@ -1,5 +1,5 @@
 /* One light outline for every card in the app (loads last; Community has its own rules in community.css) */
-:root{--card-line:rgba(108,159,204,.28)}
+:root{--card-line:#E0EAF4}
 
 /* Home, check-in prompt, result page */
 .oh-score,.oh-next,.rd-card,.rd-cicard,.rr-score,.rr-next,.rr-earn,.rr-reward,.rr-trend,.rd-welcome .rd-card,
@@ -14,7 +14,7 @@
 /* Tools and Help */
 .more-row,.promo,.searchbar,.md-opt,.md-911,.ct-row,.cm-card,.empty-card,
 /* Onboarding and settings rows */
-.consent,.med-grid>*,.set-row,.group,.tool-card,.toolcard{border:1.5px solid var(--card-line)}
+.consent,.med-grid>*,.set-row,.group,.tool-card,.toolcard{border:1px solid var(--card-line)}
 
 /* keep the dark/colour cards readable: the Rudra card and the crisis call keep their own look */
 .rw-visa{border-color:rgba(255,255,255,.18)}
@@ -22,11 +22,11 @@
 /* inner rows that sit inside an outlined card should not double up */
 .pf-list .pf-row,.pg-list .pg-row,.rw-week .rw-dots *{border:0}
 /* check-in answer cards */
-.choice{border:1.5px solid var(--card-line)}
+.choice{border:1px solid var(--card-line)}
 .choice.sel{border-color:#6C9FCC}
 
 /* wrappers and inner blocks are not cards: no outline box around them */
 .oh-score,.oh-next,.rr-trend,.rr-arc{border:0!important}
 
 /* divider between the score and the trend */
-.rr-side{border:0!important;border-left:1.5px solid rgba(108,159,204,.28)!important}
+.rr-side{border:0!important;border-left:1px solid #E0EAF4!important}

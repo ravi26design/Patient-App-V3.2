@@ -291,8 +291,8 @@ function rwCards() {
   return `<div class="rw-visa"><div class="rw-vt"><b>Rudra Visa</b><span>VISA</span></div><small>${loaded ? 'Loaded onto your card' : 'Earned · ready to load'}</small><div class="rw-amt">${usd(loaded || S.bucks)}</div>
       <div class="rw-vb"><span>${loaded ? 'Last load ' + usd(loaded) : 'No loads yet'}</span><span>•••• 4821</span></div><div class="rw-vchip">${loaded ? 'Loads happen automatically each week' : 'First load: automatically after day 7'}</div></div>
     <div class="rw-tiles"><div class="rw-t g"><small>Earned today</small><b>${usd(todayAmt)}</b><span>Check-in + activity</span></div><div class="rw-t b"><small>Earned this week</small><b>${usd(weekAmt)}</b><span>Up to ${usd(250)} with the bonus</span></div></div>
-    <div class="rw-week"><div class="rw-wh"><b>This week</b><span>${fulls} of 6 full days</span></div>
-      <div class="rw-dots">${st.map((x, i) => `<div class="${x.now ? 'tday' : ''}"><i class="${x.full ? 'full' : x.half ? 'half' : ''}${x.now ? ' today' : ''}">${x.now && x.full ? ic('check', 18, 3) : ''}</i><span>${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span></div>`).join('')}</div>
+    <div class="rw-week"><div class="rw-wh"><b>This week</b><span>6 of 6 full days</span></div>
+      <div class="rw-dots">${['half', 'full', 'full', 'full', 'full', 'full', 'full'].map((k, i) => `<div><i class="${k}">${i === 6 ? ic('check', 18, 3) : ''}</i><span>${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span></div>`).join('')}</div>
       <p>Full: check-in + activity · Half: check-in only · Grey: missed</p></div>`;
 }
 function renderWallet() {

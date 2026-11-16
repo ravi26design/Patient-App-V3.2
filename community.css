@@ -561,7 +561,7 @@
 .zrm-room2,.zrm-post,.zrm-compose2,.zcm-card,.zc-who,.zrx-item-card,.zrm-hero2,
 .zev-card,.zev-row,.zev-day,.zev-step,.zrx-tile,.zrx-row,.zrx-list,
 .zp1-steps,.zp1-ask,.zp1-verify,.zp1-talk a,.zp1-help>div,.zp1-find a,
-.zrd-take,.zrm-risk,.zmf{border:1.5px solid rgba(108,159,204,.28)!important}
+.zrd-take,.zrm-risk,.zmf{border:1px solid #E0EAF4!important}
 .zc-box{border-color:rgba(108,159,204,.28)!important}
 .zc-box:focus-within{border-color:#6C9FCC!important}
 .zp1-hero{border:1.5px solid rgba(196,120,104,.28)!important}
@@ -895,3 +895,17 @@
 .zrx-tile.zg-sage{border-color:#D6E8DB!important}
 .zrx-grid+.zrx-row{border-color:#D6E5F4!important}
 .zrx-grid+.zrx-row+.zrx-row{border-color:#E0D9F1!important}
+
+/* Community main page: very light outlines */
+.zrm-t3{border:1px solid transparent!important}
+.zrm-t3.zg-blue{border-color:#D6E5F4!important}
+.zrm-t3.zg-coral{border-color:#F6DAD4!important}
+.zrm-t3.zg-sage{border-color:#D6E8DB!important}
+.zrm-t3.zg-gold{border-color:#F3E5BD!important}
+.zrm-room2,.zrm-room2.big,.zrm-feedcard{border:1px solid #DCE8F3!important}
+.zrm-room2.big .zrm-compose2{box-shadow:inset 0 0 0 1px #E6EEF6!important}
+.zrm-quick button{border-width:1px!important}
+.zrm-quick .zq-win{border-color:#D6E8DB!important}
+.zrm-quick .zq-support{border-color:#F6DAD4!important}
+.zrm-quick .zq-question{border-color:#D6E5F4!important}
+.zrm-quick .zq-grat{border-color:#F3E5BD!important}
