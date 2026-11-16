@@ -770,3 +770,6 @@
 .zev-card.zg-sage,.zev-day:nth-child(4n+3){border-color:#BCD9C3!important}
 .zev-card.zg-gold,.zev-day:nth-child(4n+1){border-color:#EBD698!important}
 .zev-step{border-color:#BCD9C3!important}
+.zev-hero>.zev-pill{position:absolute!important;right:74px;top:28px;z-index:2}
+.zev-hero>.go{position:absolute!important;right:18px;top:20px;z-index:2}
+.zev-hero>.zri{position:relative;margin-bottom:0!important}
