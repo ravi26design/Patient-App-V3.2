@@ -874,3 +874,15 @@
 
 /* category headings on Websites: plain text */
 .zrx-list .zrx-g{background:transparent!important;border:0!important;padding:0!important;text-transform:none!important;letter-spacing:0!important;font:800 17px var(--f-ui)!important;margin:12px 2px 0!important}
+
+/* list cards: very light outlines */
+.zrx-item{border-width:1px!important}
+.zrx-item.tn-blue{border-color:#D6E5F4!important}
+.zrx-item.tn-coral{border-color:#F6DAD4!important}
+.zrx-item.tn-sage{border-color:#D6E8DB!important}
+.zrx-item.tn-gold{border-color:#F3E5BD!important}
+.zrx-item.tn-blush{border-color:#F5D9E2!important}
+.zrx-item.tn-lav{border-color:#E0D9F1!important}
+.zrx-item.tn-sky{border-color:#CFE7EC!important}
+.zrx-item.tn-sand{border-color:#EADFCB!important}
+.zrx-item.tn-slate{border-color:#DCE2E9!important}
