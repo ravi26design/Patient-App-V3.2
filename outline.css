@@ -94,3 +94,7 @@
 
 /* activity steps: the text block is plain text, no outline */
 .fx-card{border:0!important}
+
+/* completion page: larger bolt icon in a larger circle */
+.fx-done .fx-tile .fx-tic{width:56px!important;height:56px!important}
+.fx-done .fx-tile .fx-tic svg{width:28px!important;height:28px!important}
