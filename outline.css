@@ -53,3 +53,11 @@
 .md-opt.t-g{border:1px solid #CADFD0!important}
 .md-opt.t-b{border:1px solid #C9DBEE!important}
 .md-reassure{border:1px solid #DCE8F3!important}
+
+/* Profile: only the main cards keep an outline; rows inside them are separated by a plain divider */
+.pf-row,.st-row,.pf-mrow{border:0!important;border-radius:0}
+.pf-row:not(:last-child),.st-row:not(:last-child),.pf-mrow:not(:last-child){border-bottom:1px solid #EEF2F6!important}
+.pf-hero{border:0!important}
+
+/* Profile header: flat, no glow circles */
+.pf-hero::before,.pf-hero::after{display:none!important}
