@@ -29,3 +29,10 @@
 
 /* dark mode: leave the intro screens as designed */
 html[data-theme="dark"] .phone.on-intro>*{filter:none}
+
+/* first screen: wordmark top-left and an icon tile above the title */
+.intro-top{position:relative;z-index:2;display:flex;align-items:center;height:40px;margin-top:calc(var(--sat,0px) + 15px)}
+.intro-word{font-size:30px;font-weight:700;letter-spacing:-.03em;color:#fff;text-shadow:0 1px 12px rgba(18,23,26,.25)}
+.intro-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#E58E80;color:#fff;margin:0 0 16px;box-shadow:0 8px 20px rgba(229,142,128,.35)}
+.intro-shade{background:linear-gradient(180deg,rgba(18,23,26,.3) 0%,rgba(18,23,26,0) 16%)!important}
+#v-onb .intro .intro-foot .btn.intro-btn{background:#fff!important;color:#23282F!important}
