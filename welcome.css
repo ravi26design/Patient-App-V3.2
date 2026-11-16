@@ -676,3 +676,11 @@ html.gated .fx-x{display:none!important}
 
 /* half-filled day: visible light outline around the whole circle */
 .rw-dots i.half{border:2px solid #A9C3E3!important;background:linear-gradient(90deg,#4A6E96 50%,#fff 50%)!important;background-clip:padding-box}
+
+/* all week circles: identical, perfectly round */
+.rw-dots i{box-sizing:border-box!important;width:38px!important;height:38px!important;min-width:38px;aspect-ratio:1/1;flex:0 0 38px;border-radius:50%!important;border:2px solid transparent;box-shadow:none!important}
+.rw-dots i.full{background:#4A6E96!important;border-color:#4A6E96!important}
+.rw-dots i.half{border-color:#A9C3E3!important}
+.rw-dots i:not(.full):not(.half){border-color:#DDDAD2}
+.rw-dots div{flex:0 0 auto}
+.rw-dots i.half{border-color:#ADBED0!important}
