@@ -454,14 +454,16 @@ PODS.forEach(p => p.tp = _relTag(p.tp)); BOOKS.forEach(b => b.tp = _relTag(b.tp)
   function composer(tag) {
     const st = { tag: tag || null, anon: false, t: '' }; const l = cmLayer('', '', 'New post');
     const draw = () => { const ok = st.tag && st.t.trim().length >= 3, risk = CRISIS.test(st.t);
-      setLay(l, `<h1 class="zcm-lh">Share with the room</h1>
-        <div class="zrm-who">${st.anon ? av({ n: '?', c: '#8A9098', anon: true }, 40) : av(me(), 40)}<div><b>${st.anon ? 'Anonymous member' : esc(S.name || 'You')}</b><small>${st.anon ? 'Others won’t see your name. ' + MOD.n + ' still can.' : 'First name only'}</small></div>
-          <button class="zcm-chip ${st.anon ? 'on' : ''}" id="zrm-anon" aria-pressed="${st.anon}">${st.anon ? 'Anonymous' : 'Post anonymously'}</button></div>
-        <p class="zrm-lbl">What kind of post?</p><div class="zcm-chips" style="margin-bottom:14px">${['win', 'support', 'question', 'grat'].map(k => `<button class="zcm-chip ${TAGS[k][1]} ${st.tag === k ? 'on' : ''}" data-tg="${k}" aria-pressed="${st.tag === k}">${TAGS[k][0]}</button>`).join('')}</div>
-        <textarea id="zrm-ta" class="zrm-ta" maxlength="500" rows="9" placeholder="${st.tag ? PROMPT[st.tag] : 'Pick a kind of post, then write here.'}" aria-label="Your post">${esc(st.t)}</textarea>
-        <div class="zrm-cnt"><span id="zrm-n">${st.t.length}</span>/500</div>
+      const TP = { win: ['sparkle', 'Something that went right', 'sage'], support: ['heart', 'Today feels hard', 'blush'], question: ['chat', 'Ask people who’ve been there', 'blue'], grat: ['leaf', 'What you’re thankful for', 'sand'] };
+      setLay(l, `<h1 class="zcm-lh zc-title">Share with the room</h1><p class="zc-sub">Cheer someone on, ask a question, or say how today is going.</p>
+        <div class="zc-who">${st.anon ? av({ n: '?', c: '#8A9098', anon: true }, 44) : av(me(), 44)}<div class="zc-wt"><b>${st.anon ? 'Anonymous member' : esc(S.name || 'You')}</b><small>${st.anon ? 'Others won’t see your name. ' + MOD.n + ' still can.' : 'First name only'}</small></div>
+          <button class="zc-sw ${st.anon ? 'on' : ''}" id="zrm-anon" role="switch" aria-checked="${st.anon}" aria-label="Post anonymously"><span>Anonymous</span><i></i></button></div>
+        <p class="zc-lbl">What kind of post?</p>
+        <div class="zc-types">${['win', 'support', 'question', 'grat'].map(k => `<button class="zc-tp t-${TP[k][2]} ${st.tag === k ? 'on' : ''}" data-tg="${k}" aria-pressed="${st.tag === k}"><span class="zc-tpi">${ic(TP[k][0], 20, 1.9)}</span><b>${TAGS[k][0]}</b><small>${TP[k][1]}</small><em>${ic('check', 12, 3)}</em></button>`).join('')}</div>
+        <div class="zc-box"><textarea id="zrm-ta" class="zrm-ta" maxlength="500" rows="6" placeholder="${st.tag ? PROMPT[st.tag] : 'Pick a kind of post, then write here.'}" aria-label="Your post">${esc(st.t)}</textarea>
+          <div class="zrm-cnt"><span id="zrm-n">${st.t.length}</span>/500</div></div>
         <div id="zrm-risk">${risk ? riskCard() : ''}</div>
-        <p class="zrm-guide">${ic('shield', 14, 2)}<span>${MOD.n} reviews posts before others see them. Please don’t share phone numbers, addresses or anything about buying or selling.</span></p>
+        <p class="zc-note">${ic('shield', 16, 2)}<span>${MOD.n} reviews posts before others see them. Please don’t share phone numbers, addresses or anything about buying or selling.</span></p>
         <div class="zcm-fill"></div><button class="btn" id="zrm-post" ${ok ? '' : 'disabled'}>${risk ? 'Post and let ' + MOD.n + ' know' : 'Post'}</button>`);
       const ta = $('#zrm-ta', l); ta.addEventListener('input', () => { st.t = ta.value; $('#zrm-n', l).textContent = st.t.length; const r = CRISIS.test(st.t); $('#zrm-risk', l).innerHTML = r ? riskCard() : ''; const b = $('#zrm-post', l); b.disabled = !(st.tag && st.t.trim().length >= 3); b.textContent = r ? 'Post and let ' + MOD.n + ' know' : 'Post'; });
     };

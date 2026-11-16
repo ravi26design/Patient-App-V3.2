@@ -657,3 +657,8 @@ html.gated .fx-x{display:none!important}
 @keyframes psText{to{color:#26323D}}
 @keyframes psDone{to{background:#6C9FCC;border-color:#6C9FCC;color:#fff}}
 @media (prefers-reduced-motion:reduce){.prep .po-core,.prep .po-dot{animation:none}}
+
+/* check-in card: light cream background */
+.rd-welcome .rd-ci-art{background:
+  radial-gradient(60% 55% at 50% 46%,#FBF6EA 0%,rgba(251,246,234,0) 75%),
+  linear-gradient(165deg,#F6EEDD 0%,#EFE4CC 100%)!important}
