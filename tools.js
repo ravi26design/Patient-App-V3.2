@@ -300,10 +300,7 @@ function renderWallet() {
   $('#v-wallet').innerHTML = `<div class="wal-top"><h1>Rewards</h1></div>
   <div class="pad">${rwCards()}<div class="bal-card"><small>Total Balance</small><div class="bal" id="wb">$0.00</div>    <div class="bal-grid"><div><small>Total check-ins</small><b>${26 + S.history.length}</b></div><div><small>Total Activities</small><b>${S.activities}</b></div></div>
     <button class="btn light" data-act="tab" data-v="home">Back to today</button></div></div>
-  ${weekCard()}
-  ${scoreEarnCard()}
-  <div class="sec"><div class="eyebrow" style="margin-bottom:12px">How to earn</div><div class="group">${[['Daily check-in', '+' + usd(10)], ['Complete an activity', '+' + usd(20)], ['Streak bonus (up to)', '+' + usd(15)], ['Weekly bonus · 6 activities', '+' + usd(15)], ['Any tool, once a day', '+' + usd(3)]].map(([a, b]) => `<div class="txn"><div class="t">${a}</div><b>${b}</b></div>`).join('')}</div></div>
-  <div class="sec"><div class="eyebrow" style="margin-bottom:12px">Recent activity</div><div class="group">${walletRows().map(x => `<div class="txn${x.t === 'Weekly bonus' ? ' txn-bonus' : ''}"><div class="t">${x.t === 'Weekly bonus' ? ic('sparkle', 18, 2) : ''}${esc(x.t)}<small>${x.n ? x.n + ' · ' : ''}${x.s != null ? `Score ${x.s} · ` : ''}${dateWord(x.d)}</small></div><b>+${usd(x.amt)}</b></div>`).join('')}</div></div>`;
+  `;
   countUp($('#wb'), S.bucks + 91, 900, 0, v => usd(v));
 }
 
