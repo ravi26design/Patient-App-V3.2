@@ -30,3 +30,8 @@
 
 /* divider between the score and the trend */
 .rr-side{border:0!important;border-left:1px solid #E0EAF4!important}
+
+/* page background, a step deeper so the white cards stand out */
+:root{--page-bg:linear-gradient(180deg,#E7EFF7 0%,#ECEFF6 45%,#EEEBF4 100%)}
+.phone,.view,.layer,.setup,.onb2,#v-home,.layer.rd-layer{background:var(--page-bg)!important}
+.md-layer,.zcm-lay{background:var(--page-bg)!important}

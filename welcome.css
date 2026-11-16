@@ -684,3 +684,7 @@ html.gated .fx-x{display:none!important}
 .rw-dots i:not(.full):not(.half){border-color:#DDDAD2}
 .rw-dots div{flex:0 0 auto}
 .rw-dots i.half{border-color:#ADBED0!important}
+
+/* location check-in: page back button over the map; the step back arrow only shows from step 2 */
+.lc-wrap{position:relative}
+.lc-exit{position:absolute;left:16px;top:calc(54px + var(--sat,0px));z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid #E0EAF4;background:#fff;color:#26323D;display:grid;place-items:center}

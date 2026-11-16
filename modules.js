@@ -727,7 +727,7 @@ function lcMap() {
 function lcRender() {
   const it = LC_Q[LC.step], total = LC.skip ? 1 : LC_Q.length, sel = LC.ans[it.key], last = LC.skip || LC.step >= LC_Q.length - 1;
   const ok = it.type === 'multi' ? Array.isArray(sel) && sel.length > 0 : !!sel;
-  $('#lc-sheet').innerHTML = `<div class="lc-top"><button class="lc-bk" type="button" data-act="lc-back" aria-label="Back">${ic('back', 20, 2.4)}</button><div class="lc-bar"><i style="width:${Math.round((LC.step + 1) / total * 100)}%"></i></div><span class="lc-cnt"><b>${LC.step + 1}</b>/${total}</span></div>
+  $('#lc-sheet').innerHTML = `<div class="lc-top">${LC.step > 0 ? `<button class="lc-bk" type="button" data-act="lc-back" aria-label="Previous question">${ic('back', 20, 2.4)}</button>` : ''}<div class="lc-bar"><i style="width:${Math.round((LC.step + 1) / total * 100)}%"></i></div><span class="lc-cnt"><b>${LC.step + 1}</b>/${total}</span></div>
     <div class="lc-content">${LC.step === 0 ? `<div class="lc-intro"><p>Rudra noticed you recently spent time here. A few quick questions about places you’ve visited more than once in the past 30 days.</p></div>` : ''}
     <h2 class="lc-q">${it.q}</h2>${it.hint ? `<p class="lc-hint">${it.hint}</p>` : ''}
     <div class="lc-opts">${it.options.map((o, i) => { const t = lcT(o), on = it.type === 'multi' ? Array.isArray(sel) && sel.includes(t) : sel === t;
@@ -735,7 +735,7 @@ function lcRender() {
     <div class="lc-foot"><button class="btn lc-next" type="button" data-act="lc-next"${ok ? '' : ' disabled'}>${last ? 'Submit' : 'Next'}</button></div>`;
 }
 Object.assign(ACT, {
-  'open-map': () => { LC.step = 0; LC.ans = {}; LC.skip = false; pushLayer(`<div class="lc-wrap">${lcMap()}<div class="lc-sheet" id="lc-sheet"></div></div>`, 'lc-layer'); lcRender(); },
+  'open-map': () => { LC.step = 0; LC.ans = {}; LC.skip = false; pushLayer(`<div class="lc-wrap"><button class="lc-exit" type="button" data-act="lc-exit" aria-label="Go back">${ic('back', 20, 2.4)}</button>${lcMap()}<div class="lc-sheet" id="lc-sheet"></div></div>`, 'lc-layer'); lcRender(); },
   'lc-pick': el => { const it = LC_Q[LC.step], t = lcT(it.options[+el.dataset.i]);
     if (it.type === 'multi') { let arr = LC.ans[it.key] || []; if (t === 'None of the above') arr = arr.includes(t) ? [] : [t]; else { arr = arr.filter(x => x !== 'None of the above'); const k = arr.indexOf(t); k >= 0 ? arr.splice(k, 1) : arr.push(t); } LC.ans[it.key] = arr; }
     else { LC.ans[it.key] = t; if (it.key === 'place') LC.skip = !!it.options[+el.dataset.i].end; }
@@ -743,6 +743,7 @@ Object.assign(ACT, {
   'lc-next': el => { if (el.disabled) return; const last = LC.skip || LC.step >= LC_Q.length - 1;
     if (last) { S.locDone = today(); save(); $$('.lc-bdg').forEach(b => b.remove()); popLayer(layerOf(el)); toast('Location check-in complete'); return; }
     LC.step++; lcRender(); const l = $('.lc-layer'); if (l) l.scrollTop = 0; },
+  'lc-exit': el => popLayer(layerOf(el)),
   'lc-back': el => { if (LC.step > 0) { LC.step--; if (LC.step === 0) LC.skip = false; lcRender(); } else popLayer(layerOf(el)); }
 });
 
