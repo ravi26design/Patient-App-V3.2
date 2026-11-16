@@ -56,7 +56,7 @@ function renderProfile() {
     <div class="fld"><span class="lbl">Language</span><div class="lang"><button class="${p.lang === 'en' ? 'on' : ''}" data-act="pick-lang" data-k="en">${p.lang === 'en' ? ic('check', 16, 2.6) : ''}English</button><button class="${p.lang === 'es' ? 'on' : ''}" data-act="pick-lang" data-k="es">${p.lang === 'es' ? ic('check', 16, 2.6) : ''}Spanish</button></div></div>
     <p class="consent-req">Both are required to continue.</p>
     <label class="consent"><input type="checkbox" id="c1" ${p.terms ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span>I agree to Rudra Health AI’s <u>Terms of Use</u> and <u>Privacy Policy</u>.</span></label>
-    <label class="consent"><input type="checkbox" id="c2" ${p.contact ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span><b>Contact me</b> - OK to send check-in reminders and support by text or email. Msg &amp; data rates may apply.</span></label>` : ''}
+    <label class="consent"><input type="checkbox" id="c2" ${p.contact ? 'checked' : ''}><i>${ic('check', 14, 3)}</i><span>I agree to receive check-in reminders and support by text or email. Msg &amp; data rates may apply.</span></label>` : ''}
     </div>
     <div class="step-foot"><button class="btn" id="prof-go" data-act="prof-next" ${pStep === 1 || (pStep === 2 && !(p.terms && p.contact)) ? 'disabled' : ''}>${obEdit && pStep === 2 ? 'Save' : 'Continue'} ${obEdit && pStep === 2 ? '' : ic('next', 16, 2.4)}</button></div></div>`;
   const ph = $('#ph');
