@@ -700,3 +700,8 @@ html.gated .fx-x{display:none!important}
 .lo-btns .lo-yes{background:#C25445!important;color:#fff!important}
 .lo-btns .btn{width:100%!important;min-width:0;padding:0 10px!important}.lo-btns{width:100%}
 .lo-sheet .trig-p{margin:0 auto 22px!important}
+
+/* check-in card: fresh peach, matches the warm page and lets the blue button pop */
+.rd-welcome .rd-ci-art{background:
+  radial-gradient(60% 55% at 50% 46%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 72%),
+  linear-gradient(160deg,#FDEBE2 0%,#F9DCCD 100%)!important}
