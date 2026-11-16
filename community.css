@@ -935,3 +935,12 @@
 /* Meeting cards: blue one deeper so it stands out from the page */
 .zmf.zg-blue{background:linear-gradient(160deg,#C4DAF2 0%,#D6E6F7 100%)!important;border-color:#AAC8E8!important}
 .zmf.zg-blue .zmf-tag{color:#2F5E8A!important}
+
+/* Resources hub: outlines a step deeper */
+.zrx-tile,.zrx-row{border-width:1.5px!important}
+.zrx-tile.zg-gold{border-color:#EDD9A0!important}
+.zrx-tile.zg-blue{border-color:#C6DCF0!important}
+.zrx-tile.zg-coral{border-color:#F2CDC5!important}
+.zrx-tile.zg-sage{border-color:#C6DFCD!important}
+.zrx-grid+.zrx-row{border-color:#C6DCF0!important}
+.zrx-grid+.zrx-row+.zrx-row{border-color:#D8CEEC!important}
