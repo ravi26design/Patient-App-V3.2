@@ -104,3 +104,6 @@
 @media (min-width:481px){
   .phone{box-sizing:content-box;width:393px;height:852px;flex:none;border-width:10px;transform:scale(var(--ps,1));transform-origin:center center}
 }
+
+/* Survey slider: smaller score number, more room around it */
+.scard .s-val{font-size:42px!important;line-height:1.1!important;margin:16px 0 22px!important}
