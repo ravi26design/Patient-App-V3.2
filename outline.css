@@ -107,3 +107,7 @@
 
 /* Survey slider: smaller score number, more room around it */
 .scard .s-val{font-size:42px!important;line-height:1.1!important;margin:16px 0 22px!important}
+
+/* Home: smaller Recovery Score number and caption */
+.oh-score .rr-num b{font-size:33px!important}
+.oh-score .rr-num small,.oh-score .rr-cap{font-size:11px!important;letter-spacing:.12em!important}
