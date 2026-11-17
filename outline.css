@@ -99,3 +99,8 @@
 .fx-done .fx-tile .fx-tic{width:56px!important;height:56px!important}
 .fx-done .fx-tile .fx-tic svg{width:28px!important;height:28px!important}
 .nav .nav-help span{transform:translateY(-3px)}
+
+/* Desktop demo: true iPhone 15/16 screen (393x852 pt), scaled down to fit short windows */
+@media (min-width:481px){
+  .phone{box-sizing:content-box;width:393px;height:852px;flex:none;border-width:10px;transform:scale(var(--ps,1));transform-origin:center center}
+}
