@@ -241,7 +241,7 @@ function renderOnb(i = 0) {
     <div class="onb-dots" role="tablist" aria-label="Intro pages">${ONB.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-act="onb-go" data-i="${k}" aria-label="Page ${k + 1}"></button>`).join('')}</div>
     <div class="foot-row onb-foot2"><button class="btn" data-act="onb-next">${last ? 'Get started' : 'Next'} ${ic('next', 16, 2.4)}</button></div></div>`;
   clearTimeout(onbTimer);
-  if (!last) onbTimer = setTimeout(() => { const r = $('#v-onb .onb2'); if (r && r.offsetParent !== null && onbI === i) renderOnb(i + 1); }, 4000);   // auto-advance every 4 seconds
+  /* no auto-advance: slides change only when the user swipes or taps Next */
 }
 /* ── trigger: a time of day tied to something already in the user's routine (anchor habit) ── */
 const REMIND = {
